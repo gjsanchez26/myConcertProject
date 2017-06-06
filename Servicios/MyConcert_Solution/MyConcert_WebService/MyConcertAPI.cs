@@ -4,9 +4,9 @@ namespace MyConcert_WebService
 {
     class MyConcertAPI
     {
-        static void Main(string[] args)
+       /* static void Main(string[] args)
         {
             Server nuevoServidorWeb = new Server();
-        }
+        }*/
     }
 }
