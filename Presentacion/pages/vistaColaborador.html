@@ -301,7 +301,7 @@
          
     </div>
     
-     <div id="verPerfilModal" class="modal"  ng-controller="categoriaCtrl" style="overflow-y: scroll;" >
+<div id="verPerfilModal" class="modal"  ng-controller="verPerfilCtrl" style="overflow-y: scroll;" >
       <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
@@ -310,16 +310,84 @@
             </div>
             <div class="modal-body">
                 <div class="btn-group btn-group-lg">
-                  <button type="button" class="btn btn-primary">Apple</button>
-                  <button type="button" class="btn btn-primary">Samsung</button>
-                  <button type="button" class="btn btn-primary">Sony</button>
+                  <button type="button" class="btn btn-primary" ng-click = "verPerfil()">Ver perfil</button>
+                  <button type="button" class="btn btn-primary" ng-click = "modificarPerfil()">Modificar perfil</button>
+                  <button type="button" class="btn btn-primary" ng-click = "desactivarPerfil()">Deshabilitar Perfil</button>
                 </div>
-                
-            
+                <div id="verPerfilColaborador" style="display:none">
+                    <b>Informacion Perfil</b>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="nombreUsuario">Nombre de Usuario</label>   
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="Nombre">Nombre</label>
+                    
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="Apellido">Apellido</label>
+                    </div>
+                    
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="E_BranchStore">Nueva Contraseña</label>
+                    </div>
 
-            
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="Email">Email</label>
+                    </div>
+                    
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Foto Perfil</label>
+                    <label class="btn btn-default btn-file">
+                        Cargar <input type="file" style="display: none;">
+                    </label>
+                     <!--   <input type="file" ng-file-select="onFileSelect($files)" >-->
+                    </div>
+                </div>
+       
+                <div id="modificarPerfil" style="display:none">
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="nombreUsuario">Nombre de Usuario</label>   
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="nombreUsuario">Fecha de Creación</label>   
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Nombre">Nombre</label>
+                    <input id=Nombre type="text" ng-model="Nombre" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Apellido">Apellido</label>
+                    <input id=Apellido type="text" ng-model="Apellido" class="form-control" placeholder="Apellido" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Contraseña Anterior</label>
+                    <input id=Contrasena type="password" ng-model="Contrasena" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                     <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Nueva Contraseña</label>
+                    <input id=Contrasena type="password" ng-model="Contrasena" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Confirmacion">Confirmación Nueva Contraseña</label>
+                    <input id=user type="password" ng-model="Confirmacion" class="form-control" placeholder="Confirmacion Contraseña" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Email">Email</label>
+                    <input id=Email type="email" ng-model="Email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Foto Perfil</label>
+                        <label class="btn btn-default btn-file">
+                        Cargar <input type="file" style="display: none;">
+                    </label>
+                     <!--   <input type="file" ng-file-select="onFileSelect($files)" >-->
+                    </div>
+                </div>
+                <div id="desactivarPefil" style="display:none" >
+                    <b>desactivar</b>
+                </div>         
                   
-            </div>
+            </div> 
         </div> 
     </div>
     

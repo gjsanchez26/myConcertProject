@@ -119,7 +119,7 @@ indexApp = angular.module('index')
                 "U_ID":$scope.F_Universidad,
                 "F_Generos":$('#sel2').val(),
                 "F_Descripcion": document.getElementById("F_Descripcion").value,
-                "F_Terminos":$('#tipoUsuario').val()
+                "F_Terminos":document.getElementById("tipoUsuario").value
 
             };
                 console.log(Fanatico);
@@ -159,11 +159,11 @@ indexApp = angular.module('index')
       });
     });
 
-    $('input[name="bn"]').change(function() {
+ /*   $('input[name="bn"]').change(function() {
        if($(this).is(':checked') && $(this).val() == '0') {
             $('#myModal').modal('show');
        }
-    });
+    });*/
     
     
 }]);
