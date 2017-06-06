@@ -63,7 +63,7 @@
                     <li id="myBtn"><a href="/index.html"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></li>
               </ul>
                <ul class="nav navbar-nav navbar-right">
-                    <li id="myBtn"><a href="/index.html"><span class="glyphicon glyphicon-user"></span>Ver Perfil</a></li>
+                     <li id="verPerfil" role="button" data-toggle="modal" data-target="#verPerfilModal"><a href="#">Ver Perfil</a></li>
               </ul>
             </div>
           </div>
@@ -299,6 +299,28 @@
                 </div>   
             </div>
          
+    </div>
+    
+     <div id="verPerfilModal" class="modal"  ng-controller="categoriaCtrl" style="overflow-y: scroll;" >
+      <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+            
+              <h2>Perfil Colaborador</h2>
+            </div>
+            <div class="modal-body">
+                <div class="btn-group btn-group-lg">
+                  <button type="button" class="btn btn-primary">Apple</button>
+                  <button type="button" class="btn btn-primary">Samsung</button>
+                  <button type="button" class="btn btn-primary">Sony</button>
+                </div>
+                
+            
+
+            
+                  
+            </div>
+        </div> 
     </div>
     
     </body>
