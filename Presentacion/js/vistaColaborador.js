@@ -1,7 +1,6 @@
 // GLOBAL VARIABLES TO MANAGE GENERAL INFORMATION
 var userID = localStorage.user;
 var userCode = localStorage.code;
-var listaCanciones=[];
 var url='http://bryan:7580';
 //ANGULAR MODULE TO MANAGE THE PROJECT POP POP
 var categoriaForm = angular.module('vistaColaborador',[])
