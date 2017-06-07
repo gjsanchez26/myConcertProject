@@ -1,23 +1,31 @@
-﻿using SpotifyAPI.Web.Auth;
-using SpotifyAPI.Web.Enums;
-using SpotifyAPI.Web.Models;
-using SpotifyAPI.Web;
+﻿using SpotifyAPI.Web.Models;
 using System;
-using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using MyConcert_WebService.res;
+using System.Collections.Generic;
 
 namespace Sptfy
 {
     public class MainClass
     {
         public static void Main(string[] args)
-        {
-            SpotifyManager spotify_manager = new SpotifyManager();
-            string search_artist = "The Doors";
-            FullArtist _artist = spotify_manager.searchArtistInfo(search_artist);
-            Console.WriteLine(_artist.Name);
-            Console.WriteLine(_artist.Images[1].Url);
-            
-            FullTrack _track = spotify_manager.searchTracks(_artist.Id);
+        {       
+
+            List<string> _winner = new List<string>();
+            List<string> _other = new List<string>();
+
+            _winner.Add("The Doors");
+            _winner.Add("Pink Floyd");
+            _winner.Add("Metallica");
+
+            _other.Add("Janis Joplin");
+            _other.Add("Jefferson Airplane");
+            _other.Add("Led Zeppelin");
+
+            Chef _chef = new Chef();
+            string res = _chef.chefAlgorythm(_winner, _other);
+
             Console.ReadLine();
 
         }
