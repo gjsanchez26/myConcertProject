@@ -5,7 +5,11 @@ namespace MyConcert_WebService.security
 {
     class SHA256Encriptation
     {
-
+        /**
+         * Algoritmo para la encriptacion 
+         * de contraseñas (seguridad)
+         * Obtenido de: http://www.programadordepalo.com/access-encriptar-contrasenas-con-sha-256-utilizando-biblioteca-de-clases-net-con-c/
+         */
         public string sha256Encrypt(string ppassword)
         {
             SHA256CryptoServiceProvider provider = new SHA256CryptoServiceProvider();

@@ -13,6 +13,7 @@ namespace Sptfy
         public static void Main(string[] args)
         {
             /* ALGORITMO DEL CHEF */
+            Console.WriteLine("Algoritmo del Chef");
             List<string> _winner = new List<string>();
             List<string> _other = new List<string>();
 
@@ -32,15 +33,29 @@ namespace Sptfy
             catch (Exception e)
             {
                 Console.WriteLine("Error: ", e.Message);
-            }     
+            }
 
             /* ALGORITMO DE ENCRIPTACION */
+            Console.WriteLine("Encriptacion");
             SHA256Encriptation _sha = new SHA256Encriptation();
             string encrypted_str = _sha.sha256Encrypt("hola");
             Console.WriteLine("Hola encriptado: " + encrypted_str);
 
             /* ESTRATEGIA 100 DOLARES */
+            Console.WriteLine("Estrategia de los 100 dólares");
+            DolarStrategy _dolar = new DolarStrategy();
+            List<int> dolar_votes = new List<int>();
+            dolar_votes.Add(25);
+            dolar_votes.Add(25);
+            dolar_votes.Add(15);
+            dolar_votes.Add(5);
+            dolar_votes.Add(30);
 
+            bool isHundred = _dolar.checkDolars(dolar_votes);
+            if (isHundred)
+            {
+                Console.WriteLine("Su votación está correcta...");
+            } 
 
             Console.ReadLine();
 
