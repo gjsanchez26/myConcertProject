@@ -20,7 +20,7 @@ namespace MyConcert_WebService.res.usr
         private string ubicacion;
         private string descripcion;
         private string tipoUsuario;
-        private string universidad
+        private string universidad;
 
     }
 }
