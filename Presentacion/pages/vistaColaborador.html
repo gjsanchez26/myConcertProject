@@ -32,14 +32,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <h4>Colaborador</h4>
-              <!-- <a class="navbar-brand" id="idUser" href="#"></a> -->
+              
+              <a class="navbar-brand" id="idUser" href="#"></a>
              
             </div>
-            <a class="navbar-brand" id="idUser" href="#"></a>
+            <a class="navbar-brand" id="idUser" href="/pages/vistaColaborador.html"></a>
             <div class="collapse navbar-collapse" id="myNavbar">
               <ul class="nav navbar-nav">
-                    <li class="active"><a href="/pages/vistaColaborador.html">Home</a></li>
+                  
                    
                     <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">Crear<span class="caret"></span></a>
@@ -63,7 +63,7 @@
                     <li id="myBtn"><a href="/index.html"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></li>
               </ul>
                <ul class="nav navbar-nav navbar-right">
-                    <li id="myBtn"><a href="/index.html"><span class="glyphicon glyphicon-user"></span>Ver Perfil</a></li>
+                     <li id="verPerfil" role="button" data-toggle="modal" data-target="#verPerfilModal"><a href="#">Ver Perfil</a></li>
               </ul>
             </div>
           </div>
@@ -112,10 +112,7 @@
                     <label class="btn btn-default btn-file">
                     Cargar<input type="file" style="display: none;">
                 </label>
-                <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
-                <label for="E_BranchStore">Nombre</label>
-                <input id=user type="password" ng-model="U_ID" class="form-control" placeholder="Nombre">
-                </div>
+    
                 <div class="form-group">
                       
                           <label for="sel2">Seleccione los géneros de la banda</label>
@@ -155,8 +152,17 @@
                       </div><!-- /.col-lg-6 -->
                     </div>
                     <select type="text" id = "E_BranchStore" class="form-control"     name="E_BranchStore" ng-       model="branchStore" placeholder="Escriba un Nombre de Usuario" >
-                                <option ng-repeat="item in listaCanciones">{{item.name}}</option>
+                                <option ng-repeat="item in artists">{{item.id}}</option>
                    </select>
+                   <table>
+                      <tr>
+                        <td>Nombre Miembro</td>
+                        
+                      </tr>
+                      <tr ng-repeat="x in canciones"> 
+                        <td>{{x.nombre}}</td>
+                      </tr>
+                    </table>
                    
        
                             
@@ -299,6 +305,95 @@
                 </div>   
             </div>
          
+    </div>
+<div id="verPerfilModal" class="modal"  ng-controller="verPerfilCtrl" style="overflow-y: scroll;" >
+      <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+            
+              <h2>Perfil Colaborador</h2>
+            </div>
+            <div class="modal-body">
+                <div class="btn-group btn-group-lg">
+                  <button type="button" class="btn btn-primary" ng-click = "verPerfil()">Ver perfil</button>
+                  <button type="button" class="btn btn-primary" ng-click = "modificarPerfil()">Modificar perfil</button>
+                  <button type="button" class="btn btn-primary" ng-click = "desactivarPerfil()">Deshabilitar Perfil</button>
+                </div>
+                <div id="verPerfilColaborador" style="display:none">
+                    <b>Informacion Perfil</b>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="nombreUsuario">Nombre de Usuario</label>   
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="Nombre">Nombre</label>
+                    
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="Apellido">Apellido</label>
+                    </div>
+                    
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="E_BranchStore">Nueva Contraseña</label>
+                    </div>
+
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                        <label for="Email">Email</label>
+                    </div>
+                    
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Foto Perfil</label>
+                    <label class="btn btn-default btn-file">
+                        Cargar <input type="file" style="display: none;">
+                    </label>
+                     <!--   <input type="file" ng-file-select="onFileSelect($files)" >-->
+                    </div>
+                </div>
+       
+                <div id="modificarPerfil" style="display:none">
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="nombreUsuario">Nombre de Usuario</label>   
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="nombreUsuario">Fecha de Creación</label>   
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Nombre">Nombre</label>
+                    <input id=Nombre type="text" ng-model="Nombre" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Apellido">Apellido</label>
+                    <input id=Apellido type="text" ng-model="Apellido" class="form-control" placeholder="Apellido" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Contraseña Anterior</label>
+                    <input id=Contrasena type="password" ng-model="Contrasena" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                     <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Nueva Contraseña</label>
+                    <input id=Contrasena type="password" ng-model="Contrasena" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Confirmacion">Confirmación Nueva Contraseña</label>
+                    <input id=user type="password" ng-model="Confirmacion" class="form-control" placeholder="Confirmacion Contraseña" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="Email">Email</label>
+                    <input id=Email type="email" ng-model="Email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
+                    <label for="E_BranchStore">Foto Perfil</label>
+                        <label class="btn btn-default btn-file">
+                        Cargar <input type="file" style="display: none;">
+                    </label>
+                     <!--   <input type="file" ng-file-select="onFileSelect($files)" >-->
+                    </div>
+                </div>
+                <div id="desactivarPefil" style="display:none" >
+                    <b>desactivar</b>
+                </div>         
+                  
+            </div> 
+        </div> 
     </div>
     
     </body>

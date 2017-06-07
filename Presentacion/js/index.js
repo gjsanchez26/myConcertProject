@@ -1,6 +1,6 @@
 
 //ANGULAR MODULE TO MANAGE INDEX.HTML
-var url='http://bryan:7580';
+var url = 'http://bryan:7580';
 var indexApp = angular.module('index',[])
 .controller('indexCtrl', ['$scope', '$http', function ($scope, $http) {
     var input;
@@ -9,24 +9,16 @@ var indexApp = angular.module('index',[])
   
     //FUNCTION TO CHECK IF USER EXIST IN DB
    
-    $scope.checkUser = function()
+    $scope.ingresarUsuario = function()
         {
-     
-        
-            $http.get(url+'/api/Employees/get/W_ID,W_Password/'+$scope.U_ID +","+$scope.U_Password)
-                    .then(function (response) 
-                {
-                console.log(response.data[0]);
-                mensaje=response.data[0];
-               
-                console.log(mensaje.W_ID);
-                localStorage.setItem("userName", mensaje.W_Name); 
-                localStorage.setItem("userID", mensaje.W_ID);
-                window.location.assign("/pages/clientView.html");
+        console.log("Usuario "+$scope.U_ID);
+        console.log("Usuario "+$scope.U_Password);
+        localStorage.setItem("userName", $scope.U_ID); 
+        localStorage.setItem("userID", $scope.U_Password); window.location.assign("/pages/vistaColaborador.html");
 
-                });        
+                }       
             
-        }}]);
+}]);
 
 indexApp = angular.module('index')
 .controller('registroCtrl', ['$scope', '$http', function ($scope, $http) {
