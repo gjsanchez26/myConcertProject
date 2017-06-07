@@ -65,7 +65,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="controllers\ProductsController.cs" />
     <Compile Include="res\Chef.cs" />
+    <Compile Include="res\DolarStrategy.cs" />
     <Compile Include="res\Product.cs" />
+    <Compile Include="security\SHA256Encriptation.cs" />
     <Compile Include="server\Server.cs" />
     <Compile Include="spotify\MainClass.cs" />
     <Compile Include="spotify\SpotifyManager.cs" />
