@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 namespace MyConcert_WebService.controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ProductsController : ApiController
+    public class TestsController : ApiController
     {
         Product[] products = new Product[]
         {

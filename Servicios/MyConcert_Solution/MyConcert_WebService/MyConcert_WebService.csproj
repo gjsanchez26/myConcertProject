@@ -81,10 +81,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controllers\BandasController.cs" />
+    <Compile Include="controllers\CategoriasController.cs" />
+    <Compile Include="controllers\EventosController.cs" />
+    <Compile Include="controllers\LoginController.cs" />
     <Compile Include="controllers\UsuariosController.cs" />
+    <Compile Include="controllers\UtilidadesController.cs" />
+    <Compile Include="controllers\VotacionesController.cs" />
     <Compile Include="MyConcertAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="controllers\ProductsController.cs" />
+    <Compile Include="controllers\TestsController.cs" />
     <Compile Include="res\Product.cs" />
     <Compile Include="res\Resultado.cs" />
     <Compile Include="res\usr\Usuario.cs" />

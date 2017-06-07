@@ -17,6 +17,7 @@ namespace MyConcert_WebService.server
                 "MyConcertAPI", "api/{controller}/{id}",
                 new { id = RouteParameter.Optional });
 
+            //Habilita CORS
             config.EnableCors();
 
             //Format JSON
