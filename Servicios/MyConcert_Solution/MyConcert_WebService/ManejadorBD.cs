@@ -11,11 +11,38 @@ namespace MyConcert_WebService
         public usuarios obtenerUsuario(string username)
         {
             usuarios us = null;
-            using (myconcertEntities context = new myconcertEntities())
+            try
             {
-                us = context.usuarios.FirstOrDefault(r=> r.username==username);
+                
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    us = context.usuarios.FirstOrDefault(r => r.username == username);
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
             }
             return us;
+        }
+
+        public void añadirUsuario (usuarios us)
+        {
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    context.usuarios.Add(us);
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
         }
     }
 }
