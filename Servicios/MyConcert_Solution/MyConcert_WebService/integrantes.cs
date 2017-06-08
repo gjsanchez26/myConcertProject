@@ -16,7 +16,6 @@ namespace MyConcert_WebService
     {
         public int PK_integrantes { get; set; }
         public string nombreInt { get; set; }
-        public int FK_BANDAS_INTEGRANTES { get; set; }
         public int FK_INTEGRANTES_BANDAS { get; set; }
     
         public virtual bandas bandas { get; set; }
