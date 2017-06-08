@@ -19,7 +19,7 @@ namespace MyConcert_WebService
             }
 
         }
-
+        //OBTENER ALGUN OBJETO BASE DE DATOS
         public bandas obtenerBanda(int PK_banda)
         {
             bandas obj = null;
@@ -96,6 +96,215 @@ namespace MyConcert_WebService
             return obj;
         }
 
+        public comentarios obtenerComentario(int PK_comentario)
+        {
+            comentarios obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.comentarios.FirstOrDefault(r => r.PK_comentarios == PK_comentario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public estados obtenerEstado(int PK_estado)
+        {
+            estados obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.estados.FirstOrDefault(r => r.PK_estados == PK_estado);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public eventos obtenerEvento (int PK_evento)
+        {
+            eventos obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.eventos.FirstOrDefault(r => r.PK_eventos == PK_evento);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public generos obtenerGenero(int PK_genero)
+        {
+            generos ge = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    ge = context.generos.FirstOrDefault(g => g.PK_generos == PK_genero);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return ge;
+        }
+
+        public generosbanda obtenerGenerosBanda(int PK_generosBanda)
+        {
+            generosbanda obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.generosbanda.FirstOrDefault(g => g.PK_generosBanda == PK_generosBanda);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public generosusuario obtenerGenerosUsuario(int PK_generosUsuario)
+        {
+            generosusuario obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.generosusuario.FirstOrDefault(g => g.PK_generosUsuario == PK_generosUsuario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public integrantes obtenerIntegrante(int PK_integrante)
+        {
+            integrantes obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.integrantes.FirstOrDefault(g => g.PK_integrantes == PK_integrante);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public paises obtenerPais(int PK_pais)
+        {
+            paises obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.paises.FirstOrDefault(g => g.PK_paises == PK_pais);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public tiposeventos obtenerTipoEvento(int PK_tipoEvento)
+        {
+            tiposeventos obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.tiposeventos.FirstOrDefault(g => g.PK_tiposEventos == PK_tipoEvento);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public tiposusuarios obtenerTipoUsuario(int PK_tipoUsuario)
+        {
+            tiposusuarios obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.tiposusuarios.FirstOrDefault(g => g.PK_tiposUsuarios == PK_tipoUsuario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public universidades obtenerUniversidad(int PK_universidad)
+        {
+            universidades obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.universidades.FirstOrDefault(g => g.PK_universidades == PK_universidad);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
         public usuarios obtenerUsuario(string username)
         {
             usuarios us = null;
@@ -115,6 +324,27 @@ namespace MyConcert_WebService
             return us;
         }
 
+        public votos obtenerVoto(int PK_voto)
+        {
+            votos obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.votos.FirstOrDefault(g => g.PK_votos == PK_voto);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+
+        //AÑADIR ALGUN OBJETO A BASE DE DATOS
         public void añadirUsuario (usuarios us)
         {
             try
@@ -151,25 +381,7 @@ namespace MyConcert_WebService
             }
         }
 
-        public generos obtenerGenero(int idGenero)
-        {
-            generos ge = null;
-            try
-            {
-               
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    ge=context.generos.FirstOrDefault(g=> g.PK_generos==idGenero );
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.InnerException.ToString());
-            }
-            return ge;
-        }
-
+        
         public List<generos> obtenerGeneros()
         {
             List<generos> gen = null;
