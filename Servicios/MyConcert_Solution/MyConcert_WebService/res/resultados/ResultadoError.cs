@@ -2,12 +2,12 @@
 {
     public class ResultadoString : Respuesta
     {
-        public string error;
+        public string contenido;
 
         public ResultadoString(bool pExito, string pMensaje)
         {
             this.exito = pExito;
-            this.error = pMensaje;
+            this.contenido = pMensaje;
         }
     }
 }

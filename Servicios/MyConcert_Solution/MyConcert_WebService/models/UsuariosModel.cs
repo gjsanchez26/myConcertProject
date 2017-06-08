@@ -18,7 +18,6 @@ namespace MyConcert_WebService.models
         public usuarios getUsuarioPorNombreDeUsuario(string pUsuario)
         {
             usuarios user = _manejador.obtenerUsuario(pUsuario);
-
             return user;
         }
     }

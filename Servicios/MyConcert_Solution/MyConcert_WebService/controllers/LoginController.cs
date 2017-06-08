@@ -33,7 +33,7 @@ namespace MyConcert_WebService.controllers
             {
                 if (usuarioActual.contraseña != pPassword)              //Si la contrasena es incorrecta.
                 {
-                    respuesta = creador.crearRespuesta(false, "Usuario no existente.");
+                    respuesta = creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
                 }
                 else                                                  //Si el usuario y contrasena son validos.
                 {

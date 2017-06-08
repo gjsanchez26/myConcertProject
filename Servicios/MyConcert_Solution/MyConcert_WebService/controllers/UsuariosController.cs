@@ -1,4 +1,5 @@
-﻿using MyConcert_WebService.res;
+﻿using MyConcert_WebService.models;
+using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.usr;
 using Newtonsoft.Json.Linq;
@@ -9,13 +10,17 @@ namespace MyConcert_WebService.controllers
 {
     public class UsuariosController : ApiController
     {
-        //Obtener usuario especifico.
-        public JObject Get(string pNombreUsuario)
-        {
-            ResultadoObjeto respuesta = new ResultadoObjeto();
+        UsuariosModel _modelUsuario = new UsuariosModel();
+        FabricaRespuestas _creadorRespuestas = new FabricaRespuestas();
+        Respuesta respuesta;
 
-            //Obtiene usuario de base de datos.
-            return JObject.FromObject(respuesta); //Retorna objeto usuario.
+        //Obtener usuario especifico.
+        public JObject Get(JObject pNombreUsuario)
+        {
+            dynamic peticion = pNombreUsuario;
+            string nombreUsuario = peticion.username;
+
+            return new JObject();
         }
 
         //Crear usuario nuevo.
