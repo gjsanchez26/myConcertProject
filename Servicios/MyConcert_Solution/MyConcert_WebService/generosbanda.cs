@@ -17,11 +17,8 @@ namespace MyConcert_WebService
         public int PK_generosBanda { get; set; }
         public int FK_GENEROSBANDA_BANDA { get; set; }
         public int FK_GENEROSBANDA_GENEROS { get; set; }
-        public int FK_GENEROSBANDA_BANDAS { get; set; }
     
         public virtual bandas bandas { get; set; }
         public virtual generos generos { get; set; }
-        public virtual bandas bandas1 { get; set; }
-        public virtual generos generos1 { get; set; }
     }
 }
