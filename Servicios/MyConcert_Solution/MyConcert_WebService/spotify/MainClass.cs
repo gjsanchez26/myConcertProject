@@ -21,18 +21,20 @@ namespace Sptfy
             _winner.Add("Pink Floyd");
             _winner.Add("Metallica");
 
-            _other.Add("Janis Joplin");
+            _other.Add("Caravan");
             _other.Add("Jefferson Airplane");
             _other.Add("Led Zeppelin");
+            Chef _chef = new Chef();
 
             try
             {
-                Chef _chef = new Chef();
                 string res = _chef.chefAlgorythm(_winner, _other);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: ", e.Message);
+                Console.WriteLine("Error: No hay suficiente informacion de las bandas en Spotify...");
+                Console.WriteLine("Algoritmo del Chef alternativo");
+                _chef.alternativeChefAlgorythm(_winner, _other);                
             }
 
             /* ALGORITMO DE ENCRIPTACION */

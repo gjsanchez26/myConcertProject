@@ -25,7 +25,6 @@ namespace MyConcert_WebService.res
             {
                 _flag = true;
             }
-            Console.WriteLine("Resultado dólares: " + res);
             return _flag;
         }
 
