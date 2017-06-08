@@ -1,6 +1,6 @@
 
 //ANGULAR MODULE TO MANAGE INDEX.HTML
-var url = 'http://bryan:7580';
+var url = 'http://192.168.100.8:12345';
 var indexApp = angular.module('index',[])
 .controller('indexCtrl', ['$scope', '$http', function ($scope, $http) {
     var input;
@@ -8,15 +8,48 @@ var indexApp = angular.module('index',[])
     var mensaje = {};
   
     //FUNCTION TO CHECK IF USER EXIST IN DB
-   
+
+       
     $scope.ingresarUsuario = function()
         {
+            localStorage.setItem("userName", $scope.U_ID); 
+        localStorage.setItem("userID", $scope.U_Password);
+        var Credenciales = {
+            "username":$scope.U_ID,
+            "password":$scope.U_Password
+        };
+          var _data = '{"usuario":"'+$scope.U_ID+'", "contraseña":'+"'"+$scope.U_Password+"'"+'}';
+            $http({
+                    method: 'POST',
+                    url: url+"/API/login",
+                    headers: {
+                        'Content-Type' : 'application/x-www-form-urlencoded'
+                    },
+                    data: Credenciales
+                    }).then(function(result){
+                        console.log(Credenciales);
+                        console.log(result);
+                        console.log(result.data);
+                        console.log(result.data.contenido); 
+                        console.log(result.data.exito);
+                        var _login = result.data; 
+                        
+                        if (result.data.success) {
+                             window.location.assign("/pages/vistaColaborador.html");
+                           
+                        } else {
+                            
+                        }
+                    }, function(error) {
+                        console.log(error);
+                    });
+         };
+      /*  console.log(Credenciales);
         console.log("Usuario "+$scope.U_ID);
         console.log("Usuario "+$scope.U_Password);
-        localStorage.setItem("userName", $scope.U_ID); 
-        localStorage.setItem("userID", $scope.U_Password); window.location.assign("/pages/vistaColaborador.html");
+        ;*/
 
-                }       
+                    
             
 }]);
 

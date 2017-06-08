@@ -69,6 +69,82 @@
           </div>
         </nav>
     </div>
+ <div id="panelPrincipal " ng-controller="panelPrincipalCtrl" >
+
+        <div class="container-fluid" ng>
+          <div class="row content">
+            <div class="col-sm-3 sidenav">
+              <h1 style="color:#FFFFFF" >Colaborador</h1>
+              <ul class="nav nav-pills nav-stacked">
+                <div id="imagenPerfil">
+                </div>
+                <li class="active"></li>
+                <li style="color:#FFFFFF">NombreUsuario</li>
+                <li style="color:#FFFFFF">Nombre</li>
+                <li style="color:#FFFFFF">Correo</li>
+              </ul><br>
+              
+            </div>
+            <div class="btn-group btn-group-lg">
+                          <button type="button" class="btn btn-primary" ng-click = "verCarteleras()">Carteleras</button>
+                          <button type="button" class="btn btn-primary" ng-click = "verFestivales()">Festivales</button>
+
+            </div>
+            <div class="col-sm-9" id = "panelDerecho" >
+              
+            <div id="panelCarteleras">
+                 <div id="carteleraEspecifica">
+                  <hr>
+                  <h2 style="color:#FFFFFF">Cartelera 1</h2>
+                  <h5><span class="label label-danger">Votar</span><span class="label label-primary">Info</span></h5>
+                  <p style="color:#BCAFB9; width:100%; height:100%";>Informacion </p>
+                  <br><br>
+                </div>
+                
+                <div id="carteleraEspecifica">
+                  <hr>
+                  <h2 style="color:#FFFFFF">Cartelera 2</h2>
+                  <h5><span class="label label-danger">Votar</span><span class="label label-primary">Info</span></h5>
+                  <p style="color:#BCAFB9; width:100%; height:100%">Informacion </p>
+                  <br><br>
+                </div>
+                <div id="carteleraEspecifica">
+                  <hr>
+                  <h2 style="color:#FFFFFF">Cartelera 3</h2>
+                  <h5><span class="label label-danger">Votar</span><span class="label label-primary">Info</span></h5>
+                  <p style="color:#BCAFB9">Informacion </p>
+                
+                </div>
+              
+            </div>
+              
+            <div id = "panelFestivales" style="display:none" >
+                 <div id="FestivalEspecifico">
+                      <hr>
+                      <h2 style="color:#FFFFFF" >Festival 2</h2>
+
+                      <h5><span class="label label-primary">Info</span></h5><br>
+                      <p style="color:#BCAFB9">Informaciom</p>
+
+                      <br><br>
+                </div>
+                <div id="FestivalEspecifico">
+                      <hr>
+                      <h2 style="color:#FFFFFF" >Festival 2</h2>
+
+                      <h5> <span class="label label-primary">Info</span></h5><br>
+                      <p style="color:#BCAFB9">Informacion</p>
+               </div>
+              
+              
+            </div>
+                
+              
+            </div>
+            </div>
+            </div>
+          </div>
+ 
     
    
     <div id="categoriaModal" class="modal"  ng-controller="categoriaCtrl" style="overflow-y: scroll;" >

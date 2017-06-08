@@ -8,7 +8,7 @@ var categoriaForm = angular.module('vistaColaborador',[])
 .controller('categoriaCtrl', ['$scope', '$http', function ($scope, $http) {
 
      document.getElementById("idUser").innerHTML = "Welcome "+userID;
-     
+   
     console.log("aaaaaaaaaaaaaaa"+userID);
     $scope.crearCategoria = function () {
 
@@ -167,4 +167,26 @@ categoriaForm = angular.module('vistaColaborador')
 
 }]);
 
+categoriaForm = angular.module('vistaColaborador')
+.controller('panelPrincipalCtrl', ['$scope', '$http', function ($scope, $http) {
+    var img = document.createElement("IMG");
+    img.src = "/images/desconocido.jpg";
+    
+   
+    $scope.verCarteleras = function () {
+           document.getElementById('imagenPerfil').append(img);
+          //document.getElementById("panelFestivales").innerHTML = document.getElementById("panelCarteleras").innerHTML;
+          $("#panelCarteleras").fadeIn();
+          $("#panelFestivales").fadeOut();
+
+           
+      }
+      $scope.verFestivales = function () {
+          document.getElementById('imagenPerfil').append(img); //document.getElementById("panelCarteleras").innerHTML = document.getElementById("panelFestivales").innerHTML;
+          $("#panelCarteleras").fadeOut();
+          $("#panelFestivales").fadeIn();
+          //$("#verPerfil").fadeOut("slow");
+        } 
+    
+    }]);
 
