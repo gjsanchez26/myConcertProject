@@ -12,7 +12,8 @@ namespace MyConcert_WebService
             //Server nuevoServidorWeb = new Server();
 
             ManejadorBD man = new ManejadorBD();
-            Console.WriteLine(man.obtenerUsuario("gigi").apellido);
+            usuarios usr = man.obtenerUsuario("gigi");
+            Console.WriteLine(usr.nombre);
             Console.ReadLine();
         }
     }
