@@ -18,9 +18,9 @@ namespace MyConcert_WebService.controllers
         }
 
         //Crear usuario nuevo.
-        public JObject Post(JObject pRequest)
+        public JObject Post(JObject pDatosUsuario)
         {
-            dynamic request = pRequest;
+            dynamic request = pDatosUsuario;
 
             try
             {
@@ -34,9 +34,9 @@ namespace MyConcert_WebService.controllers
         }
 
         //Actualiza usuario especifico.
-        public JObject Put(JObject pPeticion)
+        public JObject Put(JObject pDatosUsuario)
         {
-            dynamic peticion = pPeticion;
+            dynamic peticion = pDatosUsuario;
             Resultado respuesta = new Resultado();
 
             //Actualiza usuario en base de datos.
