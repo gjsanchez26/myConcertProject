@@ -19,6 +19,7 @@ namespace MyConcert_WebService
         {
             this.generosbanda = new HashSet<generosbanda>();
             this.generosusuario = new HashSet<generosusuario>();
+           
         }
     
         public int PK_generos { get; set; }
@@ -28,5 +29,6 @@ namespace MyConcert_WebService
         public virtual ICollection<generosbanda> generosbanda { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<generosusuario> generosusuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     }
 }

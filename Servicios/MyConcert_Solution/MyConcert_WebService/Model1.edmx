@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="myconcertModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="myconcertModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="bandas">
           <Key>
             <PropertyRef Name="PK_bandas" />
@@ -18,7 +18,7 @@
             <PropertyRef Name="PK_canciones" />
           </Key>
           <Property Name="PK_canciones" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cancion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cancion" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="FK_CANCIONES_BANDAS" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="categorias">
@@ -35,7 +35,7 @@
           <Property Name="PK_categoriasEvento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FK_CATEGORIASEVENTO_EVENTOS" Type="int" Nullable="false" />
           <Property Name="FK_CATEGORIASEVENTO_CATEGORIAS" Type="int" Nullable="false" />
-          <Property Name="FK_CATEGORIASEVENTOS_BANDAS" Type="int" Nullable="false" />
+          <Property Name="FK_CATEGORIASEVENTO_BANDAS" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="comentarios">
           <Key>
@@ -44,7 +44,7 @@
           <Property Name="PK_comentarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="comentario" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="calificacion" Type="int" Nullable="false" />
-          <Property Name="fechaCreacion" Type="date" Nullable="false" />
+          <Property Name="fechaCreacion" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="FK_COMENTARIOS_BANDAS" Type="int" Nullable="false" />
           <Property Name="FK_COMENTARIOS_USUARIOS" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="FK_COMENTARIOS_ESTADOS" Type="int" Nullable="false" />
@@ -63,9 +63,9 @@
           <Property Name="PK_eventos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombreEve" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ubicacion" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="fechaInicio" Type="date" Nullable="false" />
-          <Property Name="fechaFinal" Type="date" Nullable="false" />
-          <Property Name="finalVotacion" Type="date" />
+          <Property Name="fechaInicio" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="fechaFinal" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="finalVotacion" Type="datetime" Precision="0" />
           <Property Name="comida" Type="varchar" MaxLength="500" />
           <Property Name="transporte" Type="varchar" MaxLength="500" />
           <Property Name="servicios" Type="varchar" MaxLength="500" />
@@ -85,7 +85,7 @@
             <PropertyRef Name="PK_generosBanda" />
           </Key>
           <Property Name="PK_generosBanda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FK_GENEROSBANDA_BANDA" Type="int" Nullable="false" />
+          <Property Name="FK_GENEROSBANDA_BANDAS" Type="int" Nullable="false" />
           <Property Name="FK_GENEROSBANDA_GENEROS" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="generosusuario">
@@ -102,7 +102,7 @@
           </Key>
           <Property Name="PK_integrantes" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombreInt" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="FK_BANDAS_INTEGRANTES" Type="int" Nullable="false" />
+          <Property Name="FK_INTEGRANTES_BANDAS" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="paises">
           <Key>
@@ -139,17 +139,17 @@
           <Property Name="username" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="apellido" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="contraseña" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="fechaInscripcion" Type="date" Nullable="false" />
-          <Property Name="foto" Type="blob" />
-          <Property Name="fechaNacimiento" Type="date" />
+          <Property Name="fechaInscripcion" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="foto" Type="varchar" MaxLength="256" />
+          <Property Name="fechaNacimiento" Type="datetime" Precision="0" />
           <Property Name="telefono" Type="int" />
           <Property Name="ubicacion" Type="varchar" MaxLength="100" />
           <Property Name="descripcion" Type="varchar" MaxLength="300" />
           <Property Name="FK_USUARIOS_ESTADOS" Type="int" Nullable="false" />
-          <Property Name="FK_USUARIOS_PAISES" Type="int" Nullable="false" />
-          <Property Name="FK_USUARIOS_UNIVERSIDADES" Type="int" Nullable="false" />
+          <Property Name="FK_USUARIOS_PAISES" Type="int" />
+          <Property Name="FK_USUARIOS_UNIVERSIDADES" Type="int" />
           <Property Name="FK_USUARIOS_TIPOSUSUARIOS" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="votos">
@@ -219,7 +219,7 @@
               <PropertyRef Name="PK_bandas" />
             </Principal>
             <Dependent Role="categoriasevento">
-              <PropertyRef Name="FK_CATEGORIASEVENTOS_BANDAS" />
+              <PropertyRef Name="FK_CATEGORIASEVENTO_BANDAS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -296,23 +296,23 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="generosbanda_ibfk_1">
-          <End Role="generos" Type="Self.generos" Multiplicity="1" />
-          <End Role="generosbanda" Type="Self.generosbanda" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="generos">
-              <PropertyRef Name="PK_generos" />
-            </Principal>
-            <Dependent Role="generosbanda">
-              <PropertyRef Name="FK_GENEROSBANDA_BANDA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="generosbanda_ibfk_2">
           <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
           <End Role="generosbanda" Type="Self.generosbanda" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="bandas">
               <PropertyRef Name="PK_bandas" />
+            </Principal>
+            <Dependent Role="generosbanda">
+              <PropertyRef Name="FK_GENEROSBANDA_BANDAS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="generosbanda_ibfk_2">
+          <End Role="generos" Type="Self.generos" Multiplicity="1" />
+          <End Role="generosbanda" Type="Self.generosbanda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="generos">
+              <PropertyRef Name="PK_generos" />
             </Principal>
             <Dependent Role="generosbanda">
               <PropertyRef Name="FK_GENEROSBANDA_GENEROS" />
@@ -351,7 +351,7 @@
               <PropertyRef Name="PK_bandas" />
             </Principal>
             <Dependent Role="integrantes">
-              <PropertyRef Name="FK_BANDAS_INTEGRANTES" />
+              <PropertyRef Name="FK_INTEGRANTES_BANDAS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -368,7 +368,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="usuarios_ibfk_2">
-          <End Role="paises" Type="Self.paises" Multiplicity="1" />
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
           <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="paises">
@@ -380,7 +380,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="usuarios_ibfk_3">
-          <End Role="universidades" Type="Self.universidades" Multiplicity="1" />
+          <End Role="universidades" Type="Self.universidades" Multiplicity="0..1" />
           <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="universidades">
@@ -514,11 +514,11 @@
             <End Role="eventos" EntitySet="eventos" />
           </AssociationSet>
           <AssociationSet Name="generosbanda_ibfk_1" Association="Self.generosbanda_ibfk_1">
-            <End Role="generos" EntitySet="generos" />
+            <End Role="bandas" EntitySet="bandas" />
             <End Role="generosbanda" EntitySet="generosbanda" />
           </AssociationSet>
           <AssociationSet Name="generosbanda_ibfk_2" Association="Self.generosbanda_ibfk_2">
-            <End Role="bandas" EntitySet="bandas" />
+            <End Role="generos" EntitySet="generos" />
             <End Role="generosbanda" EntitySet="generosbanda" />
           </AssociationSet>
           <AssociationSet Name="generosusuario_ibfk_1" Association="Self.generosusuario_ibfk_1">
@@ -566,8 +566,7 @@
             <End Role="votos" EntitySet="votos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="myconcertModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -575,9 +574,9 @@
           <Key>
             <PropertyRef Name="PK_bandas" />
           </Key>
-          <Property Name="PK_bandas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreBan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FK_BANDAS_ESTADOS" Type="Int32" Nullable="false" />
+          <Property Name="PK_bandas" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="nombreBan" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="FK_BANDAS_ESTADOS" Nullable="false" Type="Int32" />
           <NavigationProperty Name="estados" Relationship="Self.bandas_ibfk_1" FromRole="bandas" ToRole="estados" />
           <NavigationProperty Name="canciones" Relationship="Self.canciones_ibfk_1" FromRole="bandas" ToRole="canciones" />
           <NavigationProperty Name="categoriasevento" Relationship="Self.categoriasevento_ibfk_3" FromRole="bandas" ToRole="categoriasevento" />
@@ -585,6 +584,9 @@
           <NavigationProperty Name="generosbanda" Relationship="Self.generosbanda_ibfk_2" FromRole="bandas" ToRole="generosbanda" />
           <NavigationProperty Name="integrantes" Relationship="Self.integrantes_ibfk_1" FromRole="bandas" ToRole="integrantes" />
           <NavigationProperty Name="votos" Relationship="Self.votos_ibfk_1" FromRole="bandas" ToRole="votos" />
+          <NavigationProperty Name="categoriasevento1" Relationship="myconcertModel.categoriasevento_ibfk_31" FromRole="bandas" ToRole="categoriasevento" />
+          <NavigationProperty Name="generosbanda1" Relationship="myconcertModel.generosbanda_ibfk_11" FromRole="bandas" ToRole="generosbanda" />
+          <NavigationProperty Name="integrantes1" Relationship="myconcertModel.integrantes_ibfk_11" FromRole="bandas" ToRole="integrantes" />
         </EntityType>
         <EntityType Name="canciones">
           <Key>
@@ -615,6 +617,8 @@
           <NavigationProperty Name="bandas" Relationship="Self.categoriasevento_ibfk_3" FromRole="categoriasevento" ToRole="bandas" />
           <NavigationProperty Name="categorias" Relationship="Self.categoriasevento_ibfk_2" FromRole="categoriasevento" ToRole="categorias" />
           <NavigationProperty Name="eventos" Relationship="Self.categoriasevento_ibfk_1" FromRole="categoriasevento" ToRole="eventos" />
+          <Property Name="FK_CATEGORIASEVENTO_BANDAS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bandas1" Relationship="myconcertModel.categoriasevento_ibfk_31" FromRole="categoriasevento" ToRole="bandas" />
         </EntityType>
         <EntityType Name="comentarios">
           <Key>
@@ -672,6 +676,7 @@
           <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="generosbanda" Relationship="Self.generosbanda_ibfk_1" FromRole="generos" ToRole="generosbanda" />
           <NavigationProperty Name="generosusuario" Relationship="Self.generosusuario_ibfk_1" FromRole="generos" ToRole="generosusuario" />
+          <NavigationProperty Name="generosbanda1" Relationship="myconcertModel.generosbanda_ibfk_21" FromRole="generos" ToRole="generosbanda" />
         </EntityType>
         <EntityType Name="generosbanda">
           <Key>
@@ -682,6 +687,9 @@
           <Property Name="FK_GENEROSBANDA_GENEROS" Type="Int32" Nullable="false" />
           <NavigationProperty Name="bandas" Relationship="Self.generosbanda_ibfk_2" FromRole="generosbanda" ToRole="bandas" />
           <NavigationProperty Name="generos" Relationship="Self.generosbanda_ibfk_1" FromRole="generosbanda" ToRole="generos" />
+          <Property Name="FK_GENEROSBANDA_BANDAS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bandas1" Relationship="myconcertModel.generosbanda_ibfk_11" FromRole="generosbanda" ToRole="bandas" />
+          <NavigationProperty Name="generos1" Relationship="myconcertModel.generosbanda_ibfk_21" FromRole="generosbanda" ToRole="generos" />
         </EntityType>
         <EntityType Name="generosusuario">
           <Key>
@@ -701,6 +709,8 @@
           <Property Name="nombreInt" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FK_BANDAS_INTEGRANTES" Type="Int32" Nullable="false" />
           <NavigationProperty Name="bandas" Relationship="Self.integrantes_ibfk_1" FromRole="integrantes" ToRole="bandas" />
+          <Property Name="FK_INTEGRANTES_BANDAS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bandas1" Relationship="myconcertModel.integrantes_ibfk_11" FromRole="integrantes" ToRole="bandas" />
         </EntityType>
         <EntityType Name="paises">
           <Key>
@@ -778,8 +788,8 @@
           <NavigationProperty Name="usuarios" Relationship="Self.votos_ibfk_4" FromRole="votos" ToRole="usuarios" />
         </EntityType>
         <Association Name="bandas_ibfk_1">
-          <End Role="estados" Type="Self.estados" Multiplicity="1" />
-          <End Role="bandas" Type="Self.bandas" Multiplicity="*" />
+          <End Type="Self.estados" Multiplicity="1" Role="estados" />
+          <End Type="Self.bandas" Multiplicity="*" Role="bandas" />
           <ReferentialConstraint>
             <Principal Role="estados">
               <PropertyRef Name="PK_estados" />
@@ -790,8 +800,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="canciones_ibfk_1">
-          <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
-          <End Role="canciones" Type="Self.canciones" Multiplicity="*" />
+          <End Type="Self.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="Self.canciones" Multiplicity="*" Role="canciones" />
           <ReferentialConstraint>
             <Principal Role="bandas">
               <PropertyRef Name="PK_bandas" />
@@ -802,8 +812,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="categoriasevento_ibfk_3">
-          <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
-          <End Role="categoriasevento" Type="Self.categoriasevento" Multiplicity="*" />
+          <End Type="Self.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="Self.categoriasevento" Multiplicity="*" Role="categoriasevento" />
           <ReferentialConstraint>
             <Principal Role="bandas">
               <PropertyRef Name="PK_bandas" />
@@ -814,8 +824,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="comentarios_ibfk_1">
-          <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
-          <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
+          <End Type="Self.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="Self.comentarios" Multiplicity="*" Role="comentarios" />
           <ReferentialConstraint>
             <Principal Role="bandas">
               <PropertyRef Name="PK_bandas" />
@@ -826,8 +836,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="generosbanda_ibfk_2">
-          <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
-          <End Role="generosbanda" Type="Self.generosbanda" Multiplicity="*" />
+          <End Type="Self.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="Self.generosbanda" Multiplicity="*" Role="generosbanda" />
           <ReferentialConstraint>
             <Principal Role="bandas">
               <PropertyRef Name="PK_bandas" />
@@ -838,8 +848,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="integrantes_ibfk_1">
-          <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
-          <End Role="integrantes" Type="Self.integrantes" Multiplicity="*" />
+          <End Type="Self.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="Self.integrantes" Multiplicity="*" Role="integrantes" />
           <ReferentialConstraint>
             <Principal Role="bandas">
               <PropertyRef Name="PK_bandas" />
@@ -850,8 +860,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="votos_ibfk_1">
-          <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
-          <End Role="votos" Type="Self.votos" Multiplicity="*" />
+          <End Type="Self.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="Self.votos" Multiplicity="*" Role="votos" />
           <ReferentialConstraint>
             <Principal Role="bandas">
               <PropertyRef Name="PK_bandas" />
@@ -1084,32 +1094,32 @@
           <EntitySet Name="usuarios" EntityType="Self.usuarios" />
           <EntitySet Name="votos" EntityType="Self.votos" />
           <AssociationSet Name="bandas_ibfk_1" Association="Self.bandas_ibfk_1">
-            <End Role="estados" EntitySet="estados" />
-            <End Role="bandas" EntitySet="bandas" />
+            <End EntitySet="estados" Role="estados" />
+            <End EntitySet="bandas" Role="bandas" />
           </AssociationSet>
           <AssociationSet Name="canciones_ibfk_1" Association="Self.canciones_ibfk_1">
-            <End Role="bandas" EntitySet="bandas" />
-            <End Role="canciones" EntitySet="canciones" />
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="canciones" Role="canciones" />
           </AssociationSet>
           <AssociationSet Name="categoriasevento_ibfk_3" Association="Self.categoriasevento_ibfk_3">
-            <End Role="bandas" EntitySet="bandas" />
-            <End Role="categoriasevento" EntitySet="categoriasevento" />
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="categoriasevento" Role="categoriasevento" />
           </AssociationSet>
           <AssociationSet Name="comentarios_ibfk_1" Association="Self.comentarios_ibfk_1">
-            <End Role="bandas" EntitySet="bandas" />
-            <End Role="comentarios" EntitySet="comentarios" />
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="comentarios" Role="comentarios" />
           </AssociationSet>
           <AssociationSet Name="generosbanda_ibfk_2" Association="Self.generosbanda_ibfk_2">
-            <End Role="bandas" EntitySet="bandas" />
-            <End Role="generosbanda" EntitySet="generosbanda" />
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="generosbanda" Role="generosbanda" />
           </AssociationSet>
           <AssociationSet Name="integrantes_ibfk_1" Association="Self.integrantes_ibfk_1">
-            <End Role="bandas" EntitySet="bandas" />
-            <End Role="integrantes" EntitySet="integrantes" />
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="integrantes" Role="integrantes" />
           </AssociationSet>
           <AssociationSet Name="votos_ibfk_1" Association="Self.votos_ibfk_1">
-            <End Role="bandas" EntitySet="bandas" />
-            <End Role="votos" EntitySet="votos" />
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="votos" Role="votos" />
           </AssociationSet>
           <AssociationSet Name="categoriasevento_ibfk_2" Association="Self.categoriasevento_ibfk_2">
             <End Role="categorias" EntitySet="categorias" />
@@ -1179,7 +1189,71 @@
             <End Role="usuarios" EntitySet="usuarios" />
             <End Role="votos" EntitySet="votos" />
           </AssociationSet>
+          <AssociationSet Name="categoriasevento_ibfk_31" Association="myconcertModel.categoriasevento_ibfk_31">
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="categoriasevento" Role="categoriasevento" />
+          </AssociationSet>
+          <AssociationSet Name="generosbanda_ibfk_11" Association="myconcertModel.generosbanda_ibfk_11">
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="generosbanda" Role="generosbanda" />
+          </AssociationSet>
+          <AssociationSet Name="integrantes_ibfk_11" Association="myconcertModel.integrantes_ibfk_11">
+            <End EntitySet="bandas" Role="bandas" />
+            <End EntitySet="integrantes" Role="integrantes" />
+          </AssociationSet>
+          <AssociationSet Name="generosbanda_ibfk_21" Association="myconcertModel.generosbanda_ibfk_21">
+            <End Role="generos" EntitySet="generos" />
+            <End Role="generosbanda" EntitySet="generosbanda" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="categoriasevento_ibfk_31">
+          <End Type="myconcertModel.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="myconcertModel.categoriasevento" Multiplicity="*" Role="categoriasevento" />
+          <ReferentialConstraint>
+            <Principal Role="bandas">
+              <PropertyRef Name="PK_bandas" />
+            </Principal>
+            <Dependent Role="categoriasevento">
+              <PropertyRef Name="FK_CATEGORIASEVENTO_BANDAS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="generosbanda_ibfk_11">
+          <End Type="myconcertModel.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="myconcertModel.generosbanda" Multiplicity="*" Role="generosbanda" />
+          <ReferentialConstraint>
+            <Principal Role="bandas">
+              <PropertyRef Name="PK_bandas" />
+            </Principal>
+            <Dependent Role="generosbanda">
+              <PropertyRef Name="FK_GENEROSBANDA_BANDAS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="integrantes_ibfk_11">
+          <End Type="myconcertModel.bandas" Multiplicity="1" Role="bandas" />
+          <End Type="myconcertModel.integrantes" Multiplicity="*" Role="integrantes" />
+          <ReferentialConstraint>
+            <Principal Role="bandas">
+              <PropertyRef Name="PK_bandas" />
+            </Principal>
+            <Dependent Role="integrantes">
+              <PropertyRef Name="FK_INTEGRANTES_BANDAS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="generosbanda_ibfk_21">
+          <End Type="myconcertModel.generos" Role="generos" Multiplicity="1" />
+          <End Type="myconcertModel.generosbanda" Role="generosbanda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="generos">
+              <PropertyRef Name="PK_generos" />
+            </Principal>
+            <Dependent Role="generosbanda">
+              <PropertyRef Name="FK_GENEROSBANDA_GENEROS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1215,10 +1289,10 @@
           <EntitySetMapping Name="categoriasevento">
             <EntityTypeMapping TypeName="myconcertModel.categoriasevento">
               <MappingFragment StoreEntitySet="categoriasevento">
+                <ScalarProperty Name="FK_CATEGORIASEVENTO_BANDAS" ColumnName="FK_CATEGORIASEVENTO_BANDAS" />
                 <ScalarProperty Name="PK_categoriasEvento" ColumnName="PK_categoriasEvento" />
                 <ScalarProperty Name="FK_CATEGORIASEVENTO_EVENTOS" ColumnName="FK_CATEGORIASEVENTO_EVENTOS" />
                 <ScalarProperty Name="FK_CATEGORIASEVENTO_CATEGORIAS" ColumnName="FK_CATEGORIASEVENTO_CATEGORIAS" />
-                <ScalarProperty Name="FK_CATEGORIASEVENTOS_BANDAS" ColumnName="FK_CATEGORIASEVENTOS_BANDAS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1272,8 +1346,8 @@
           <EntitySetMapping Name="generosbanda">
             <EntityTypeMapping TypeName="myconcertModel.generosbanda">
               <MappingFragment StoreEntitySet="generosbanda">
+                <ScalarProperty Name="FK_GENEROSBANDA_BANDAS" ColumnName="FK_GENEROSBANDA_BANDAS" />
                 <ScalarProperty Name="PK_generosBanda" ColumnName="PK_generosBanda" />
-                <ScalarProperty Name="FK_GENEROSBANDA_BANDA" ColumnName="FK_GENEROSBANDA_BANDA" />
                 <ScalarProperty Name="FK_GENEROSBANDA_GENEROS" ColumnName="FK_GENEROSBANDA_GENEROS" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1290,9 +1364,9 @@
           <EntitySetMapping Name="integrantes">
             <EntityTypeMapping TypeName="myconcertModel.integrantes">
               <MappingFragment StoreEntitySet="integrantes">
+                <ScalarProperty Name="FK_INTEGRANTES_BANDAS" ColumnName="FK_INTEGRANTES_BANDAS" />
                 <ScalarProperty Name="PK_integrantes" ColumnName="PK_integrantes" />
                 <ScalarProperty Name="nombreInt" ColumnName="nombreInt" />
-                <ScalarProperty Name="FK_BANDAS_INTEGRANTES" ColumnName="FK_BANDAS_INTEGRANTES" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
