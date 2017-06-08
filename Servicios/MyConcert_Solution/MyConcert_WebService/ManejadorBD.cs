@@ -39,7 +39,6 @@ namespace MyConcert_WebService
             }
             return us;
         }
-
         public void añadirUsuario (usuarios us)
         {
             try
@@ -58,6 +57,64 @@ namespace MyConcert_WebService
             }
         }
 
+        public void añadirGeneroUsuario(generosusuario genUs)
+        {
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    context.generosusuario.Add(genUs);
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+        }
+
+        public generos obtenerGenero(int idGenero)
+        {
+            generos ge = null;
+            try
+            {
+               
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    ge=context.generos.FirstOrDefault(g=> g.PK_generos==idGenero );
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return ge;
+        }
+
+        public List<generos> obtenerGeneros()
+        {
+            List<generos> gen = null;
+            
+    
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+
+                    gen = context.generos.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return gen;
+        }
+    
         public List<bandas> obtenerBandasNoCartelera(eventos cartelera)
         {
             List<bandas> bandasCarte=null;
