@@ -115,6 +115,47 @@ namespace MyConcert_WebService
             return gen;
         }
     
+        public List <paises> obtenerPaises()
+        {
+            List<paises> lista = null;
+
+
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+
+                    lista = context.paises.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return lista;
+        }
+    
+        public List<universidades> obtenerUniversidades()
+        {
+            List<universidades> lista = null;
+
+
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+
+                    lista = context.universidades.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return lista;
+        }
         public List<bandas> obtenerBandasNoCartelera(eventos cartelera)
         {
             List<bandas> bandasCarte=null;
