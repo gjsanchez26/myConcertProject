@@ -15,6 +15,7 @@ namespace MyConcert_WebService
             using (myconcertEntities dbContext = new myconcertEntities())
             {
                  return dbContext.Database.Exists();
+
             }
 
         }
