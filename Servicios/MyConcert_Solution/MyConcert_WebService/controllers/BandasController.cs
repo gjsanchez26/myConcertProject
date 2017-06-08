@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.res;
+using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -11,7 +12,7 @@ namespace MyConcert_WebService.controllers
         //Obtener todas las bandas disponibles.
         public JObject Get()
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Solicita bandas a base de datos.
             return JObject.FromObject(respuesta); //Retorna lista con bandas.
@@ -20,7 +21,7 @@ namespace MyConcert_WebService.controllers
         //Obtener banda especifica.
         public JObject Get(int pIDBanda)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Solicita banda a base de datos.
             return JObject.FromObject(respuesta); //Retorna objeto banda.
@@ -30,7 +31,7 @@ namespace MyConcert_WebService.controllers
         public JObject Post(JObject pPeticion)
         {
             dynamic peticion = pPeticion;
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Convierte datos ingresados en Banda.
             //Almacena en base de datos.
@@ -41,7 +42,7 @@ namespace MyConcert_WebService.controllers
         public JObject Put(JObject pPeticion)
         {
             dynamic peticion = pPeticion;
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Convierte datos ingresados en Banda.
             //Actualiza en base de datos.
@@ -52,7 +53,7 @@ namespace MyConcert_WebService.controllers
         public JObject Delete(JObject pPeticion)
         {
             dynamic peticion = pPeticion;
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Convierte datos ingresados en Banda.
             //Elimina en base de datos.

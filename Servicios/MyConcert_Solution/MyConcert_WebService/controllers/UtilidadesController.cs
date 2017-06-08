@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.res;
+using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System.Web.Http.Cors;
 
@@ -10,7 +11,7 @@ namespace MyConcert_WebService.controllers
         //Obtener paises, universidades o generos segun solicitud.
         public JObject Post(string pTipoDato)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             switch (pTipoDato)
             {
@@ -23,7 +24,7 @@ namespace MyConcert_WebService.controllers
                 default:
                     respuesta.exito = false;
                     string error = "Tipo de dato solicitado no se encuentra.";
-                    respuesta.mensajeError = JObject.FromObject(error);
+                    respuesta.contenido = JObject.FromObject(error);
                     break;
             }
             return JObject.FromObject(respuesta);

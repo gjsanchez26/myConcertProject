@@ -9,11 +9,11 @@ namespace MyConcert_WebService
         public static void Main(string[] args)
         {
             
-            //Server nuevoServidorWeb = new Server();
-
-            ManejadorBD man = new ManejadorBD();
-            Console.WriteLine(man.obtenerUsuario("gigi").nombre);
-            Console.ReadLine();
+            Server nuevoServidorWeb = new Server();
+            
+            //ManejadorBD man = new ManejadorBD();
+            //Console.WriteLine(man.obtenerUsuario("gigi").nombre);
+            //Console.ReadLine();
         }
     }
 }

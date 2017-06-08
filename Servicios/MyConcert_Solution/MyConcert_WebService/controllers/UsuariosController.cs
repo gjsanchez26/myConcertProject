@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.res;
+using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.usr;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +12,7 @@ namespace MyConcert_WebService.controllers
         //Obtener usuario especifico.
         public JObject Get(string pNombreUsuario)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Obtiene usuario de base de datos.
             return JObject.FromObject(respuesta); //Retorna objeto usuario.
@@ -37,7 +38,7 @@ namespace MyConcert_WebService.controllers
         public JObject Put(JObject pDatosUsuario)
         {
             dynamic peticion = pDatosUsuario;
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Actualiza usuario en base de datos.
             return JObject.FromObject(respuesta); //Retorna estado de modificacion.
@@ -46,7 +47,7 @@ namespace MyConcert_WebService.controllers
         //Elimina usuario especifico.
         public JObject Delete(string pNombreUsuario)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Elimina usuario de base de datos.
             return JObject.FromObject(respuesta); //Retorna estado de eliminacion.

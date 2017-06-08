@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.res;
+using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -24,19 +25,19 @@ namespace MyConcert_WebService.controllers
         {
             dynamic request = pRequest;
             JObject requestProducto = request.producto;
-            Resultado response = new Resultado();
+            ResultadoObjeto response = new ResultadoObjeto();
 
             try
             {
                 Product nuevoUsuario = requestProducto.ToObject<Product>();
                 response.exito = true;
-                response.mensajeError = JObject.FromObject(nuevoUsuario);
+                response.contenido = JObject.FromObject(nuevoUsuario);
                 return JObject.FromObject(response);
             }
             catch (Exception e)
             {
                 response.exito = false;
-                response.mensajeError = JObject.FromObject(e.Message);
+                response.contenido = JObject.FromObject(e.Message);
                 return JObject.FromObject(response);
             }
 

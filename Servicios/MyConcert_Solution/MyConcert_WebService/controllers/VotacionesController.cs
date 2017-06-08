@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.res;
+using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System.Web.Http.Cors;
 
@@ -10,7 +11,7 @@ namespace MyConcert_WebService.controllers
         //Obtener el resultado de las votaciones en un evento especifico.
         public JObject Get(int pIDEvento)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Obtiene suma de votos 
             return JObject.FromObject(respuesta);
@@ -20,7 +21,7 @@ namespace MyConcert_WebService.controllers
         //   especifico para un usuario especifico.
         public JObject Get(string pNombreUsuario, int pIDEvento, int pIDCategoria)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Obtiene resultado de votaciones en una categoria por un usuario especifico.
             return JObject.FromObject(respuesta);
@@ -34,7 +35,7 @@ namespace MyConcert_WebService.controllers
             int IDCategoria = peticion.IDCategoria;
             string nombreUsuario = peticion.nombreUsuario;
 
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Almacena nueva votacion en base de datos.
             return JObject.FromObject(respuesta);       //Retorna objeto votacion.

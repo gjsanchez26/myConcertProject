@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.res;
+using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -11,7 +12,7 @@ namespace MyConcert_WebService.controllers
         //Obtener informacion de eventos.
         public JObject Get(string pTipoEvento)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             switch (pTipoEvento)
             {
@@ -22,7 +23,7 @@ namespace MyConcert_WebService.controllers
                 default:
                     respuesta.exito = false;
                     string error = "Tipo de evento no existente.";
-                    respuesta.mensajeError = JObject.FromObject(error);
+                    respuesta.contenido = JObject.FromObject(error);
                     break;
             }
             
@@ -33,7 +34,7 @@ namespace MyConcert_WebService.controllers
         //Obtener informacion de evento especifico.
         public JObject Get(int pIDEvento)
         {   
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
             
             //Solicita evento a base de datos.
             return JObject.FromObject(respuesta); //Retorna objeto evento.
@@ -43,7 +44,7 @@ namespace MyConcert_WebService.controllers
         public JObject Post(JObject pDatosEvento)
         {
             dynamic datosEvento = pDatosEvento;
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Almacena evento en base de datos.
             return JObject.FromObject(respuesta); //Retorna objeto evento.
@@ -53,7 +54,7 @@ namespace MyConcert_WebService.controllers
         public JObject Put(JObject pDatosEvento)
         {
             dynamic datosEvento = pDatosEvento;
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Almacena evento en base de datos.
             return JObject.FromObject(respuesta); //Retorna estado de modificacion.
@@ -62,7 +63,7 @@ namespace MyConcert_WebService.controllers
         //Elimina evento especifico.
         public JObject Delete(int pIDEvento)
         {
-            Resultado respuesta = new Resultado();
+            ResultadoObjeto respuesta = new ResultadoObjeto();
 
             //Elimina evento en base de datos.
             return JObject.FromObject(respuesta); //Retorna estado de eliminacion.
