@@ -10,17 +10,16 @@ namespace MyConcert_WebService
 {
     public class ManejadorBD
     {
-
-
-
         public bool conexionBaseDatos()
         {
             using (myconcertEntities dbContext = new myconcertEntities())
             {
                  return dbContext.Database.Exists();
+
             }
 
         }
+
         public usuarios obtenerUsuario(string username)
         {
             usuarios us = null;
@@ -39,6 +38,7 @@ namespace MyConcert_WebService
             }
             return us;
         }
+
         public void añadirUsuario (usuarios us)
         {
             try
@@ -115,6 +115,48 @@ namespace MyConcert_WebService
             return gen;
         }
     
+        public List <paises> obtenerPaises()
+        {
+            List<paises> lista = null;
+
+
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+
+                    lista = context.paises.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return lista;
+        }
+    
+        public List<universidades> obtenerUniversidades()
+        {
+            List<universidades> lista = null;
+
+
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+
+                    lista = context.universidades.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return lista;
+        }
+
         public List<bandas> obtenerBandasNoCartelera(eventos cartelera)
         {
             List<bandas> bandasCarte=null;
