@@ -244,7 +244,7 @@ namespace MyConcert_WebService.res
         {
             /* se pide a la base de datos la cantidad de comentarios de las bandas
                  * y el promedio de calificacion */
-            /* SE HACEN LOS POST */
+            /* SE HACEN LAS PETICIONES A LA DB */
             List<int> amount_comments_other = new List<int>();
             List<int> amount_stars_other = new List<int>();
             amount_comments_other.Add(24);
