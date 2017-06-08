@@ -5,7 +5,7 @@ using System.Web.Http.SelfHost;
 
 namespace MyConcert_WebService.server
 {
-    class Server
+    public class Server
     {
         public Server()
         {
@@ -16,6 +16,9 @@ namespace MyConcert_WebService.server
             config.Routes.MapHttpRoute(
                 "MyConcertAPI", "api/{controller}/{id}",
                 new { id = RouteParameter.Optional });
+
+            //Habilita CORS
+            config.EnableCors();
 
             //Format JSON
             var appXmlType =
