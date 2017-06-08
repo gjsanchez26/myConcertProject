@@ -10,6 +10,17 @@ namespace MyConcert_WebService
 {
     public class ManejadorBD
     {
+
+
+
+        public bool conexionBaseDatos()
+        {
+            using (myconcertEntities dbContext = new myconcertEntities())
+            {
+                 return dbContext.Database.Exists();
+            }
+
+        }
         public usuarios obtenerUsuario(string username)
         {
             usuarios us = null;
@@ -46,6 +57,7 @@ namespace MyConcert_WebService
                 Console.Write(ex.InnerException.ToString());
             }
         }
+
         public List<bandas> obtenerBandasNoCartelera(eventos cartelera)
         {
             List<bandas> bandasCarte=null;
