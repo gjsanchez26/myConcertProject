@@ -12,9 +12,44 @@ namespace MyConcert_WebService.objects
         private DateTime _fecha;
         private string _contenido;
 
-        public DateTime Fecha { get => _fecha; set => _fecha = value; }
-        public string Contenido { get => _contenido; set => _contenido = value; }
-        internal Fanatico Fanatico { get => _fanatico; set => _fanatico = value; }
+        internal Fanatico Fanatico
+        {
+            get
+            {
+                return _fanatico;
+            }
+
+            set
+            {
+                _fanatico = value;
+            }
+        }
+
+        public DateTime Fecha
+        {
+            get
+            {
+                return _fecha;
+            }
+
+            set
+            {
+                _fecha = value;
+            }
+        }
+
+        public string Contenido
+        {
+            get
+            {
+                return _contenido;
+            }
+
+            set
+            {
+                _contenido = value;
+            }
+        }
     }
 
    

@@ -11,7 +11,30 @@ namespace MyConcert_WebService.objects
         private string _nombre;
         private string _id;
 
-        public string Nombre { get => _nombre; set => _nombre = value; }
-        public string Id { get => _id; set => _id = value; }
+        public string Nombre
+        {
+            get
+            {
+                return _nombre;
+            }
+
+            set
+            {
+                _nombre = value;
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+            }
+        }
     }
 }

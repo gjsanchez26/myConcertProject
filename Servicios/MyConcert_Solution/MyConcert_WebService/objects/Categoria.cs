@@ -11,7 +11,30 @@ namespace MyConcert_WebService.objects
         private string _nombre;
         private List<Banda> _bandas;
 
-        public string Nombre { get => _nombre; set => _nombre = value; }
-        internal List<Banda> Bandas { get => _bandas; set => _bandas = value; }
+        public string Nombre
+        {
+            get
+            {
+                return _nombre;
+            }
+
+            set
+            {
+                _nombre = value;
+            }
+        }
+
+        internal List<Banda> Bandas
+        {
+            get
+            {
+                return _bandas;
+            }
+
+            set
+            {
+                _bandas = value;
+            }
+        }
     }
 }

@@ -20,6 +20,82 @@ namespace MyConcert_WebService
 
         }
 
+        public bandas obtenerBanda(int PK_banda)
+        {
+            bandas obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.bandas.FirstOrDefault(r => r.PK_bandas == PK_banda);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public canciones obtenerCancion(int PK_cancion)
+        {
+            canciones obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.canciones.FirstOrDefault(r => r.PK_canciones == PK_cancion);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public categorias obtenerCategoria(int PK_categoria)
+        {
+            categorias obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.categorias.FirstOrDefault(r => r.PK_categorias == PK_categoria);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public categoriasevento obtenerCategoriasEvento(int PK_categoriasEvento)
+        {
+            categoriasevento obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.categoriasevento.FirstOrDefault(r => r.PK_categoriasEvento == PK_categoriasEvento);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
         public usuarios obtenerUsuario(string username)
         {
             usuarios us = null;

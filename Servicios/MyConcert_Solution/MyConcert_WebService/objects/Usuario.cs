@@ -17,13 +17,108 @@ namespace MyConcert_WebService.objects
         private DateTime _fechaInscripcion;
         private string _fotoPerfil;
 
-        public string Nombre { get => _nombre; set => _nombre = value; }
-        public string Apellido { get => _apellido; set => _apellido = value; }
-        public string NombreUsuario { get => _nombreUsuario; set => _nombreUsuario = value; }
-        public string Contraseña { get => _contraseña; set => _contraseña = value; }
-        public string Email { get => _email; set => _email = value; }
-        public bool Estado { get => _estado; set => _estado = value; }
-        public DateTime FechaInscripcion { get => _fechaInscripcion; set => _fechaInscripcion = value; }
-        public string FotoPerfil { get => _fotoPerfil; set => _fotoPerfil = value; }
+        public string Nombre
+        {
+            get
+            {
+                return _nombre;
+            }
+
+            set
+            {
+                _nombre = value;
+            }
+        }
+
+        public string Apellido
+        {
+            get
+            {
+                return _apellido;
+            }
+
+            set
+            {
+                _apellido = value;
+            }
+        }
+
+        public string NombreUsuario
+        {
+            get
+            {
+                return _nombreUsuario;
+            }
+
+            set
+            {
+                _nombreUsuario = value;
+            }
+        }
+
+        public string Contraseña
+        {
+            get
+            {
+                return _contraseña;
+            }
+
+            set
+            {
+                _contraseña = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return _email;
+            }
+
+            set
+            {
+                _email = value;
+            }
+        }
+
+        public bool Estado
+        {
+            get
+            {
+                return _estado;
+            }
+
+            set
+            {
+                _estado = value;
+            }
+        }
+
+        public DateTime FechaInscripcion
+        {
+            get
+            {
+                return _fechaInscripcion;
+            }
+
+            set
+            {
+                _fechaInscripcion = value;
+            }
+        }
+
+        public string FotoPerfil
+        {
+            get
+            {
+                return _fotoPerfil;
+            }
+
+            set
+            {
+                _fotoPerfil = value;
+            }
+        }
     }
 }

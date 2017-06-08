@@ -12,8 +12,47 @@ namespace MyConcert_WebService.objects
         private bool _disponibilidadSpotify;
         private string _muestra;
 
-        public string Nombre { get => _nombre; set => _nombre = value; }
-        public bool DisponibilidadSpotify { get => _disponibilidadSpotify; set => _disponibilidadSpotify = value; }
-        public string Muestra { get => _muestra; set => _muestra = value; }
+        public string Muestra
+        {
+            get
+            {
+                return _muestra;
+            }
+
+            set
+            {
+                _muestra = value;
+            }
+        }
+
+        public string Nombre
+        {
+            get
+            {
+                return _nombre;
+            }
+
+            set
+            {
+                _nombre = value;
+            }
+        }
+
+        public bool DisponibilidadSpotify
+        {
+            get
+            {
+                return _disponibilidadSpotify;
+            }
+
+            set
+            {
+                _disponibilidadSpotify = value;
+            }
+        }
     }
-}
+
+        
+
+        
+    }
