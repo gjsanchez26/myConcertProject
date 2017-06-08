@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/angular-1.5.8/angular.js"></script>
     <script src="/angular-1.5.8/angular.min.js"></script>
+    <script src="/angular-1.5.8/angular-route.js"></script>
+    <script src="/angular-1.5.8/angular-route.min.js"></script>
   <link rel="stylesheet" href="/css/index.css">  
     <script src="/js/jquery-3.1.0.js"  type="text/javascript"></script>
     <script src="/js/index.js"  type="text/javascript"></script>
@@ -15,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  
  
 </head>
     
@@ -42,8 +45,10 @@
         </div>
       </div>
     </nav>
-    </header> 
-    
+    </header>
+<!--    <div class="view-animate-container">
+        <div ng-view class="view-animate"></div>
+    </div> -->
     <!-- POP POP TO LOGIN-->
     <div id="myLoginModal" class="modal" ng-controller="indexCtrl" >
       <div class="modal-content">
@@ -55,11 +60,11 @@
         <div class="modal-body">
               <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="user">Nombre de Usuario</label>
-                <input id=user type="y=text" ng-model="U_ID" class="form-control" placeholder="Nombre de Usuario">
+                <input id=user type="y=text" ng-model="U_ID" class="form-control" placeholder="Nombre de Usuario" required>
                 </div>
                 <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                     <label for="pass">Contraseña</label>
-                    <input id=pass type="password" ng-model="U_Password" class="form-control" placeholder="Contraseña" >
+                    <input id=pass type="password" ng-model="U_Password" class="form-control" placeholder="Contraseña" required >
                 </div>
                 <div align="center">
                     <button  ng-click="checkUser()" style="margin: 20px 0px 0px 0px; width:50%" type="submit" class="btn btn-seconday btn-block btn-flat btn-cyan" >Entrar</button>
@@ -88,27 +93,27 @@
                 </div>        
                 <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="nombreUsuario">Nombre de Usuario</label>   
-                <input id=nombreUsuario type="y=text" ng-model="nombreUsuario" class="form-control" placeholder="Nombre de Usuario">
+                <input id=nombreUsuario type="y=text" ng-model="nombreUsuario" class="form-control" placeholder="Nombre de Usuario" required>
                 </div>
                 <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="Nombre">Nombre</label>
-                <input id=Nombre type="text" ng-model="Nombre" class="form-control" placeholder="Nombre">
+                <input id=Nombre type="text" ng-model="Nombre" class="form-control" placeholder="Nombre" required>
                 </div>
                 <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="Apellido">Apellido</label>
-                <input id=Apellido type="text" ng-model="Apellido" class="form-control" placeholder="Apellido">
+                <input id=Apellido type="text" ng-model="Apellido" class="form-control" placeholder="Apellido" required>
                 </div>
                  <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="E_BranchStore">Contraseña</label>
-                <input id=Contrasena type="password" ng-model="Contrasena" class="form-control" placeholder="Contraseña">
+                <input id=Contrasena type="password" ng-model="Contrasena" class="form-control" placeholder="Contraseña" required>
                 </div>
                 <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="Confirmacion">Confirmación Contraseña</label>
-                <input id=user type="password" ng-model="Confirmacion" class="form-control" placeholder="Confirmacion Contraseña">
+                <input id=user type="password" ng-model="Confirmacion" class="form-control" placeholder="Confirmacion Contraseña" required>
                 </div>
                 <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="Email">Email</label>
-                <input id=Email type="email" ng-model="Email" class="form-control" placeholder="Email">
+                <input id=Email type="email" ng-model="Email" class="form-control" placeholder="Email" required>
                 </div>
                 <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                 <label for="E_BranchStore">Foto Perfil</label>
@@ -122,15 +127,15 @@
                 <div id="contact">
                         <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                           <label for="F_FechaNacimiento">Fecha de Nacimiento</label>
-                          <input id=F_FechaNacimiento type="date" ng-model="F_FechaNacimiento" class="form-control" placeholder="Fecha de Nacimiento">
+                          <input id=F_FechaNacimiento type="date" ng-model="F_FechaNacimiento" class="form-control" placeholder="Fecha de Nacimiento" required>
                         </div>
                         <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                             <label for="F_Telefono">Telefono</label>
-                            <input id=F_Telefono type="number" ng-model="F_Telefono" class="form-control" placeholder="Telefono">
+                            <input id=F_Telefono type="number" ng-model="F_Telefono" class="form-control" placeholder="Telefono" requerid>
                         </div>
                         <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                             <label for="F_Ubicacion">Ubicación</label>
-                            <input id=user type="text" ng-model="F_Ubicacion" class="form-control" placeholder="Ubicacion">
+                            <input id=user type="text" ng-model="F_Ubicacion" class="form-control" placeholder="Ubicacion" required>
                         </div>
                         <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                             <label for="F_Pais">País</label>
@@ -160,7 +165,7 @@
                           <textarea class="form-control" rows="5" id="F_Descripcion"></textarea>
                         </div>
                         <div class="checkbox">
-                          <label><input type="checkbox" value="" id="tipoUsuario">Acepto los términos y Condiciones</label>
+                          <label><input type="checkbox" value="" id="tipoUsuario" requerid ng-model="F_Terminos">Acepto los términos y Condiciones</label>
                         </div>
                     
                 </div>
