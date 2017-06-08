@@ -345,6 +345,42 @@ namespace MyConcert_WebService
 
 
         //AÑADIR ALGUN OBJETO A BASE DE DATOS
+
+        public void añadirBanda (bandas banda)
+        {
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    context.bandas.Add(banda);
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+        }
+
+        public void añadirCancion(canciones cancion)
+        {
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    context.canciones.Add(cancion);
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+        }
         public void añadirUsuario (usuarios us)
         {
             try
