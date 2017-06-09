@@ -23,7 +23,7 @@ namespace MyConcert_WebService
     
         public virtual bandas bandas { get; set; }
         public virtual categorias categorias { get; set; }
-        public virtual eventos eventos { get; set; }
         public virtual usuarios usuarios { get; set; }
+        public virtual eventos eventos { get; set; }
     }
 }

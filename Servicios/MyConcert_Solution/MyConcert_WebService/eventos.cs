@@ -33,7 +33,9 @@ namespace MyConcert_WebService
         public int FK_EVENTOS_PAISES { get; set; }
         public int FK_EVENTOS_ESTADOS { get; set; }
         public int FK_EVENTOS_TIPOSEVENTOS { get; set; }
+        public Nullable<int> FK_EVENTOS_BANDAS_CHEF { get; set; }
     
+        public virtual bandas bandas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<categoriasevento> categoriasevento { get; set; }
         public virtual estados estados { get; set; }
