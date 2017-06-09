@@ -7,17 +7,17 @@ namespace MyConcert_WebService.database
 {
     class UsuariosDB
     {
+        private UtilidadesDB _utilidades = new UtilidadesDB();
+
         public tiposusuarios obtenerTipoUsuario(int PK_tipoUsuario)
         {
             tiposusuarios obj = null;
             try
             {
-
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.tiposusuarios.FirstOrDefault(g => g.PK_tiposUsuarios == PK_tipoUsuario);
                 }
-
             }
             catch (Exception ex)
             {
@@ -63,8 +63,12 @@ namespace MyConcert_WebService.database
             return us;
         }
 
-        public void añadirFanatico(Usuario pUsuarioNuevo, int[] pGenerosFavoritos)
+        public void añadirUsuario(Usuario pUsuarioNuevo, int[] pGenerosFavoritos)
         {
+            usuarios us = convertirUsuario(pUsuarioNuevo);
+
+            List<generos> gen = covertirGenerosFavoritos(pGenerosFavoritos);
+
             using (myconcertEntities context = new myconcertEntities())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
@@ -102,21 +106,37 @@ namespace MyConcert_WebService.database
             usuario.username = pUser.NombreUsuario;
             usuario.contraseña = pUser.Contrasena;
             usuario.correo = pUser.Email;
-            usuario.estados = pUser.Estado;
+            usuario.FK_USUARIOS_ESTADOS = _utilidades.obtenerEstado(pUser.Estado).PK_estados;
             usuario.fechaInscripcion = pUser.FechaInscripcion;
-            usuario.foto = pUser.FotoPerfil;
 
-            if (pUser.TipoUsuario == "fanatico")
+            if (pUser.TipoUsuario == obtenerTipoUsuario(2).tipo)
             {
                 Fanatico fanatico = (Fanatico) pUser;
                 usuario.fechaNacimiento = fanatico.FechaNacimiento;
                 usuario.telefono = fanatico.Telefono;
-                usuario.paises = fanatico.Pais;
+                usuario.FK_USUARIOS_PAISES = _utilidades.obtenerPais(fanatico.Pais).PK_paises;
                 usuario.descripcion = fanatico.DescripcionPersonal;
-                usuario.tiposusuarios = fanatico.TipoUsuario;
+                usuario.FK_USUARIOS_TIPOSUSUARIOS = obtenerTipoUsuario(fanatico.TipoUsuario).PK_tiposUsuarios;
+                usuario.FK_USUARIOS_UNIVERSIDADES = _utilidades.obtenerUniversidad(fanatico.Universidad).PK_universidades;
+                usuario.ubicacion = fanatico.Ubicacion;
+                usuario.foto = fanatico.FotoPerfil;
+            } else
+            {
+                usuario.FK_USUARIOS_TIPOSUSUARIOS = obtenerTipoUsuario(pUser.TipoUsuario).PK_tiposUsuarios;
+            }
+            return usuario;
+        }
+
+        private List<generos> covertirGenerosFavoritos(int[] pGeneros)
+        {
+            List<generos> listaGeneros = new List<generos>();
+
+            foreach (int genero in pGeneros)
+            {
+                listaGeneros.Add(_utilidades.obtenerGenero(genero));
             }
 
-            return usuario;
+            return listaGeneros;
         }
 
         public void añadirGeneroUsuario(generosusuario genUs)

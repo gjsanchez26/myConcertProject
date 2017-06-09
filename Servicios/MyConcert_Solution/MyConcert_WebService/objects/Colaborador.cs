@@ -11,7 +11,7 @@ namespace MyConcert_WebService.objects
                         string email,
                         string estado,
                         DateTime fechaInscripcion,
-                        string fotoPerfil)
+                        string tipoUsuario)
         {
             this.Nombre = nombre;
             this.Apellido = apellido;
@@ -19,7 +19,7 @@ namespace MyConcert_WebService.objects
             this.Contrasena = contrasena;
             this.Estado = estado;
             this.FechaInscripcion = fechaInscripcion;
-            this.FotoPerfil = fotoPerfil;
+            this.TipoUsuario = tipoUsuario;
         }
     }
 }

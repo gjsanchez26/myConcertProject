@@ -13,11 +13,13 @@ namespace MyConcert_WebService.objects
         private string _pais;
         private string _ubicacion;
         private string _descripcionPersonal;
+        private string _universidad;
 
         public Fanatico(string nombre, string apellido, string nombreUsuario, 
                         string contrasena, string email, string estado, 
                         DateTime fechaInscripcion, string fotoPerfil, DateTime fechaNacimiento,
-                        string telefono, string pais, string descripcionPersonal)
+                        string telefono, string pais, string descripcionPersonal, string universidad,
+                        string tipoUsuario, string ubicacion)
         {
             this.Nombre = nombre;
             this.Apellido = apellido;
@@ -31,7 +33,9 @@ namespace MyConcert_WebService.objects
             this.Telefono = telefono;
             this.Pais = pais;
             this.DescripcionPersonal = descripcionPersonal;
-            this.TipoUsuario = "fanatico";
+            this.TipoUsuario = tipoUsuario;
+            this.Universidad = universidad;
+            this.Ubicacion = ubicacion;
         }
 
         public DateTime FechaNacimiento
@@ -98,5 +102,7 @@ namespace MyConcert_WebService.objects
                 _descripcionPersonal = value;
             }
         }
+
+        public string Universidad { get => _universidad; set => _universidad = value; }
     }
 }

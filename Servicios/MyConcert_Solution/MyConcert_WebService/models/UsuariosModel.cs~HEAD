@@ -53,14 +53,14 @@ namespace MyConcert_WebService.models
             return respuesta;
         }
 
-        public Respuesta registrarUsuario(string pRol, JObject pDatosUsuario, int[] pListaGeneroFavoritos)
+        public Respuesta registrarUsuario(string pRol, JObject pDatosUsuario)
         {
             SerializerJSON serial = new SerializerJSON();
             try
             {
                 Usuario nuevoUsuario = serial.leerDatosUsuario(pRol, pDatosUsuario);
-                _manejador.añadirUsuario(nuevoUsuario, pListaGeneroFavoritos); //Se almacena el nuevo usuario
-                respuesta = creador.crearRespuesta(true, "Usuario creado exitosamente.");
+
+                _manejador.añadirUsuario(nuevoUsuario, ); //Se almacena el nuevo usuario
             }
             catch (Exception e)
             {
