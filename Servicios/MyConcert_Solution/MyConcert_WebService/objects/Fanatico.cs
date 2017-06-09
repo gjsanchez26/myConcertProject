@@ -8,7 +8,7 @@ namespace MyConcert_WebService.objects
 {
     class Fanatico : Usuario
     {
-        private string _fechaNacimiento;
+        private DateTime _fechaNacimiento;
         private string _telefono;
         private string _pais;
         private string _ubicacion;
@@ -16,7 +16,7 @@ namespace MyConcert_WebService.objects
 
         public Fanatico(string nombre, string apellido, string nombreUsuario, 
                         string contrasena, string email, string estado, 
-                        DateTime fechaInscripcion, string fotoPerfil, string fechaNacimiento,
+                        DateTime fechaInscripcion, string fotoPerfil, DateTime fechaNacimiento,
                         string telefono, string pais, string descripcionPersonal)
         {
             this.Nombre = nombre;
@@ -31,9 +31,10 @@ namespace MyConcert_WebService.objects
             this.Telefono = telefono;
             this.Pais = pais;
             this.DescripcionPersonal = descripcionPersonal;
+            this.TipoUsuario = "fanatico";
         }
 
-        public string FechaNacimiento
+        public DateTime FechaNacimiento
         {
             get
             {

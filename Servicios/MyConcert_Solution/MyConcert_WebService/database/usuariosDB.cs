@@ -1,8 +1,7 @@
-﻿using System;
+﻿using MyConcert_WebService.objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.database
 {
@@ -64,17 +63,14 @@ namespace MyConcert_WebService.database
             return us;
         }
 
-        public void añadirUsuario(usuarios us, List<generos> gen)
+        public void añadirFanatico(Usuario pUsuarioNuevo, int[] pGenerosFavoritos)
         {
-
             using (myconcertEntities context = new myconcertEntities())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
                     try
                     {
-
-
                         us = context.usuarios.Add(us);
 
                         foreach (generos g in gen)
@@ -86,21 +82,41 @@ namespace MyConcert_WebService.database
                             };
                             context.generosusuario.Add(genUs);
                         }
-
                         context.SaveChanges();
                         dbContextTransaction.Commit();
                     }
                     catch (Exception ex)
                     {
                         dbContextTransaction.Rollback();
-                        Console.Write(ex.InnerException.ToString());
-
+                        throw (ex);
                     }
                 }
             }
+        }
 
+        private usuarios convertirUsuario(Usuario pUser)
+        {
+            usuarios usuario = new usuarios();
+            usuario.nombre = pUser.Nombre;
+            usuario.apellido = pUser.Apellido;
+            usuario.username = pUser.NombreUsuario;
+            usuario.contraseña = pUser.Contrasena;
+            usuario.correo = pUser.Email;
+            usuario.estados = pUser.Estado;
+            usuario.fechaInscripcion = pUser.FechaInscripcion;
+            usuario.foto = pUser.FotoPerfil;
 
+            if (pUser.TipoUsuario == "fanatico")
+            {
+                Fanatico fanatico = (Fanatico) pUser;
+                usuario.fechaNacimiento = fanatico.FechaNacimiento;
+                usuario.telefono = fanatico.Telefono;
+                usuario.paises = fanatico.Pais;
+                usuario.descripcion = fanatico.DescripcionPersonal;
+                usuario.tiposusuarios = fanatico.TipoUsuario;
+            }
 
+            return usuario;
         }
 
 
