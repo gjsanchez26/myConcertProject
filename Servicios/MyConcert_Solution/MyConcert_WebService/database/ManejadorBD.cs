@@ -14,9 +14,19 @@ namespace MyConcert_WebService
         private BandasDB banDB;
         private CategoriaDB catDB;
         private EventosDB eveDB;
-        private UsuariosDB usuDB;
+        private UsuariosDB usuDB ;
         private UtilidadesDB utiDB;
         private VotosDB votDB;
+
+        public ManejadorBD()
+        {
+             banDB = new BandasDB();
+             catDB = new CategoriaDB();
+             eveDB = new EventosDB();
+             usuDB = new UsuariosDB();
+             utiDB = new UtilidadesDB();
+             votDB = new VotosDB();
+    }
         public bool conexionBaseDatos()
         {
             using (myconcertEntities dbContext = new myconcertEntities())
@@ -131,7 +141,10 @@ namespace MyConcert_WebService
             return banDB.obtenerCanciones(banda);
         }
         //USUARIOSDB
-
+        public tiposusuarios obtenerTipoUsuario(string tipoUsuario)
+        {
+            return usuDB.obtenerTipoUsuario(tipoUsuario);
+        }
         public tiposusuarios obtenerTipoUsuario(int PK_tipoUsuario)
         {
             return usuDB.obtenerTipoUsuario(PK_tipoUsuario);
@@ -153,8 +166,22 @@ namespace MyConcert_WebService
         {
             return usuDB.obtenerGenerosUsuario(PK_generosUsuario);
         }
+
+        public List<generos> obtenerGenerosUsuario(usuarios us)
+        {
+            return usuDB.obtenerGenerosUsuario(us);
+        }
         //UTILIDADESDB
 
+        public universidades obtenerUniversidad(string universidad)
+        {
+            return utiDB.obtenerUniversidad(universidad);
+        }
+
+        public paises obtenerPais(string pais)
+        {
+            return utiDB.obtenerPais(pais);
+        }
         public List<generos> obtenerGeneros()
         {
             return utiDB.obtenerGeneros();
@@ -180,6 +207,10 @@ namespace MyConcert_WebService
             return utiDB.obtenerPais(PK_pais);
         }
 
+        public estados obtenerEstado(string estado)
+        {
+            return utiDB.obtenerEstado(estado);
+        }
         public estados obtenerEstado(int PK_estado)
         {
             return utiDB.obtenerEstado(PK_estado);

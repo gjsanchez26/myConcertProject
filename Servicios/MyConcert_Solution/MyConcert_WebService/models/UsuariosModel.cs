@@ -59,8 +59,7 @@ namespace MyConcert_WebService.models
             try
             {
                 Usuario nuevoUsuario = serial.leerDatosUsuario(pRol, pDatosUsuario);
-
-                _manejador.añadirUsuario(nuevoUsuario, ); //Se almacena el nuevo usuario
+                _manejador.añadirUsuario(new usuarios()); //Se almacena el nuevo usuario
             }
             catch (Exception e)
             {
