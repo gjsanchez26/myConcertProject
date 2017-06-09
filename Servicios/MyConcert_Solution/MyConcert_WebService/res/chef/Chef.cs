@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MyConcert_WebService.models;
+using MyConcert_WebService.res.chef;
+using Newtonsoft.Json.Linq;
 using Sptfy;
 using System;
 using System.Collections.Generic;
@@ -8,48 +10,17 @@ namespace MyConcert_WebService.res
 {
     class Chef
     {
-        private SpotifyManager _spotify;
-        List<int> _commentsTable;
+        private SpotifyUtils _spotify;
+        CommentsTable _commentsTable;
 
         /**********************************************************/
 
         //Constructor
         public Chef()
         {
-            _spotify = new SpotifyManager();
+            _spotify = new SpotifyUtils();
         }
-
-        public void fillCommentsTable()
-        {
-            _commentsTable = new List<int>();
-            _commentsTable.Add(0);
-            _commentsTable.Add(5);
-            _commentsTable.Add(5);
-            _commentsTable.Add(5);
-            _commentsTable.Add(10);
-            _commentsTable.Add(10);
-            _commentsTable.Add(15);
-            _commentsTable.Add(15);
-            _commentsTable.Add(20);
-            _commentsTable.Add(20);
-            _commentsTable.Add(20);
-            _commentsTable.Add(25);
-            _commentsTable.Add(25);
-            _commentsTable.Add(30);
-            _commentsTable.Add(30);
-            _commentsTable.Add(30);
-            _commentsTable.Add(30);
-            _commentsTable.Add(35);
-            _commentsTable.Add(35);
-            _commentsTable.Add(40);
-            _commentsTable.Add(40);
-            _commentsTable.Add(40);
-            _commentsTable.Add(45);
-            _commentsTable.Add(45);
-            _commentsTable.Add(50);
-            _commentsTable.Add(50);
-            _commentsTable.Add(50);
-        }
+        
 
         /**
          * Obtiene los ID de los artistas involucrados
@@ -70,16 +41,26 @@ namespace MyConcert_WebService.res
          * Obtiene todos los ID de las tres canciones de cada
          * artista involucrado en el algoritmo del chef
          * */
-        public List<List<string>> getIDTracks(List<string> pid_artists)
+        public List<List<string>> getIDTracks(List<string> pid_artists, List<List<canciones>> songs_bands)
         {
-            List<List<string>> id_tracks = new List<List<string>>();
+            List<List<string>> id_tracks = new List<List<string>>();                        
             List<string> tmp = new List<string>();
-            for (int i = 0; i < pid_artists.Count; i++)
+            string id_track;
+            for (int i = 0; i < songs_bands.Count; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < songs_bands[i].Count; j++)
                 {
-                    tmp.Add(_spotify.searchTracks(pid_artists[i], j));
-                }
+                    if (tmp.Count == 3)
+                    {
+                        break;
+                    }
+                    id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
+                    if (id_track != null)
+                    {
+                        tmp.Add(id_track);
+                        Console.WriteLine("cosa: " + tmp[i]);
+                    }
+                }                
                 id_tracks.Add(tmp);
                 tmp = new List<string>();
             }
@@ -105,21 +86,36 @@ namespace MyConcert_WebService.res
         public float calculateIndex(List<string> pid_tracks)
         {
             float res = 0;
+            int n = pid_tracks.Count;
             Task<JObject> _sk;
             dynamic _skills;
             for (int i = 0; i < pid_tracks.Count; i++)
             {
-                _sk = _spotify.trackFeatures(pid_tracks[i]);
-                _skills = _sk.Result;
-                res += indexSong(_skills);                
+                if (pid_tracks.Count >= 3)
+                {
+                    _sk = _spotify.trackFeatures(pid_tracks[i]);
+                    _skills = _sk.Result;
+                    res += indexSong(_skills);
+                }
+                else
+                {
+                    n -= 1;
+                }
             }
-            return (res/pid_tracks.Count);
+            if (n == 0)
+            {
+                return 0;
+            } else
+            {
+               
+                return (res/n);
+            }
         }
 
         /**
          * Valor absoluto
          * */
-        public float fabs(float px)
+        public double fabs(double px)
         {
             if (px < 0)
             {
@@ -132,14 +128,14 @@ namespace MyConcert_WebService.res
          * Compara los indices de las bandas excluidas del festival
          * con el indice del festival a realizar
          * */
-        public int compare(float pfest, List<float> pother_indexes)
+        public int compare(double pfest, List<double> pother_indexes)
         {
-            List<float> error = new List<float>();
+            List<double> error = new List<double>();
             for (int i = 0; i < pother_indexes.Count; i++)
             {
                 error.Add(fabs(pfest - pother_indexes[i]));
             }
-            float lower = error[0];
+            double lower = error[0];
             for (int j = 0; j < error.Count; j++)
             {
                 if (error[j] < lower)
@@ -158,7 +154,7 @@ namespace MyConcert_WebService.res
             return _index;
         }
 
-        /***********************ALGORITMO CHEF ***************************************/
+        /***********************ALGORITMO CHEF***************************************/
 
         /**
          *Algoritmo del chef para encontrar la banda recomendada 
@@ -166,18 +162,19 @@ namespace MyConcert_WebService.res
          * de cada banda que proporciona Spotify se realizan diversos
          * calculos.
          */
-        public string chefAlgorythm(List<string> winners, List<string> other_bands)
+        public string chefAlgorythm(List<string> winners, List<string> other_bands,
+            List<List<canciones>> winner_songs, List<List<canciones>> other_songs)
         {
-            float fest_index = 0;
+            double fest_index = 0;
             List<string> id_winners = getIDArtists(winners);
             List<string> id_other = getIDArtists(other_bands);
             
-            //Las 3 canciones se obtienen de la base de datos. *******
-            List<List<string>> id_winners_tracks = getIDTracks(id_winners);
-            List<List<string>> id_other_tracks = getIDTracks(id_other);
+            //Las canciones se obtienen de la base de datos
+            List<List<string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
+            List<List<string>> id_other_tracks = getIDTracks(id_other, other_songs);
 
             //Se calculan los indices de las bandas excluidas del festival 
-            List<float> other_indexes = new List<float>();
+            List<double> other_indexes = new List<double>();
             for (int i = 0; i < id_other_tracks.Count; i++)
             {
                 other_indexes.Add(calculateIndex(id_other_tracks[i]));
@@ -185,21 +182,28 @@ namespace MyConcert_WebService.res
             }
 
             //Se calculan los indices de cada banda ganadora en cartelera
-            List<float> winners_indexes = new List<float>();
+            List<double> winners_indexes = new List<double>();
             for (int i = 0; i < id_winners_tracks.Count; i++)
             {
                 winners_indexes.Add(calculateIndex(id_winners_tracks[i]));
                 fest_index += winners_indexes[i];
             }
             //Se calcula el indice del festival 
-            fest_index = (fest_index /winners_indexes.Count);
+            if (winners_indexes.Count == 0)
+            {
+                fest_index = 0;
+            }
+            else
+            {
+                fest_index = (fest_index / winners_indexes.Count);
+            }
             Console.WriteLine("Indice festival: " + fest_index);
             
             //Se comparan indices para concluir banda recomendada
             int index_rec = compare(fest_index, other_indexes);
-            string id_recommended = other_bands[index_rec];
-            Console.WriteLine("Banda recomendada: " + id_recommended);
-            return id_recommended;
+            string _recommended = other_bands[index_rec];
+            Console.WriteLine("Banda recomendada: " + _recommended);
+            return _recommended;
         }
 
         /***********************ALGORITMO CHEF ALTERNATIVO****************************/
@@ -208,16 +212,15 @@ namespace MyConcert_WebService.res
          * calcula el promedio de comentarios de una banda 
          * segun la tabla especificada
          * */
-        public int getCommentsProm(int pcomment)
+        public float getCommentsProm(float pcomment)
         {
-            fillCommentsTable();
-            int tmp = 0;
+            float tmp = 0;
             int max_comments = 26;
             for (int i = 0; i < max_comments; i++)
             {
                 if (pcomment == i)
                 {
-                    tmp = _commentsTable[i];
+                    tmp = _commentsTable.getCommentPercentage(i);
                     break;
                 }
             }
@@ -228,7 +231,7 @@ namespace MyConcert_WebService.res
          * Calcula el promedio del rating de 
          * cada banda 
          * */
-        public int getRatingProm(int pstar)
+        public float getRatingProm(float pstar)
         {
             return (pstar * 10);
         }
@@ -240,22 +243,15 @@ namespace MyConcert_WebService.res
          * informacion. Por medio de los comentarios y el rating de la banda se 
          * realiza el calculo de los indices. 
          * */
-        public string alternativeChefAlgorythm(List<string> winners, List<string> other_bands)
+        public string alternativeChefAlgorythm(List<string> winners, List<string> other_bands,
+            List<float> amount_comments_other, List<float> amount_stars_other, List<float> amount_comments_winners,
+            List<float> amount_stars_winners)
         {
-            /* se pide a la base de datos la cantidad de comentarios de las bandas
-                 * y el promedio de calificacion */
-            /* SE HACEN LAS PETICIONES A LA DB */
-            List<int> amount_comments_other = new List<int>();
-            List<int> amount_stars_other = new List<int>();
-            amount_comments_other.Add(24);
-            amount_comments_other.Add(12);
-            amount_comments_other.Add(3);
-            amount_stars_other.Add(1);
-            amount_stars_other.Add(3);
-            amount_stars_other.Add(5);
-
+            _commentsTable = new CommentsTable();
+           
             //Se calculan los promedios de las posibles bandas recomendadas
-            List<float> other_proms = new List<float>();
+
+            List<double> other_proms = new List<double>();
             for (int i = 0; i < other_bands.Count; i++)
             {
                 other_proms.Add(getCommentsProm(amount_comments_other[i]) + 
@@ -264,16 +260,11 @@ namespace MyConcert_WebService.res
             }
 
             //Se calcula el indice del festival
-            List<int> amount_comments_winners = new List<int>();
-            List<int> amount_stars_winners = new List<int>();
-            amount_comments_winners.Add(15);
-            amount_comments_winners.Add(25);
-            amount_comments_winners.Add(10);
-            amount_stars_winners.Add(2);
-            amount_stars_winners.Add(4);
-            amount_stars_winners.Add(2);
+            /* por medio de la cantidad de comentarios de las bandas
+                 * ganadoras y el promedio de calificacion */
 
-            int fest_index = 0, tmp = 0;
+
+            float fest_index = 0, tmp = 0;
             for (int i = 0; i < winners.Count; i++)
             {
                 tmp = (getCommentsProm(amount_comments_winners[i]) + getRatingProm(amount_stars_winners[i]));
@@ -285,10 +276,10 @@ namespace MyConcert_WebService.res
 
             //Compara el indice del festival con los indices de las bandas a recomendar
             int index_rec = compare(fest_index, other_proms);
-            string id_recommended = other_bands[index_rec];
-            Console.WriteLine("Banda recomendada: " + id_recommended);
+            string _recommended = other_bands[index_rec];
+            Console.WriteLine("Banda recomendada: " + _recommended);
 
-            return id_recommended;
+            return _recommended;
         }        
 
     }
