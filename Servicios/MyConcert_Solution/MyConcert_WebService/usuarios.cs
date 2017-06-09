@@ -28,14 +28,14 @@ namespace MyConcert_WebService
         public string contraseña { get; set; }
         public string correo { get; set; }
         public System.DateTime fechaInscripcion { get; set; }
-        public byte[] foto { get; set; }
+        public string foto { get; set; }
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
         public Nullable<int> telefono { get; set; }
         public string ubicacion { get; set; }
         public string descripcion { get; set; }
         public int FK_USUARIOS_ESTADOS { get; set; }
-        public int FK_USUARIOS_PAISES { get; set; }
-        public int FK_USUARIOS_UNIVERSIDADES { get; set; }
+        public Nullable<int> FK_USUARIOS_PAISES { get; set; }
+        public Nullable<int> FK_USUARIOS_UNIVERSIDADES { get; set; }
         public int FK_USUARIOS_TIPOSUSUARIOS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

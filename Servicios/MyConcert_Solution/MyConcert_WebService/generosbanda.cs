@@ -15,7 +15,7 @@ namespace MyConcert_WebService
     public partial class generosbanda
     {
         public int PK_generosBanda { get; set; }
-        public int FK_GENEROSBANDA_BANDA { get; set; }
+        public int FK_GENEROSBANDA_BANDAS { get; set; }
         public int FK_GENEROSBANDA_GENEROS { get; set; }
     
         public virtual bandas bandas { get; set; }

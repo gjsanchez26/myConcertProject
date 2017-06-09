@@ -15,11 +15,82 @@ namespace MyConcert_WebService.objects
         private List<GeneroMusical> _generos;
         private string _descripcionPersonal;
 
-        public string FechaNacimiento { get => _fechaNacimiento; set => _fechaNacimiento = value; }
-        public string Telefono { get => _telefono; set => _telefono = value; }
-        public string Ubicacion { get => _ubicacion; set => _ubicacion = value; }
-        public string DescripcionPersonal { get => _descripcionPersonal; set => _descripcionPersonal = value; }
-        internal Pais Pais { get => _pais; set => _pais = value; }
-        internal List<GeneroMusical> Generos { get => _generos; set => _generos = value; }
+        public string FechaNacimiento
+        {
+            get
+            {
+                return _fechaNacimiento;
+            }
+
+            set
+            {
+                _fechaNacimiento = value;
+            }
+        }
+
+        public string Telefono
+        {
+            get
+            {
+                return _telefono;
+            }
+
+            set
+            {
+                _telefono = value;
+            }
+        }
+
+        internal Pais Pais
+        {
+            get
+            {
+                return _pais;
+            }
+
+            set
+            {
+                _pais = value;
+            }
+        }
+
+        public string Ubicacion
+        {
+            get
+            {
+                return _ubicacion;
+            }
+
+            set
+            {
+                _ubicacion = value;
+            }
+        }
+
+        internal List<GeneroMusical> Generos
+        {
+            get
+            {
+                return _generos;
+            }
+
+            set
+            {
+                _generos = value;
+            }
+        }
+
+        public string DescripcionPersonal
+        {
+            get
+            {
+                return _descripcionPersonal;
+            }
+
+            set
+            {
+                _descripcionPersonal = value;
+            }
+        }
     }
 }

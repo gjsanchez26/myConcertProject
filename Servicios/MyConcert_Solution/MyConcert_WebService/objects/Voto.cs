@@ -15,11 +15,82 @@ namespace MyConcert_WebService.objects
         private Categoria _categoria;
         private Cartelera _cartelera;
 
-        public int Id { get => _id; set => _id = value; }
-        public int CantidadDolares { get => _cantidadDolares; set => _cantidadDolares = value; }
-        internal Fanatico Autor { get => _autor; set => _autor = value; }
-        internal Banda Banda { get => _banda; set => _banda = value; }
-        internal Categoria Categoria { get => _categoria; set => _categoria = value; }
-        internal Cartelera Cartelera { get => _cartelera; set => _cartelera = value; }
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+            }
+        }
+
+        internal Fanatico Autor
+        {
+            get
+            {
+                return _autor;
+            }
+
+            set
+            {
+                _autor = value;
+            }
+        }
+
+        public int CantidadDolares
+        {
+            get
+            {
+                return _cantidadDolares;
+            }
+
+            set
+            {
+                _cantidadDolares = value;
+            }
+        }
+
+        internal Banda Banda
+        {
+            get
+            {
+                return _banda;
+            }
+
+            set
+            {
+                _banda = value;
+            }
+        }
+
+        internal Categoria Categoria
+        {
+            get
+            {
+                return _categoria;
+            }
+
+            set
+            {
+                _categoria = value;
+            }
+        }
+
+        internal Cartelera Cartelera
+        {
+            get
+            {
+                return _cartelera;
+            }
+
+            set
+            {
+                _cartelera = value;
+            }
+        }
     }
 }

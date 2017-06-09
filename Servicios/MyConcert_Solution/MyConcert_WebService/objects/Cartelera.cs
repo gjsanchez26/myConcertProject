@@ -11,7 +11,30 @@ namespace MyConcert_WebService.objects
         private string _fechaInicioVotacion;
         private string _fechaFinalVotacion;
 
-        public string FechaInicioVotacion { get => _fechaInicioVotacion; set => _fechaInicioVotacion = value; }
-        public string FechaFinalVotacion { get => _fechaFinalVotacion; set => _fechaFinalVotacion = value; }
+        public string FechaInicioVotacion
+        {
+            get
+            {
+                return _fechaInicioVotacion;
+            }
+
+            set
+            {
+                _fechaInicioVotacion = value;
+            }
+        }
+
+        public string FechaFinalVotacion
+        {
+            get
+            {
+                return _fechaFinalVotacion;
+            }
+
+            set
+            {
+                _fechaFinalVotacion = value;
+            }
+        }
     }
 }

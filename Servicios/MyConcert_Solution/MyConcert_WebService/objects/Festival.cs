@@ -12,8 +12,43 @@ namespace MyConcert_WebService.objects
         private List<Banda> _bandasGanadoras;
         private Banda _recomendacionChef;
 
-        public string InformacionGeneral { get => _informacionGeneral; set => _informacionGeneral = value; }
-        internal List<Banda> BandasGanadoras { get => _bandasGanadoras; set => _bandasGanadoras = value; }
-        internal Banda RecomendacionChef { get => _recomendacionChef; set => _recomendacionChef = value; }
+        public string InformacionGeneral
+        {
+            get
+            {
+                return _informacionGeneral;
+            }
+
+            set
+            {
+                _informacionGeneral = value;
+            }
+        }
+
+        internal List<Banda> BandasGanadoras
+        {
+            get
+            {
+                return _bandasGanadoras;
+            }
+
+            set
+            {
+                _bandasGanadoras = value;
+            }
+        }
+
+        internal Banda RecomendacionChef
+        {
+            get
+            {
+                return _recomendacionChef;
+            }
+
+            set
+            {
+                _recomendacionChef = value;
+            }
+        }
     }
 }

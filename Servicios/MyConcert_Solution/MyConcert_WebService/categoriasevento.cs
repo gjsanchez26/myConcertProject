@@ -17,7 +17,7 @@ namespace MyConcert_WebService
         public int PK_categoriasEvento { get; set; }
         public int FK_CATEGORIASEVENTO_EVENTOS { get; set; }
         public int FK_CATEGORIASEVENTO_CATEGORIAS { get; set; }
-        public int FK_CATEGORIASEVENTOS_BANDAS { get; set; }
+        public int FK_CATEGORIASEVENTO_BANDAS { get; set; }
     
         public virtual bandas bandas { get; set; }
         public virtual categorias categorias { get; set; }
