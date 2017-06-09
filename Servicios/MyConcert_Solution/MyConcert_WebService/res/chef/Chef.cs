@@ -1,13 +1,23 @@
-﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res.chef;
+﻿using MyConcert_WebService.res.chef;
 using Newtonsoft.Json.Linq;
 using Sptfy;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+/**
+ * @namespace MyConcert_WebService.res.chef
+ * @brief Almacena las clases relacionadas al
+ * algoritmo del chef para la recomendacion de 
+ * una banda. 
+ */
 namespace MyConcert_WebService.res
 {
+    /**
+     * @class Chef 
+     * @brief Se encarga de encapsular todas las funcionalidades
+     * y dependencias del algoritmo de recomendación del Chef.
+     */
     class Chef
     {
         private SpotifyUtils _spotify;
@@ -20,12 +30,12 @@ namespace MyConcert_WebService.res
         {
             _spotify = new SpotifyUtils();
         }
-        
 
         /**
-         * Obtiene los ID de los artistas involucrados
-         * en el algoritmo de la recomendacion del chef
-         * */
+         * @brief Obtiene los ID de los artistas involucrados en el algoritmo de la recomendacion del chef.
+         * @param partists Lista de nombres de artistas.
+         * @return Una nueva lista con los identificadores de cada artista.
+         */
         public List<string> getIDArtists(List<string> partists)
         {
             List<string> tmp = new List<string>();
@@ -38,9 +48,11 @@ namespace MyConcert_WebService.res
         }
 
         /**
-         * Obtiene todos los ID de las tres canciones de cada
-         * artista involucrado en el algoritmo del chef
-         * */
+        * @brief Obtiene los ID de las canciones de los artistas involucrados en el algoritmo de la recomendacion del chef.
+        * @param pid_artists Lista de identificadores de los artistas.
+        * @param songs_bands Lista que contiene las canciones de cada artista involucrado.
+        * @return Una nueva lista con los identificadores de las canciones de cada artista.
+        */
         public List<List<string>> getIDTracks(List<string> pid_artists, List<List<canciones>> songs_bands)
         {
             List<List<string>> id_tracks = new List<List<string>>();                        
@@ -66,12 +78,11 @@ namespace MyConcert_WebService.res
             }
             return id_tracks;
         }
-
         /**
-         * Indice individual por cada cancion 
-         * segun sus caracteristicas musicales
-         * que la describen
-         * */
+        * @brief Indice individual por cada cancion segun sus caracteristicas musicales que la describen.
+        * @param pskills Objeto con las características de una cancion de una banda obtenidas por spotify.
+        * @return Un resultado promediado mediante los valores de las caracteristicas de la cancion.
+        */
         public float indexSong(dynamic pskills)
         {
             float resultado = ((pskills.danceability * 20) + ((pskills.tempo * 20) / 180) + (pskills.speechiness * 20) +
@@ -80,9 +91,10 @@ namespace MyConcert_WebService.res
         }
 
         /**
-         * Calcula el indice de cada cancion de un artista 
-         * y los suma posteriormente para promediar dicha suma
-         * */
+        * @brief Calcula el indice de cada cancion de un artista y los suma posteriormente para promediar dicha suma.
+        * @param pid_tracks Lista con los identificadores de las canciones de una banda.
+        * @return Un resultado promediado propio de la banda.
+        */
         public float calculateIndex(List<string> pid_tracks)
         {
             float res = 0;
@@ -113,8 +125,10 @@ namespace MyConcert_WebService.res
         }
 
         /**
-         * Valor absoluto
-         * */
+        * @brief Calcula el valor absoluto.
+        * @param px Numero al que se desea obtener el valor absoluto.
+        * @return El resultado del valor absoluto.
+        */
         public double fabs(double px)
         {
             if (px < 0)
@@ -125,9 +139,11 @@ namespace MyConcert_WebService.res
         }
 
         /**
-         * Compara los indices de las bandas excluidas del festival
-         * con el indice del festival a realizar
-         * */
+        * @brief Compara los indices de las bandas excluidas del festival con el indice del festival a realizar.
+        * @param pfest Indice promediado del festival.
+        * @param pother_indexes Lista de los indices promediados de las demás bandas.
+        * @return Indice donde está ubicada la banda ganadora en la lista de bandas a recomendar.
+        */
         public int compare(double pfest, List<double> pother_indexes)
         {
             List<double> error = new List<double>();
@@ -157,11 +173,15 @@ namespace MyConcert_WebService.res
         /***********************ALGORITMO CHEF***************************************/
 
         /**
-         *Algoritmo del chef para encontrar la banda recomendada 
-         * de los festivales por medio de las caracteristicas de 3 canciones 
-         * de cada banda que proporciona Spotify se realizan diversos
-         * calculos.
-         */
+        * @brief Algoritmo del chef para encontrar la banda recomendada de los festivales por medio 
+        * de las caracteristicas de 3 canciones de cada banda que proporciona Spotify se realizan diversos
+        * calculos.
+        * @param winners Lista de bandas ganadoras dentro de una cartelera.
+        * @param other_bands Lista de bandas que no están dentro del festival.
+        * @param winner_songs Lista de las canciones de las bandas ganadoras.
+        * @param other_songs Lista de las canciones de las demás bandas excluídas del festival.
+        * @return Banda recomendada por el algoritmo del chef.
+        */
         public string chefAlgorythm(List<string> winners, List<string> other_bands,
             List<List<canciones>> winner_songs, List<List<canciones>> other_songs)
         {
@@ -207,11 +227,12 @@ namespace MyConcert_WebService.res
         }
 
         /***********************ALGORITMO CHEF ALTERNATIVO****************************/
-
+        
         /**
-         * calcula el promedio de comentarios de una banda 
-         * segun la tabla especificada
-         * */
+        * @brief Calcula el promedio de comentarios de una banda segun la tabla especificada.
+        * @param pcomment Numero de comentarios de una banda.
+        * @return El promedio del numero de comentarios de la banda.
+        */
         public float getCommentsProm(float pcomment)
         {
             float tmp = 0;
@@ -228,9 +249,10 @@ namespace MyConcert_WebService.res
         }
 
         /**
-         * Calcula el promedio del rating de 
-         * cada banda 
-         * */
+        * @brief Calcula el promedio del rating de cada banda.
+        * @param pstar Numero de rating de una banda.
+        * @return El promedio del rating de la banda.
+        */
         public float getRatingProm(float pstar)
         {
             return (pstar * 10);
@@ -238,11 +260,17 @@ namespace MyConcert_WebService.res
 
 
         /**
-         * Algoritmo alternativo del chef que permite realizar una recomendacion
-         * de una banda extra para un festival cuando spotify no posee la suficiente
-         * informacion. Por medio de los comentarios y el rating de la banda se 
-         * realiza el calculo de los indices. 
-         * */
+        * @brief Algoritmo alternativo del chef que permite realizar una recomendacioncde una banda
+        * extra para un festival cuando spotify no posee la suficiente informacion. 
+        * Por medio de los comentarios y el rating de la banda se realiza el calculo de los indices. 
+        * @param winners Lista de bandas ganadoras dentro de una cartelera.
+        * @param other_bands Lista de bandas que no están dentro del festival.
+        * @param amount_comments_other Lista del numero de comentarios de las otras bandas.
+        * @param amount_stars_other Lista de los rates en los comentarios de las otras bandas.
+        * @param amount_comments_winners Lista del numero de comentarios de las bandas ganadoras.
+        * @param amount_stars_winners Lista de los rates en los comentarios de las bandas ganadoras.
+        * @return Banda recomendada por el algoritmo del chef alternativo.
+        */
         public string alternativeChefAlgorythm(List<string> winners, List<string> other_bands,
             List<float> amount_comments_other, List<float> amount_stars_other, List<float> amount_comments_winners,
             List<float> amount_stars_winners)

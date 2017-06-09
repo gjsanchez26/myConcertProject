@@ -139,6 +139,31 @@ namespace MyConcert_WebService.database
             return listaGeneros;
         }
 
+
+        public void añadirUsuario(usuarios us)
+        {
+
+            using (myconcertEntities context = new myconcertEntities())
+            {
+
+                try
+                {
+                    us = context.usuarios.Add(us);
+                    context.SaveChanges();
+                }
+
+                catch (Exception ex)
+                {
+
+                    Console.Write(ex.InnerException.ToString());
+
+                }
+                
+            }
+
+
+
+        }
         public void añadirGeneroUsuario(generosusuario genUs)
         {
             try
