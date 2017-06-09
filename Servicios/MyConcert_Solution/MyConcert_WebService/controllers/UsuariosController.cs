@@ -10,9 +10,7 @@ namespace MyConcert_WebService.controllers
 {
     public class UsuariosController : ApiController
     {
-        UsuariosModel _modelUsuario = new UsuariosModel();
-        FabricaRespuestas _creadorRespuestas = new FabricaRespuestas();
-        Respuesta respuesta;
+        private UsuariosModel _model = new UsuariosModel();
 
         //Obtener usuario especifico.
         public JObject Get(JObject pNombreUsuario)
@@ -26,17 +24,16 @@ namespace MyConcert_WebService.controllers
         //Crear usuario nuevo.
         public JObject Post(JObject pDatosUsuario)
         {
-            dynamic request = pDatosUsuario;
+            dynamic peticion = pDatosUsuario;
+            string tipoUsuario = peticion.role;
+            dynamic datosUsuario = peticion.user_data;
+            
+            Respuesta respuesta = _model.registrarUsuario(tipoUsuario, datosUsuario);
+            
+            JObject respuestaPost = JObject.FromObject(respuesta);
 
-            try
-            {
-                Usuario nuevoUsuario = request.user;
-                bool response = true;
-                return JObject.FromObject(response);
-            } catch(Exception e) {
-                string error = e.Message;
-                return JObject.FromObject(error);
-            }
+            return respuestaPost;
+
         }
 
         //Actualiza usuario especifico.

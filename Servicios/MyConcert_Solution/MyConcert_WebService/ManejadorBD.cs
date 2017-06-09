@@ -196,12 +196,10 @@ namespace MyConcert_WebService
             generosusuario obj = null;
             try
             {
-
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.generosusuario.FirstOrDefault(g => g.PK_generosUsuario == PK_generosUsuario);
                 }
-
             }
             catch (Exception ex)
             {
@@ -359,7 +357,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
+                throw (ex);
             }
         }
 
