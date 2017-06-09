@@ -509,5 +509,24 @@ namespace MyConcert_WebService
             }
             return calificacion;
         } 
+
+        public List<canciones> obtenerCanciones(bandas banda)
+        {
+            List<canciones> obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.canciones.Where(r => r.FK_CANCIONES_BANDAS == banda.PK_bandas).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
     }
 }

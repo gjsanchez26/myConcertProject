@@ -14,7 +14,7 @@ namespace Sptfy
      * Clase que maneja las búsquedas en Spotify,
      * así como el almacenamiento de información relevante
      **/
-    class SpotifyManager
+    class SpotifyUtils
     {
         private static SpotifyWebAPI _spotify { get; set; }
         private static ClientCredentialsAuth _auth;
@@ -24,7 +24,7 @@ namespace Sptfy
         /*****************************************************************************/
 
         //Constructor
-        public SpotifyManager()
+        public SpotifyUtils()
         {
             //Manejador de los eventos y peticiones con spotify
             _spotify = new SpotifyWebAPI();
@@ -142,7 +142,7 @@ namespace Sptfy
        * en especifico. Retorna una de las imagenes
        *  de un artista proporcionada por spotify
        **/
-        public string searchArtistImage(string partist, int pindex)
+        public List<Image> searchArtistImages(string partist)
         {
             FullArtist info_artist = null;
             SearchItem item = _spotify.SearchItems(partist, SearchType.Artist);
@@ -155,7 +155,7 @@ namespace Sptfy
                     info_artist = item.Artists.Items[i];
                 }
             }
-            return info_artist.Images[pindex].Url;
+            return info_artist.Images;
         }
 
 
@@ -166,10 +166,19 @@ namespace Sptfy
         * en especifico. Retorna un objeto con toda 
         * la información de esta.
         **/
-        public string searchTracks(string pidartist, int pindex)
+        public string searchTracks(string pidartist, string psong)
         {
-            SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
-            return tracks.Tracks[pindex].Id;
+            string tmp = null;
+            SeveralTracks tracklist = _spotify.GetArtistsTopTracks(pidartist, "CR");
+            for (int i = 0; i < tracklist.Tracks.Count; i++)
+            {
+                if (tracklist.Tracks[i].Name == psong)
+                {
+                    tmp = tracklist.Tracks[i].Id;
+                    break;
+                }
+            }
+            return tmp;
         }
 
         /**
@@ -184,20 +193,36 @@ namespace Sptfy
         /**
         * Solicita dato de una cancion en especifico. Retorna el URL
         **/
-        public string searchURLTrack(string pidartist, int pindex)
+        public string searchURLTrack(string pidartist, string pnametrack)
         {
             SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
-            return tracks.Tracks[pindex].PreviewUrl;
+            string url = null;
+            for (int i = 0; i < tracks.Tracks.Count; i++)
+            {
+                if (tracks.Tracks[i].Name == pnametrack)
+                {
+                    url = tracks.Tracks[i].PreviewUrl;
+                }
+            }
+            return url;
         }
 
         /**
         * Solicita dato de una cancion en especifico. Retorna el nombre
         * del album al que pertenece
         **/
-        public string searchAlbumTrack(string pidartist, int pindex)
+        public string searchAlbumTrack(string pidartist, string pnametrack)
         {
             SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
-            return tracks.Tracks[pindex].Album.Name;
+            string album = null;
+            for (int i = 0; i < tracks.Tracks.Count; i++)
+            {
+                if (tracks.Tracks[i].Name == pnametrack)
+                {
+                    album = tracks.Tracks[i].Album.Name;
+                }
+            }
+            return album;
         }
 
         /**
