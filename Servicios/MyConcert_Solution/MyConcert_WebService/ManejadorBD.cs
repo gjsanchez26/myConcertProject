@@ -346,21 +346,43 @@ namespace MyConcert_WebService
 
         //AÑADIR ALGUN OBJETO A BASE DE DATOS
 
-        public void añadirBanda (bandas banda)
+        public void añadirBanda (bandas banda, List<integrantes> integ, List<canciones> canciones, List<generosbanda> genBan)
         {
-            try
-            {
+            
 
                 using (myconcertEntities context = new myconcertEntities())
                 {
-                    context.bandas.Add(banda);
-                    context.SaveChanges();
-                }
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                    try
+                    {
+                        banda = context.bandas.Add(banda);
 
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.InnerException.ToString());
+                        foreach (integrantes i in integ)
+                        {
+                            i.FK_INTEGRANTES_BANDAS = banda.PK_bandas;
+                            context.integrantes.Add(i);
+                        }
+                        foreach (canciones c in canciones)
+                        {
+                            c.FK_CANCIONES_BANDAS = banda.PK_bandas;
+                            context.canciones.Add(c);
+                        }
+                        foreach (generosbanda gB in genBan)
+                        {
+                            gB.FK_GENEROSBANDA_BANDAS = banda.PK_bandas;
+                            context.generosbanda.Add(gB);
+                        }
+
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Write(ex.InnerException.ToString());
+                        dbContextTransaction.Rollback();
+                    }
+                }
             }
         }
 
@@ -381,22 +403,40 @@ namespace MyConcert_WebService
                 Console.Write(ex.InnerException.ToString());
             }
         }
-        public void añadirUsuario (usuarios us)
-        {
-            try
-            {
 
+        public void añadirUsuario (usuarios us, List<generosusuario> generosUs)
+        {
+            
                 using (myconcertEntities context = new myconcertEntities())
                 {
-                    context.usuarios.Add(us);
-                    context.SaveChanges();
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+
+                            us= context.usuarios.Add(us);
+
+                            foreach (generosusuario genUs in generosUs)
+                            {
+                                genUs.FK_GENEROSUSUARIO_USUARIOS = us.username;
+                                context.generosusuario.Add(genUs);
+                            }
+
+                            context.SaveChanges();
+                            dbContextTransaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                            Console.Write(ex.InnerException.ToString());
+
+                        }
+                    }
                 }
 
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.InnerException.ToString());
-            }
+            
+            
         }
 
         public void añadirGeneroUsuario(generosusuario genUs)
