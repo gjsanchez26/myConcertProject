@@ -12,6 +12,7 @@ namespace MyConcert_WebService.objects
         private string _estado;
         private DateTime _fechaInscripcion;
         private string _fotoPerfil;
+        private string _tipoUsuario;
 
         public string Nombre
         {
@@ -116,5 +117,7 @@ namespace MyConcert_WebService.objects
                 _fotoPerfil = value;
             }
         }
+
+        public string TipoUsuario { get => _tipoUsuario; set => _tipoUsuario = value; }
     }
 }
