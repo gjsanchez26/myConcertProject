@@ -1,6 +1,6 @@
 
 //ANGULAR MODULE TO MANAGE INDEX.HTML
-var url = 'http://192.168.100.8:12345';
+var url = 'http://192.168.100.12:12345';
 var indexApp = angular.module('index',[])
 .controller('indexCtrl', ['$scope', '$http', function ($scope, $http) {
     var input;

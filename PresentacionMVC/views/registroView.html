@@ -43,7 +43,7 @@
             </label>
             <input ng-model="Email" type="email"required autocomplete="off"/>
           </div>
-          
+     
           <div class="form-group">
             <label>
               Contraseña<span class="req">*</span>
@@ -56,12 +56,19 @@
             </label>
             <input ng-model="Confirmacion" type="password"required autocomplete="off"/>
           </div>
-          
+    <!--        
           <ul class="tab-group">
-        <li class="tab "><a href="#fanaticoForm">Fanático</a></li>
-        <li class="tab active"><a href="#signup">Colaborador</a></li>
-      </ul>
-                <div id="fanaticoForm">
+              <button onclick="formRegistro1()">Fanatico Text</button>
+              <button onclick="formRegistro2()">Colaborador</button>
+              
+            <li  class="tab active"><a ng click = "formRegistro()" >Fanático</a></li>
+            <li  class="tab "><a ng click = "formRegistro()" >Colaborador</a></li>
+          </ul>
+  --> 
+             <button class="button button-block" ng-click="formRegistro1()">Colaborador</button><span><button class="button button-block" ng-click="formRegistro2()">Fanatico</button></span>
+            <div class="tab-content" id = "forms" id="fanaticoForm">
+                <div >
+                    
                         <div class="form-group" style="margin: 20px 0px 0px 0px;">
                           <label for="F_FechaNacimiento">Fecha de Nacimiento</label>
                           <input id=F_FechaNacimiento type="date" ng-model="F_FechaNacimiento" placeholder="Fecha de Nacimiento">
@@ -105,12 +112,22 @@
                         </div>
                     
                 </div>
-                <div id="colaboradorFrorm"></div>
+                    
+            
                 
+              </div>
+              <div class="tab-content" id = "forms" id="fanaticoForm">
+                <div id="colaboradorForm">
+                     
+                    <button type="submit" class="button button-block" ng-click="crearUsuario()" >Crear Cuenta</button>
+                    
+            </div>
               
+              </div>
+
         
-              <button type="submit" class="button button-block" ng-click="crearUsuario()" >Crear Cuenta</button>
-          </form>
+              
+            </form>
 
         </div>
         

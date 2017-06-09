@@ -3,13 +3,25 @@ myConcert.service("registroModel", function( $http){
     console.log("Here2x");
      var mensaje = {};
      var radio_value;
-  
+     
     //FUNCTION TO CHECK IF USER EXIST IN DB
+      this.formFanatico = function () {
+          console.log(this.U_ID);
+          $("#fanaticoForm").fadeIn();
+          $("#colaboradorForm").fadeOut();
+          return this.U_ID;
+      }
+      this.formColaborador = function () {
+          console.log("asdf");
+          $("#fanaticoForm").fadeIn();
+          $("#colaboradorForm").fadeOut();
+        } 
+            
 
-       
      this.verificarUsuario = function(id,nombre)
             {   
                 console.log("1");
+                console.log($scope.U_ID);
                 localStorage.setItem("userName",id); 
                 localStorage.setItem("userID",nombre);
                 var Credenciales = {
@@ -20,7 +32,7 @@ myConcert.service("registroModel", function( $http){
             console.log(Credenciales);
             $http({
                     method: 'POST',
-                    url: "http://192.168.100.8:12345/API/login",
+                    url: "http://192.168.100.12:12345/API/login",
                     headers: {
                         'Content-Type' : 'application/x-www-form-urlencoded'
                     },
@@ -34,10 +46,10 @@ myConcert.service("registroModel", function( $http){
                         var _login = result.data; 
                         
                         if (result.data.success) {
-                             window.location.assign("/pages/vistaColaborador.html");
+                             return true;
                            
                         } else {
-                            
+                             return false;
                         }
                 
                     }, function(error) {
@@ -91,7 +103,7 @@ myConcert.service("registroModel", function( $http){
          else  {
           var Colaborador = {
             "C_NombreUsuario": this.nombreUsuario,
-            "C_Nombre":  document.getElementById("Nombre").value,   
+            "C_Nombre":  "",   
             "C_Apellido": this.Apellido,
             "C_Password": this.Contrasena,
             "C_Correo": this.Email,
@@ -137,35 +149,7 @@ myConcert.service("registroModel", function( $http){
     
 
 
-    $('.form').find('input, textarea').on('keyup blur focus', function (e) {
-
-      var $this = $(this),
-          label = $this.prev('label');
-
-          if (e.type === 'keyup') {
-                if ($this.val() === '') {
-              label.removeClass('active highlight');
-            } else {
-              label.addClass('active highlight');
-            }
-        } else if (e.type === 'blur') {
-            if( $this.val() === '' ) {
-                label.removeClass('active highlight'); 
-                } else {
-                label.removeClass('highlight');   
-                }   
-        } else if (e.type === 'focus') {
-
-          if( $this.val() === '' ) {
-                label.removeClass('highlight'); 
-                } 
-          else if( $this.val() !== '' ) {
-                label.addClass('highlight');
-                }
-        }
-
-    });
-
+  
     $('.tab a').on('click', function (e) {
 
       e.preventDefault();
@@ -180,5 +164,4 @@ myConcert.service("registroModel", function( $http){
       $(target).fadeIn(600);
 
     });
- 
 });
