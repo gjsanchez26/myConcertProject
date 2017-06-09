@@ -1,6 +1,7 @@
 ﻿using MyConcert_WebService.objects;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace MyConcert_WebService.database
@@ -140,8 +141,9 @@ namespace MyConcert_WebService.database
         }
 
 
-        public void añadirUsuario(usuarios us)
+        public void añadirUsuario(Usuario pUser)
         {
+            usuarios us = convertirUsuario(pUser);
 
             using (myconcertEntities context = new myconcertEntities())
             {
@@ -152,11 +154,19 @@ namespace MyConcert_WebService.database
                     context.SaveChanges();
                 }
 
-                catch (Exception ex)
+                catch (DbEntityValidationException e)
                 {
-
-                    Console.Write(ex.InnerException.ToString());
-
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw (e);
                 }
                 
             }

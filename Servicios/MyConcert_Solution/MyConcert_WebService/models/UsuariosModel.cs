@@ -1,4 +1,5 @@
-﻿using MyConcert_WebService.objects;
+﻿using MyConcert_WebService.database;
+using MyConcert_WebService.objects;
 using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
@@ -13,13 +14,13 @@ namespace MyConcert_WebService.models
 {
     public class UsuariosModel
     {
-        private ManejadorBD _manejador;
+        private UsuariosDB _usuariosDB;
         private FabricaRespuestas creador = new FabricaRespuestas();
         private Respuesta respuesta;
 
         public UsuariosModel()
         {
-            _manejador = new ManejadorBD();
+            _usuariosDB = new UsuariosDB();
         }
 
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
@@ -27,7 +28,7 @@ namespace MyConcert_WebService.models
             usuarios usuarioActual;
             try
             {
-                usuarioActual = _manejador.obtenerUsuario(pUsername);
+                usuarioActual = _usuariosDB.obtenerUsuario(pUsername);
             } catch(Exception e)
             {
                 return respuesta = creador.crearRespuesta(false, "Error en conexión con el servidor. Intente de nuevo.");
@@ -59,7 +60,12 @@ namespace MyConcert_WebService.models
             try
             {
                 Usuario nuevoUsuario = serial.leerDatosUsuario(pRol, pDatosUsuario);
-                _manejador.añadirUsuario(nuevoUsuario, pListaGeneroFavoritos); //Se almacena el nuevo usuario
+
+                if (pRol == "fanatico")
+                    _usuariosDB.añadirUsuario(nuevoUsuario, pListaGeneroFavoritos); //Se almacena el nuevo usuario
+                else
+                    _usuariosDB.añadirUsuario(nuevoUsuario); //Se almacena el nuevo usuario
+
                 respuesta = creador.crearRespuesta(true, "Usuario creado exitosamente.");
             }
             catch (Exception e)

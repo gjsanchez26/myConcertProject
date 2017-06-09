@@ -20,6 +20,7 @@ namespace MyConcert_WebService.objects
             this.Estado = estado;
             this.FechaInscripcion = fechaInscripcion;
             this.TipoUsuario = tipoUsuario;
+            this.Email = email;
         }
     }
 }
