@@ -1,21 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
+/**
+ * @namespace MyConcert_WebService.res.chef
+ * @brief Almacena las clases relacionadas al
+ * algoritmo del chef para la recomendacion de 
+ * una banda. 
+ */
 namespace MyConcert_WebService.res.chef
 {
+    /**
+     * @class CommentsTable
+     * @brief Objeto que contiene la tabla de porcentaje
+     * del numero de comentarios que tiene una banda.
+     */
     class CommentsTable
     {
         List<int> _commentsTable;
-
+        
+        //Constructor
         public CommentsTable()
         {
             _commentsTable = new List<int>();
             fillTable();
         }
 
+        /**
+         * @brief Llena la tabla de porcentajes con valores
+         * por defecto.
+         */
         private void fillTable()
         {
             _commentsTable.Add(0);
@@ -47,6 +59,11 @@ namespace MyConcert_WebService.res.chef
             _commentsTable.Add(50);
         }
 
+        /**
+         * @brief Obtiene el porcentaje específico en una tabla
+         * @param pindex Indice para acceder al dato de la tabla 
+         * @return El indice requerido o bien, un 0 si no está en el rango de la tabla
+         */
         public int getCommentPercentage(int pindex)
         {
             return (pindex<25) ? _commentsTable[pindex] : 0;            
