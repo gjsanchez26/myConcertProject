@@ -8,37 +8,42 @@ namespace MyConcert_WebService.objects
 {
     class Festival : Evento
     {
-        private string _informacionGeneral;
-        private List<Banda> _bandasGanadoras;
-        private Banda _recomendacionChef;
+        private string comida;
+        private string transporte;
+        private string servicios;
+        private string _recomendacionChef;
 
-        public string InformacionGeneral
+        
+        public Festival(string nombre,
+                        string ubicacion,
+                        string pais,
+                        DateTime fechaInicioFestival,
+                        DateTime fechaFinalFestival,
+                        string tipoEvento,
+                        string estado,
+                        string comida,
+                        string transporte,
+                        string servicios,
+                        string recomendacionChef)
         {
-            get
-            {
-                return _informacionGeneral;
-            }
-
-            set
-            {
-                _informacionGeneral = value;
-            }
+            this.Nombre = nombre;
+            this.Ubicacion = ubicacion;
+            this.Pais = pais;
+            this.FechaInicioFestival = fechaInicioFestival;
+            this.FechaFinalFestival = fechaFinalFestival;
+            this.TipoEvento = tipoEvento;
+            this.Estado = estado;
+            this.Comida = comida;
+            this.Transporte = transporte;
+            this.Servicios = servicios;
+            this.RecomendacionChef = recomendacionChef;
         }
 
-        internal List<Banda> BandasGanadoras
-        {
-            get
-            {
-                return _bandasGanadoras;
-            }
+        public string Comida { get => comida; set => comida = value; }
+        public string Transporte { get => transporte; set => transporte = value; }
+        public string Servicios { get => servicios; set => servicios = value; }
 
-            set
-            {
-                _bandasGanadoras = value;
-            }
-        }
-
-        internal Banda RecomendacionChef
+        internal string RecomendacionChef
         {
             get
             {
