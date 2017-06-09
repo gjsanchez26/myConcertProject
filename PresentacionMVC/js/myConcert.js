@@ -1,5 +1,6 @@
+
 var configMyConcert = function($routeProvider){
- 
+
     $routeProvider
         .when("/home", {
             controller: "myConcertController",

@@ -1,8 +1,8 @@
-myConcert.controller("registroController", function($scope, $http, $routeParams, $location, registroModel){
+myConcert.controller("registroController", function($scope, $http, registroModel){
     console.log("Here");
-	$scope.notas = registroModel.crearUsuario();
-    $scope.formRegistro1 = registroModel.formFanatico();
-    $scope.formRegistro2 = registroModel.formColaborador();
+    
+    $scope.usuario;
+   
           
           
         
@@ -12,10 +12,16 @@ myConcert.controller("registroController", function($scope, $http, $routeParams,
         }
 
     $scope.ingresarUsuario= function(){
-        
-        console.log("boton");
-        $scope.notas = registroModel.verificarUsuario($scope.U_ID,$scope.U_Password);
-        console.log($scope.notas);
+         
+        console.log("login");
+        console.log($scope.usuario);
+        $scope.notas = registroModel.verificarUsuario($scope.usuario);
+
+    };
+     $scope.crearCuenta= function(){
+        console.log("creacionCuenta");
+        $scope.notas = registroModel.crearUsuario($scope.usuario);
+
     };
     
 });

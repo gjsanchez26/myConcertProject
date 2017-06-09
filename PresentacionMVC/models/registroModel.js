@@ -1,32 +1,17 @@
 
-myConcert.service("registroModel", function( $http){
+myConcert.service("registroModel", function($routeParams, $location, $http){
     console.log("Here2x");
-     var mensaje = {};
-     var radio_value;
-     
-    //FUNCTION TO CHECK IF USER EXIST IN DB
-      this.formFanatico = function () {
-          console.log(this.U_ID);
-          $("#fanaticoForm").fadeIn();
-          $("#colaboradorForm").fadeOut();
-          return this.U_ID;
-      }
-      this.formColaborador = function () {
-          console.log("asdf");
-          $("#fanaticoForm").fadeIn();
-          $("#colaboradorForm").fadeOut();
-        } 
-            
 
-     this.verificarUsuario = function(id,nombre)
+
+     this.verificarUsuario = function(usuario)
             {   
                 console.log("1");
-                console.log($scope.U_ID);
-                localStorage.setItem("userName",id); 
-                localStorage.setItem("userID",nombre);
+
+                localStorage.setItem("userName",""); 
+                localStorage.setItem("userID","");
                 var Credenciales = {
-                    "username":id,
-                    "password":nombre
+                    "username":usuario.login,
+                    "password":usuario.password
             }   ;
             
             console.log(Credenciales);
@@ -59,93 +44,74 @@ myConcert.service("registroModel", function( $http){
 
 
      
-     $(document).on('change', ':file', function() {
-            input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-     });
-    
+
 
     
   
-    this.crearUsuario = function () {
-        if (radio_value == '1') {
-            var Fanatico = {
-            
-            "F_NombreUsuario": this.nombreUsuario,
-            "F_Nombre": this.Nombre,
-            "F_Apellido": this.Apellido,
-            "F_Password": this.Contrasena,
-            "F_Correo": this.Email,
-            "F_Foto" : "",
-            "F_FechaNacimiento": this.F_Nacimiento,    
-            "F_Telefono": this.F_Telefono,
-            "F_Ubicacion":this.F_Ubicacion,
-            "P_ID":this.F_Pais,
-            "U_ID":this.F_Universidad,
-            "F_Generos":$('#sel2').val(),
-            "F_Descripcion": document.getElementById("F_Descripcion").value,
-            "F_Terminos":$('#tipoUsuario').val()
-            
+    this.crearUsuario = function (usuario) {
+        var Fanatico;
+        if($('input[name="tipoUsuario"]:checked').length > 0){
+            Fanatico = {
+            "F_NombreUsuario":   usuario.nombreUsuario,
+            "F_Nombre":          usuario.Nombre,
+            "F_Apellido":        usuario.Apellido,
+            "F_Password":        usuario.Contrasena,
+            "F_Correo":          usuario.Email,
+            "F_Foto" :           "",
+            "F_FechaNacimiento": usuario.fechaNacimiento,    
+            "F_Telefono":        usuario.telefono,
+            "F_Ubicacion":       usuario.ubicacion,
+            "P_ID":              usuario.pais,
+            "U_ID":              usuario.universidad,
+            "F_Generos":         $('#sel2').val(),
+            "F_Descripcion":     usuario.descripcion,
+            "F_Terminos":        $('input[name="aceptoTerminos"]:checked').length > 0
         };
-            console.log(Fanatico);
-            $http.post(url + '/api/employees/post',Colaborador).
-        success(function (data, status, headers, config) {
-            alert('the new employee has been posted!');
-        }).
-        error(function (data, status, headers, config) {
-            alert('Error while posting the new employee')
-        });
+        console.log(Fanatico);
         }
-          
-          
-         else  {
-          var Colaborador = {
-            "C_NombreUsuario": this.nombreUsuario,
-            "C_Nombre":  "",   
-            "C_Apellido": this.Apellido,
-            "C_Password": this.Contrasena,
-            "C_Correo": this.Email,
-            "C_Foto" : "",
-            
+        else {
+            Fanatico = {
+            "C_NombreUsuario":  usuario.nombreUsuario,
+            "C_Nombre":         usuario.Nombre,    
+            "C_Apellido":       usuario.Apellido,
+            "C_Password":       usuario.Contrasena,
+            "C_Correo":         usuario.Email,
+            "C_Foto" :          "", 
         }
-        console.log(Colaborador);
-
-      
-    }}
-    $(document).ready(function() {
+        console.log(Fanatico);
+        }
+        $http({
+                    method: 'POST',
+                    url: "http://192.168.100.12:12345/API/login",
+                    headers: {
+                        'Content-Type' : 'application/x-www-form-urlencoded'
+                    },
+                    data: Fanatico
+                    }).then(function(result){
+                        console.log(Credenciales);
+                        console.log(result);
+                        console.log(result.data);
+                        console.log(result.data.contenido); 
+                        console.log(result.data.exito);
+                        var _login = result.data; 
+                        
+                        if (result.data.success) {
+                             return true;
+                           
+                        } else {
+                             return false;
+                        }
+                
+                    }, function(error) {
+                        console.log(error);
+                    });
+        
+        
+    }
+        
         
        
-        $(':file').on('fileselect', function(event, numFiles, label) {
-            console.log(numFiles);
-            console.log(label);
-        });
 
-      $("input[name$='bn']").click(function() {
-        radio_value = $(this).val();
-        if (radio_value == '0') {
-          $("#dlcert").fadeIn("slow");
-          $("#contact").fadeOut("slow");
-          
-        } else if (radio_value == '1') {
-          $("#contact").fadeIn("slow");
-          $("#dlcert").fadeOut("slow");
-        }
-          else {
-          $("#dlcert").fadeIn("slow");
-          $("#contact").fadeOut("slow"); 
-              
-          }
-      });
-    });
-
-    $('input[name="bn"]').change(function() {
-       if($(this).is(':checked') && $(this).val() == '0') {
-            $('#myModal').modal('show');
-       }
-    });
-    
     
 
 
