@@ -40,7 +40,7 @@ namespace MyConcert_WebService
         public virtual DbSet<tiposeventos> tiposeventos { get; set; }
         public virtual DbSet<tiposusuarios> tiposusuarios { get; set; }
         public virtual DbSet<universidades> universidades { get; set; }
-        public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<votos> votos { get; set; }
+        public virtual DbSet<usuarios> usuarios { get; set; }
     }
 }

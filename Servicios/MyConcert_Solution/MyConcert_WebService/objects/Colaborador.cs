@@ -1,26 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
     class Colaborador : Usuario
     {
-        private int _id;
-
-        public int Id
+        public Colaborador(string nombre,
+                        string apellido,
+                        string nombreUsuario,
+                        string contrasena,
+                        string email,
+                        string estado,
+                        DateTime fechaInscripcion,
+                        string fotoPerfil)
         {
-            get
-            {
-                return _id;
-            }
-
-            set
-            {
-                _id = value;
-            }
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.NombreUsuario = nombreUsuario;
+            this.Contrasena = contrasena;
+            this.Estado = estado;
+            this.FechaInscripcion = fechaInscripcion;
+            this.FotoPerfil = fotoPerfil;
         }
     }
 }

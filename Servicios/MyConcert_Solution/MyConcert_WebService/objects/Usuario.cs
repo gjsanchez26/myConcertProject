@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
-    class Usuario
+    public class Usuario
     {
         private string _nombre;
         private string _apellido;
         private string _nombreUsuario;
-        private string _contraseña;
+        private string _contrasena;
         private string _email;
-        private bool _estado;
+        private string _estado;
         private DateTime _fechaInscripcion;
         private string _fotoPerfil;
+        private string _tipoUsuario;
 
         public string Nombre
         {
@@ -56,16 +53,16 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string Contraseña
+        public string Contrasena
         {
             get
             {
-                return _contraseña;
+                return _contrasena;
             }
 
             set
             {
-                _contraseña = value;
+                _contrasena = value;
             }
         }
 
@@ -82,7 +79,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public bool Estado
+        public string Estado
         {
             get
             {
@@ -120,5 +117,7 @@ namespace MyConcert_WebService.objects
                 _fotoPerfil = value;
             }
         }
+
+        public string TipoUsuario { get => _tipoUsuario; set => _tipoUsuario = value; }
     }
 }
