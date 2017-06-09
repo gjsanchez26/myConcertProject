@@ -133,6 +133,12 @@
     <Compile Include="comentarios.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="database\BandasDB.cs" />
+    <Compile Include="database\CategoriaDB.cs" />
+    <Compile Include="database\EventosDB.cs" />
+    <Compile Include="database\UsuariosDB.cs" />
+    <Compile Include="database\UtilidadesDB.cs" />
+    <Compile Include="database\VotosDB.cs" />
     <Compile Include="estados.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -151,7 +157,7 @@
     <Compile Include="integrantes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="ManejadorBD.cs" />
+    <Compile Include="database\ManejadorBD.cs" />
     <Compile Include="controllers\BandasController.cs" />
     <Compile Include="controllers\CategoriasController.cs" />
     <Compile Include="controllers\EventosController.cs" />
