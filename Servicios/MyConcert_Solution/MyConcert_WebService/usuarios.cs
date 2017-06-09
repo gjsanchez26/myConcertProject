@@ -30,7 +30,7 @@ namespace MyConcert_WebService
         public System.DateTime fechaInscripcion { get; set; }
         public string foto { get; set; }
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
-        public Nullable<int> telefono { get; set; }
+        public string telefono { get; set; }
         public string ubicacion { get; set; }
         public string descripcion { get; set; }
         public int FK_USUARIOS_ESTADOS { get; set; }
