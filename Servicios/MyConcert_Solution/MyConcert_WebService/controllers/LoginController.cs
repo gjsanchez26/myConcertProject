@@ -9,7 +9,7 @@ namespace MyConcert_WebService.controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-        UsuariosModel _model = new UsuariosModel();
+        private UsuariosModel _model = new UsuariosModel();
 
         public JObject Post(JObject pPeticion)
         {
@@ -17,9 +17,10 @@ namespace MyConcert_WebService.controllers
             string pNombreUsuario = peticion.username;
             string pPassword = peticion.password;
 
-            Respuesta respuestaPost = _model.comprobarInicioSesion(pNombreUsuario, pPassword);
-            
-            return JObject.FromObject(respuestaPost);
+            Respuesta respuesta = _model.comprobarInicioSesion(pNombreUsuario, pPassword);
+            JObject respuestaPost = JObject.FromObject(respuesta);
+
+            return respuestaPost;
         }
     }
 }
