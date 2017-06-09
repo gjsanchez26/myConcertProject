@@ -141,7 +141,10 @@ namespace MyConcert_WebService
             return banDB.obtenerCanciones(banda);
         }
         //USUARIOSDB
-
+        public tiposusuarios obtenerTipoUsuario(string tipoUsuario)
+        {
+            return usuDB.obtenerTipoUsuario(tipoUsuario);
+        }
         public tiposusuarios obtenerTipoUsuario(int PK_tipoUsuario)
         {
             return usuDB.obtenerTipoUsuario(PK_tipoUsuario);
@@ -170,6 +173,15 @@ namespace MyConcert_WebService
         }
         //UTILIDADESDB
 
+        public universidades obtenerUniversidad(string universidad)
+        {
+            return utiDB.obtenerUniversidad(universidad);
+        }
+
+        public paises obtenerPais(string pais)
+        {
+            return utiDB.obtenerPais(pais);
+        }
         public List<generos> obtenerGeneros()
         {
             return utiDB.obtenerGeneros();
@@ -195,6 +207,10 @@ namespace MyConcert_WebService
             return utiDB.obtenerPais(PK_pais);
         }
 
+        public estados obtenerEstado(string estado)
+        {
+            return utiDB.obtenerEstado(estado);
+        }
         public estados obtenerEstado(int PK_estado)
         {
             return utiDB.obtenerEstado(PK_estado);

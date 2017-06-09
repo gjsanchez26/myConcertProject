@@ -27,6 +27,24 @@ namespace MyConcert_WebService.database
             return obj;
         }
 
+        public tiposusuarios obtenerTipoUsuario(string tipoUsuario)
+        {
+            tiposusuarios obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.tiposusuarios.FirstOrDefault(g => g.tipo == tipoUsuario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
         public usuarios obtenerUsuario(string username)
         {
             usuarios us = null;

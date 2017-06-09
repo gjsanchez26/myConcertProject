@@ -74,6 +74,25 @@ namespace MyConcert_WebService.database
 
 
         //OBTENER 1 OBJETO
+
+        public universidades obtenerUniversidad(string universidad)
+        {
+            universidades obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.universidades.FirstOrDefault(g => g.nombreUni == universidad);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
         public universidades obtenerUniversidad(int PK_universidad)
         {
             universidades obj = null;
@@ -93,6 +112,25 @@ namespace MyConcert_WebService.database
             return obj;
         }
 
+
+        public paises obtenerPais(string pais)
+        {
+            paises obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.paises.FirstOrDefault(g => g.pais == pais);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
         public paises obtenerPais(int PK_pais)
         {
             paises obj = null;
@@ -131,6 +169,24 @@ namespace MyConcert_WebService.database
             return obj;
         }
 
+        public estados obtenerEstado(string estado)
+        {
+            estados obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.estados.FirstOrDefault(r => r.estado == estado);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
         public generos obtenerGenero(int PK_genero)
         {
             generos ge = null;
