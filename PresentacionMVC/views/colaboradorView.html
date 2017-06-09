@@ -1,0 +1,49 @@
+<div ng-controller="colaboradorController">
+        <div style="margin: 0px 0px 0px 0px;">
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" id="idUser" href="#"></a>
+             
+            </div>
+            <a class="navbar-brand" id="idUser" href="/pages/vistaColaborador.html"></a>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                  
+                   
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Crear<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li id="crearCategoria" role="button" data-toggle="modal" data-target="#categoriaModal"><a href="#">Categoria</a></li>
+                          <li id="crearBanda" role="button" data-toggle="modal" data-target="#bandaModal"><a href="#">Banda</a></li>
+                          <li id="crearCartelera" role="button" data-toggle="modal" data-target="#carteleraModal"><a href="#">Cartelera</a></li>
+                          
+                      </ul>
+                    </li>
+                  
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li id="editEmployee" role="button" data-toggle="modal" data-target="#editEmployeesModal"><a href="#">Banda</a></li>
+                          
+                      </ul>
+                    </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                    <li id="myBtn"><a href="/index.html"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></li>
+              </ul>
+               <ul class="nav navbar-nav navbar-right">
+                     <li id="verPerfil" role="button" data-toggle="modal" data-target="#verPerfilModal"><a href="#">Ver Perfil</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    </div>
+
+</div>

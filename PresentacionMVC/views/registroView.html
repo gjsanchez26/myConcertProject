@@ -7,7 +7,7 @@
                     <li class="tab"><a href="#login">Ingresar</a></li>
                   </ul>
 
-                  <div class="tab-content">
+                                    <div class="tab-content">
                         <div id="signup">   
                           <h1 style="color:#ffffff">Armá tu Propio Festival</h1>
                           <form>
@@ -44,12 +44,8 @@
                                 <input ng-model="usuario.Confirmacion" type="password"required autocomplete="off"/>
                               </div>
                               
-                              
-
-                            
-                                <div ng-show = "usuario.tipo">
+                              <div ng-show = "usuario.tipo">
                                     <div >
-
                                             <div class="form-group" style="margin: 20px 0px 0px 0px;">
                                               <label for="F_FechaNacimiento">Fecha de Nacimiento</label>
                                               <input id=F_FechaNacimiento type="date" ng-model="usuario.fechaNacimiento" placeholder="Fecha de Nacimiento">
@@ -91,16 +87,11 @@
                                             <div class="checkbox">
                                               <label><input type="checkbox" value="" id="usuario.terminos" name="aceptoTerminos">Acepto los términos y Condiciones</label>
                                             </div>
-
                                     </div>
-
-
-
                                   </div>
                                   <button type="submit" class="button button-block" ng-click="crearCuenta()" >Crear Cuenta</button>
-
-
-                          </div>
+                            </form>
+                    </div>
                     <div id="login" >   
                       <h1 style="color:#ffffff">Vota por tus Bandas</h1>
 
@@ -110,18 +101,18 @@
                         <label>
                          Nombre Usuario<span class="req">*</span>
                         </label>
-                        <input ng-model="usuario.login" type="text" required autocomplete="off"/>
+                        <input ng-model="usuarioLogin.login" type="text" required autocomplete="off"/>
                       </div>
 
                       <div class="field-wrap">
                         <label>
                           Contraseña<span class="req">*</span>
                         </label>
-                        <input ng-model="usuario.password" type="password"required autocomplete="off"/>
+                        <input ng-model="usuarioLogin.password" type="password"required autocomplete="off"/>
                       </div>
 
 
-                      <button class="button button-block" ng-click="ingresarUsuario()">Ingresar</button>
+                      <button class="button button-block" ng-click="ingresarUsuario()" href="#vistaColaborador">Ingresar</button>
 
                       </form>
 
@@ -129,7 +120,7 @@
 
                   </div><!-- tab-content -->
 
-            </div> 
+            </div>
 
 
 

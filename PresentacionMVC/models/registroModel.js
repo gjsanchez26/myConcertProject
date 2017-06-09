@@ -3,15 +3,14 @@ myConcert.service("registroModel", function($routeParams, $location, $http){
     console.log("Here2x");
 
 
-     this.verificarUsuario = function(usuario)
+     this.verificarUsuario = function(usuarioLogin)
             {   
                 console.log("1");
 
-                localStorage.setItem("userName",""); 
-                localStorage.setItem("userID","");
+                localStorage.setItem("userName",usuarioLogin.login); 
                 var Credenciales = {
-                    "username":usuario.login,
-                    "password":usuario.password
+                    "username":usuarioLogin.login,
+                    "password":usuarioLogin.password
             }   ;
             
             console.log(Credenciales);

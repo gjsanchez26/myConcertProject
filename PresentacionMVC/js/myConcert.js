@@ -9,7 +9,12 @@ var configMyConcert = function($routeProvider){
         .when("/registroForm", {
             controller: "registroController",
             templateUrl: "views/registroView.html"
-        });
+        })
+        .when("/vistaColaborador", {
+            controller: "colaboradorController",
+            templateUrl: "views/colaboradorView.html"
+        })
+    ;
  
 }
  
