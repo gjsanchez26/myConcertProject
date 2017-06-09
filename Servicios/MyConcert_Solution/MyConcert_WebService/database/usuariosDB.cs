@@ -122,5 +122,34 @@ namespace MyConcert_WebService.database
             return obj;
         }
 
+        public List<generos> obtenerGenerosUsuario(usuarios us)
+        {
+            List<generos> obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    var gen = context.generos.Join(context.generosusuario,
+                                               g=>g.PK_generos,
+                                               gu=> gu.FK_GENEROSUSUARIO_GENEROS,
+                                               (g,gu)=> new {g,gu})
+                                         .Where(r=> r.gu.FK_GENEROSUSUARIO_USUARIOS==us.username)
+                                         .Select(z=> new { PK_generos = z.g.PK_generos,
+                                                           genero=z.g.genero}).ToList();
+
+                    foreach(var i in gen)
+                    {
+                        obj.Add(context.generos.FirstOrDefault(g=>g.PK_generos==i.PK_generos));
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
     }
 }

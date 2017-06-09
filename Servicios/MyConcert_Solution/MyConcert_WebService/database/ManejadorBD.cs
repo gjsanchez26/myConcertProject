@@ -14,9 +14,19 @@ namespace MyConcert_WebService
         private BandasDB banDB;
         private CategoriaDB catDB;
         private EventosDB eveDB;
-        private UsuariosDB usuDB;
+        private UsuariosDB usuDB ;
         private UtilidadesDB utiDB;
         private VotosDB votDB;
+
+        public ManejadorBD()
+        {
+             banDB = new BandasDB();
+             catDB = new CategoriaDB();
+             eveDB = new EventosDB();
+             usuDB = new UsuariosDB();
+             utiDB = new UtilidadesDB();
+             votDB = new VotosDB();
+    }
         public bool conexionBaseDatos()
         {
             using (myconcertEntities dbContext = new myconcertEntities())
@@ -152,6 +162,11 @@ namespace MyConcert_WebService
         public generosusuario obtenerGenerosUsuario(int PK_generosUsuario)
         {
             return usuDB.obtenerGenerosUsuario(PK_generosUsuario);
+        }
+
+        public List<generos> obtenerGenerosUsuario(usuarios us)
+        {
+            return usuDB.obtenerGenerosUsuario(us);
         }
         //UTILIDADESDB
 
