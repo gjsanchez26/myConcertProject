@@ -17,31 +17,9 @@ namespace MyConcert_WebService.controllers
             string pNombreUsuario = peticion.username;
             string pPassword = peticion.password;
 
-            FabricaRespuestas creador = new FabricaRespuestas();
-            Respuesta respuesta;
-
-            //Mapea el nombre de usuario ingresado a un usuario del sistema.
-            //pNombreUsuario
-            usuarios usuarioActual = _model.getUsuarioPorNombreDeUsuario(pNombreUsuario);
-            // --- Mapeo.
+            Respuesta respuestaPost = _model.comprobarInicioSesion(pNombreUsuario, pPassword);
             
-            if (usuarioActual == null)                                  //Si no existe el nombre de usuario introducido.
-            {
-                respuesta = creador.crearRespuesta(false, "Usuario no existente.");
-            }
-            else
-            {
-                if (usuarioActual.contraseña != pPassword)              //Si la contrasena es incorrecta.
-                {
-                    respuesta = creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
-                }
-                else                                                  //Si el usuario y contrasena son validos.
-                {
-                    respuesta = creador.crearRespuesta(false, JObject.FromObject(usuarioActual));
-                }
-            }
-
-            return JObject.FromObject(respuesta);
+            return JObject.FromObject(respuestaPost);
         }
     }
 }

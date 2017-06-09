@@ -34,7 +34,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -53,7 +53,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -72,7 +72,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -91,7 +91,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -110,7 +110,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -129,7 +129,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -148,7 +148,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -167,7 +167,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return ge;
         }
@@ -186,7 +186,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -205,7 +205,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -224,7 +224,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -243,7 +243,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -262,7 +262,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -281,7 +281,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -300,7 +300,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -319,7 +319,7 @@ namespace MyConcert_WebService
             }
             catch(Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return us;
         }
@@ -338,7 +338,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return obj;
         }
@@ -359,7 +359,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
         }
 
@@ -377,7 +377,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
         }
 
@@ -398,7 +398,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return gen;
         }
@@ -419,7 +419,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return lista;
         }
@@ -440,7 +440,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return lista;
         }
@@ -467,7 +467,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return bandasCarte;
         }
@@ -486,7 +486,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return cantidadComen;
         }
@@ -505,7 +505,7 @@ namespace MyConcert_WebService
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                Console.Write(ex.Message);
             }
             return calificacion;
         } 
