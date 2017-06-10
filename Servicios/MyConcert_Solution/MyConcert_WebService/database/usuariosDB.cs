@@ -45,9 +45,11 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-        public usuarios obtenerUsuario(string username)
+
+        public Usuario obtenerUsuario(string username)
         {
             usuarios us = null;
+            Usuario user = null;
             try
             {
 
@@ -59,14 +61,15 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
-            return us;
+            user = convertirusuariosAUsuario(us);
+            return user;
         }
 
         public void añadirUsuario(Usuario pUsuarioNuevo, int[] pGenerosFavoritos)
         {
-            usuarios us = convertirUsuario(pUsuarioNuevo);
+            usuarios us = convertirUsuarioAusuarios(pUsuarioNuevo);
 
             List<generos> gen = covertirGenerosFavoritos(pGenerosFavoritos);
 
@@ -99,7 +102,7 @@ namespace MyConcert_WebService.database
             }
         }
 
-        private usuarios convertirUsuario(Usuario pUser)
+        private usuarios convertirUsuarioAusuarios(Usuario pUser)
         {
             usuarios usuario = new usuarios();
             usuario.nombre = pUser.Nombre;
@@ -128,6 +131,51 @@ namespace MyConcert_WebService.database
             return usuario;
         }
 
+        private Usuario convertirusuariosAUsuario(usuarios pUser)
+        {
+            Usuario user = null;
+
+            if (obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(1).tipo)
+            {
+                string country = _utilidades.obtenerPais(pUser.FK_USUARIOS_ESTADOS).pais;
+                string state = _utilidades.obtenerEstado((int) pUser.FK_USUARIOS_PAISES).estado;
+                string university = _utilidades.obtenerUniversidad((int)pUser.FK_USUARIOS_UNIVERSIDADES).nombreUni;
+                string user_type = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
+                user = 
+                    new Fanatico(pUser.nombre,
+                                pUser.apellido,
+                                pUser.username,
+                                pUser.contraseña,
+                                pUser.correo,
+                                state,
+                                pUser.fechaInscripcion,
+                                pUser.foto,
+                                pUser.fechaNacimiento.Value,
+                                pUser.telefono,
+                                country,
+                                pUser.descripcion,
+                                university,
+                                user_type,
+                                pUser.ubicacion);
+
+            } else if(obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(2).tipo)
+            {
+                string stateColaborador = _utilidades.obtenerEstado(pUser.FK_USUARIOS_ESTADOS).estado;
+                string user_typeColaborador = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
+                user = 
+                    new Colaborador(pUser.nombre,
+                                    pUser.apellido,
+                                    pUser.username,
+                                    pUser.contraseña,
+                                    pUser.correo,
+                                    stateColaborador,
+                                    pUser.fechaInscripcion,
+                                    user_typeColaborador);
+            }
+
+            return user;
+        }
+
         private List<generos> covertirGenerosFavoritos(int[] pGeneros)
         {
             List<generos> listaGeneros = new List<generos>();
@@ -143,7 +191,7 @@ namespace MyConcert_WebService.database
 
         public void añadirUsuario(Usuario pUser)
         {
-            usuarios us = convertirUsuario(pUser);
+            usuarios us = convertirUsuarioAusuarios(pUser);
 
             using (myconcertEntities context = new myconcertEntities())
             {

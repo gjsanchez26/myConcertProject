@@ -29,37 +29,37 @@ namespace MyConcert_WebService.database
         }
 
 
-        public Evento convertirCartelera(eventos pEvento)
-        {
-            Evento evento;
-            if (pEvento.FK_EVENTOS_TIPOSEVENTOS == 1)
-            {
-                evento =
-                new Cartelera(pEvento.nombreEve,
-                                pEvento.ubicacion,
-                                pEvento.FK_EVENTOS_PAISES,
-                                pEvento.fechaInicio,
-                                pEvento.fechaFinal,
-                                pEvento.finalVotacion,
-                                pEvento.FK_EVENTOS_TIPOSEVENTOS);
-            } else
-            {
-                evento = 
-                new Festival(pEvento.nombreEve,
-                            pEvento.ubicacion,
-                            pEvento.FK_EVENTOS_PAISES,
-                            pEvento.fechaInicio,
-                            pEvento.finalVotacion,
-                            pEvento.FK_EVENTOS_TIPOSEVENTOS,
-                            pEvento.FK_EVENTOS_ESTADOS,
-                            pEvento.comida,
-                            pEvento.transporte,
-                            pEvento.servicios,
-                            pEvento.recomendacionChef);
-            }
+        //public Evento convertirCartelera(eventos pEvento)
+        //{
+        //    Evento evento;
+        //    if (pEvento.FK_EVENTOS_TIPOSEVENTOS == 1)
+        //    {
+        //        evento =
+        //        new Cartelera(pEvento.nombreEve,
+        //                        pEvento.ubicacion,
+        //                        pEvento.FK_EVENTOS_PAISES,
+        //                        pEvento.fechaInicio,
+        //                        pEvento.fechaFinal,
+        //                        pEvento.finalVotacion,
+        //                        pEvento.FK_EVENTOS_TIPOSEVENTOS);
+        //    } else
+        //    {
+        //        evento = 
+        //        new Festival(pEvento.nombreEve,
+        //                    pEvento.ubicacion,
+        //                    pEvento.FK_EVENTOS_PAISES,
+        //                    pEvento.fechaInicio,
+        //                    pEvento.finalVotacion,
+        //                    pEvento.FK_EVENTOS_TIPOSEVENTOS,
+        //                    pEvento.FK_EVENTOS_ESTADOS,
+        //                    pEvento.comida,
+        //                    pEvento.transporte,
+        //                    pEvento.servicios,
+        //                    pEvento.FK_EVENTOS_BANDAS_CHEF);
+        //    }
 
 
-        }
+        //}
 
         public List<eventos> obtenerFestivales()
         {

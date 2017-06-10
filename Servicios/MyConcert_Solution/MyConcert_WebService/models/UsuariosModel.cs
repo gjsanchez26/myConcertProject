@@ -25,13 +25,13 @@ namespace MyConcert_WebService.models
 
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
-            usuarios usuarioActual;
+            Usuario usuarioActual;
             try
             {
                 usuarioActual = _usuariosDB.obtenerUsuario(pUsername);
             } catch(Exception e)
             {
-                return respuesta = creador.crearRespuesta(false, "Error en conexión con el servidor. Intente de nuevo.");
+                return respuesta = creador.crearRespuesta(false, e.ToString());
             }
             
 
@@ -41,13 +41,14 @@ namespace MyConcert_WebService.models
             }
             else
             {
-                if (usuarioActual.contraseña != pPassword)              //Si la contrasena es incorrecta.
+                if (usuarioActual.Contrasena != pPassword)              //Si la contrasena es incorrecta.
                 {
                     respuesta = creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
                 }
                 else                                                  //Si el usuario y contrasena son validos.
                 {
-                    respuesta = creador.crearRespuesta(false, JObject.FromObject(usuarioActual));
+
+                    respuesta = creador.crearRespuesta(true, JObject.FromObject(usuarioActual));
                 }
             }
 

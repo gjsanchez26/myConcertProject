@@ -81,19 +81,6 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        internal List<Categoria> Categorias
-        {
-            get
-            {
-                return _categorias;
-            }
-
-            set
-            {
-                _categorias = value;
-            }
-        }
-
         public string TipoEvento { get => tipoEvento; set => tipoEvento = value; }
         public string Estado { get => estado; set => estado = value; }
     }

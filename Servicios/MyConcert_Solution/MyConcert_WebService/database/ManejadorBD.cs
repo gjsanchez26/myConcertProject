@@ -151,7 +151,7 @@ namespace MyConcert_WebService
             return usuDB.obtenerTipoUsuario(PK_tipoUsuario);
         }
 
-        public usuarios obtenerUsuario(string username)
+        public Usuario obtenerUsuario(string username)
         {
             return usuDB.obtenerUsuario(username);
         }

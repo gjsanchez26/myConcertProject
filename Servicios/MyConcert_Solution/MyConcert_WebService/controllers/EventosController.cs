@@ -12,28 +12,28 @@ namespace MyConcert_WebService.controllers
     {
         EventosModel _model = new EventosModel();
 
-        //Obtener informacion de eventos.
-        public JObject Get(string pTipoEvento)
-        {
-            Respuesta respuesta = new Respuesta();
+        ////Obtener informacion de eventos.
+        //public JObject Get(string pTipoEvento)
+        //{
+        //    Respuesta respuesta = new Respuesta();
 
-            switch (pTipoEvento)
-            {
-                case "cartelera":
-                    respuesta = _model.getCarteleras();
-                    break;
-                case "festival":
-                    break;
-                default:
-                    respuesta.exito = false;
-                    string error = "Tipo de evento no existente.";
-                    respuesta.contenido = JObject.FromObject(error);
-                    break;
-            }
+        //    switch (pTipoEvento)
+        //    {
+        //        case "cartelera":
+        //            respuesta = _model.getCarteleras();
+        //            break;
+        //        case "festival":
+        //            break;
+        //        default:
+        //            respuesta.exito = false;
+        //            string error = "Tipo de evento no existente.";
+        //            respuesta.contenido = JObject.FromObject(error);
+        //            break;
+        //    }
             
-            //Solicita eventos a base de datos.
-            return JObject.FromObject(respuesta); //Retorna lista de eventos.
-        }
+        //    //Solicita eventos a base de datos.
+        //    return JObject.FromObject(respuesta); //Retorna lista de eventos.
+        //}
 
         //Obtener informacion de evento especifico.
         public JObject Get(int pIDEvento)
