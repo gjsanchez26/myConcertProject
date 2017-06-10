@@ -39,9 +39,7 @@ namespace MyConcert_WebService.objects
             this.RecomendacionChef = recomendacionChef;
         }
 
-        public string Comida { get => comida; set => comida = value; }
-        public string Transporte { get => transporte; set => transporte = value; }
-        public string Servicios { get => servicios; set => servicios = value; }
+        
 
         internal string RecomendacionChef
         {
@@ -53,6 +51,45 @@ namespace MyConcert_WebService.objects
             set
             {
                 _recomendacionChef = value;
+            }
+        }
+
+        public string Comida
+        {
+            get
+            {
+                return comida;
+            }
+
+            set
+            {
+                comida = value;
+            }
+        }
+
+        public string Transporte
+        {
+            get
+            {
+                return transporte;
+            }
+
+            set
+            {
+                transporte = value;
+            }
+        }
+
+        public string Servicios
+        {
+            get
+            {
+                return servicios;
+            }
+
+            set
+            {
+                servicios = value;
             }
         }
     }

@@ -8,6 +8,7 @@ namespace MyConcert_WebService.objects
 {
     class Evento
     {
+        private int _id;
         private string _nombre;
         private string _ubicacion;
         private string _pais;
@@ -81,20 +82,30 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        internal List<Categoria> Categorias
+        public string TipoEvento
         {
             get
             {
-                return _categorias;
+                return tipoEvento;
             }
 
             set
             {
-                _categorias = value;
+                tipoEvento = value;
             }
         }
 
-        public string TipoEvento { get => tipoEvento; set => tipoEvento = value; }
-        public string Estado { get => estado; set => estado = value; }
+        public string Estado
+        {
+            get
+            {
+                return estado;
+            }
+
+            set
+            {
+                estado = value;
+            }
+        }
     }
 }
