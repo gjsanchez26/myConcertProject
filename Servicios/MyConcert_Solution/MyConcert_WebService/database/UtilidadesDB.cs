@@ -121,7 +121,7 @@ namespace MyConcert_WebService.database
             {
                 Console.Write(ex.InnerException.ToString());
             }
-            return lista;
+            return arreglo;
         }
 
 

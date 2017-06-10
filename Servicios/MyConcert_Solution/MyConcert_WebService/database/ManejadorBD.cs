@@ -183,20 +183,20 @@ namespace MyConcert_WebService
         {
             return utiDB.obtenerPais(pais);
         }
-        public List<generos> obtenerGeneros()
-        {
-            return utiDB.obtenerGeneros();
-        }
+        //public List<generos> obtenerGeneros()
+        //{
+        //    return utiDB.obtenerGeneros();
+        //}
 
-        public List<paises> obtenerPaises()
-        {
-            return utiDB.obtenerPaises();
-        }
+        //public List<paises> obtenerPaises()
+        //{
+        //    return utiDB.obtenerPaises();
+        //}
 
-        public List<universidades> obtenerUniversidades()
-        {
-            return utiDB.obtenerUniversidades();
-        }
+        //public List<universidades> obtenerUniversidades()
+        //{
+        //    return utiDB.obtenerUniversidades();
+        //}
 
         public universidades obtenerUniversidad(int PK_universidad)
         {
