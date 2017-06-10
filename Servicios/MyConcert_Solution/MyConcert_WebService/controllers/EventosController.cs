@@ -14,11 +14,11 @@ namespace MyConcert_WebService.controllers
         FabricaRespuestas _creador = new FabricaRespuestas();
 
         //Obtener informacion de eventos.
-        public JObject Get(string pTipoEvento)
+        public JObject Get(string type)
         {
             Respuesta respuesta = new Respuesta();
 
-            switch (pTipoEvento)
+            switch (type)
             {
                 case "cartelera":
                     respuesta = _model.getCarteleras();

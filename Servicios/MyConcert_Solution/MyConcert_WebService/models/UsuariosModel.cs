@@ -2,6 +2,7 @@
 using MyConcert_WebService.objects;
 using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
+using MyConcert_WebService.security;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
@@ -13,23 +14,27 @@ namespace MyConcert_WebService.models
         private UsuariosDB _usuariosDB;
         private FabricaRespuestas creador = new FabricaRespuestas();
         private Respuesta respuesta;
+        private SHA256Encriptation _encriptador;
 
         public UsuariosModel()
         {
             _usuariosDB = new UsuariosDB();
+            _encriptador = new SHA256Encriptation();
         }
 
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
             Usuario usuarioActual;
+            string passwordEncriptado = _encriptador.sha256Encrypt(pPassword);
             try
             {
                 usuarioActual = _usuariosDB.obtenerUsuario(pUsername);
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return respuesta = creador.crearRespuesta(false, e.ToString());
             }
-            
+
 
             if (usuarioActual == null)                                  //Si no existe el nombre de usuario introducido.
             {
@@ -37,7 +42,7 @@ namespace MyConcert_WebService.models
             }
             else
             {
-                if (usuarioActual.Contrasena != pPassword)              //Si la contrasena es incorrecta.
+                if (usuarioActual.Contrasena != passwordEncriptado)              //Si la contrasena es incorrecta.
                 {
                     respuesta = creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
                 }
@@ -71,35 +76,6 @@ namespace MyConcert_WebService.models
             }
 
             return respuesta;
-        }
-
-        private bool comprobarInputNuevoUsuario(JObject pDatosUsuario)
-        {
-            string esquemaNuevoUsuario = @"{
-	                                        'description':'usuarios',
-	                                        'type':'object',
-	                                        'properties':
-	                                        {
-		                                        'name':{'type':'string'},
-		                                        'last_name':{'type':'string'},
-		                                        'username':{'type':'string'},
-		                                        'password':{'type':'string'},
-		                                        'email':{'type':'string'},
-		                                        'state':{'type':'int'},
-		                                        'registration_date':{'type':'string'},
-		                                        'profile_pic':{'type':'string'},
-		                                        'bith_date':{'type':'string'},
-		                                        'phone':{'type':'string'},
-		                                        'country':{'type':'int'},
-		                                        'ubication':{'type':'string'},
-		                                        'university':{'type':'int'},
-		                                        'description':{'type':'string'}
-	                                        }
-                                           }";
-#pragma warning disable CS0618 // Type or member is obsolete
-            JsonSchema esquema = JsonSchema.Parse(esquemaNuevoUsuario);
-            return pDatosUsuario.IsValid(esquema);
-#pragma warning restore CS0618 // Type or member is obsolete
         }
     }
 }

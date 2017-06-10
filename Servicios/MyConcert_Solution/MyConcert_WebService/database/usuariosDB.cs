@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.objects;
+using MyConcert_WebService.security;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -9,6 +10,7 @@ namespace MyConcert_WebService.database
     class UsuariosDB
     {
         private UtilidadesDB _utilidades = new UtilidadesDB();
+        private SHA256Encriptation _encriptador = new SHA256Encriptation();
 
         public tiposusuarios obtenerTipoUsuario(int PK_tipoUsuario)
         {
@@ -104,11 +106,12 @@ namespace MyConcert_WebService.database
 
         private usuarios convertirUsuarioAusuarios(Usuario pUser)
         {
+
             usuarios usuario = new usuarios();
             usuario.nombre = pUser.Nombre;
             usuario.apellido = pUser.Apellido;
             usuario.username = pUser.NombreUsuario;
-            usuario.contraseña = pUser.Contrasena;
+            usuario.contraseña = _encriptador.sha256Encrypt(pUser.Contrasena);
             usuario.correo = pUser.Email;
             usuario.FK_USUARIOS_ESTADOS = _utilidades.obtenerEstado(pUser.Estado).PK_estados;
             usuario.fechaInscripcion = pUser.FechaInscripcion;

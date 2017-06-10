@@ -23,8 +23,7 @@ namespace MyConcert_WebService.controllers
         {
             ResultadoObjeto respuesta = new ResultadoObjeto();
 
-            //Solicita banda a base de datos.
-            return JObject.FromObject(respuesta); //Retorna objeto banda.
+            return JObject.FromObject(respuesta);
         }
 
         //Crear banda nueva.
@@ -33,9 +32,9 @@ namespace MyConcert_WebService.controllers
             dynamic peticion = pPeticion;
             ResultadoObjeto respuesta = new ResultadoObjeto();
 
-            //Convierte datos ingresados en Banda.
-            //Almacena en base de datos.
-            return JObject.FromObject(respuesta);   //Retorna objeto banda.
+
+
+            return JObject.FromObject(respuesta);
         }
 
         //Actualiza banda especifica.

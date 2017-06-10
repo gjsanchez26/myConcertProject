@@ -6,12 +6,20 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
-    class Banda
+    public class Banda
     {
         private int _id;
         private string _nombre;
         private float _calificacion;
         private string _estado;
+
+        public Banda(string pNombre, string estado)
+        {
+            this._id = 0;
+            this._nombre = _nombre;
+            this._calificacion = 0;
+            this._estado = _estado;
+        }
 
         public Banda(int _id, string _nombre, float _calificacion, string _estado)
         {

@@ -7,8 +7,7 @@ namespace MyConcert_WebService.res
 {
     public class SerializerJSON
     {
-        UtilidadesDB _utilidadesDB = new UtilidadesDB();
-        UsuariosDB _usuariosDB = new UsuariosDB();
+        ManejadorBD _manejador = new ManejadorBD();
 
         public Usuario leerDatosUsuario(string pRol, dynamic pDatosUsuario)
         {
@@ -16,10 +15,10 @@ namespace MyConcert_WebService.res
             switch (pRol)
             {
                 case "fanatico":
-                    string stateFanatico = _utilidadesDB.obtenerEstado(1).estado;
-                    string country = _utilidadesDB.obtenerPais((int)pDatosUsuario.country).pais;
-                    string university = _utilidadesDB.obtenerUniversidad((int)pDatosUsuario.university).nombreUni;
-                    string user_type = _usuariosDB.obtenerTipoUsuario(2).tipo;
+                    string stateFanatico = _manejador.obtenerEstado(1).estado;
+                    string country = _manejador.obtenerPais((int)pDatosUsuario.country).pais;
+                    string university = _manejador.obtenerUniversidad((int)pDatosUsuario.university).nombreUni;
+                    string user_type = _manejador.obtenerTipoUsuario(2).tipo;
 
                     nuevoUsuario = 
                         new Fanatico((string) pDatosUsuario.name,
@@ -39,8 +38,8 @@ namespace MyConcert_WebService.res
                                     (string) pDatosUsuario.ubication);
                     break;
                 case "colaborador":
-                    string stateColaborador = _utilidadesDB.obtenerEstado(1).estado;
-                    string user_typeColaborador = _usuariosDB.obtenerTipoUsuario(1).tipo;
+                    string stateColaborador = _manejador.obtenerEstado(1).estado;
+                    string user_typeColaborador = _manejador.obtenerTipoUsuario(1).tipo;
 
                     nuevoUsuario = 
                         new Colaborador((string) pDatosUsuario.name,
@@ -64,6 +63,16 @@ namespace MyConcert_WebService.res
             DateTime dt = Convert.ToDateTime(pFecha);
 
             return dt;
+        }
+
+        public Banda leerDatosBanda(dynamic pDatosBanda)
+        {
+            Banda bandaNueva = 
+                new Banda(pDatosBanda.nombre,
+                          _manejador.obtenerEstado(1).estado);
+
+            return bandaNueva;
+
         }
     }
 }

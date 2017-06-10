@@ -14,13 +14,12 @@ namespace MyConcert_WebService.controllers
         private FabricaRespuestas _creador = new FabricaRespuestas();
 
         //Obtener paises, universidades o generos segun solicitud.
-        public JObject Get(string pTipoDato)
+        public JObject Get(string data)
         {
-            dynamic peticion = pTipoDato;
-            Console.WriteLine(pTipoDato);
+            dynamic peticion = data;
             Respuesta respuesta = null;
 
-            switch (pTipoDato)
+            switch (data)
             {
                 case "paises":
                     respuesta = _model.getPaises();
