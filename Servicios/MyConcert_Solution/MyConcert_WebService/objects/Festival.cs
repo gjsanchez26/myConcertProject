@@ -14,7 +14,8 @@ namespace MyConcert_WebService.objects
         private string _recomendacionChef;
 
         
-        public Festival(string nombre,
+        public Festival(int _id,
+                        string nombre,
                         string ubicacion,
                         string pais,
                         DateTime fechaInicioFestival,
