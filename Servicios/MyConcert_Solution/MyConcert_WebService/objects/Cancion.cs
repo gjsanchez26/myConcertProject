@@ -8,21 +8,15 @@ namespace MyConcert_WebService.objects
 {
     class Cancion
     {
+        private int _id;
         private string _nombre;
-        private bool _disponibilidadSpotify;
-        private string _muestra;
+        private string _banda;
 
-        public string Muestra
+        public Cancion(int _id, string _nombre, string _banda)
         {
-            get
-            {
-                return _muestra;
-            }
-
-            set
-            {
-                _muestra = value;
-            }
+            this._id = _id;
+            this._nombre = _nombre;
+            this._banda = _banda;
         }
 
         public string Nombre
@@ -38,16 +32,29 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public bool DisponibilidadSpotify
+        public string Banda
         {
             get
             {
-                return _disponibilidadSpotify;
+                return _banda;
             }
 
             set
             {
-                _disponibilidadSpotify = value;
+                _banda = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
             }
         }
     }

@@ -8,8 +8,16 @@ namespace MyConcert_WebService.objects
 {
     class MiembroBanda
     {
+        private int _id;
         private string _nombre;
-        private string _apellido;
+        private string _banda;
+
+        public MiembroBanda(int _id, string _nombre, string _banda)
+        {
+            this._id = _id;
+            this._nombre = _nombre;
+            this._banda = _banda;
+        }
 
         public string Nombre
         {
@@ -24,16 +32,29 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string Apellido
+        public string Banda
         {
             get
             {
-                return _apellido;
+                return _banda;
             }
 
             set
             {
-                _apellido = value;
+                _banda = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
             }
         }
     }
