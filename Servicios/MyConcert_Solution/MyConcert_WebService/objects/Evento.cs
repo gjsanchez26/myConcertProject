@@ -10,12 +10,11 @@ namespace MyConcert_WebService.objects
     {
         private string _nombre;
         private string _ubicacion;
-        private Pais _pais;
-        private string _fechaInicioFestival;
-        private string _horaInicioFestival;
-        private string _fechaFinalFestival;
-        private string _horaFinalFestival;
-        private List<Categoria> _categorias;
+        private string _pais;
+        private DateTime _fechaInicioFestival;
+        private DateTime _fechaFinalFestival;
+        private string tipoEvento;
+        private string estado;
 
         public string Nombre
         {
@@ -43,7 +42,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        internal Pais Pais
+        internal string Pais
         {
             get
             {
@@ -56,7 +55,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string FechaInicioFestival
+        public DateTime FechaInicioFestival
         {
             get
             {
@@ -69,20 +68,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string HoraInicioFestival
-        {
-            get
-            {
-                return _horaInicioFestival;
-            }
-
-            set
-            {
-                _horaInicioFestival = value;
-            }
-        }
-
-        public string FechaFinalFestival
+        public DateTime FechaFinalFestival
         {
             get
             {
@@ -92,19 +78,6 @@ namespace MyConcert_WebService.objects
             set
             {
                 _fechaFinalFestival = value;
-            }
-        }
-
-        public string HoraFinalFestival
-        {
-            get
-            {
-                return _horaFinalFestival;
-            }
-
-            set
-            {
-                _horaFinalFestival = value;
             }
         }
 
@@ -120,5 +93,8 @@ namespace MyConcert_WebService.objects
                 _categorias = value;
             }
         }
+
+        public string TipoEvento { get => tipoEvento; set => tipoEvento = value; }
+        public string Estado { get => estado; set => estado = value; }
     }
 }

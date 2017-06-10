@@ -188,6 +188,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="models\ChefModel.cs" />
+    <Compile Include="models\EventosModel.cs" />
     <Compile Include="models\UsuariosModel.cs" />
     <Compile Include="MyConcertAPI.cs" />
     <Compile Include="objects\Banda.cs" />

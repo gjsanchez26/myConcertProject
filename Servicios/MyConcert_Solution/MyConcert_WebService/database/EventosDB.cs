@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MyConcert_WebService.objects;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace MyConcert_WebService.database
             List<eventos> obj = null;
             try
             {
-
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.eventos.Where(r => r.FK_EVENTOS_TIPOSEVENTOS==1).ToList();
@@ -26,6 +26,39 @@ namespace MyConcert_WebService.database
                 Console.Write(ex.InnerException.ToString());
             }
             return obj;
+        }
+
+
+        public Evento convertirCartelera(eventos pEvento)
+        {
+            Evento evento;
+            if (pEvento.FK_EVENTOS_TIPOSEVENTOS == 1)
+            {
+                evento =
+                new Cartelera(pEvento.nombreEve,
+                                pEvento.ubicacion,
+                                pEvento.FK_EVENTOS_PAISES,
+                                pEvento.fechaInicio,
+                                pEvento.fechaFinal,
+                                pEvento.finalVotacion,
+                                pEvento.FK_EVENTOS_TIPOSEVENTOS);
+            } else
+            {
+                evento = 
+                new Festival(pEvento.nombreEve,
+                            pEvento.ubicacion,
+                            pEvento.FK_EVENTOS_PAISES,
+                            pEvento.fechaInicio,
+                            pEvento.finalVotacion,
+                            pEvento.FK_EVENTOS_TIPOSEVENTOS,
+                            pEvento.FK_EVENTOS_ESTADOS,
+                            pEvento.comida,
+                            pEvento.transporte,
+                            pEvento.servicios,
+                            pEvento.recomendacionChef);
+            }
+
+
         }
 
         public List<eventos> obtenerFestivales()

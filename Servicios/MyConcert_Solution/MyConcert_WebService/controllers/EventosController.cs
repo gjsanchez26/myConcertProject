@@ -1,4 +1,5 @@
-﻿using MyConcert_WebService.res;
+﻿using MyConcert_WebService.models;
+using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
@@ -9,14 +10,17 @@ namespace MyConcert_WebService.controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventosController : ApiController
     {
+        EventosModel _model = new EventosModel();
+
         //Obtener informacion de eventos.
         public JObject Get(string pTipoEvento)
         {
-            ResultadoObjeto respuesta = new ResultadoObjeto();
+            Respuesta respuesta = new Respuesta();
 
             switch (pTipoEvento)
             {
                 case "cartelera":
+                    respuesta = _model.getCarteleras();
                     break;
                 case "festival":
                     break;

@@ -1,30 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
     class Cartelera : Evento 
     {
-        private string _fechaInicioVotacion;
-        private string _fechaFinalVotacion;
+        private DateTime _fechaFinalVotacion;
 
-        public string FechaInicioVotacion
+        public Cartelera(string nombre,
+                        string ubicacion,
+                        string pais,
+                        DateTime fechaInicioFestival,
+                        DateTime fechaFinalFestival, 
+                        DateTime fechaFinalVotacion,
+                        string tipoEvento)
         {
-            get
-            {
-                return _fechaInicioVotacion;
-            }
-
-            set
-            {
-                _fechaInicioVotacion = value;
-            }
+            this.Nombre = nombre;
+            this.Ubicacion = ubicacion;
+            this.Pais = pais;
+            this.FechaInicioFestival = fechaInicioFestival;
+            this.FechaFinalFestival = fechaFinalFestival;
+            this.FechaFinalVotacion = fechaFinalVotacion;
         }
 
-        public string FechaFinalVotacion
+        public DateTime FechaFinalVotacion
         {
             get
             {
