@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyConcert_WebService.res.resultados;
+using MyConcert_WebService.objects;
 
 namespace MyConcert_WebService.models
 {
@@ -11,30 +12,30 @@ namespace MyConcert_WebService.models
     {
         ManejadorBD _manejador = new ManejadorBD();
 
-        //public Respuesta getUniversidades()
-        //{
-        //    List<universidades> listaUniversidades = _manejador.obtenerUniversidades();
+        public Respuesta getUniversidades()
+        {
+            Universidad[] listaUniversidades = _manejador.obtenerUniversidades();
 
 
 
-        //    return new Respuesta();
-        //}
+            return new Respuesta();
+        }
 
-        //public Respuesta getPaises()
-        //{
-        //    List<paises> listaPaises = _manejador.obtenerPaises();
-
-
-
-        //    return new Respuesta();
-        //}
-
-        //public Respuesta getGenerosMusicales()
-        //{
-        //    List<generos> listaGenerosMusicales = _manejador.obtenerGeneros();
+        public Respuesta getPaises()
+        {
+            Pais[] listaPaises = _manejador.obtenerPaises();
 
 
-        //    return new Respuesta();
-        //}
+
+            return new Respuesta();
+        }
+
+        public Respuesta getGenerosMusicales()
+        {
+            GeneroMusical[] listaGenerosMusicales = _manejador.obtenerGeneros();
+
+
+            return new Respuesta();
+        }
     }
 }

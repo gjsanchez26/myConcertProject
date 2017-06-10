@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
-    class GeneroMusical
+    public class GeneroMusical
     {
 
         private int _id;

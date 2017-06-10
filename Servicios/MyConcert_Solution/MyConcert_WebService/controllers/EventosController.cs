@@ -11,29 +11,28 @@ namespace MyConcert_WebService.controllers
     public class EventosController : ApiController
     {
         EventosModel _model = new EventosModel();
+        FabricaRespuestas _creador = new FabricaRespuestas();
 
-        ////Obtener informacion de eventos.
-        //public JObject Get(string pTipoEvento)
-        //{
-        //    Respuesta respuesta = new Respuesta();
+        //Obtener informacion de eventos.
+        public JObject Get(string pTipoEvento)
+        {
+            Respuesta respuesta = new Respuesta();
 
-        //    switch (pTipoEvento)
-        //    {
-        //        case "cartelera":
-        //            respuesta = _model.getCarteleras();
-        //            break;
-        //        case "festival":
-        //            break;
-        //        default:
-        //            respuesta.success = false;
-        //            string error = "Tipo de evento no existente.";
-        //            respuesta.content = JObject.FromObject(error);
-        //            break;
-        //    }
-            
-        //    //Solicita eventos a base de datos.
-        //    return JObject.FromObject(respuesta); //Retorna lista de eventos.
-        //}
+            switch (pTipoEvento)
+            {
+                case "cartelera":
+                    respuesta = _model.getCarteleras();
+                    break;
+                case "festival":
+                    respuesta = _model.getFestivales();
+                    break;
+                default:
+                    respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
+                    break;
+            }
+
+            return JObject.FromObject(respuesta);
+        }
 
         //Obtener informacion de evento especifico.
         public JObject Get(int pIDEvento)

@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.database;
+using MyConcert_WebService.objects;
 using MyConcert_WebService.res.resultados;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,18 @@ namespace MyConcert_WebService.models
 {
     public class EventosModel
     {
-        EventosDB _eventosDB = new EventosDB();
+        ManejadorBD _manejador = new ManejadorBD();
 
         public Respuesta getCarteleras()
         {
-            try
-            {
-                
+            Evento[] = _manejador.obtenerCarteleras();
+            
+            return new Respuesta();
+        }
 
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
+        public Respuesta getFestivales()
+        {
+            Evento[] = _manejador.obtenerFestivales();
 
             return new Respuesta();
         }

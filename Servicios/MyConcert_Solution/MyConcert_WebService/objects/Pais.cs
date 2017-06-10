@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
-    class Pais
+    public class Pais
     {
         private int _id;
         private string _nombre;
