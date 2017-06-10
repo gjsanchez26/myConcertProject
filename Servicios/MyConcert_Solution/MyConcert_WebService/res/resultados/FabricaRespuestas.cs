@@ -13,5 +13,10 @@ namespace MyConcert_WebService.res.resultados
         {
             return new ResultadoString(pExito, pMensaje);
         }
+
+        public Respuesta crearRespuesta(bool pExito, JObject[] pArray)
+        {
+            return new ResultadoArreglo(pExito, pArray);
+        }
     }
 }

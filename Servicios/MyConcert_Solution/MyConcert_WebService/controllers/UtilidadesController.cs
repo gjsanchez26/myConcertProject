@@ -1,20 +1,23 @@
 ﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace MyConcert_WebService.controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class UtilidadesController
+    public class UtilidadesController : ApiController
     {
-        UtilidadesModel _model = new UtilidadesModel();
-        FabricaRespuestas _creador = new FabricaRespuestas();
+        private UtilidadesModel _model = new UtilidadesModel();
+        private FabricaRespuestas _creador = new FabricaRespuestas();
 
         //Obtener paises, universidades o generos segun solicitud.
         public JObject Get(string pTipoDato)
         {
+            dynamic peticion = pTipoDato;
+            Console.WriteLine(pTipoDato);
             Respuesta respuesta = null;
 
             switch (pTipoDato)

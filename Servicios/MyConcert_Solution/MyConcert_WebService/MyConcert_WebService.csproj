@@ -218,7 +218,8 @@
     <Compile Include="res\Product.cs" />
     <Compile Include="res\resultados\FabricaRespuestas.cs" />
     <Compile Include="res\resultados\Respuesta.cs" />
-    <Compile Include="res\resultados\Resultado.cs" />
+    <Compile Include="res\resultados\ResultadoArreglo.cs" />
+    <Compile Include="res\resultados\ResultadoObjeto.cs" />
     <Compile Include="res\resultados\ResultadoError.cs" />
     <Compile Include="res\SerializerJSON.cs" />
     <Compile Include="res\Twitter\ConexionTwitter.cs" />

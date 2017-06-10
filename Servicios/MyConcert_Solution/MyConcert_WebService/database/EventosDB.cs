@@ -10,7 +10,7 @@ namespace MyConcert_WebService.database
 {
     public class EventosDB
     {
-        ManejadorBD _manejador = new ManejadorBD();
+        UtilidadesDB _utilidadesDB = new UtilidadesDB();
 
         //OBTENER LISTA DE OBJETOS
         public Evento[] obtenerCarteleras()
@@ -46,9 +46,9 @@ namespace MyConcert_WebService.database
 
             if (pEvento.FK_EVENTOS_TIPOSEVENTOS == 1)
             {
-                country = _manejador.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
-                event_type = _manejador.obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
-                state = _manejador.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
+                country = _utilidadesDB.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
+                event_type = obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
+                state = _utilidadesDB.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
 
                 evento =
                 new Cartelera(pEvento.PK_eventos,
@@ -63,9 +63,9 @@ namespace MyConcert_WebService.database
             }
             else
             {
-                country = _manejador.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
-                event_type = _manejador.obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
-                state = _manejador.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
+                country = _utilidadesDB.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
+                event_type = obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
+                state = _utilidadesDB.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
                 chef = null;
 
                 evento =

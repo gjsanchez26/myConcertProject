@@ -20,6 +20,7 @@ namespace MyConcert_WebService.database
 
 
         }
+
         //OBTENER LISTA DE OBJETOS
         private Pais convertirpaisesAPais(paises pPais)
         {
@@ -28,6 +29,7 @@ namespace MyConcert_WebService.database
             Pais pais = new Pais(id,nombre);
             return pais;
         } 
+
         private GeneroMusical convertirgenerosAGenero(generos pGenero)
         {
             int id = pGenero.PK_generos;
@@ -35,34 +37,32 @@ namespace MyConcert_WebService.database
             GeneroMusical gene = new GeneroMusical(id, nombre);
             return gene;
         }
+
         public GeneroMusical[] obtenerGeneros()
         {
             List<generos> gen = null;
             GeneroMusical[] arGenMus=null;
-
-
+            
             try
             {
                 using (myconcertEntities context = new myconcertEntities())
                 {
-
                     gen = context.generos.ToList();
-
                 }
-                arGenMus = new GeneroMusical[gen.Count];
-                int c = 0;
-                foreach (generos i in gen)
-                {
-                    arGenMus[c] = convertirgenerosAGenero(i);
-                    c++;
-                }
-
-
             }
             catch (Exception ex)
             {
                 Console.Write(ex.InnerException.ToString());
             }
+
+            arGenMus = new GeneroMusical[gen.Count];
+            int c = 0;
+            foreach (generos i in gen)
+            {
+                arGenMus[c] = convertirgenerosAGenero(i);
+                c++;
+            }
+
             return arGenMus;
         }
 
