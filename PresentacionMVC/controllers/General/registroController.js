@@ -1,12 +1,7 @@
-myConcert.controller("colaboradorController", function($scope, $http, colaboradorModel){
+myConcert.controller("registroController", function($scope, $http, registroModel){
     console.log("Here");
-    
     $scope.usuario;
-   
-          
-          
-        
-    
+    $scope.usuarioLogin;          
     $scope.changeView = function(view){
             $location.path(view); // path not hash
         }
@@ -15,7 +10,9 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
          
         console.log("login");
         console.log($scope.usuario);
-        $scope.notas = registroModel.verificarUsuario($scope.usuario);
+        $scope.notas = registroModel.verificarUsuario($scope.usuarioLogin);
+     //   window.location.href = "#vistaColaborador";
+     //   window.location.assign("#colaboradorView.html")
 
     };
      $scope.crearCuenta= function(){
