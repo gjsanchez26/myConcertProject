@@ -118,6 +118,17 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string TipoUsuario { get => _tipoUsuario; set => _tipoUsuario = value; }
+        public string TipoUsuario
+        {
+            get
+            {
+                return _tipoUsuario;
+            }
+
+            set
+            {
+                _tipoUsuario = value;
+            }
+        }
     }
 }

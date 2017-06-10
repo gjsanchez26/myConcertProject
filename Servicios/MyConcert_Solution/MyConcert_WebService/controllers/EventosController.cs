@@ -1,4 +1,5 @@
-﻿using MyConcert_WebService.res;
+﻿using MyConcert_WebService.models;
+using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
@@ -9,27 +10,30 @@ namespace MyConcert_WebService.controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventosController : ApiController
     {
-        //Obtener informacion de eventos.
-        public JObject Get(string pTipoEvento)
-        {
-            ResultadoObjeto respuesta = new ResultadoObjeto();
+        EventosModel _model = new EventosModel();
 
-            switch (pTipoEvento)
-            {
-                case "cartelera":
-                    break;
-                case "festival":
-                    break;
-                default:
-                    respuesta.exito = false;
-                    string error = "Tipo de evento no existente.";
-                    respuesta.contenido = JObject.FromObject(error);
-                    break;
-            }
+        ////Obtener informacion de eventos.
+        //public JObject Get(string pTipoEvento)
+        //{
+        //    Respuesta respuesta = new Respuesta();
+
+        //    switch (pTipoEvento)
+        //    {
+        //        case "cartelera":
+        //            respuesta = _model.getCarteleras();
+        //            break;
+        //        case "festival":
+        //            break;
+        //        default:
+        //            respuesta.success = false;
+        //            string error = "Tipo de evento no existente.";
+        //            respuesta.content = JObject.FromObject(error);
+        //            break;
+        //    }
             
-            //Solicita eventos a base de datos.
-            return JObject.FromObject(respuesta); //Retorna lista de eventos.
-        }
+        //    //Solicita eventos a base de datos.
+        //    return JObject.FromObject(respuesta); //Retorna lista de eventos.
+        //}
 
         //Obtener informacion de evento especifico.
         public JObject Get(int pIDEvento)

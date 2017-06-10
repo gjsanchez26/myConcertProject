@@ -9,11 +9,21 @@ namespace MyConcert_WebService.objects
     class Voto
     {
         private int _id;
-        private Fanatico _autor;
-        private int _cantidadDolares;
-        private Banda _banda;
-        private Categoria _categoria;
-        private Cartelera _cartelera;
+        private string _fanatico;
+        private int _cantidad;
+        private string _banda;
+        private string _categoria;
+        private  string _cartelera;
+
+        public Voto(int _id, string _fanatico, int _cantidad, string _banda, string _categoria, string _cartelera)
+        {
+            this._id = _id;
+            this._fanatico = _fanatico;
+            this._cantidad = _cantidad;
+            this._banda = _banda;
+            this._categoria = _categoria;
+            this._cartelera = _cartelera;
+        }
 
         public int Id
         {
@@ -28,33 +38,33 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        internal Fanatico Autor
+        public string Fanatico
         {
             get
             {
-                return _autor;
+                return _fanatico;
             }
 
             set
             {
-                _autor = value;
+                _fanatico = value;
             }
         }
 
-        public int CantidadDolares
+        public int Cantidad
         {
             get
             {
-                return _cantidadDolares;
+                return _cantidad;
             }
 
             set
             {
-                _cantidadDolares = value;
+                _cantidad = value;
             }
         }
 
-        internal Banda Banda
+        public string Banda
         {
             get
             {
@@ -67,7 +77,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        internal Categoria Categoria
+        public string Categoria
         {
             get
             {
@@ -80,7 +90,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        internal Cartelera Cartelera
+        public string Cartelera
         {
             get
             {

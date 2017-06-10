@@ -1,13 +1,12 @@
 ﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.res.usr;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MyConcert_WebService.controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsuariosController : ApiController
     {
         private UsuariosModel _model = new UsuariosModel();
@@ -27,13 +26,29 @@ namespace MyConcert_WebService.controllers
             dynamic peticion = pDatosUsuario;
             string tipoUsuario = peticion.role;
             dynamic datosUsuario = peticion.user_data;
+            int[] generosFavoritos = getGenerosFavoritos((JArray)peticion.genres);
             
-            Respuesta respuesta = _model.registrarUsuario(tipoUsuario, datosUsuario);
+            Respuesta respuesta = _model.registrarUsuario(tipoUsuario, datosUsuario, generosFavoritos);
             
             JObject respuestaPost = JObject.FromObject(respuesta);
 
             return respuestaPost;
 
+        }
+
+        private int[] getGenerosFavoritos(JArray pGenerosFavoritos)
+        {
+            dynamic generosFavoritos = pGenerosFavoritos;
+            int[] lista = new int[pGenerosFavoritos.Count];
+            int iterator = 0;
+
+            foreach (dynamic i in generosFavoritos)
+            {
+                lista[iterator] = i;
+                iterator++;
+            }
+
+            return lista;
         }
 
         //Actualiza usuario especifico.

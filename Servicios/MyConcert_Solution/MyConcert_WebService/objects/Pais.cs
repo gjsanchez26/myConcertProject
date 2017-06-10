@@ -8,8 +8,14 @@ namespace MyConcert_WebService.objects
 {
     class Pais
     {
+        private int _id;
         private string _nombre;
-        private string _id;
+
+        public Pais(int _id, string _nombre)
+        {
+            this._id = _id;
+            this._nombre = _nombre;
+        }
 
         public string Nombre
         {
@@ -24,7 +30,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string Id
+        public int Id
         {
             get
             {

@@ -1,23 +1,24 @@
 ﻿using MyConcert_WebService.objects;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace MyConcert_WebService.database
 {
     class UsuariosDB
     {
+        private UtilidadesDB _utilidades = new UtilidadesDB();
+
         public tiposusuarios obtenerTipoUsuario(int PK_tipoUsuario)
         {
             tiposusuarios obj = null;
             try
             {
-
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.tiposusuarios.FirstOrDefault(g => g.PK_tiposUsuarios == PK_tipoUsuario);
                 }
-
             }
             catch (Exception ex)
             {
@@ -44,9 +45,11 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-        public usuarios obtenerUsuario(string username)
+
+        public Usuario obtenerUsuario(string username)
         {
             usuarios us = null;
+            Usuario user = null;
             try
             {
 
@@ -58,13 +61,18 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
-            return us;
+            user = convertirusuariosAUsuario(us);
+            return user;
         }
 
-        public void añadirFanatico(Usuario pUsuarioNuevo, int[] pGenerosFavoritos)
+        public void añadirUsuario(Usuario pUsuarioNuevo, int[] pGenerosFavoritos)
         {
+            usuarios us = convertirUsuarioAusuarios(pUsuarioNuevo);
+
+            List<generos> gen = covertirGenerosFavoritos(pGenerosFavoritos);
+
             using (myconcertEntities context = new myconcertEntities())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
@@ -94,7 +102,7 @@ namespace MyConcert_WebService.database
             }
         }
 
-        private usuarios convertirUsuario(Usuario pUser)
+        private usuarios convertirUsuarioAusuarios(Usuario pUser)
         {
             usuarios usuario = new usuarios();
             usuario.nombre = pUser.Nombre;
@@ -102,26 +110,88 @@ namespace MyConcert_WebService.database
             usuario.username = pUser.NombreUsuario;
             usuario.contraseña = pUser.Contrasena;
             usuario.correo = pUser.Email;
-            usuario.estados = pUser.Estado;
+            usuario.FK_USUARIOS_ESTADOS = _utilidades.obtenerEstado(pUser.Estado).PK_estados;
             usuario.fechaInscripcion = pUser.FechaInscripcion;
-            usuario.foto = pUser.FotoPerfil;
 
-            if (pUser.TipoUsuario == "fanatico")
+            if (pUser.TipoUsuario == obtenerTipoUsuario(2).tipo)
             {
                 Fanatico fanatico = (Fanatico) pUser;
                 usuario.fechaNacimiento = fanatico.FechaNacimiento;
                 usuario.telefono = fanatico.Telefono;
-                usuario.paises = fanatico.Pais;
+                usuario.FK_USUARIOS_PAISES = _utilidades.obtenerPais(fanatico.Pais).PK_paises;
                 usuario.descripcion = fanatico.DescripcionPersonal;
-                usuario.tiposusuarios = fanatico.TipoUsuario;
+                usuario.FK_USUARIOS_TIPOSUSUARIOS = obtenerTipoUsuario(fanatico.TipoUsuario).PK_tiposUsuarios;
+                usuario.FK_USUARIOS_UNIVERSIDADES = _utilidades.obtenerUniversidad(fanatico.Universidad).PK_universidades;
+                usuario.ubicacion = fanatico.Ubicacion;
+                usuario.foto = fanatico.FotoPerfil;
+            } else
+            {
+                usuario.FK_USUARIOS_TIPOSUSUARIOS = obtenerTipoUsuario(pUser.TipoUsuario).PK_tiposUsuarios;
             }
-
             return usuario;
         }
 
-
-        public void añadirUsuario(usuarios us)
+        private Usuario convertirusuariosAUsuario(usuarios pUser)
         {
+            Usuario user = null;
+
+            if (obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(1).tipo)
+            {
+                string country = _utilidades.obtenerPais(pUser.FK_USUARIOS_ESTADOS).pais;
+                string state = _utilidades.obtenerEstado((int) pUser.FK_USUARIOS_PAISES).estado;
+                string university = _utilidades.obtenerUniversidad((int)pUser.FK_USUARIOS_UNIVERSIDADES).nombreUni;
+                string user_type = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
+                user = 
+                    new Fanatico(pUser.nombre,
+                                pUser.apellido,
+                                pUser.username,
+                                pUser.contraseña,
+                                pUser.correo,
+                                state,
+                                pUser.fechaInscripcion,
+                                pUser.foto,
+                                pUser.fechaNacimiento.Value,
+                                pUser.telefono,
+                                country,
+                                pUser.descripcion,
+                                university,
+                                user_type,
+                                pUser.ubicacion);
+
+            } else if(obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(2).tipo)
+            {
+                string stateColaborador = _utilidades.obtenerEstado(pUser.FK_USUARIOS_ESTADOS).estado;
+                string user_typeColaborador = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
+                user = 
+                    new Colaborador(pUser.nombre,
+                                    pUser.apellido,
+                                    pUser.username,
+                                    pUser.contraseña,
+                                    pUser.correo,
+                                    stateColaborador,
+                                    pUser.fechaInscripcion,
+                                    user_typeColaborador);
+            }
+
+            return user;
+        }
+
+        private List<generos> covertirGenerosFavoritos(int[] pGeneros)
+        {
+            List<generos> listaGeneros = new List<generos>();
+
+            foreach (int genero in pGeneros)
+            {
+                listaGeneros.Add(_utilidades.obtenerGenero(genero));
+            }
+
+            return listaGeneros;
+        }
+
+
+        public void añadirUsuario(Usuario pUser)
+        {
+            usuarios us = convertirUsuarioAusuarios(pUser);
 
             using (myconcertEntities context = new myconcertEntities())
             {
@@ -132,11 +202,19 @@ namespace MyConcert_WebService.database
                     context.SaveChanges();
                 }
 
-                catch (Exception ex)
+                catch (DbEntityValidationException e)
                 {
-
-                    Console.Write(ex.InnerException.ToString());
-
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw (e);
                 }
                 
             }

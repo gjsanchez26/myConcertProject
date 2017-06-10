@@ -8,8 +8,27 @@ namespace MyConcert_WebService.objects
 {
     class Universidad
     {
+        private int _id;
         private string _nombre;
-        private string _id;
+
+        public Universidad(int _id, string _nombre)
+        {
+            this._id = _id;
+            this._nombre = _nombre;
+        }
+
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+            }
+        }
 
         public string Nombre
         {
@@ -21,19 +40,6 @@ namespace MyConcert_WebService.objects
             set
             {
                 _nombre = value;
-            }
-        }
-
-        public string Id
-        {
-            get
-            {
-                return _id;
-            }
-
-            set
-            {
-                _id = value;
             }
         }
     }

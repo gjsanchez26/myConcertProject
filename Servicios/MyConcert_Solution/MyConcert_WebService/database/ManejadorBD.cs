@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.database;
+using MyConcert_WebService.objects;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -150,11 +151,11 @@ namespace MyConcert_WebService
             return usuDB.obtenerTipoUsuario(PK_tipoUsuario);
         }
 
-        public usuarios obtenerUsuario(string username)
+        public Usuario obtenerUsuario(string username)
         {
             return usuDB.obtenerUsuario(username);
         }
-        public void añadirUsuario(usuarios us, List<generos> gen)
+        public void añadirUsuario(Usuario us, int[] gen)
         {
             usuDB.añadirUsuario(us, gen);
         }

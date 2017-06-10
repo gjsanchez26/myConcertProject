@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="myconcertModel.categoriasevento" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="myconcertModel.comentarios" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="myconcertModel.estados" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="myconcertModel.eventos" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="myconcertModel.generos" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="myconcertModel.generosbanda" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="myconcertModel.generosusuario" Width="1.5" PointX="5.25" PointY="20.5" IsExpanded="true" />
@@ -30,12 +29,7 @@
         <AssociationConnector Association="myconcertModel.votos_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="myconcertModel.categoriasevento_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="myconcertModel.votos_ibfk_3" ManuallyRouted="false" />
-        <AssociationConnector Association="myconcertModel.categoriasevento_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="myconcertModel.comentarios_ibfk_3" ManuallyRouted="false" />
-        <AssociationConnector Association="myconcertModel.eventos_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="myconcertModel.eventos_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="myconcertModel.eventos_ibfk_3" ManuallyRouted="false" />
-        <AssociationConnector Association="myconcertModel.votos_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="myconcertModel.generosbanda_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="myconcertModel.generosusuario_ibfk_1" ManuallyRouted="false" />
         <EntityTypeShape EntityType="myconcertModel.usuarios" Width="1.5" PointX="3" PointY="18.875" />
@@ -46,6 +40,13 @@
         <AssociationConnector Association="myconcertModel.usuarios_ibfk_4" />
         <AssociationConnector Association="myconcertModel.usuarios_ibfk_3" />
         <AssociationConnector Association="myconcertModel.votos_ibfk_4" />
+        <EntityTypeShape EntityType="myconcertModel.eventos" Width="1.5" PointX="8.25" PointY="5.5" />
+        <AssociationConnector Association="myconcertModel.eventos_ibfk_4" />
+        <AssociationConnector Association="myconcertModel.categoriasevento_ibfk_1" />
+        <AssociationConnector Association="myconcertModel.eventos_ibfk_2" />
+        <AssociationConnector Association="myconcertModel.eventos_ibfk_1" />
+        <AssociationConnector Association="myconcertModel.eventos_ibfk_3" />
+        <AssociationConnector Association="myconcertModel.votos_ibfk_2" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

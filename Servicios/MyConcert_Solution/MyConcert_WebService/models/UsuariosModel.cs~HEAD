@@ -1,33 +1,36 @@
-﻿using MyConcert_WebService.database;
-using MyConcert_WebService.objects;
+﻿using MyConcert_WebService.objects;
 using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MyConcert_WebService.models
 {
     public class UsuariosModel
     {
-        private UsuariosDB _usuariosDB;
+        private ManejadorBD _manejador;
         private FabricaRespuestas creador = new FabricaRespuestas();
         private Respuesta respuesta;
 
         public UsuariosModel()
         {
-            _usuariosDB = new UsuariosDB();
+            _manejador = new ManejadorBD();
         }
 
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
-            Usuario usuarioActual;
+            usuarios usuarioActual;
             try
             {
-                usuarioActual = _usuariosDB.obtenerUsuario(pUsername);
+                usuarioActual = _manejador.obtenerUsuario(pUsername);
             } catch(Exception e)
             {
-                return respuesta = creador.crearRespuesta(false, e.ToString());
+                return respuesta = creador.crearRespuesta(false, "Error en conexión con el servidor. Intente de nuevo.");
             }
             
 
@@ -37,37 +40,31 @@ namespace MyConcert_WebService.models
             }
             else
             {
-                if (usuarioActual.Contrasena != pPassword)              //Si la contrasena es incorrecta.
+                if (usuarioActual.contraseña != pPassword)              //Si la contrasena es incorrecta.
                 {
                     respuesta = creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
                 }
                 else                                                  //Si el usuario y contrasena son validos.
                 {
-
-                    respuesta = creador.crearRespuesta(true, JObject.FromObject(usuarioActual));
+                    respuesta = creador.crearRespuesta(false, JObject.FromObject(usuarioActual));
                 }
             }
 
             return respuesta;
         }
 
-        public Respuesta registrarUsuario(string pRol, JObject pDatosUsuario, int[] pListaGeneroFavoritos)
+        public Respuesta registrarUsuario(string pRol, JObject pDatosUsuario)
         {
             SerializerJSON serial = new SerializerJSON();
             try
             {
                 Usuario nuevoUsuario = serial.leerDatosUsuario(pRol, pDatosUsuario);
 
-                if (pRol == "fanatico")
-                    _usuariosDB.añadirUsuario(nuevoUsuario, pListaGeneroFavoritos); //Se almacena el nuevo usuario
-                else
-                    _usuariosDB.añadirUsuario(nuevoUsuario); //Se almacena el nuevo usuario
-
-                respuesta = creador.crearRespuesta(true, "Usuario creado exitosamente.");
+                _manejador.añadirUsuario(nuevoUsuario, ); //Se almacena el nuevo usuario
             }
             catch (Exception e)
             {
-                respuesta = creador.crearRespuesta(false, "Usuario ya existente. Intentar de nuevo.");
+                respuesta = creador.crearRespuesta(false, e.ToString());
             }
 
             return respuesta;

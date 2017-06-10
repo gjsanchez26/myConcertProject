@@ -4,12 +4,12 @@ namespace MyConcert_WebService.res.resultados
 {
     public class ResultadoObjeto : Respuesta
     {
-        public JObject contenido;
+        public JObject content;
 
         public ResultadoObjeto(bool pExito, JObject pObjeto)
         {
-            this.exito = pExito;
-            this.contenido = pObjeto;
+            this.success = pExito;
+            this.content = pObjeto;
         }
 
         public ResultadoObjeto()

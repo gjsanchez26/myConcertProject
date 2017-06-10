@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
-    class Evento
+    public class Evento
     {
+        private int _id;
         private string _nombre;
         private string _ubicacion;
-        private Pais _pais;
-        private string _fechaInicioFestival;
-        private string _horaInicioFestival;
-        private string _fechaFinalFestival;
-        private string _horaFinalFestival;
-        private List<Categoria> _categorias;
+        private string _pais;
+        private DateTime _fechaInicioFestival;
+        private DateTime _fechaFinalFestival;
+        private string tipoEvento;
+        private string estado;
 
         public string Nombre
         {
@@ -43,7 +43,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        internal Pais Pais
+        internal string Pais
         {
             get
             {
@@ -56,7 +56,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string FechaInicioFestival
+        public DateTime FechaInicioFestival
         {
             get
             {
@@ -69,20 +69,7 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string HoraInicioFestival
-        {
-            get
-            {
-                return _horaInicioFestival;
-            }
-
-            set
-            {
-                _horaInicioFestival = value;
-            }
-        }
-
-        public string FechaFinalFestival
+        public DateTime FechaFinalFestival
         {
             get
             {
@@ -95,29 +82,29 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string HoraFinalFestival
+        public string TipoEvento
         {
             get
             {
-                return _horaFinalFestival;
+                return tipoEvento;
             }
 
             set
             {
-                _horaFinalFestival = value;
+                tipoEvento = value;
             }
         }
 
-        internal List<Categoria> Categorias
+        public string Estado
         {
             get
             {
-                return _categorias;
+                return estado;
             }
 
             set
             {
-                _categorias = value;
+                estado = value;
             }
         }
     }

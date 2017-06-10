@@ -8,18 +8,46 @@ namespace MyConcert_WebService.objects
 {
     class Banda
     {
+        private int _id;
         private string _nombre;
-        private List<Cancion> _canciones;
-        private List<MiembroBanda> _miembros;
-        private List<GeneroMusical> _generos; 
-        private List<Comentario> _comentarios;
         private float _calificacion;
+        private string _estado;
+
+        public Banda(int _id, string _nombre, float _calificacion, string _estado)
+        {
+            this._id = _id;
+            this._nombre = _nombre;
+            this._calificacion = _calificacion;
+            this._estado = _estado;
+        }
 
         public string Nombre { get { return _nombre; }  set { _nombre = value; } }
         public float Calificacion { get { return _calificacion; }  set { _calificacion = value; } }
-        internal List<Cancion> Canciones { get { return _canciones; } set { _canciones = value; } }
-        internal List<MiembroBanda> Miembros { get { return _miembros; } set { _miembros = value; } }
-        internal List<GeneroMusical> Generos { get {return _generos; } set { _generos = value; } }
-        internal List<Comentario> Comentarios { get { return _comentarios; } set { _comentarios = value; } }
+
+        public string Estado
+        {
+            get
+            {
+                return _estado;
+            }
+
+            set
+            {
+                _estado = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+            }
+        }
     }
 }

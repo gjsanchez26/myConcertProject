@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MyConcert_WebService.objects;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.database
 {
-    class EventosDB
-    {   //OBTENER LISTA DE OBJETOS
+    public class EventosDB
+    {
+        ManejadorBD _manejador = new ManejadorBD();
+
+        //OBTENER LISTA DE OBJETOS
         public List<eventos> obtenerCarteleras()
         {
             List<eventos> obj = null;
             try
             {
-
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.eventos.Where(r => r.FK_EVENTOS_TIPOSEVENTOS==1).ToList();
@@ -26,6 +29,52 @@ namespace MyConcert_WebService.database
                 Console.Write(ex.InnerException.ToString());
             }
             return obj;
+        }
+
+
+        public Evento convertirCartelera(eventos pEvento)
+        {
+            Evento evento;
+            string country, event_type, state, chef;
+
+            if (pEvento.FK_EVENTOS_TIPOSEVENTOS == 1)
+            {
+                country = _manejador.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
+                event_type = _manejador.obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
+                state = _manejador.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
+
+                evento =
+                new Cartelera(pEvento.nombreEve,
+                                pEvento.ubicacion,
+                                country,
+                                pEvento.fechaInicio,
+                                pEvento.fechaFinal,
+                                pEvento.finalVotacion.Value,
+                                event_type,
+                                state);
+            }
+            else
+            {
+                country = _manejador.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
+                event_type = _manejador.obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
+                state = _manejador.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
+                chef = null;
+
+                evento =
+                new Festival(pEvento.nombreEve,
+                            pEvento.ubicacion,
+                            country,
+                            pEvento.fechaInicio,
+                            pEvento.finalVotacion.Value,
+                            event_type,
+                            state,
+                            pEvento.comida,
+                            pEvento.transporte,
+                            pEvento.servicios,
+                            chef);
+            }
+
+            return evento;
         }
 
         public List<eventos> obtenerFestivales()
