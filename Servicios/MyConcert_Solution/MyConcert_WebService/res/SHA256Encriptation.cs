@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
 
-namespace MyConcert_WebService.security
+namespace MyConcert_WebService.res
 {
     class SHA256Encriptation
     {

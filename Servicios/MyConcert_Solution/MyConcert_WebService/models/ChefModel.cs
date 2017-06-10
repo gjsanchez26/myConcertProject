@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyConcert_WebService.models
 {
-    class ChefModel
+    public class ChefModel
     {
         //Manejador de base de datos 
         private ManejadorBD _managerDB;

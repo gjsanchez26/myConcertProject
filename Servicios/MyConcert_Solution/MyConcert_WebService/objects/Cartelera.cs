@@ -12,7 +12,8 @@ namespace MyConcert_WebService.objects
                         DateTime fechaInicioFestival,
                         DateTime fechaFinalFestival, 
                         DateTime fechaFinalVotacion,
-                        string tipoEvento)
+                        string tipoEvento,
+                        string estado)
         {
             this.Nombre = nombre;
             this.Ubicacion = ubicacion;
@@ -20,6 +21,7 @@ namespace MyConcert_WebService.objects
             this.FechaInicioFestival = fechaInicioFestival;
             this.FechaFinalFestival = fechaFinalFestival;
             this.FechaFinalVotacion = fechaFinalVotacion;
+            this.Estado = estado;
         }
 
         public DateTime FechaFinalVotacion

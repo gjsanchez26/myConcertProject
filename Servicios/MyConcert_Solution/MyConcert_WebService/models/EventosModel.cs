@@ -12,16 +12,19 @@ namespace MyConcert_WebService.models
     {
         EventosDB _eventosDB = new EventosDB();
 
-        //public Respuesta getCarteleras()
-        //{
-        //    try
-        //    {
-        //        List<eventos> carteleraElementos = _eventosDB.obtenerCarteleras();
+        public Respuesta getCarteleras()
+        {
+            try
+            {
+                
 
-        //    } catch(Exception e)
-        //    {
-        //        throw (e);
-        //    }
-        //}
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+
+            return new Respuesta();
+        }
     }
 }

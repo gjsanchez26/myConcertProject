@@ -1,13 +1,12 @@
 ﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.res.usr;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MyConcert_WebService.controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsuariosController : ApiController
     {
         private UsuariosModel _model = new UsuariosModel();

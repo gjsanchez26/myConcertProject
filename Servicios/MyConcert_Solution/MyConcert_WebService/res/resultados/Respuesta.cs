@@ -2,6 +2,6 @@
 {
     public class Respuesta
     {
-        public bool exito;
+        public bool success;
     }
 }

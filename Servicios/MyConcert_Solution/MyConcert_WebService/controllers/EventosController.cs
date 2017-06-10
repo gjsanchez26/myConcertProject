@@ -25,9 +25,9 @@ namespace MyConcert_WebService.controllers
         //        case "festival":
         //            break;
         //        default:
-        //            respuesta.exito = false;
+        //            respuesta.success = false;
         //            string error = "Tipo de evento no existente.";
-        //            respuesta.contenido = JObject.FromObject(error);
+        //            respuesta.content = JObject.FromObject(error);
         //            break;
         //    }
             

@@ -5,10 +5,6 @@ using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.models
 {
@@ -71,7 +67,7 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                respuesta = creador.crearRespuesta(false, e.ToString());
+                respuesta = creador.crearRespuesta(false, "Usuario ya existente. Intentar de nuevo.");
             }
 
             return respuesta;
