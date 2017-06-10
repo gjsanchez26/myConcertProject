@@ -1,16 +1,27 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
 
+/**
+ * @namespace MyConcert_WebService.res.security
+ * @brief Almacena las clase para establecer seguridad
+ * a las contraseñas de los usuarios con el algoritmo
+ * SHA256.
+ */
 namespace MyConcert_WebService.security
 {
+    /**
+     * @class SHA256Encriptation
+     * @brief Objeto que contiene el algoritmo de 
+     * seguridad para contraseñas.
+     */
     class SHA256Encriptation
     {
         /**
-         * Algoritmo para la encriptacion 
-         * de contraseñas (seguridad)
-         * Obtenido de:
+        * @brief Algoritmo para la encriptacion de contraseñas (seguridad). Obtenido de:
          * http://www.programadordepalo.com/access-encriptar-contrasenas-con-sha-256-utilizando-biblioteca-de-clases-net-con-c/
-         */
+        * @param ppassword Contraseña para encriptar. 
+        * @return Contraseña encriptada.
+        */
         public string sha256Encrypt(string ppassword)
         {
             SHA256CryptoServiceProvider provider = new SHA256CryptoServiceProvider();

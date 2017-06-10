@@ -14,9 +14,6 @@ namespace MyConcert_WebService
         
         public static void Main(string[] args)
         {
-
-
-
             using (myconcertEntities context = new myconcertEntities())
             {
                var gen = context.generos.Join(context.generosusuario,

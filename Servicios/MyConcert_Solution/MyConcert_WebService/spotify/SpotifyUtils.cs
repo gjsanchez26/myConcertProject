@@ -10,10 +10,11 @@ using System.Collections.Generic;
 
 namespace Sptfy
 {
+    
     /**
-     * Clase que maneja las búsquedas en Spotify,
-     * así como el almacenamiento de información relevante
-     **/
+    * @class SpotifyUtils
+    * @brief  Clase que maneja las búsquedas en Spotify, así como el
+    * almacenamiento de información relevante.    */
     class SpotifyUtils
     {
         private static SpotifyWebAPI _spotify { get; set; }
@@ -31,10 +32,11 @@ namespace Sptfy
             askForAuth();
 
         }
+
+        
         /**
-        * Solicita el token de autorización para
-        * realizar peticiones a la API de Spotify
-        **/
+         * @brief Solicita el token de autorización para realizar peticiones a la API de Spotify.
+         */
         private void askForAuth()
         {
             _auth = new ClientCredentialsAuth()
@@ -53,10 +55,10 @@ namespace Sptfy
         /*****************************************************************/
 
         /**
-        * Solicita dato de un artista 
-        * en especifico. Retorna el ID del
-        * artista de interes
-        **/
+         * @brief Solicita dato de un artista en especifico. Retorna el ID del artista de interes.
+         * @param partist El nombre del artista.
+         * @return El identificador del artista, segun spotify.
+         */
         public string searchArtistID(string partist)
         {
             FullArtist info_artist = null;
@@ -72,13 +74,13 @@ namespace Sptfy
             }
             return info_artist.Id;
         }
-
-
+        
+        
         /**
-       * Solicita dato de un artista 
-       * en especifico. Retorna la popularidad del
-       * artista de interes
-       **/
+          * @brief Solicita dato de un artista en especifico. Retorna la popularidad del artista de interes.
+          * @param partist El nombre del artista.
+          * @return La popularidad del artista, segun spotify.
+          */
         public int searchArtistPopularity(string partist)
         {
             FullArtist info_artist = null;
@@ -100,6 +102,11 @@ namespace Sptfy
       * en especifico. Retorna la cantidad de
       * seguidores de un artista 
       **/
+        /**
+        * @brief Solicita dato de un artista en especifico. Retorna la cantidad de seguidores del artista de interes.
+        * @param partist El nombre del artista.
+        * @return Los seguidores del artista, segun spotify.
+        */
         public int searchArtistFollowers(string partist)
         {
             FullArtist info_artist = null;
@@ -116,11 +123,12 @@ namespace Sptfy
             return info_artist.Followers.Total;
         }
 
+        
         /**
-    * Solicita dato de un artista 
-    * en especifico. Retorna uno de los generos
-    *  de un artista 
-    **/
+         * @brief Solicita dato de un artista en especifico. Retorna los generos del artista de interes.
+         * @param partist El nombre del artista.
+         * @return Lista de generos del artista, segun spotify.
+         */
         public List<string> searchArtistGenres(string partist)
         {
             FullArtist info_artist = null;
@@ -137,11 +145,12 @@ namespace Sptfy
             return info_artist.Genres;
         }
 
+
         /**
-       * Solicita dato de un artista 
-       * en especifico. Retorna una de las imagenes
-       *  de un artista proporcionada por spotify
-       **/
+          * @brief Solicita dato de un artista en especifico. Retorna una de las imagenes de un artista proporcionada por spotify.
+          * @param partist El nombre del artista.
+          * @return Lista de imagenes del artista, proveida por spotify.
+          */
         public List<Image> searchArtistImages(string partist)
         {
             FullArtist info_artist = null;
@@ -162,10 +171,11 @@ namespace Sptfy
         /*****************************************************************/
 
         /**
-        * Solicita datos de una cancion 
-        * en especifico. Retorna un objeto con toda 
-        * la información de esta.
-        **/
+        * @brief Solicita datos de una cancion en especifico. Retorna el identificador de la cancion.
+        * @param partist El nombre del artista.
+        * @param psong Nombre de la cancion que se quiere.
+        * @return identificador de la canción.
+        */
         public string searchTracks(string pidartist, string psong)
         {
             string tmp = null;
@@ -182,17 +192,24 @@ namespace Sptfy
         }
 
         /**
-        * Solicita dato de una cancion en especifico. Retorna el nombre
-        **/
+        * @brief Solicita dato de una cancion en especifico. Retorna el nombre
+        * @param partist El nombre del artista.
+        * @param pindex indice para acceder a alguna cancion de la lista.
+        * @return Nombre de la cancion.
+        */
         public string searchNameTrack(string pidartist, int pindex)
         {
             SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
             return tracks.Tracks[pindex].Name;
         }
 
+        
         /**
-        * Solicita dato de una cancion en especifico. Retorna el URL
-        **/
+       * @brief Solicita dato de una cancion en especifico. Retorna el URL
+       * @param partist El nombre del artista.
+       * @param pnametrack indice para acceder a alguna cancion de la lista.
+       * @return URL de la cancion.
+       */
         public string searchURLTrack(string pidartist, string pnametrack)
         {
             SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
@@ -206,11 +223,13 @@ namespace Sptfy
             }
             return url;
         }
-
+        
         /**
-        * Solicita dato de una cancion en especifico. Retorna el nombre
-        * del album al que pertenece
-        **/
+       * @brief Solicita dato de una cancion en especifico. Retorna el nombre del album al que pertenece.
+       * @param partist El nombre del artista.
+       * @param pnametrack indice para acceder a alguna cancion de la lista.
+       * @return Album de la cancion.
+       */
         public string searchAlbumTrack(string pidartist, string pnametrack)
         {
             SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
@@ -225,11 +244,12 @@ namespace Sptfy
             return album;
         }
 
-        /**
-         * Funcion que obtiene las caracteristicas que describen
-         * una cancion por medio de Spotify. Retorna un JSON con 
-         * dichas caracteristicas
-         * */
+         /**
+         * @brief Funcion que obtiene las caracteristicas que describen una cancion por medio de Spotify.
+         * Retorna un JSON con dichas caracteristicas.
+         * @param pid Identificador de la cancion a evaluar.
+         * @return un objeto con todas las caracteristicas de la cancion.
+         */
         public async Task<JObject> trackFeatures(string pid)
         {
             //Solicita los datos de analisis de una cancion 

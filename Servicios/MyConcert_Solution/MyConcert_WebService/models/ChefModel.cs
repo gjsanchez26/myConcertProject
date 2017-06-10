@@ -2,8 +2,19 @@
 using System;
 using System.Collections.Generic;
 
+/**
+ * @namespace MyConcert_WebService.models
+ * @brief Almacena las clases que definen la lógica
+ * entre los modulos de la base de datos y los 
+ * controladores.
+ */
 namespace MyConcert_WebService.models
 {
+    /**
+     * @class ChefModel
+     * @brief Clase que ejecuta el algoritmo del chef 
+     * junto con todas sus dependencias.
+     */
     class ChefModel
     {
         //Manejador de base de datos 
@@ -14,12 +25,12 @@ namespace MyConcert_WebService.models
             _managerDB = new ManejadorBD();
         }
 
-        
-        /**
-         * Funcion que solicita dependencias y ejecuta 
-         * el algoritmo del chef según los parámetros indicados 
-         * */
 
+        /**
+         * @brief Funcion que solicita dependencias y ejecuta el algoritmo del chef según los parámetros indicados. 
+         * @param pwinners Lista de bandas ganadoras.
+         * @param id_fest El identificador del evento a realzarse.
+         */
         public void executeChefProcess(List<string> pwinners, int id_fest)
         {
             /* ALGORITMO DEL CHEF */
@@ -71,7 +82,11 @@ namespace MyConcert_WebService.models
          * de la recomendacion del Chef para festivales
          * */
 
-        //Solicita comentarios de las bandas
+        /**
+         * @brief Solicita comentarios de las bandas. 
+         * @param pbands Lista de bandas.
+         * @return Lista de comentarios de una banda.
+         */
         public List<float> getComments(List<bandas> pbands)
         {
             List<float> _comments = new List<float>();
@@ -82,7 +97,11 @@ namespace MyConcert_WebService.models
             return _comments;
         }
 
-        //Solicita calificaciones de las bandas
+        /**
+         * @brief Solicita calificaciones de las bandas. 
+         * @param pbands Lista de bandas.
+         * @return Lista de calificaciones de una banda.
+         */
         public List<float> getRating(List<bandas> pbands)
         {
             List<float> _ratings = new List<float>();
@@ -93,7 +112,11 @@ namespace MyConcert_WebService.models
             return _ratings;
         }
 
-        //Crea una lista con los nombres de las bandas
+        /**
+         * @brief Crea una lista con los nombres de las bandas.
+         * @param pbands Lista de bandas.
+         * @return Lista de nombres de las bandas.
+         */
         public List<string> getBandsNames(List<bandas> pbands)
         {
             List<string> _band = new List<string>();
@@ -103,8 +126,12 @@ namespace MyConcert_WebService.models
             }
             return _band;
         }
-        
-        //Obtiene las canciones de las bandas
+
+        /**
+         * @brief Obtiene las canciones de las bandas.
+         * @param pbands Lista de bandas.
+         * @return Lista de nombres de las canciones de las bandas.
+         */
         public List<List<canciones>> getAllSongsArtists(List<bandas> pbands)
         {
             List<List<canciones>> _songs = new List<List<canciones>>();

@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.res
 {
+    /**
+     * @class DolarStrategy
+     * @brief Objeto que verifica la estrategia
+     * de los cien dolares.
+     */
     class DolarStrategy
     {
-
         /**
-         * Verifica si los votos de un participante
-         * suman cien como resultado
-         * */
+        * @brief Verifica si los votos de un participante suman cien como resultado.
+        * @param pdolars Lista con las votaciones por parte de un usuario. 
+        * @return valor booleano que verifica si está correcta la estrategia.
+        */
         public bool checkDolars(List<int> pdolars)
         {
             bool _flag = false;
