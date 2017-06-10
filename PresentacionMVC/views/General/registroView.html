@@ -13,7 +13,7 @@
                                   <form>
                                       <div class="top-row">
                                         <div class="form-group">
-                                          <label class="checkbox-inline"><span><input style="margin: 5px 0px 0px 100px;" name ="tipoUsuario"ng-model ="usuario.tipo" type="checkbox" value="">Registrarse como fanatico</span></label>
+                                          <label class="checkbox-inline"><span><input style="margin: 5px 0px 0px 100px;" name ="tipoUsuario" ng-model ="usuario.tipo" ng-change="obtenerListas()" type="checkbox" value="">Registrarse como fanatico</span></label>
                                         </div>
                                         <div class="form-group">
                                           <label>Nombre de Usuario<span class="req">*</span></label>
@@ -60,25 +60,19 @@
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
                                                         <label for="F_Pais">País</label>
-                                                        <select type="number" id = "F_Pais"     name="F_Pais" ng-model="usuario.pais" placeholder="Escriba un Nombre de Usuario" style="color:#ffffff">
-                                                            <option style="color:#ffffff" ng-repeat="item in listaPaises">{{item.P_ID}}</option>
+                                                        <select style="color:#ffffff" ng-model="usuario.pais" ng-options="x.Nombre for x in usuario.listaPaises">
                                                         </select>
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
-                                                        <label for="F_Universidad">Universidad</label>
-                                                        <select type="number" id = "F_Universidad"      name="F_Universidad" ng-       model="usuario.universidad" placeholder="Escriba un Nombre de Usuario" style="color:#ffffff">
-                                                            <option style="color:#ffffff" ng-repeat="item in listaUniversidades">{{item.U_ID}}</option>
+                                                        <label for="F_Universidad">Universidad</label>+
+                                                        <select style="color:#ffffff" ng-model="usuario.universidad" ng-options="x.Nombre for x in usuario.listaUniversidades">
                                                         </select>
                                                     </div>
                                                     <div >
                                                       <label for="sel2">Seleccione sus géneros preferidos</label>
-                                                      <select style="color:#ffffff" multiple  id="sel2">
-                                                        <option>Reggae</option>
-                                                        <option>Rock</option>
-                                                        <option>Metal</option>
-                                                        <option>Salsa</option>
-                                                        <option>HipHop</option>
-                                                      </select>
+                                                      <select multiple style="color:#ffffff" ng-model="usuario.generos" ng-options="x.Nombre for x in usuario.listaGeneros">
+                                                        </select>   
+
                                                     </div>
                                                     <div class="form-group">
                                                       <label for="F_Descripcion">Descripción Personal</label>

@@ -1,5 +1,6 @@
 myConcert.service("registroModel", function($routeParams, $location, $http){
-
+var myURL ="http://192.168.100.12:12345";
+var paises;
 this.verificarUsuario = function(usuarioLogin){  
     
     console.log("1");
@@ -9,19 +10,21 @@ this.verificarUsuario = function(usuarioLogin){
                         "password":usuarioLogin.password
                    };
     console.log(Credenciales);
-    window.location.href = "#vistaColaborador"
     $http({
         method: 'POST',
-        url: "http://192.168.100.12:12345/API/login",
-        headers: {'Content-Type' : 'application/x-www-form-urlencoded'},
+        url: myURL+"/api/login",
+        headers: {'Content-Type' : 'application/json'},
         data: Credenciales
 
         }).then(function(result){
                 console.log(Credenciales);
                 console.log(result);
 
-                if (result.data.success) {
-                      if (result.data.tipoUsuario) window.location.href = "#vistaColaborador";
+                if (result.data.succes) {
+                      alert(result.data);
+                      if (result.data.content.role=="colaborador")
+                          window.location.href = "#vistaColaborador";
+                        
                       else window.location.href = "#vistaFanatico";
                     }
                 else alert("Contraseña y/o Usuario Incorrecto")
@@ -36,48 +39,133 @@ this.crearUsuario = function (usuario) {
     var Fanatico;
     if($('input[name="tipoUsuario"]:checked').length > 0){
         Fanatico = {
-        "F_NombreUsuario":   usuario.nombreUsuario,
-        "F_Nombre":          usuario.Nombre,
-        "F_Apellido":        usuario.Apellido,
-        "F_Password":        usuario.Contrasena,
-        "F_Correo":          usuario.Email,
-        "F_Foto" :           "",
-        "F_FechaNacimiento": usuario.fechaNacimiento,    
-        "F_Telefono":        usuario.telefono,
-        "F_Ubicacion":       usuario.ubicacion,
-        "P_ID":              usuario.pais,
-        "U_ID":              usuario.universidad,
-        "F_Generos":         $('#sel2').val(),
-        "F_Descripcion":     usuario.descripcion,
-        "F_Terminos":        $('input[name="aceptoTerminos"]:checked').length > 0
+        "role":              "fanatico",
+        "user_data":
+               {   
+                "username":          usuario.nombreUsuario,
+                "name":              usuario.Nombre,
+                "last_name":         usuario.Apellido,
+                "password":          usuario.Contrasena,
+                "email":             usuario.Email,
+                "profile_pic" :      "foto",
+                "bith_date":         Date(usuario.fechaNacimiento), 
+                "phone":             usuario.telefono,
+                "ubication":         usuario.ubicacion,
+                "country":           usuario.pais.Id    ,
+                "university":        usuario.universidad.Id,
+                "description":       usuario.descripcion
+               },
+        "genres": usuario.generos.map(function(a) {return a.Id;})
     };
     console.log(Fanatico);
     }
     else {
         Fanatico = {
-        "C_NombreUsuario":  usuario.nombreUsuario,
-        "C_Nombre":         usuario.Nombre,    
-        "C_Apellido":       usuario.Apellido,
-        "C_Password":       usuario.Contrasena,
-        "C_Correo":         usuario.Email,
-        "C_Foto" :          "", 
-    }
+        "role":                      "colaborador",
+        "user_data":
+               {   
+                "username":          usuario.nombreUsuario,
+                "name":              usuario.Nombre,
+                "last_name":         usuario.Apellido,
+                "password":          usuario.Contrasena,
+                "email":             usuario.Email,
+                "profile_pic" :      "foto",
+                
+               },
+        "genres": []
+    };
     console.log(Fanatico);
     }
     $http({
                 method: 'POST',
-                url: "http://192.168.100.12:12345/API/Usuarios",
+                url: myURL+"/API/Usuarios",
                 headers: {
-                    'Content-Type' : 'application/x-www-form-urlencoded'
+                    'Content-Type' : 'application/json'
                 },
                 data: Fanatico
                 }).then(function(result){
-                    if (result.data.success) alert("Usuario Creado");
-                    else alert("Usuario No Creado, Intente más tarde")
+                    if (result.data.success)
+                    {alert("Usuario Creado");
+                     window.location.href = "#vistaColaborador";
+                    }
+                    else alert(result.data.content)
 
                 }, function(error) {
                     console.log(error);
                 });
+}
+
+this.obtenerPaises = function(usuario) {
+    $http({
+                method: 'GET',
+                url: myURL+"/API/utilidades?data=paises",
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                }).then(function(result){
+                    console.log("Json GET_PAIS");
+                    console.log(result);
+                    if (result.data.success)
+                    {   
+                        console.log("Valor a Retornar");
+                        console.log(result.data.Elements);
+                        usuario.listaPaises=result.data.Elements;
+                        return result.data.Elements; 
+                    }
+                    else alert(result.data.content)
+
+                }, function(error) {
+                    console.log(error);
+                });
+    
+}
+this.obtenerUniversidades = function(usuario) {
+    $http({
+                method: 'GET',
+                url: myURL+"/API/utilidades?data=universidades",
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                }).then(function(result){
+                    console.log("Json GET_PAIS");
+                    console.log(result);
+                    if (result.data.success)
+                    {   
+                        console.log("Valor a Retornar");
+                        console.log(result.data.Elements);
+                        usuario.listaUniversidades=result.data.Elements;
+                        return result.data.Elements; 
+                    }
+                    else alert(result.data)
+
+                }, function(error) {
+                    console.log(error);
+                });
+    
+}
+this.obtenerGeneros = function(usuario) {
+    $http({
+                method: 'GET',
+                url: myURL+"/API/utilidades?data=generos",
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                }).then(function(result){
+                    console.log("Json GET_PAIS");
+                    console.log(result);
+                    if (result.data.success)
+                    {   
+                        console.log("Valor a Retornar");
+                        console.log(result.data.Elements);
+                        usuario.listaGeneros=result.data.Elements;
+                        return result.data.Elements; 
+                    }
+                    else alert(result.data)
+
+                }, function(error) {
+                    console.log(error);
+                });
+    
 }
         
       
