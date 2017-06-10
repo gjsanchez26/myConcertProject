@@ -33,7 +33,7 @@ namespace MyConcert_WebService
         }
         //BANDASDB
 
-        public void añadirBanda(bandas banda, List<integrantes> integ, List<canciones> canciones, List<generos> gen)
+        public void añadirBanda(bandas banda, string[] integ, string[] canciones, int[] gen)
         {
             
             banDB.añadirBanda(banda, integ, canciones, gen);

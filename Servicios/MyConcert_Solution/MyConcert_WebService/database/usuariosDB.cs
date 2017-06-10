@@ -176,7 +176,7 @@ namespace MyConcert_WebService.database
             return user;
         }
 
-        private List<generos> covertirGenerosFavoritos(int[] pGeneros)
+        public List<generos> covertirGenerosFavoritos(int[] pGeneros)
         {
             List<generos> listaGeneros = new List<generos>();
 

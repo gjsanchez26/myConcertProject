@@ -58,7 +58,7 @@ namespace MyConcert_WebService.models
                 /*SE SOLICITA INFO A LA BASE DE DATOS RESPECTO A LA BANDA*/
                 /*SE ENVIA LA BANDA RECOMENDADA A JAVASCRIPT*/
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Error: No hay suficiente informacion de las bandas en Spotify...");
                 Console.WriteLine("Algoritmo del Chef alternativo");
