@@ -107,5 +107,18 @@ namespace MyConcert_WebService.objects
                 estado = value;
             }
         }
+
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+            }
+        }
     }
 }

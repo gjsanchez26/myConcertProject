@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyConcert_WebService.objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,14 @@ namespace MyConcert_WebService.database
 {
     class BandasDB
     {
-        public void añadirBanda(bandas banda, List<integrantes> integ, List<canciones> canciones, List<generos> gen)
+        UtilidadesDB utiDB = new UtilidadesDB();
+        
+        public void añadirBanda(bandas banda, string[] pIntegrantes, string[] pCanciones,int[] pGeneros )
         {
-
-
+            UsuariosDB usuDB = new UsuariosDB();
+            List<generos> gen = usuDB.covertirGenerosFavoritos(pGeneros);
+            List<canciones> can = convertirCancionesAcanciones(pCanciones);
+            List<integrantes> integ = convertirIntegrantesAintegrantes(pIntegrantes);
             using (myconcertEntities context = new myconcertEntities())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
@@ -25,7 +30,7 @@ namespace MyConcert_WebService.database
                             i.FK_INTEGRANTES_BANDAS = banda.PK_bandas;
                             context.integrantes.Add(i);
                         }
-                        foreach (canciones c in canciones)
+                        foreach (canciones c in can)
                         {
                             c.FK_CANCIONES_BANDAS = banda.PK_bandas;
                             context.canciones.Add(c);
@@ -53,6 +58,53 @@ namespace MyConcert_WebService.database
             }
         }
 
+        private List<integrantes> convertirIntegrantesAintegrantes(string[] pIntegrantes)
+        {
+            List<integrantes> integran = new List<integrantes>();
+            for (int i = 0; i < integran.Count; i++)
+            {
+                integrantes integrante = new integrantes();
+                 integrante.nombreInt= pIntegrantes[i];
+                integran.Add(integrante);
+            }
+            return integran;
+        }
+
+        private List<canciones> convertirCancionesAcanciones(string[] pCanciones)
+        {
+            List<canciones> canciones= new List<canciones>();
+            for(int i=0; i < canciones.Count; i++)
+            {
+                canciones cancion = new canciones();
+                cancion.cancion = pCanciones[i];
+                canciones.Add(cancion);
+            }
+            return canciones;
+        }
+        
+ 
+        private Banda convertirbandaABanda(bandas pBanda)
+        {
+            EventosDB eveDB = new EventosDB();
+            int id = pBanda.PK_bandas;
+            string nombre = pBanda.nombreBan;
+            float calificacion = eveDB.getCalificacion(pBanda);
+            string estado = utiDB.obtenerEstado(pBanda.FK_BANDAS_ESTADOS).estado;
+            Banda ban = new Banda(id, nombre, calificacion, estado);
+            return ban;
+        } 
+
+        private bandas convertirBandaAbanda(Banda pBanda)
+        {
+            EventosDB eveDB = new EventosDB();
+            string nombre = pBanda.Nombre;
+            int estado = utiDB.obtenerEstado(pBanda.Estado).PK_estados;
+            bandas ban = new bandas();
+            ban.FK_BANDAS_ESTADOS = estado;
+            ban.nombreBan = nombre;
+            return ban;
+        }
+
         public bandas obtenerBanda(int PK_banda)
         {
             bandas obj = null;
@@ -72,6 +124,24 @@ namespace MyConcert_WebService.database
             return obj;
         }
 
+        public bandas obtenerBanda(string banda)
+        {
+            bandas obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.bandas.FirstOrDefault(r => r.nombreBan == banda);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
         public integrantes obtenerIntegrante(int PK_integrante)
         {
             integrantes obj = null;

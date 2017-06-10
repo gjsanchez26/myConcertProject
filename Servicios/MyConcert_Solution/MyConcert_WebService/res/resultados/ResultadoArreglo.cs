@@ -12,6 +12,6 @@ namespace MyConcert_WebService.res.resultados
             this.Elements = pArray;
         }
 
-        public JObject[] Elements { get => elements; set => elements = value; }
+        public JObject[] Elements { get { return elements; } set { elements = value; } }
     }
 }

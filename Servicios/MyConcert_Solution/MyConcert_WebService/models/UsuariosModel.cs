@@ -70,7 +70,7 @@ namespace MyConcert_WebService.models
 
                 respuesta = creador.crearRespuesta(true, "Usuario creado exitosamente.");
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 respuesta = creador.crearRespuesta(false, "Usuario ya existente. Intentar de nuevo.");
             }
