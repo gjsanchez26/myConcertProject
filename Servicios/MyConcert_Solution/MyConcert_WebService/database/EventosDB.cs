@@ -13,26 +13,33 @@ namespace MyConcert_WebService.database
         ManejadorBD _manejador = new ManejadorBD();
 
         //OBTENER LISTA DE OBJETOS
-        public List<eventos> obtenerCarteleras()
+        public Evento[] obtenerCarteleras()
         {
             List<eventos> obj = null;
+            Evento[] arreglo = null;
             try
             {
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.eventos.Where(r => r.FK_EVENTOS_TIPOSEVENTOS==1).ToList();
                 }
-
+                arreglo = new Evento[obj.Count];
+                int c = 0;
+                foreach (eventos i in obj)
+                {
+                    arreglo[c] = convertireventosAEvento(i);
+                    c++;
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.InnerException.ToString());
             }
-            return obj;
+            return arreglo;
         }
 
 
-        public Evento convertirCartelera(eventos pEvento)
+        public Evento convertireventosAEvento(eventos pEvento)
         {
             Evento evento;
             string country, event_type, state, chef;
@@ -44,7 +51,8 @@ namespace MyConcert_WebService.database
                 state = _manejador.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
 
                 evento =
-                new Cartelera(pEvento.nombreEve,
+                new Cartelera(pEvento.PK_eventos,
+                                pEvento.nombreEve,
                                 pEvento.ubicacion,
                                 country,
                                 pEvento.fechaInicio,
@@ -61,7 +69,8 @@ namespace MyConcert_WebService.database
                 chef = null;
 
                 evento =
-                new Festival(pEvento.nombreEve,
+                new Festival(pEvento.PK_eventos,
+                            pEvento.nombreEve,
                             pEvento.ubicacion,
                             country,
                             pEvento.fechaInicio,
@@ -77,23 +86,30 @@ namespace MyConcert_WebService.database
             return evento;
         }
 
-        public List<eventos> obtenerFestivales()
+        public Evento[] obtenerFestivales()
         {
             List<eventos> obj = null;
+            Evento[] arreglo = null;
             try
             {
-
+                
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.eventos.Where(r => r.FK_EVENTOS_TIPOSEVENTOS == 2).ToList();
                 }
-
+                arreglo = new Evento[obj.Count];
+                int c = 0;
+                foreach (eventos i in obj)
+                {
+                    arreglo[c] = convertireventosAEvento(i);
+                    c++;
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.InnerException.ToString());
             }
-            return obj;
+            return arreglo;
         }
         
         //OBTENER 1 OBJETO

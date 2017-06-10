@@ -103,6 +103,17 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public string Universidad { get => _universidad; set => _universidad = value; }
+        public string Universidad
+        {
+            get
+            {
+                return _universidad;
+            }
+
+            set
+            {
+                _universidad = value;
+            }
+        }
     }
 }

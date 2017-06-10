@@ -21,15 +21,13 @@ namespace MyConcert_WebService.database
 
         }
         //OBTENER LISTA DE OBJETOS
-
         private Pais convertirpaisesAPais(paises pPais)
         {
             int id = pPais.PK_paises;
             string nombre = obtenerPais(id).pais;
             Pais pais = new Pais(id,nombre);
             return pais;
-        }
-        
+        } 
         private GeneroMusical convertirgenerosAGenero(generos pGenero)
         {
             int id = pGenero.PK_generos;
@@ -123,8 +121,6 @@ namespace MyConcert_WebService.database
             }
             return arreglo;
         }
-
-
         //OBTENER 1 OBJETO
 
         public universidades obtenerUniversidad(string universidad)
@@ -163,8 +159,6 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-
-        
 
         public paises obtenerPais(string pais)
         {

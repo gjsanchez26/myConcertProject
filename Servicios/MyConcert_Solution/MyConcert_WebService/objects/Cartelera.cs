@@ -6,7 +6,8 @@ namespace MyConcert_WebService.objects
     {
         private DateTime _fechaFinalVotacion;
 
-        public Cartelera(string nombre,
+        public Cartelera(int _id,
+                        string nombre,
                         string ubicacion,
                         string pais,
                         DateTime fechaInicioFestival,

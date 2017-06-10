@@ -97,13 +97,13 @@ namespace MyConcert_WebService
 
         //EVENTOSDB
 
-        public List<eventos> obtenerCarteleras()
+        public Evento[] obtenerCarteleras()
         {
             
             return eveDB.obtenerCarteleras();
         }
 
-        public List<eventos> obtenerFestivales()
+        public Evento[] obtenerFestivales()
         {
             return eveDB.obtenerFestivales();
         }
