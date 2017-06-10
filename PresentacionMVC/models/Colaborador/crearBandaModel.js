@@ -6,13 +6,13 @@ this.agregarMiembro = function (banda){
     listaMiembros.push(banda.miembro);
     console.log(listaMiembros);
     banda.miembro="";
-    return listaMiembros;
+    banda.listaMiembros=listaMiembros;
 }
 this.agregarCancion= function (banda){
     listaCanciones.push(banda.cancion);
     console.log(listaCanciones);
     banda.cancion="";
-    return listaCanciones;
+    banda.listaCanciones=listaCanciones;
 }
 this.crearBanda = function (banda) {
     var banda;
@@ -21,10 +21,10 @@ this.crearBanda = function (banda) {
       "band_data": banda.nombre,
       "members":listaMiembros,
       "songs":listaCanciones,
-      "genres":banda.generos.map(function(a) {return a.Id;})          
+      "genres":[1,2,3] //banda.generos.map(function(a) {return a.Id;})          
     }
     
-    console.log(Fanatico);
+    console.log(Banda );
     
     $http({
                 method: 'POST',

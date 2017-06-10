@@ -3,10 +3,10 @@ myConcert.controller("crearBandaController", function($scope, $http, crearBandaM
    // $scope.crearBandaModel.obtenerGeneros($scope.banda);
     
     $scope.agregarMiembro = function(){
-        crearBandaModel.agregarMiembro($scope.banda)
+        crearBandaModel.agregarMiembro($scope.banda);
     }
     $scope.agregarCancion = function(){
-        $scope.banda.listaBandas=crearBandaModel.agregarCancion($scope.banda)
+        crearBandaModel.agregarCancion($scope.banda);
     }
  /*   $scope.obtenerListas = function (){
         $scope.listaGeneros = registroModel.obtenerGeneros($scope.banda);        

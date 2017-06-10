@@ -134,6 +134,7 @@ select option {
     color: none;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
+
 input:focus, textarea:focus {
   outline: 0;
   border-color: #6d153d;

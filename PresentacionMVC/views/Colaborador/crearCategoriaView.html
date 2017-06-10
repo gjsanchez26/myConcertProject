@@ -1,6 +1,58 @@
 <div ng-controller="crearCategoriaController">
+            <div style="margin: 0px 0px 0px 0px;">
+                <nav class="navbar navbar-inverse">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+
+                      <a class="navbar-brand" id="idUser" href="#"></a>
+
+                    </div>
+                    <a class="navbar-brand" id="idUser" href="#home"></a>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                      <ul class="nav navbar-nav">
+
+
+                            <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" >Crear<span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                  <li id="crearBanda"><a href="#crearBanda">Banda</a></li>
+                                  <li id="crearCategoria"><a href="#crearCategoria">Categoria</a></li>
+                                  <li id="crearCartelera"><a href="#crearCartelera">Cartelera</a></li>
+
+                              </ul>
+                            </li>
+
+                          <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit<span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                  <li id="editEmployee" role="button" data-toggle="modal" data-target="#editEmployeesModal"><a href="#">Banda</a></li>    
+                              </ul>
+                          </li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                            <li id="myBtn"><a href="#home"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></li>
+                      </ul>
+                       <ul class="nav navbar-nav navbar-right">
+                             <li id="verPerfil" ><a href="#verPerfilColaborador">Ver Perfil</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+            </div>
             <div class="form">
                     <h1 style="color:#ffffff" >Crear Categoria</h1>  
                     <hr>
+                    <div class="form-group" style="margin: 20px 0px 0px 0px;">
+                            <label for="B_Name">Nombre de Categoria</label>
+                            <input type="text" style="color:#ffffff"id="B_Name" name="categoria.nombre" ng-model="categoria.nombre" placeholder="Name" >
+                    </div>
+                    <div style="margin: 20px 0px 0px 0px;" align="center">
+                            <button class="button button-block" ng-click="crearCategoria()" href="#vistaColaborador">Crear Banda</button>
+                    </div>
             </div>
 </div>
