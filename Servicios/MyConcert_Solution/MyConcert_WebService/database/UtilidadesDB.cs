@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyConcert_WebService.objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,17 @@ namespace MyConcert_WebService.database
 {
     class UtilidadesDB
     {
+
+        private Universidad convertiruniversidadesAUniversidad(universidades pUniversidad )
+        {
+            
+            int id = pUniversidad.PK_universidades;
+            string nombre = obtenerUniversidad(id).nombreUni;
+            Universidad uni = new Universidad(id,nombre);
+            return uni;
+
+
+        }
         //OBTENER LISTA DE OBJETOS
         public List<generos> obtenerGeneros()
         {
