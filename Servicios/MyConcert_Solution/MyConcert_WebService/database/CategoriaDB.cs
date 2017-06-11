@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyConcert_WebService.objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,38 @@ namespace MyConcert_WebService.database
 {
     class CategoriaDB
     {
+        public void añadirCategoria(Categoria pCategoria)
+        {
+            categorias categoriaNueva = convertirCategoriaAcategorias(pCategoria);
+
+            using (myconcertEntities context = new myconcertEntities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        categoriaNueva = context.categorias.Add(categoriaNueva);
+
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+
+                    }
+                    catch (Exception e)
+                    {
+                        throw (e);
+                    }
+                }
+            }
+        }
+         
+        
+        private categorias convertirCategoriaAcategorias(Categoria pCategoria)
+        {
+            categorias cat = new categorias();
+            cat.categoria = pCategoria.Nombre;
+            return cat;
+        }
+
         public categorias obtenerCategoria(int PK_categoria)
         {
             categorias obj = null;
@@ -44,8 +77,6 @@ namespace MyConcert_WebService.database
                 Console.Write(ex.InnerException.ToString());
             }
             return obj;
-
         }
-
     }
 }

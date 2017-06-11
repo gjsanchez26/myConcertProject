@@ -33,7 +33,7 @@ namespace MyConcert_WebService
         }
         //BANDASDB
 
-        public void añadirBanda(bandas banda, string[] integ, string[] canciones, int[] gen)
+        public void añadirBanda(Banda banda, string[] integ, string[] canciones, int[] gen)
         {
             
             banDB.añadirBanda(banda, integ, canciones, gen);
@@ -77,6 +77,11 @@ namespace MyConcert_WebService
         }
 
         //CATEGORIASDB
+        public void añadirCategoria(Categoria nuevaCategoria)
+        {
+            catDB.añadirCategoria(nuevaCategoria);
+        }
+
         public categorias obtenerCategoria(int PK_categoria)
         {
             

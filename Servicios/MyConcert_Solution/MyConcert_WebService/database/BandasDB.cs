@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.database
 {
@@ -11,8 +9,10 @@ namespace MyConcert_WebService.database
     {
         UtilidadesDB utiDB = new UtilidadesDB();
         
-        public void añadirBanda(bandas banda, string[] pIntegrantes, string[] pCanciones,int[] pGeneros )
+        public void añadirBanda(Banda pBanda, string[] pIntegrantes, string[] pCanciones,int[] pGeneros )
         {
+            bandas banda = convertirBandaAbanda(pBanda);
+
             UsuariosDB usuDB = new UsuariosDB();
             List<generos> gen = usuDB.covertirGenerosFavoritos(pGeneros);
             List<canciones> can = convertirCancionesAcanciones(pCanciones);
@@ -51,8 +51,7 @@ namespace MyConcert_WebService.database
                     }
                     catch (Exception ex)
                     {
-                        Console.Write(ex.InnerException.ToString());
-                        dbContextTransaction.Rollback();
+                        throw (ex);
                     }
                 }
             }

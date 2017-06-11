@@ -1,13 +1,17 @@
-﻿using MyConcert_WebService.res;
+﻿using MyConcert_WebService.models;
+using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
+using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace MyConcert_WebService.controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class CategoriasController
+    public class CategoriasController : ApiController
     {
+        private CategoriaModel _model = new CategoriaModel();
+
         //Obtener todas las categorias disponibles.
         public JObject Get()
         {
@@ -30,10 +34,12 @@ namespace MyConcert_WebService.controllers
         public JObject Post(JObject pDatosCategoria)
         {
             dynamic datosCategoria = pDatosCategoria;
-            ResultadoObjeto respuesta = new ResultadoObjeto();
+            string nombreCat = datosCategoria.name;
+            Respuesta respuesta = new Respuesta();
 
-            //Almacena categoria en base de datos.
-            return JObject.FromObject(respuesta); //Retorna objeto categoria.
+            respuesta = _model.nuevaCategoria(nombreCat);
+           
+            return JObject.FromObject(respuesta); 
         }
     }
 }
