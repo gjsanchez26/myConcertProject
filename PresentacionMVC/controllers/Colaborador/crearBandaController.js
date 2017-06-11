@@ -21,4 +21,11 @@ myConcert.controller("crearBandaController", function($scope, $http, crearBandaM
         $scope.notas = crearBandaModel.crearBanda($scope.banda);
     };
     
+     document.getElementById('crearBandaDiv').onclick = function(e) {
+    if(e.target == document.getElementById('crearBandaDiv')) {
+       window.location.href = "#vistaColaborador";          
+        } 
+    }
+    
+    
 });    

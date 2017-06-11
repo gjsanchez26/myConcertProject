@@ -5,4 +5,10 @@ myConcert.controller("crearCategoriaController", function($scope, $http, crearCa
         crearCategoriaModel.crearCategoria($scope.categoria);
     };
     
+    document.getElementById('crearCategoriaDiv').onclick = function(e) {
+    if(e.target == document.getElementById('crearCategoriaDiv')) {
+       window.location.href = "#vistaColaborador";          
+        } 
+    }
+    
 }); 
