@@ -19,15 +19,14 @@ this.verificarUsuario = function(usuarioLogin){
         }).then(function(result){
                 console.log(Credenciales);
                 console.log(result);
-
-                if (result.data.succes) {
-                      alert(result.data);
-                      if (result.data.content.role=="colaborador")
+                console.log(result.data);
+                if (result.data.success) {
+                      if (result.data.content.TipoUsuario=="Colaborador")
                           window.location.href = "#vistaColaborador";
                         
                       else window.location.href = "#vistaFanatico";
                     }
-                else alert("Contraseña y/o Usuario Incorrecto")
+                else alert(result.data.content)
 
 
         }, function(error) {

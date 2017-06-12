@@ -107,7 +107,7 @@ label{
 }
 
 input, textarea {
-  font-size: 22px;
+
   display: block;
   width: 100%;
   padding: 5px 10px;
@@ -129,7 +129,7 @@ select{
 }
 select option {
  
-    background: rgba(32, 39, 60, 0.9);
+    background: rgba(38, 0, 51, 0.4);
     background-color: none;
     color: none;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
@@ -183,7 +183,7 @@ textarea {
   background: #6d153d;
 }
 
-.button-block {
+.button-block { 
   display: block;
   width: 100%;
 }

@@ -34,6 +34,11 @@ var configMyConcert = function($routeProvider){
             controller: "crearFestivalController",
             templateUrl: "views/Colaborador/crearFestivalView.html"
         })
+        .when("/catalogoBandas", {
+            controller: "verCatalogoController",
+            templateUrl: "views/Colaborador/verCatalogoView.html"
+        })
+        
         
     ;
  

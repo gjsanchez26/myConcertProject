@@ -37,6 +37,7 @@ categoriaForm = angular.module('vistaColaborador')
                      {
                       "name":$scope.nombreCancion
                      };
+<<<<<<< HEAD
         if(str2==""){
             str2=str2+'{"name":'+$scope.nombreCancion+'}'; 
         }
@@ -68,6 +69,16 @@ categoriaForm = angular.module('vistaColaborador')
        ];
        
     
+=======
+        listaCanciones.push(Cancion);
+        console.log(listaCanciones); 
+    }
+     $scope.agregarMiembro = function () {
+        var miembro = $scope.nombreMiembro;
+        console.log(miembro);
+        listaMiembros.push(miembro);
+    }
+>>>>>>> refs/remotes/origin/master
     $scope.crearBanda = function () {
 
         var Banda = {
@@ -79,7 +90,6 @@ categoriaForm = angular.module('vistaColaborador')
         success(function (data, status, headers, config) {alert('User has been posted');}).
         error(function (data, status, headers, config)   {alert('error posting User')});
     }
-
 }]);
 
 categoriaForm = angular.module('vistaColaborador')
@@ -167,6 +177,7 @@ categoriaForm = angular.module('vistaColaborador')
 
 }]);
 
+<<<<<<< HEAD
 categoriaForm = angular.module('vistaColaborador')
 .controller('panelPrincipalCtrl', ['$scope', '$http', function ($scope, $http) {
     var img = document.createElement("IMG");
@@ -189,4 +200,6 @@ categoriaForm = angular.module('vistaColaborador')
         } 
     
     }]);
+=======
+>>>>>>> refs/remotes/origin/master
 
