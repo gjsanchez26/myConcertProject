@@ -13,12 +13,12 @@ namespace MyConcert_WebService.objects
         private float _calificacion;
         private string _estado;
 
-        public Banda(string pNombre, string estado)
+        public Banda(string pNombre, string pEstado)
         {
             this._id = 0;
-            this._nombre = _nombre;
+            this._nombre = pNombre;
             this._calificacion = 0;
-            this._estado = _estado;
+            this._estado = pEstado;
         }
 
         public Banda(int _id, string _nombre, float _calificacion, string _estado)

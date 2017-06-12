@@ -138,10 +138,10 @@ namespace MyConcert_WebService.database
         {
             Usuario user = null;
 
-            if (obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(1).tipo)
+            if (obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(2).tipo)
             {
-                string country = _utilidades.obtenerPais(pUser.FK_USUARIOS_ESTADOS).pais;
-                string state = _utilidades.obtenerEstado((int) pUser.FK_USUARIOS_PAISES).estado;
+                string country = _utilidades.obtenerPais((int) pUser.FK_USUARIOS_PAISES).pais;
+                string state = _utilidades.obtenerEstado(pUser.FK_USUARIOS_ESTADOS).estado;
                 string university = _utilidades.obtenerUniversidad((int)pUser.FK_USUARIOS_UNIVERSIDADES).nombreUni;
                 string user_type = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
                 user = 
@@ -161,7 +161,7 @@ namespace MyConcert_WebService.database
                                 user_type,
                                 pUser.ubicacion);
 
-            } else if(obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(2).tipo)
+            } else if(obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(1).tipo)
             {
                 string stateColaborador = _utilidades.obtenerEstado(pUser.FK_USUARIOS_ESTADOS).estado;
                 string user_typeColaborador = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
