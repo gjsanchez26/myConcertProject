@@ -4,27 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.objects
+namespace MyConcert_WebService.viewModels
 {
-    class Comentario
+    class Voto
     {
         private int _id;
         private string _fanatico;
-        private DateTime _fecha;
-        private string _contenido;
-        private int _calificacion;
-        private string _estado;
+        private int _cantidad;
         private string _banda;
+        private string _categoria;
+        private  string _cartelera;
 
-        public Comentario(int _id, string _fanatico, DateTime _fecha, string _contenido, int _calificacion, string _estado, string _banda)
+        public Voto(int _id, string _fanatico, int _cantidad, string _banda, string _categoria, string _cartelera)
         {
             this._id = _id;
             this._fanatico = _fanatico;
-            this._fecha = _fecha;
-            this._contenido = _contenido;
-            this._calificacion = _calificacion;
-            this._estado = _estado;
+            this._cantidad = _cantidad;
             this._banda = _banda;
+            this._categoria = _categoria;
+            this._cartelera = _cartelera;
         }
 
         public int Id
@@ -53,55 +51,16 @@ namespace MyConcert_WebService.objects
             }
         }
 
-        public DateTime Fecha
+        public int Cantidad
         {
             get
             {
-                return _fecha;
+                return _cantidad;
             }
 
             set
             {
-                _fecha = value;
-            }
-        }
-
-        public string Contenido
-        {
-            get
-            {
-                return _contenido;
-            }
-
-            set
-            {
-                _contenido = value;
-            }
-        }
-
-        public int Calificacion
-        {
-            get
-            {
-                return _calificacion;
-            }
-
-            set
-            {
-                _calificacion = value;
-            }
-        }
-
-        public string Estado
-        {
-            get
-            {
-                return _estado;
-            }
-
-            set
-            {
-                _estado = value;
+                _cantidad = value;
             }
         }
 
@@ -117,7 +76,31 @@ namespace MyConcert_WebService.objects
                 _banda = value;
             }
         }
-    }
 
-   
+        public string Categoria
+        {
+            get
+            {
+                return _categoria;
+            }
+
+            set
+            {
+                _categoria = value;
+            }
+        }
+
+        public string Cartelera
+        {
+            get
+            {
+                return _cartelera;
+            }
+
+            set
+            {
+                _cartelera = value;
+            }
+        }
+    }
 }

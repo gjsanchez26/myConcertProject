@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.objects
+namespace MyConcert_WebService.viewModels
 {
-    public class Universidad
+    public class GeneroMusical
     {
+
         private int _id;
         private string _nombre;
 
-        public Universidad(int _id, string _nombre)
+        public GeneroMusical(int _id, string _nombre)
         {
             this._id = _id;
             this._nombre = _nombre;

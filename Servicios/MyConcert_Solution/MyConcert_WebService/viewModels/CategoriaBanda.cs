@@ -1,4 +1,4 @@
-﻿namespace MyConcert_WebService.objects
+﻿namespace MyConcert_WebService.viewModels
 {
     public class CategoriaBanda
     {

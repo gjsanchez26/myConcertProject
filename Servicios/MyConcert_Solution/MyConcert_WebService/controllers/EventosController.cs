@@ -1,5 +1,5 @@
 ﻿using MyConcert_WebService.models;
-using MyConcert_WebService.objects;
+using MyConcert_WebService.viewModels;
 using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.serial;
 using Newtonsoft.Json.Linq;

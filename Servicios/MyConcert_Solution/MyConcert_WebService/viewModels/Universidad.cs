@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.objects
+namespace MyConcert_WebService.viewModels
 {
-    public class Categoria
+    public class Universidad
     {
         private int _id;
         private string _nombre;
 
-        public Categoria(int _id, string _nombre)
+        public Universidad(int _id, string _nombre)
         {
             this._id = _id;
             this._nombre = _nombre;
@@ -42,7 +42,5 @@ namespace MyConcert_WebService.objects
                 _nombre = value;
             }
         }
-
-        
     }
 }

@@ -1,5 +1,5 @@
 ﻿using MyConcert_WebService.database;
-using MyConcert_WebService.objects;
+using MyConcert_WebService.viewModels;
 using System.Collections.Generic;
 
 namespace MyConcert_WebService

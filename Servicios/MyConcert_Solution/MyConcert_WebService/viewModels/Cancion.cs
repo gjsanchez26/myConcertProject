@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.objects
+namespace MyConcert_WebService.viewModels
 {
-    class MiembroBanda
+    class Cancion
     {
         private int _id;
         private string _nombre;
         private string _banda;
 
-        public MiembroBanda(int _id, string _nombre, string _banda)
+        public Cancion(int _id, string _nombre, string _banda)
         {
             this._id = _id;
             this._nombre = _nombre;
@@ -58,4 +58,8 @@ namespace MyConcert_WebService.objects
             }
         }
     }
-}
+
+        
+
+        
+    }

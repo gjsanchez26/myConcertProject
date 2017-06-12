@@ -1,5 +1,5 @@
 ﻿using MyConcert_WebService.database;
-using MyConcert_WebService.objects;
+using MyConcert_WebService.viewModels;
 using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.serial;

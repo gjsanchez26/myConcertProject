@@ -4,31 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.objects
+namespace MyConcert_WebService.viewModels
 {
-    public class GeneroMusical
+    public class Pais
     {
-
         private int _id;
         private string _nombre;
 
-        public GeneroMusical(int _id, string _nombre)
+        public Pais(int _id, string _nombre)
         {
             this._id = _id;
             this._nombre = _nombre;
-        }
-
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
-
-            set
-            {
-                _id = value;
-            }
         }
 
         public string Nombre
@@ -41,6 +27,19 @@ namespace MyConcert_WebService.objects
             set
             {
                 _nombre = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
             }
         }
     }
