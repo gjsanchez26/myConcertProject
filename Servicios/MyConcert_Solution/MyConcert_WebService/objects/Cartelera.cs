@@ -22,6 +22,7 @@ namespace MyConcert_WebService.objects
             this.FechaInicioFestival = fechaInicioFestival;
             this.FechaFinalFestival = fechaFinalFestival;
             this.FechaFinalVotacion = fechaFinalVotacion;
+            this.TipoEvento = tipoEvento;
             this.Estado = estado;
         }
 

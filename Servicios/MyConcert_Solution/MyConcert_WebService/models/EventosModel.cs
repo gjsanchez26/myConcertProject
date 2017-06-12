@@ -38,10 +38,9 @@ namespace MyConcert_WebService.models
             return _creador.crearRespuesta(true, arreglo);
         }
 
-        public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, JArray pListaCategorias)
+        public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, CategoriaBanda[] pListaCategorias)
         {
             Respuesta respuesta = null;
-            CategoriaBanda[] categoriasEvento = _serial.getArrayCategoriaBandaEvento(pListaCategorias);
 
             try
             {
@@ -49,12 +48,12 @@ namespace MyConcert_WebService.models
                 {
                     case "cartelera":
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
-                        _manejador.añadirCartelera(nuevaCartelera, categoriasEvento);
+                        _manejador.añadirCartelera(nuevaCartelera, pListaCategorias);
                         respuesta = _creador.crearRespuesta(false, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
-                        _manejador.añadirFestival(nuevoFestival, categoriasEvento);
+                        _manejador.añadirFestival(nuevoFestival, pListaCategorias);
                         respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
                         break;
                     default:
@@ -63,7 +62,7 @@ namespace MyConcert_WebService.models
                 }
             } catch(Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al crear evento nuevo.");
+                respuesta = _creador.crearRespuesta(false, e.ToString());
             }
 
             return respuesta;

@@ -3,6 +3,7 @@ using MyConcert_WebService.objects;
 using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.serial;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -50,13 +51,33 @@ namespace MyConcert_WebService.controllers
         {
             dynamic peticion = pDatosEvento;
             string tipoEvento = peticion.event_type;
-            dynamic datosEventoJSON = peticion.event_data;
-            JArray listaCategorias = (JArray) peticion.categories;
+            JObject datosEventoJSON = peticion.event_data;
+
+            CategoriaBanda[] listaCategorias = getArrayCategoriaBandaEvento((JArray) peticion.categories);
 
             Respuesta respuesta = null;
             respuesta = _model.crearEvento(tipoEvento, datosEventoJSON, listaCategorias);
 
             return JObject.FromObject(respuesta);
+        }
+
+        public CategoriaBanda[] getArrayCategoriaBandaEvento(JArray pArray)
+        {
+            dynamic arrayCategoriaBandaJSON = pArray;
+            CategoriaBanda[] listaRespuesta = new CategoriaBanda[pArray.Count];
+
+            int iterator = 0;
+            CategoriaBanda cat_band_serial = null;
+            foreach (JObject JSON in arrayCategoriaBandaJSON)
+            {
+                dynamic categoriaBandaJSON = JSON;
+                int[] bands = _serial.getArrayInt((JArray)categoriaBandaJSON.bands);
+                cat_band_serial = new CategoriaBanda((int) categoriaBandaJSON.category, bands);
+                listaRespuesta[iterator] = cat_band_serial;
+                iterator++;
+            }
+
+            return listaRespuesta;
         }
 
         //Actualiza evento especifico.

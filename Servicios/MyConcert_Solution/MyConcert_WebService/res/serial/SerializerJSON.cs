@@ -104,34 +104,17 @@ namespace MyConcert_WebService.res.serial
             return lista;
         }
 
-        public CategoriaBanda[] getArrayCategoriaBandaEvento(JArray pArray)
-        {
-            dynamic arrayCategoriaBandaJSON = pArray;
-            CategoriaBanda[] listaRespuesta = new CategoriaBanda[pArray.Count];
-
-            int iterator = 0;
-            CategoriaBanda cat_band_serial = null;
-            foreach (dynamic categoriaBandaJSON in arrayCategoriaBandaJSON)
-            {
-                cat_band_serial =
-                    new CategoriaBanda(categoriaBandaJSON.category,
-                                        getArrayInt((JArray)categoriaBandaJSON.bands));
-                listaRespuesta[iterator] = cat_band_serial;
-                iterator++;
-            }
-
-            return listaRespuesta;
-        }
+        
 
         public Cartelera leerDatosCartelera(dynamic pDatosEvento)
         {
             return new Cartelera(0,
-                            pDatosEvento.name,
-                            pDatosEvento.ubication,
-                            pDatosEvento.country,
-                            pDatosEvento.initial_date,
-                            pDatosEvento.final_date,
-                            pDatosEvento.vote_final_date,
+                            (string) pDatosEvento.name,
+                            (string)pDatosEvento.ubication,
+                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
+                            (DateTime)pDatosEvento.initial_date,
+                            (DateTime)pDatosEvento.final_date,
+                            (DateTime)pDatosEvento.vote_final_date,
                             _manejador.obtenerTipoEvento(1).tipo,
                             _manejador.obtenerEstado(1).estado);
         }
@@ -139,16 +122,16 @@ namespace MyConcert_WebService.res.serial
         public Festival leerDatosFestival(dynamic pDatosEvento)
         {
             return new Festival(0,
-                            pDatosEvento.name,
-                            pDatosEvento.ubication,
-                            pDatosEvento.country,
-                            pDatosEvento.initial_date,
-                            pDatosEvento.final_date,
+                            (string)pDatosEvento.name,
+                            (string)pDatosEvento.ubication,
+                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
+                            (DateTime)pDatosEvento.initial_date,
+                            (DateTime)pDatosEvento.final_date,
                             _manejador.obtenerTipoEvento(1).tipo,
                             _manejador.obtenerEstado(1).estado,
-                            pDatosEvento.food,
-                            pDatosEvento.transport,
-                            pDatosEvento.services,
+                            (string)pDatosEvento.food,
+                            (string)pDatosEvento.transport,
+                            (string)pDatosEvento.services,
                             ""); //Recomendacion del chef
         }
     }
