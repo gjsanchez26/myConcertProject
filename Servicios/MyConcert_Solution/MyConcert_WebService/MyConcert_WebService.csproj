@@ -140,6 +140,7 @@
     <Compile Include="comentarios.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="controllers\FilesController.cs" />
     <Compile Include="database\BandasDB.cs" />
     <Compile Include="database\CategoriaDB.cs" />
     <Compile Include="database\EventosDB.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="models\CategoriaModel.cs" />
     <Compile Include="models\ChefModel.cs" />
     <Compile Include="models\EventosModel.cs" />
+    <Compile Include="models\FilesModel.cs" />
     <Compile Include="models\UsuariosModel.cs" />
     <Compile Include="models\UtilidadesModel.cs" />
     <Compile Include="MyConcertAPI.cs" />
@@ -222,7 +224,8 @@
     <Compile Include="res\resultados\ResultadoArreglo.cs" />
     <Compile Include="res\resultados\ResultadoObjeto.cs" />
     <Compile Include="res\resultados\ResultadoError.cs" />
-    <Compile Include="res\SerializerJSON.cs" />
+    <Compile Include="objects\CategoriaBanda.cs" />
+    <Compile Include="res\serial\SerializerJSON.cs" />
     <Compile Include="res\Twitter\ConexionTwitter.cs" />
     <Compile Include="res\Twitter\TwitterManager.cs" />
     <Compile Include="res\usr\Usuario.cs" />

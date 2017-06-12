@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.objects
 {
-    class Festival : Evento
+    public class Festival : Evento
     {
         private string comida;
         private string transporte;

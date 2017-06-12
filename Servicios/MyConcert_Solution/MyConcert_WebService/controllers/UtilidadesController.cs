@@ -1,7 +1,7 @@
 ﻿using MyConcert_WebService.models;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
-using System;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -37,5 +37,17 @@ namespace MyConcert_WebService.controllers
 
             return JObject.FromObject(respuesta);
         }
+
+        public string Post()
+        {
+            var request = HttpContext.Current.Request;
+            var filePath = "C:\\temp\\" + request.Headers["filename"];
+            //using (var fs = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+            //{
+            //    request.InputStream.CopyTo(fs);
+            //}
+            return "uploaded";
+        }
+
     }
 }

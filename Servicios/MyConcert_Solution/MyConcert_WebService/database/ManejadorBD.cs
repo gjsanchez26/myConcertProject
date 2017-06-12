@@ -95,6 +95,15 @@ namespace MyConcert_WebService
         }
 
         //EVENTOSDB
+        public void añadirCartelera(Cartelera pCartelera, CategoriaBanda[] pCategorias)
+        {
+            eveDB.añadirCartelera(pCartelera, pCategorias);
+        }
+
+        public void añadirFestival(Festival pFestival, CategoriaBanda[] pCategorias)
+        {
+            //eveDB.añadirFestival(pFestival, pCategorias);
+        }
 
         public Evento[] obtenerCarteleras()
         {

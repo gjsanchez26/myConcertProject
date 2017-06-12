@@ -3,14 +3,76 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.database
 {
     public class EventosDB
     {
-        UtilidadesDB _utilidadesDB = new UtilidadesDB();
+        private UtilidadesDB _utilidadesDB = new UtilidadesDB();
+
+        //CREADORES DE OBJETOS
+        public void añadirCartelera(Cartelera pCartelera, CategoriaBanda[] pCategorias)
+        {
+            eventos nuevoEvento = convertirCarteleraAeventos(pCartelera);
+            List<categoriasevento> categoriasBanda = convertirCategoriaBandaAcategoriasevento(pCategorias);
+
+            using (myconcertEntities context = new myconcertEntities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        nuevoEvento = context.eventos.Add(nuevoEvento);
+
+                        foreach (categoriasevento cat_eve in categoriasBanda)
+                        {
+                            cat_eve.FK_CATEGORIASEVENTO_EVENTOS = nuevoEvento.PK_eventos;
+                            context.categoriasevento.Add(cat_eve);
+                        }
+
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw (ex);
+                    }
+                }
+            }
+        }
+
+        private List<categoriasevento> convertirCategoriaBandaAcategoriasevento(CategoriaBanda[] pArrayCategoriaBanda)
+        {
+            List<categoriasevento> categoriasBandas = new List<categoriasevento>();
+            categoriasevento cat_even_aux = null;
+            for (int i = 0; i < pArrayCategoriaBanda.Length; i++)
+            {
+                for (int j=0; j < pArrayCategoriaBanda[i]._bandasID.Length; i++)
+                {
+                    cat_even_aux = new categoriasevento();
+                    cat_even_aux.FK_CATEGORIASEVENTO_BANDAS = pArrayCategoriaBanda[i]._bandasID[j];
+                    cat_even_aux.FK_CATEGORIASEVENTO_CATEGORIAS = pArrayCategoriaBanda[i]._categoriaID;
+                    categoriasBandas.Add(cat_even_aux);
+                }
+            }
+            return categoriasBandas;
+        }
+
+        private eventos convertirCarteleraAeventos(Cartelera pEvento)
+        {
+            eventos event_carte = new eventos();
+            event_carte.PK_eventos = pEvento.Id;
+            event_carte.nombreEve = pEvento.Nombre;
+            event_carte.ubicacion = pEvento.Ubicacion;
+            event_carte.FK_EVENTOS_PAISES = _utilidadesDB.obtenerPais(pEvento.Pais).PK_paises;
+            event_carte.fechaInicio = pEvento.FechaInicioFestival;
+            event_carte.fechaFinal = pEvento.FechaInicioFestival;
+            event_carte.finalVotacion = pEvento.FechaFinalVotacion;
+            event_carte.FK_EVENTOS_TIPOSEVENTOS = obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
+            event_carte.FK_EVENTOS_ESTADOS = _utilidadesDB.obtenerEstado(pEvento.Estado).PK_estados;
+
+            return event_carte;
+        }
 
         //OBTENER LISTA DE OBJETOS
         public Evento[] obtenerCarteleras()
@@ -160,6 +222,25 @@ namespace MyConcert_WebService.database
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.tiposeventos.FirstOrDefault(g => g.PK_tiposEventos == PK_tipoEvento);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+
+        public tiposeventos obtenerTipoEvento(string tipoEvento)
+        {
+            tiposeventos obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.tiposeventos.FirstOrDefault(g => g.tipo == tipoEvento);
                 }
 
             }

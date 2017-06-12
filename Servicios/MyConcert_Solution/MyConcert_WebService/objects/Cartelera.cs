@@ -2,7 +2,7 @@
 
 namespace MyConcert_WebService.objects
 {
-    class Cartelera : Evento 
+    public class Cartelera : Evento 
     {
         private DateTime _fechaFinalVotacion;
 

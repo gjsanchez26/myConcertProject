@@ -2,6 +2,7 @@
 using MyConcert_WebService.objects;
 using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
+using MyConcert_WebService.res.serial;
 using MyConcert_WebService.security;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
@@ -32,7 +33,7 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                return respuesta = creador.crearRespuesta(false, e.ToString());
+                return respuesta = creador.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.");
             }
 
 
