@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.database
 {
-    class CategoriaDB
+    class CategoriasDB
     {
         public void añadirCategoria(Categoria pCategoria)
         {

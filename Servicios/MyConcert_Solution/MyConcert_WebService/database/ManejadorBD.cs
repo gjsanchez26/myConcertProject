@@ -7,7 +7,7 @@ namespace MyConcert_WebService
     public class ManejadorBD
     {
         private BandasDB banDB;
-        private CategoriaDB catDB;
+        private CategoriasDB catDB;
         private EventosDB eveDB;
         private UsuariosDB usuDB ;
         private UtilidadesDB utiDB;
@@ -16,7 +16,7 @@ namespace MyConcert_WebService
         public ManejadorBD()
         {
              banDB = new BandasDB();
-             catDB = new CategoriaDB();
+             catDB = new CategoriasDB();
              eveDB = new EventosDB();
              usuDB = new UsuariosDB();
              utiDB = new UtilidadesDB();
