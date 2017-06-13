@@ -77,5 +77,15 @@ namespace MyConcert_WebService.models
 
             return respuesta;
         }
+
+        public Respuesta getBanda(int pIDBanda)
+        {
+            bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
+            generosbanda generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery.PK_bandas);
+            integrantes integrandesBandaQuery = _manejador.obtenerIntegrante(bandaQuery.PK_bandas);
+
+
+            return new Respuesta();
+        }
     }
 }

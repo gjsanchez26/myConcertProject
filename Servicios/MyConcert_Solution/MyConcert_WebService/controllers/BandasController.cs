@@ -19,15 +19,16 @@ namespace MyConcert_WebService.controllers
             Respuesta respuesta = null;
 
             respuesta = _model.getCatalogoBandas();
-
-            //Solicita bandas a base de datos.
-            return JObject.FromObject(respuesta); //Retorna lista con bandas.
+            
+            return JObject.FromObject(respuesta);
         }
 
         //Obtener banda especifica.
         public JObject Get(int pIDBanda)
         {
-            ResultadoObjeto respuesta = new ResultadoObjeto();
+            Respuesta respuesta = null;
+
+            respuesta = _model.getBanda(pIDBanda);
 
             return JObject.FromObject(respuesta);
         }
