@@ -1,5 +1,10 @@
 myConcert.controller("crearCarteleraController", function($scope, $http, crearCarteleraModel){
-    $scope.cartelera;
+    $scope.cartelera={};
+    
+    crearCarteleraModel.obtenerPaises($scope.cartelera);
+    crearCarteleraModel.obtenerCategorias($scope.cartelera);
+        
+        
     
     $scope.crearCartelera= function(){
         console.log("creacionCartelera");

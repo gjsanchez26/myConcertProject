@@ -38,103 +38,9 @@ this.obtenerBandas  = function(categoria,cartelera){
     categoriaActual = categoria;
     console.log("aqui2");
     console.log(categoria)
-    var json=  [
-            {
-                nombre : "Bob Marley",
-                edad : "32 años"
-            },
-            {
-                nombre : "Pink Floyd",
-                edad : "24 años"
-            },
-            {
-                nombre : "Guns & Roses",
-                edad : "28 años"
-            },
-            {
-                nombre : "Metallica",
-                edad : "18 años"
-            },
-            {
-                nombre : "System of a Down",
-                edad : "45 años"
-            },
-            {
-                nombre : "Bob Marley1",
-                edad : "32 años"
-            },
-            {
-                nombre : "Pink Floyd1",
-                edad : "24 años"
-            },
-            {
-                nombre : "Guns & Roses1",
-                edad : "28 años"
-            },
-            {
-                nombre : "Metallica1",
-                edad : "18 años"
-            },
-            {
-                nombre : "System of a Down1",
-                edad : "45 años"
-            },
-            {
-                nombre : "Bob Marley",
-                edad : "32 años"
-            },
-            {
-                nombre : "Pink Floyd",
-                edad : "24 años"
-            },
-            {
-                nombre : "Guns & Roses",
-                edad : "28 años"
-            },
-            {
-                nombre : "Metallica",
-                edad : "18 años"
-            },
-            {
-                nombre : "System of a Down",
-                edad : "45 años"
-            },
-            {
-                nombre : "Bob Marley1",
-                edad : "32 años"
-            },
-            {
-                nombre : "Pink Floyd1",
-                edad : "24 años"
-            },
-            {
-                nombre : "Guns & Roses1",
-                edad : "28 años"
-            },
-            {
-                nombre : "Metallica1",
-                edad : "18 años"
-            },
-            {
-                nombre : "System of a Down1",
-                edad : "45 años"
-            }
-    
-    
-    ];
-    
-    var newArr = [];
-      for (var i=0; i<json.length; i+=4) {
-        newArr.push(json.slice(i, i+4));
-      }
-
-    console.log(json);
-    console.log(newArr);
-    cartelera.listaBandas=newArr;
-    /*
     $http({
                 method: 'GET',
-                url: myURL+"/API/utilidades?data=bandas",
+                url: myURL+"/API/Bandas",
                 headers: {
                     'Content-Type' : 'application/json'
                 },
@@ -143,18 +49,24 @@ this.obtenerBandas  = function(categoria,cartelera){
                     console.log(result);
                     if (result.data.success)
                     {   
-                        console.log("Valor a Retornar");
-                        console.log(result.data.Elements);
-                        cartelera.listaBandas=result.data.Elements;
-                        return result.data.Elements; 
+                      var json=result.data.Elements;
+                      var newArr = [];
+                      for (var i=0; i<json.length; i+=4) {
+                        newArr.push(json.slice(i, i+4));
+                       }
+                       cartelera.listaBandas=newArr;
+
                     }
                     else alert(result.data.content)
 
                 }, function(error) {
                     console.log(error);
-                });*/
+                });
+    
+    
     
 }
+
 
 this.crearCartelera= function (cartelera) {
     var Cartelera;
@@ -198,7 +110,7 @@ this.crearCartelera= function (cartelera) {
                 });*/
 }
 
-this.obtenerPaises = function(usuario) {
+this.obtenerPaises = function(cartelera) {
     $http({
                 method: 'GET',
                 url: myURL+"/API/utilidades?data=paises",
@@ -210,10 +122,30 @@ this.obtenerPaises = function(usuario) {
                     console.log(result);
                     if (result.data.success)
                     {   
-                        console.log("Valor a Retornar");
-                        console.log(result.data.Elements);
                         cartelera.listaPaises=result.data.Elements;
                         return result.data.Elements; 
+                    }
+                    else alert(result.data.content)
+
+                }, function(error) {
+                    console.log(error);
+                });
+    
+}
+this.obtenerCategorias = function(cartelera) {
+    $http({
+                method: 'GET',
+                url: myURL+"/API/Categorias",
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                }).then(function(result){
+                    console.log("Json GET_PAIS");
+                    console.log(result);
+                    if (result.data.success)
+                    {   
+                        cartelera.listaCategorias=result.data.Elements;
+
                     }
                     else alert(result.data.content)
 
