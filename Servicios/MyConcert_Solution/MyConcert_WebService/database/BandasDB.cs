@@ -45,6 +45,7 @@ namespace MyConcert_WebService.database
                     }
                     catch (Exception ex)
                     {
+                        dbContextTransaction.Rollback();
                         throw (ex);
                     }
                 }
@@ -65,7 +66,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -84,7 +85,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -102,7 +103,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -121,7 +122,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -140,7 +141,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
         }
 
@@ -158,7 +159,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -177,7 +178,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -195,11 +196,83 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
 
+        public List<integrantes> obtenerIntegrantes(bandas banda)
+        {
+            List<integrantes> obj = null;
+
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.integrantes.Where(i => i.FK_INTEGRANTES_BANDAS == banda.PK_bandas).ToList();
+
+                    
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return obj;
+        }
+
+        public List<comentarios> obtenerComentarios (bandas banda)
+        {
+            List<comentarios> obj = null;
+
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.comentarios.Where(i => i.FK_COMENTARIOS_BANDAS == banda.PK_bandas).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return obj;
+        }
+     
+        public List<generos> obtenerGenerosBanda(bandas banda)
+        {
+            List<generos> obj = null;
+            
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    var aType = context.generos.Join(context.generosbanda,
+                                                g=> g.PK_generos,
+                                                gb=> gb.FK_GENEROSBANDA_GENEROS,
+                                                (g,gb)=> new { g,gb})
+                                                .Where(f=>f.gb.FK_GENEROSBANDA_BANDAS==banda.PK_bandas).
+                                                Select(s=>  new {PK_generos =s.g.PK_generos,
+                                                                 genero= s.g.genero} ).ToList();
+
+                    foreach (var i in aType)
+                    {
+                        obj.Add(context.generos.FirstOrDefault(g => g.PK_generos == i.PK_generos));
+                    }
+                }
+
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return obj;
+        }
         public List<bandas> obtenerBandas()
         {
             List<bandas> obj = null;
@@ -213,7 +286,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }

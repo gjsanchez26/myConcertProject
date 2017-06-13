@@ -101,7 +101,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -119,7 +119,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -138,7 +138,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -156,7 +156,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -175,7 +175,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -194,7 +194,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -212,7 +212,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return ge;
         }
@@ -230,7 +230,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return ge;
         }

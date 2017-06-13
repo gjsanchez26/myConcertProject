@@ -16,7 +16,7 @@ namespace MyConcert_WebService
     {
         public int PK_comentarios { get; set; }
         public string comentario { get; set; }
-        public int calificacion { get; set; }
+        public float calificacion { get; set; }
         public System.DateTime fechaCreacion { get; set; }
         public int FK_COMENTARIOS_BANDAS { get; set; }
         public string FK_COMENTARIOS_USUARIOS { get; set; }

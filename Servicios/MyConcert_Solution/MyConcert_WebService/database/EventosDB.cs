@@ -33,16 +33,14 @@ namespace MyConcert_WebService.database
                     }
                     catch (Exception ex)
                     {
+                        dbContextTransaction.Rollback();
                         throw (ex);
                     }
                 }
             }
         }
 
-        public void añadirFestival(eventos pFestival, List<categoriasevento> pCategorias)
-        {
-
-        }
+       
         //OBTENER LISTA DE OBJETOS
         public List<eventos> obtenerCarteleras()
         {
@@ -56,7 +54,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -71,17 +69,11 @@ namespace MyConcert_WebService.database
                 {
                     obj = context.eventos.Where(r => r.FK_EVENTOS_TIPOSEVENTOS == 2).ToList();
                 }
-                //arreglo = new Evento[obj.Count];
-                //int c = 0;
-                //foreach (eventos i in obj)
-                //{
-                //    arreglo[c] = convertireventosAEvento(i);
-                //    c++;
-                //}
+                
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -101,7 +93,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -120,7 +112,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -139,7 +131,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -158,7 +150,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return obj;
         }
@@ -186,7 +178,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return bandasCarte;
         }
@@ -205,7 +197,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
             }
             return cantidadComen;
         }
@@ -228,5 +220,28 @@ namespace MyConcert_WebService.database
             }
             return calificacion;
         }
+
+        public int obtenerCantidadVotos(int cartelera, int categoria, int banda)
+        {
+            int votos = 0;
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+
+                    votos = (int)context.votos.Where(r => (r.FK_VOTOS_EVENTOS == cartelera) 
+                                                    && (r.FK_VOTOS_CATEGORIAS==categoria)
+                                                    &&(r.FK_VOTOS_BANDAS==banda))
+                                                    .Sum(r => r.valor);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return votos;
+        }
+    }
     }
 }

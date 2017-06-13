@@ -66,8 +66,6 @@ namespace MyConcert_WebService
             return banDB.obtenerGenerosBanda(PK_generosBanda);
         }
 
-      
-
         public canciones obtenerCancion(int PK_cancion)
         {
             
@@ -80,6 +78,18 @@ namespace MyConcert_WebService
             return banDB.obtenerComentario(PK_comentario);
         }
 
+        public List<integrantes> obtenerIntegrantes(bandas banda)
+        {
+            return banDB.obtenerIntegrantes(banda);
+        }
+        public List<comentarios> obtenerComentarios(bandas banda)
+        {
+            return banDB.obtenerComentarios(banda);
+        }
+        public List<generos> obtenerGenerosBanda(bandas banda)
+        {
+            return banDB.obtenerGenerosBanda(banda);
+        }
         //CATEGORIASDB
         public void añadirCategoria(categorias nuevaCategoria)
         {
@@ -157,6 +167,11 @@ namespace MyConcert_WebService
         public List<canciones> obtenerCanciones(bandas banda)
         {
             return banDB.obtenerCanciones(banda);
+        }
+
+        public int obtenerCantidadVotos(int cartelera, int categoria, int banda)
+        {
+            return eveDB.obtenerCantidadVotos(cartelera, categoria, banda);
         }
         //USUARIOSDB
         public tiposusuarios obtenerTipoUsuario(string tipoUsuario)
