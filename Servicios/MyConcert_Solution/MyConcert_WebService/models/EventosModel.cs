@@ -1,4 +1,5 @@
 ﻿using MyConcert_WebService.objects;
+using MyConcert_WebService.res.assembler;
 using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.serial;
 using Newtonsoft.Json.Linq;
@@ -11,10 +12,11 @@ namespace MyConcert_WebService.models
         private ManejadorBD _manejador = new ManejadorBD();
         private FabricaRespuestas _creador = new FabricaRespuestas();
         private SerializerJSON _serial = new SerializerJSON();
+        private Assembler _convertidor = new Assembler();
 
         public Respuesta getCarteleras()
         {
-            Evento[] listaCarteleras = _manejador.obtenerCarteleras();
+            Evento[] listaCarteleras = _convertidor.createListaEventos( _manejador.obtenerCarteleras());
             JObject[] arreglo = new JObject[listaCarteleras.Length];
 
             for (int i = 0; i < arreglo.Length; i++)
@@ -27,7 +29,7 @@ namespace MyConcert_WebService.models
 
         public Respuesta getFestivales()
         {
-            Evento[] listaFestivales = _manejador.obtenerFestivales();
+            Evento[] listaFestivales = _convertidor.createListaEventos(_manejador.obtenerFestivales());
             JObject[] arreglo = new JObject[listaFestivales.Length];
 
             for (int i = 0; i < arreglo.Length; i++)
@@ -48,12 +50,13 @@ namespace MyConcert_WebService.models
                 {
                     case "cartelera":
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
-                        _manejador.añadirCartelera(nuevaCartelera, pListaCategorias);
+                         
+                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), _convertidor.updatecategoriasevento(pListaCategorias));
                         respuesta = _creador.crearRespuesta(false, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
-                        _manejador.añadirFestival(nuevoFestival, pListaCategorias);
+                        _manejador.añadirFestival(_convertidor.updateeventos(nuevoFestival), _convertidor.updatecategoriasevento(pListaCategorias));
                         respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
                         break;
                     default:

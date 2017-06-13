@@ -42,6 +42,12 @@ namespace MyConcert_WebService
             return banDB.obtenerBanda(PK_banda);
         }
 
+        public bandas obtenerBanda(string PK_banda)
+        {
+
+            return banDB.obtenerBanda(PK_banda);
+        }
+
         public integrantes obtenerIntegrante(int PK_integrante)
         {
            
@@ -54,11 +60,7 @@ namespace MyConcert_WebService
             return banDB.obtenerGenerosBanda(PK_generosBanda);
         }
 
-        //public void añadirCancion(canciones cancion)
-        //{
-            
-        //    banDB.añadirCancion(cancion);
-        //}
+      
 
         public canciones obtenerCancion(int PK_cancion)
         {
@@ -93,12 +95,12 @@ namespace MyConcert_WebService
         //EVENTOSDB
         public void añadirCartelera(eventos pCartelera, List<categoriasevento> pCategorias)
         {
-            eveDB.añadirCartelera(pCartelera, pCategorias);
+            eveDB.añadirEvento(pCartelera, pCategorias);
         }
 
         public void añadirFestival(eventos pFestival, List<categoriasevento> pCategorias)
         {
-            //eveDB.añadirFestival(pFestival, pCategorias);
+            eveDB.añadirEvento(pFestival, pCategorias);
         }
 
         public List<eventos> obtenerCarteleras()
@@ -123,6 +125,11 @@ namespace MyConcert_WebService
         }
 
         public tiposeventos obtenerTipoEvento(int PK_tipoEvento)
+        {
+            return eveDB.obtenerTipoEvento(PK_tipoEvento);
+        }
+
+        public tiposeventos obtenerTipoEvento(string PK_tipoEvento)
         {
             return eveDB.obtenerTipoEvento(PK_tipoEvento);
         }
