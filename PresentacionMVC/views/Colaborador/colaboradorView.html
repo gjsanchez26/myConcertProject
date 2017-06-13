@@ -62,20 +62,12 @@
                  
                 <div class="col-sm-3 col-md-4" style="background: rgba(38, 0, 51, 0.4); margin: 0px 0px 0px 25px;">
                         <div id="panelCarteleras">
-                         <div >
+                       
+                        <div ng-repeat="item in listaCarteleras">
                           <hr>
-                          <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
-                            <label for="C_Name">Nombre de Cartelera</label>
-                            <input style="color:#FFFFFF" type="text" id="C_Name" name="carteleraVotacion.nombre" ng-model="carteleraVotacion.nombre"   placeholder="Name" >
-                         </div>
                           <h2 style="color:#FFFFFF" >{{item.nombre}}</h2>
-                          <button class="btn btn-default" type="button" ng-click="obtenerCategorias()">Agregar</button>
-                        </div>
-                        <div ng-repeat="item in listaCatego">
-                          <hr>
-                          <h2 style="color:#FFFFFF" ng-model="carteleraVotacion.nombre">{{item.nombre}}</h2>
                           <span type="button" class="btn btn-info"  data-toggle="modal" href="#infoCarteleraModal" >Ver</span>
-                          <p style="color:#BCAFB9; width:100%; height:100%";>Informacion</p>
+                          <p style="color:#BCAFB9; width:100%; height:100%" ng-click= "obtenerCarterelera(item)";>Informacion</p>
                           <br><br>
                         </div>
                     </div>

@@ -2,9 +2,11 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
     
     $scope.usuario;
     $scope.carteleraVotacion;
-    $scope.listaCatego;
-    $scope.obtenerCategorias= function(){
-        colaboradorModel.obtenerCategorias($scope.listaCatego);  
+    $scope.listaCarteleras;
+    $scope.informacionCartelera;
+    $scope.listaCarteleras = colaboradorModel.obtenerListaCarteleras();
+    $scope.obtenerCartelera= function(cartelera){
+       $scope.informacionCartelera = colaboradorModel.obtenerCartelera(cartelera);  
     }
 
   

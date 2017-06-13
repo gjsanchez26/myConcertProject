@@ -1,8 +1,12 @@
 myConcert.service("colaboradorModel", function($routeParams, $location, $http){
-var myURL ="http://192.168.100.12:12345";    
-this.obtenerCategorias = function(listaCatego){
-        console.log("ObtenerCategorias");
-        console.log(listaCatego)
+var myURL ="http://192.168.100.12:12345";  
+    
+this.obtenerCartelera=function(cartelera){
+    console.log("Get Informacion de "+cartelera.nombre)
+    
+}
+this.obtenerListaCarteleras = function(){
+        console.log("Get Obtener Carteleras");
         var json=  [
             {
                 nombre : "Bob Marley",
@@ -87,8 +91,7 @@ this.obtenerCategorias = function(listaCatego){
     
     
     ];
-        console.log(json);
-        listaCatego = json;
+        return json;
 
     }
     

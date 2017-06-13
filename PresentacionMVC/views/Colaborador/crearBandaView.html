@@ -1,4 +1,4 @@
-<div id="crearBandaDiv" ng-controller="crearBandaController">
+<div id="crearBandaDiv" ng-controller="crearBandaController"  data-ng-init="obtenerDatos()">
             <div style="margin: 0px 0px 0px 0px;">
                 <nav class="navbar navbar-inverse">
                   <div class="container-fluid">
@@ -53,18 +53,13 @@
                             <input type="text" style="color:#ffffff"id="B_Name" name="banda.nombre" ng-model="banda.nombre" placeholder="Name" >
                         </div>
 
-                       <div >
-                          <label for="sel2">Seleccione sus géneros preferidos</label>
-                          <select multiple style="color:#ffffff" ng-model="banda.generos" ng-options="x.Nombre for x in banda.listaGeneros">
-                          </select>   
+                       
 
-                        </div>
                        <div class="form-group" style="margin: 20px 0px 0px 0px;">
-                            <div class="row" >
-                              <div class="col-lg-6">
+                            
                                 <label for="sel2">Ingrese los Miembros de la Banda</label>
                                 <div class="input-group">
-                                    <input type="text" style="color:#ffffff" id = "nombreMiembro" ng-model= "banda.miembro"  placeholder="Nombre de Banda">
+                                    <input type="text" style="color:#ffffff" id = "nombreMiembro" ng-model= "banda.miembro"  placeholder="Nombre de Integrante">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" ng-click="agregarMiembro()">Agregar</button>
                                     </span>
@@ -75,13 +70,11 @@
                                   </ul>
                                 </div>
                                 
-                                </div><!-- /input-group -->
-                              </div><!-- /.col-lg-6 -->
-                            </div>
+                        </div><!-- /input-group -->
+                  
                         
                        <div class="form-group" style="margin: 20px 0px 0px 0px;">      
-                            <div class="row" >
-                              <div class="col-lg-6">
+
                                 <label for="sel2">Ingrese las Canciones Principales</label>
                                 <div class="input-group">
                                   <input type="text" style="color:#ffffff"  id = "nombreMiembro" ng-model = "banda.cancion"  placeholder="Nombre de Cancion">
@@ -91,13 +84,19 @@
                                 </div><!-- /input-group -->
                                 <div >
                                   <ul >
-                                    <li style="margin: 0px 0px 0px 0px; color:#ffffff" ng-repeat = "item in banda.listaCanciones">{{item}}</li>\
+                                    <li style="margin: 0px 0px 0px 20px; color:#ffffff" ng-repeat = "item in banda.listaCanciones">{{item}}</li>
                                   </ul>
                                 </div>
-                             </div>
-                           </div>
                         </div>
-                        <div align="center">
+                        <div class="form-group" style="margin: 20px 0px 0px 0px;">
+                          <label for="sel2">Seleccione los generos de la Banda</label>
+                          <select multiple style="color:#ffffff" ng-model="banda.generos" ng-options="x.Nombre for x in  banda.listaGeneros">
+                          </select>   
+
+                        </div>
+                        <div>
+                            
+                        <div class="form-group" style="margin: 20px 0px 0px 0px;" align="center">
                             <button class="button button-block" ng-click="crearBanda()" href="#vistaColaborador">Crear Banda</button>
                         </div>      
                     </div>
