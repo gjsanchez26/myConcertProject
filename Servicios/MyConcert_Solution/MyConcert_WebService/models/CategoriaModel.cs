@@ -1,4 +1,4 @@
-﻿using MyConcert_WebService.objects;
+﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.res.resultados;
 using System;
 using System.Collections.Generic;
@@ -20,11 +20,12 @@ namespace MyConcert_WebService.models
 
             try
             {
-                _manejador.añadirCategoria(nueva);
+                //_manejador.añadirCategoria(nueva);
                 respuesta = _creador.crearRespuesta(true, "Categoria creada satisfactoriamente.");
             } catch(Exception e)
             {
                 respuesta = _creador.crearRespuesta(false, "Error al crear categoria. Intente de nuevo.");
+                throw (e);
             }
 
             return respuesta;

@@ -1,4 +1,4 @@
-﻿using MyConcert_WebService.objects;
+﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.security;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,6 @@ namespace MyConcert_WebService.database
             catch (Exception ex)
             {
                 throw (ex);
-                Console.Write(ex.InnerException.ToString());
             }
             return obj;
         }
@@ -102,10 +101,8 @@ namespace MyConcert_WebService.database
         }
 
 
-        public void añadirUsuario(Usuario pUser)
+        public void añadirUsuario(usuarios us)
         {
-            usuarios us = convertirUsuarioAusuarios(pUser);
-
             using (myconcertEntities context = new myconcertEntities())
             {
 

@@ -1,4 +1,4 @@
-﻿using MyConcert_WebService.objects;
+﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.res.resultados;
 using System;
 
@@ -23,7 +23,7 @@ namespace MyConcert_WebService.models
 
             try
             {
-                _manejador.añadirBanda(banda, pMiembros, pCanciones, pGeneros);
+                //_manejador.añadirBanda(banda, pMiembros, pCanciones, pGeneros);
                 respuesta = _creador.crearRespuesta(true, "Banda registrada correctamente.");
             } catch(Exception e)
             {

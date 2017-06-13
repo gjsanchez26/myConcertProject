@@ -25,10 +25,10 @@ namespace MyConcert_WebService.controllers
                     respuesta = _model.getPaises();
                     break;
                 case "universidades":
-                    respuesta = _model.getUniversidades();
+                    //respuesta = _model.getUniversidades();
                     break;
                 case "generos":
-                    respuesta = _model.getGenerosMusicales();
+                    //respuesta = _model.getGenerosMusicales();
                     break;
                 default:
                     respuesta = _creador.crearRespuesta(false, "Tipo de dato solicitado no se encuentra.");

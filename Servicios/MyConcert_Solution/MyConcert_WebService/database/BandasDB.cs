@@ -1,4 +1,4 @@
-﻿using MyConcert_WebService.objects;
+﻿using MyConcert_WebService.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ namespace MyConcert_WebService.database
 {
     class BandasDB
     {
-        
+
         public void añadirBanda(bandas banda, List<integrantes> integ, List<canciones> can, List<generos> gen)
         {
-            
+
             using (myconcertEntities context = new myconcertEntities())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
@@ -218,6 +218,4 @@ namespace MyConcert_WebService.database
             return obj;
         }
     }
-    }
-
 }

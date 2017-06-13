@@ -196,21 +196,21 @@
     <Compile Include="models\UsuariosModel.cs" />
     <Compile Include="models\UtilidadesModel.cs" />
     <Compile Include="MyConcertAPI.cs" />
-    <Compile Include="objects\Banda.cs" />
-    <Compile Include="objects\Cancion.cs" />
-    <Compile Include="objects\Cartelera.cs" />
-    <Compile Include="objects\Categoria.cs" />
-    <Compile Include="objects\Colaborador.cs" />
-    <Compile Include="objects\Comentario.cs" />
-    <Compile Include="objects\Evento.cs" />
-    <Compile Include="objects\Fanatico.cs" />
-    <Compile Include="objects\Festival.cs" />
-    <Compile Include="objects\GeneroMusical.cs" />
-    <Compile Include="objects\MiembroBanda.cs" />
-    <Compile Include="objects\Pais.cs" />
-    <Compile Include="objects\Universidad.cs" />
-    <Compile Include="objects\Usuario.cs" />
-    <Compile Include="objects\Voto.cs" />
+    <Compile Include="viewModels\Banda.cs" />
+    <Compile Include="viewModels\Cancion.cs" />
+    <Compile Include="viewModels\Cartelera.cs" />
+    <Compile Include="viewModels\Categoria.cs" />
+    <Compile Include="viewModels\Colaborador.cs" />
+    <Compile Include="viewModels\Comentario.cs" />
+    <Compile Include="viewModels\Evento.cs" />
+    <Compile Include="viewModels\Fanatico.cs" />
+    <Compile Include="viewModels\Festival.cs" />
+    <Compile Include="viewModels\GeneroMusical.cs" />
+    <Compile Include="viewModels\MiembroBanda.cs" />
+    <Compile Include="viewModels\Pais.cs" />
+    <Compile Include="viewModels\Universidad.cs" />
+    <Compile Include="viewModels\Usuario.cs" />
+    <Compile Include="viewModels\Voto.cs" />
     <Compile Include="paises.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -224,7 +224,7 @@
     <Compile Include="res\resultados\ResultadoArreglo.cs" />
     <Compile Include="res\resultados\ResultadoObjeto.cs" />
     <Compile Include="res\resultados\ResultadoError.cs" />
-    <Compile Include="objects\CategoriaBanda.cs" />
+    <Compile Include="viewModels\CategoriaBanda.cs" />
     <Compile Include="res\serial\SerializerJSON.cs" />
     <Compile Include="res\Twitter\ConexionTwitter.cs" />
     <Compile Include="res\Twitter\TwitterManager.cs" />

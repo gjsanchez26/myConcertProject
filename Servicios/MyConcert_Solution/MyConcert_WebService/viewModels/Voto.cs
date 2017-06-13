@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
-namespace MyConcert_WebService.objects
+namespace MyConcert_WebService.viewModels
 {
     class Voto
     {
@@ -23,6 +20,32 @@ namespace MyConcert_WebService.objects
             this._banda = _banda;
             this._categoria = _categoria;
             this._cartelera = _cartelera;
+        }
+
+        public bool deserialize(JObject pObject)
+        {
+            bool estado = true;
+            dynamic json = pObject;
+            try
+            {
+                Id = json.id;
+                Fanatico = json.user;
+                Cantidad = json.amount;
+                Banda = json.band;
+                Categoria = json.category;
+                Id = json.event_;
+            }
+            catch (Exception e)
+            {
+                estado = false;
+                throw (e);
+            }
+            return estado;
+        }
+
+        public JObject serialize()
+        {
+            return JObject.FromObject(this);
         }
 
         public int Id

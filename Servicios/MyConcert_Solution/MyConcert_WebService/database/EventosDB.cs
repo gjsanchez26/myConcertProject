@@ -1,4 +1,4 @@
-﻿using MyConcert_WebService.objects;
+﻿using MyConcert_WebService.viewModels;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
