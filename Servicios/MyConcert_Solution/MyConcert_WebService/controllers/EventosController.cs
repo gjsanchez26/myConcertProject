@@ -21,18 +21,18 @@ namespace MyConcert_WebService.controllers
         {
             Respuesta respuesta = new Respuesta();
 
-            switch (type)
-            {
-                case "cartelera":
-                    respuesta = _model.getCarteleras();
-                    break;
-                case "festival":
-                    respuesta = _model.getFestivales();
-                    break;
-                default:
-                    respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
-                    break;
-            }
+            //switch (type)
+            //{
+            //    case "cartelera":
+            //        respuesta = _model.getCarteleras();
+            //        break;
+            //    case "festival":
+            //        respuesta = _model.getFestivales();
+            //        break;
+            //    default:
+            //        respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
+            //        break;
+            //}
 
             return JObject.FromObject(respuesta);
         }
@@ -56,7 +56,7 @@ namespace MyConcert_WebService.controllers
             CategoriaBanda[] listaCategorias = getArrayCategoriaBandaEvento((JArray) peticion.categories);
 
             Respuesta respuesta = null;
-            respuesta = _model.crearEvento(tipoEvento, datosEventoJSON, listaCategorias);
+            //respuesta = _model.crearEvento(tipoEvento, datosEventoJSON, listaCategorias);
 
             return JObject.FromObject(respuesta);
         }

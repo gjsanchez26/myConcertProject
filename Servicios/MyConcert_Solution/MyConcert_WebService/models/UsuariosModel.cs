@@ -1,39 +1,34 @@
-﻿using MyConcert_WebService.database;
-using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res;
+﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.serial;
 using MyConcert_WebService.security;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 using System;
+using MyConcert_WebService.res.assembler;
 
 namespace MyConcert_WebService.models
 {
     public class UsuariosModel
     {
-        private UsuariosDB _usuariosDB;
+        private Assembler _assembler = new Assembler();
+        private ManejadorBD _manejador = new ManejadorBD();
         private FabricaRespuestas creador = new FabricaRespuestas();
-        private Respuesta respuesta;
-        private SHA256Encriptation _encriptador;
-
-        public UsuariosModel()
-        {
-            _usuariosDB = new UsuariosDB();
-            _encriptador = new SHA256Encriptation();
-        }
-
+        private Respuesta respuesta = null;
+        private SHA256Encriptation _encriptador = new SHA256Encriptation();
+        
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
-            Usuario usuarioActual;
+            usuarios usuarioActual;
             string passwordEncriptado = _encriptador.sha256Encrypt(pPassword);
+
             try
             {
-                usuarioActual = _usuariosDB.obtenerUsuario(pUsername);
+                usuarioActual = _manejador.obtenerUsuario(pUsername);
             }
             catch (Exception e)
             {
                 return respuesta = creador.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.");
+                throw (e);
             }
 
 
@@ -43,14 +38,14 @@ namespace MyConcert_WebService.models
             }
             else
             {
-                if (usuarioActual.Contrasena != passwordEncriptado)              //Si la contrasena es incorrecta.
+                if (usuarioActual.contraseña != passwordEncriptado)              //Si la contrasena es incorrecta.
                 {
                     respuesta = creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
                 }
                 else                                                  //Si el usuario y contrasena son validos.
                 {
-
-                    respuesta = creador.crearRespuesta(true, JObject.FromObject(usuarioActual));
+                    Usuario usuarioViewModel = _assembler.createUsuario(usuarioActual);
+                    respuesta = creador.crearRespuesta(true, JObject.FromObject(usuarioViewModel));
                 }
             }
 
@@ -64,10 +59,10 @@ namespace MyConcert_WebService.models
             {
                 Usuario nuevoUsuario = serial.leerDatosUsuario(pRol, pDatosUsuario);
 
-                if (pRol == "fanatico")
-                    _usuariosDB.añadirUsuario(nuevoUsuario, pListaGeneroFavoritos); //Se almacena el nuevo usuario
-                else
-                    _usuariosDB.añadirUsuario(nuevoUsuario); //Se almacena el nuevo usuario
+                //if (pRol == "fanatico")
+                //    _manejador.añadirUsuario(nuevoUsuario, pListaGeneroFavoritos); //Se almacena el nuevo usuario
+                //else
+                //    _manejador.añadirUsuario(nuevoUsuario); //Se almacena el nuevo usuario
 
                 respuesta = creador.crearRespuesta(true, "Usuario creado exitosamente.");
             }

@@ -10,6 +10,22 @@ namespace MyConcert_WebService.viewModels
         private float _calificacion;
         private string _estado;
 
+        public Banda(int id, string nombre, float calificacion, string estado)
+        {
+            _id = id;
+            _nombre = nombre;
+            _calificacion = calificacion;
+            _estado = estado;
+        }
+
+        public Banda(string nombre, string estado)
+        {
+            _id = 0;
+            _nombre = nombre;
+            _calificacion = 0;
+            _estado = estado;
+        }
+
         public bool deserialize(JObject pObject)
         {
             bool estado = true;
