@@ -10,9 +10,9 @@ namespace MyConcert_WebService.viewModels
         private int _cantidad;
         private string _banda;
         private string _categoria;
-        private  string _cartelera;
+        private  int _cartelera;
 
-        public Voto(int _id, string _fanatico, int _cantidad, string _banda, string _categoria, string _cartelera)
+        public Voto(int _id, string _fanatico, int _cantidad, string _banda, string _categoria, int _cartelera)
         {
             this._id = _id;
             this._fanatico = _fanatico;
@@ -113,7 +113,7 @@ namespace MyConcert_WebService.viewModels
             }
         }
 
-        public string Cartelera
+        public int Cartelera
         {
             get
             {

@@ -48,6 +48,24 @@ namespace MyConcert_WebService.database
             return obj;
         }
 
+        public categorias obtenerCategoria(string categoria)
+        {
+            categorias obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.categorias.FirstOrDefault(r => r.categoria == categoria);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return obj;
+        }
         public List<categorias> obtenerCategorias()
         {
             List<categorias> obj = null;
