@@ -26,5 +26,24 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
+
+        public List<votos> obtenerVotos(int PK_categoria)
+        {
+            List<votos> obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.votos.Where(v=> v.FK_VOTOS_CATEGORIAS== PK_categoria).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
     }
 }

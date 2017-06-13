@@ -22,18 +22,14 @@ namespace MyConcert_WebService
              utiDB = new UtilidadesDB();
              votDB = new VotosDB();
     }
+
         public bool conexionBaseDatos()
         {
-            using (myconcertEntities dbContext = new myconcertEntities())
-            {
-                 return dbContext.Database.Exists();
-
-            }
-
+            return utiDB.conexionBaseDatos();
         }
         //BANDASDB
 
-        public void añadirBanda(Banda banda, string[] integ, string[] canciones, int[] gen)
+        public void añadirBanda(bandas banda, List<integrantes> integ, List <canciones> canciones, List<generos> gen)
         {
             
             banDB.añadirBanda(banda, integ, canciones, gen);
@@ -58,11 +54,11 @@ namespace MyConcert_WebService
             return banDB.obtenerGenerosBanda(PK_generosBanda);
         }
 
-        public void añadirCancion(canciones cancion)
-        {
+        //public void añadirCancion(canciones cancion)
+        //{
             
-            banDB.añadirCancion(cancion);
-        }
+        //    banDB.añadirCancion(cancion);
+        //}
 
         public canciones obtenerCancion(int PK_cancion)
         {
@@ -77,7 +73,7 @@ namespace MyConcert_WebService
         }
 
         //CATEGORIASDB
-        public void añadirCategoria(Categoria nuevaCategoria)
+        public void añadirCategoria(categorias nuevaCategoria)
         {
             catDB.añadirCategoria(nuevaCategoria);
         }
@@ -95,23 +91,23 @@ namespace MyConcert_WebService
         }
 
         //EVENTOSDB
-        public void añadirCartelera(Cartelera pCartelera, CategoriaBanda[] pCategorias)
+        public void añadirCartelera(eventos pCartelera, List<categoriasevento> pCategorias)
         {
             eveDB.añadirCartelera(pCartelera, pCategorias);
         }
 
-        public void añadirFestival(Festival pFestival, CategoriaBanda[] pCategorias)
+        public void añadirFestival(eventos pFestival, List<categoriasevento> pCategorias)
         {
             //eveDB.añadirFestival(pFestival, pCategorias);
         }
 
-        public Evento[] obtenerCarteleras()
+        public List<eventos> obtenerCarteleras()
         {
             
             return eveDB.obtenerCarteleras();
         }
 
-        public Evento[] obtenerFestivales()
+        public List<eventos> obtenerFestivales()
         {
             return eveDB.obtenerFestivales();
         }
@@ -159,11 +155,11 @@ namespace MyConcert_WebService
             return usuDB.obtenerTipoUsuario(PK_tipoUsuario);
         }
 
-        public Usuario obtenerUsuario(string username)
+        public usuarios obtenerUsuario(string username)
         {
             return usuDB.obtenerUsuario(username);
         }
-        public void añadirUsuario(Usuario us, int[] gen)
+        public void añadirUsuario(usuarios us, List<generos> gen)
         {
             usuDB.añadirUsuario(us, gen);
         }
@@ -192,17 +188,17 @@ namespace MyConcert_WebService
             return utiDB.obtenerPais(pais);
         }
 
-        public GeneroMusical[] obtenerGeneros()
+        public List<generos> obtenerGeneros()
         {
             return utiDB.obtenerGeneros();
         }
 
-        public Pais[] obtenerPaises()
+        public List<paises> obtenerPaises()
         {
             return utiDB.obtenerPaises();
         }
 
-        public Universidad[] obtenerUniversidades()
+        public List<universidades> obtenerUniversidades()
         {
             return utiDB.obtenerUniversidades();
         }
