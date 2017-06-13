@@ -14,9 +14,11 @@ namespace MyConcert_WebService.controllers
         private FabricaRespuestas _creador = new FabricaRespuestas();
 
         //Obtener paises, universidades o generos segun solicitud.
-        public JObject Get(string data)
+        public JObject Post(JObject pRequest)
         {
-            dynamic peticion = data;
+            dynamic peticion = pRequest;
+            string data = peticion.rata;
+
             Respuesta respuesta = null;
 
             switch (data)
@@ -38,16 +40,16 @@ namespace MyConcert_WebService.controllers
             return JObject.FromObject(respuesta);
         }
 
-        public string Post()
-        {
-            var request = HttpContext.Current.Request;
-            var filePath = "C:\\temp\\" + request.Headers["filename"];
-            //using (var fs = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
-            //{
-            //    request.InputStream.CopyTo(fs);
-            //}
-            return "uploaded";
-        }
+        //public string Post()
+        //{
+        //    var request = HttpContext.Current.Request;
+        //    var filePath = "C:\\temp\\" + request.Headers["filename"];
+        //    //using (var fs = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+        //    //{
+        //    //    request.InputStream.CopyTo(fs);
+        //    //}
+        //    return "uploaded";
+        //}
 
     }
 }

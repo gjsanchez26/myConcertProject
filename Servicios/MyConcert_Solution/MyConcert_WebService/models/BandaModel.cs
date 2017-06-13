@@ -81,11 +81,65 @@ namespace MyConcert_WebService.models
         public Respuesta getBanda(int pIDBanda)
         {
             bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
-            generosbanda generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery.PK_bandas);
-            integrantes integrandesBandaQuery = _manejador.obtenerIntegrante(bandaQuery.PK_bandas);
+            List<generos> generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery);
+            List<integrantes> integrantesBandaQuery = _manejador.obtenerIntegrantes(bandaQuery);
+            List<canciones> cancionesBandaQuery = _manejador.obtenerCanciones(bandaQuery);
+            List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery);
 
+            string[] generosString = agruparGeneros(generosBandaQuery);
+            string[] miembrosString = agruparMiembros(integrantesBandaQuery);
+            JObject[] cancionesObj = agruparCanciones(cancionesBandaQuery);
+            //JObject[] comentariosObj = agruparComentarios(comentarioBandaQuery);
 
+            
+            
+            dynamic band_data = new JObject();
+            band_data.name = bandaQuery.nombreBan;
+            band_data.image_band = _spotify.searchArtistImages(bandaQuery.nombreBan);
+            band_data.calification = _manejador.getCalificacion(bandaQuery);
+            band_data.followers = _spotify.searchArtistFollowers(bandaQuery.nombreBan);
+            band_data.popularity = _spotify.searchArtistPopularity(bandaQuery.nombreBan);
+            
             return new Respuesta();
+        }
+
+        private string[] agruparGeneros(List<generos> pLista)
+        {
+            string[] generosString = new string[pLista.Count];
+            int iterator = 0;
+            foreach (generos gen in pLista)
+            {
+                generosString[iterator] = gen.genero;
+                iterator++;
+            }
+            return generosString;
+        }
+
+        private string[] agruparMiembros(List<integrantes> pLista)
+        {
+            string[] miembrosString = new string[pLista.Count];
+            int iterator = 0;
+            foreach (integrantes miembro in pLista)
+            {
+                miembrosString[iterator] = miembro.nombreInt;
+                iterator++;
+            }
+            return miembrosString;
+        }
+
+        private JObject[] agruparCanciones(List<canciones> pLista)
+        {
+            JObject[] cancionesObject = new JObject[pLista.Count];
+            int iterator = 0;
+            foreach (canciones cancion in pLista)
+            {
+                dynamic song = cancionesObject[iterator];
+                song.song_name = cancion.cancion;
+                //song.url_sound_test = _spotify.searchURLTrack
+                //miembrosString[iterator] = cancion.nombreInt;
+                iterator++;
+            }
+            return null;
         }
     }
 }

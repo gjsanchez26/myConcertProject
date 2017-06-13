@@ -299,7 +299,7 @@ namespace MyConcert_WebService.res.assembler
             GeneroMusical[] arreglo = new GeneroMusical[gens.Count];
             int contador = 0;
             foreach (generos i in gens)
-            {
+            {   
                 arreglo[contador] = createGenero(i);
                 contador++;
             }
@@ -350,9 +350,6 @@ namespace MyConcert_WebService.res.assembler
             nComent.FK_COMENTARIOS_BANDAS = _manejadorDB.obtenerBanda(coment.Banda).PK_bandas;
 
             return nComent;
-
-            
-            ;
         }
 
         public Comentario[] createListaComentario(List<comentarios> coments)
