@@ -2,6 +2,7 @@
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System;
+using MyConcert_WebService.res.assembler;
 
 namespace MyConcert_WebService.models
 {
@@ -9,58 +10,61 @@ namespace MyConcert_WebService.models
     {
         private ManejadorBD _manejador;
         private FabricaRespuestas _creador;
+        private Assembler _convertidor;
 
         public UtilidadesModel()
         {
             _manejador = new ManejadorBD();
             _creador = new FabricaRespuestas();
+            _convertidor = new Assembler();
         }
 
-        //public Respuesta getUniversidades()
-        //{
-        //    Universidad[] listaUniversidades = _manejador.obtenerUniversidades();
-        //    JObject[] arreglo = new JObject[listaUniversidades.Length];
+        public Respuesta getUniversidades()
+        {
+            Universidad[] listaUniversidades = _convertidor.createListaUniversidad( _manejador.obtenerUniversidades());
+            JObject[] arreglo = new JObject[listaUniversidades.Length];
 
-        //    for (int i = 0; i < arreglo.Length; i++)
-        //    {
-        //        arreglo[i] = JObject.FromObject(listaUniversidades[i]);
-        //    }
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                arreglo[i] = JObject.FromObject(listaUniversidades[i]);
+            }
 
-        //    return _creador.crearRespuesta(true, arreglo);
-        //}
+            return _creador.crearRespuesta(true, arreglo);
+        }
 
         public Respuesta getPaises()
         {
             JObject[] arreglo = null;
 
-            //try
-            //{
-            //    Pais[] listaPaises = _manejador.obtenerPaises();
-            //    arreglo = new JObject[listaPaises.Length];
+            try
+            {
+                Pais[] listaPaises = _convertidor.createListaPais(_manejador.obtenerPaises());
+                arreglo = new JObject[listaPaises.Length];
 
-            //    for (int i = 0; i < arreglo.Length; i++)
-            //    {
-            //        arreglo[i] = JObject.FromObject(listaPaises[i]);
-            //    }
-            //} catch(Exception e)
-            //{
-            //    return _creador.crearRespuesta(false, e.ToString());
-            //}
+                for (int i = 0; i < arreglo.Length; i++)
+                {
+                    arreglo[i] = JObject.FromObject(listaPaises[i]);
+                }
+            }
+            catch (Exception e)
+            {
+                return _creador.crearRespuesta(false, e.ToString());
+            }
 
             return _creador.crearRespuesta(true, arreglo);
         }
 
-        //public Respuesta getGenerosMusicales()
-        //{
-        //    GeneroMusical[] listaGenerosMusicales = _manejador.obtenerGeneros();
-        //    JObject[] arreglo = new JObject[listaGenerosMusicales.Length];
+        public Respuesta getGenerosMusicales()
+        {
+            GeneroMusical[] listaGenerosMusicales = _convertidor.createListaGenero(_manejador.obtenerGeneros());
+            JObject[] arreglo = new JObject[listaGenerosMusicales.Length];
 
-        //    for (int i = 0; i < arreglo.Length; i++)
-        //    {
-        //        arreglo[i] = JObject.FromObject(listaGenerosMusicales[i]);
-        //    }
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                arreglo[i] = JObject.FromObject(listaGenerosMusicales[i]);
+            }
 
-        //    return _creador.crearRespuesta(true, arreglo);
-        //}
+            return _creador.crearRespuesta(true, arreglo);
+        }
     }
 }

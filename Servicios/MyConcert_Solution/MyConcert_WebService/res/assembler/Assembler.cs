@@ -268,6 +268,41 @@ namespace MyConcert_WebService.res.assembler
             return pais;
         }
 
+        public Universidad[] createListaUniversidad(List<universidades> uni)
+        {
+            Universidad[] arreglo = new Universidad[uni.Count];
+            int contador = 0;
+            foreach (universidades i in uni)
+            {
+                arreglo[contador] = createUniversidad(i);
+                contador++;
+            }
+            return arreglo;
+        }
+
+        public Pais[] createListaPais(List<paises> paises) 
+        {
+            Pais[] arreglo = new Pais[paises.Count];
+            int contador = 0;
+            foreach (paises i in paises)
+            {
+                arreglo[contador] = createPais(i);
+                contador++;
+            }
+            return arreglo;
+        }
+
+        public GeneroMusical[] createListaGenero(List<generos> gens)
+        {
+            GeneroMusical[] arreglo = new GeneroMusical[gens.Count];
+            int contador = 0;
+            foreach (generos i in gens)
+            {
+                arreglo[contador] = createGenero(i);
+                contador++;
+            }
+            return arreglo;
+        }
         public GeneroMusical createGenero(generos pGenero)
         {
             int id = pGenero.PK_generos;
