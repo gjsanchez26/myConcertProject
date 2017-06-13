@@ -1,10 +1,11 @@
 ﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.res.serial;
 using MyConcert_WebService.security;
 using Newtonsoft.Json.Linq;
 using System;
 using MyConcert_WebService.res.assembler;
+using MyConcert_WebService.res.serial;
+using System.Collections.Generic;
 
 namespace MyConcert_WebService.models
 {
@@ -12,12 +13,13 @@ namespace MyConcert_WebService.models
     {
         private Assembler _assembler = new Assembler();
         private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas creador = new FabricaRespuestas();
-        private Respuesta respuesta = null;
+        private FabricaRespuestas _creador = new FabricaRespuestas();
         private SHA256Encriptation _encriptador = new SHA256Encriptation();
+        private SerialHelper _serial = new SerialHelper();
         
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
+            Respuesta respuesta = null;
             usuarios usuarioActual;
             string passwordEncriptado = _encriptador.sha256Encrypt(pPassword);
 
@@ -27,48 +29,79 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                return respuesta = creador.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.");
+                return respuesta = _creador.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.");
                 throw (e);
             }
 
 
             if (usuarioActual == null)                                  //Si no existe el nombre de usuario introducido.
             {
-                respuesta = creador.crearRespuesta(false, "Usuario no existente.");
+                respuesta = _creador.crearRespuesta(false, "Usuario no existente.");
             }
             else
             {
                 if (usuarioActual.contraseña != passwordEncriptado)              //Si la contrasena es incorrecta.
                 {
-                    respuesta = creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
+                    respuesta = _creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
                 }
                 else                                                  //Si el usuario y contrasena son validos.
                 {
                     Usuario usuarioViewModel = _assembler.createUsuario(usuarioActual);
-                    respuesta = creador.crearRespuesta(true, JObject.FromObject(usuarioViewModel));
+                    respuesta = _creador.crearRespuesta(true, JObject.FromObject(usuarioViewModel));
                 }
             }
 
             return respuesta;
         }
 
-        public Respuesta registrarUsuario(string pRol, JObject pDatosUsuario, int[] pListaGeneroFavoritos)
+        public Respuesta registrarUsuario(string pRol, JObject pDatosUsuario, JArray pListaGeneroFavoritos)
         {
-            SerializerJSON serial = new SerializerJSON();
+            Respuesta respuesta = null;
+            usuarios usuarioCreado = null;
             try
             {
-                Usuario nuevoUsuario = serial.leerDatosUsuario(pRol, pDatosUsuario);
+                if (pRol == "fanatico")
+                {
+                    Fanatico nuevoFanatico = new Fanatico();
+                    nuevoFanatico.deserialize(pDatosUsuario);
+                    nuevoFanatico.Estado = _manejador.obtenerEstado(1).estado;
+                    nuevoFanatico.TipoUsuario = _manejador.obtenerTipoUsuario(2).tipo;
 
-                //if (pRol == "fanatico")
-                //    _manejador.añadirUsuario(nuevoUsuario, pListaGeneroFavoritos); //Se almacena el nuevo usuario
-                //else
-                //    _manejador.añadirUsuario(nuevoUsuario); //Se almacena el nuevo usuario
+                    int[] arregloGenerosFavoritos = _serial.getArrayInt(pListaGeneroFavoritos);
+                    List<generos> listaGenerosFavoritos = new List<generos>();
+                    try
+                    {
+                        for (int i=0; i < arregloGenerosFavoritos.Length; i++)
+                        {
+                            listaGenerosFavoritos.Add(_manejador.obtenerGenero(arregloGenerosFavoritos[i]));
+                        }
+                    } catch(Exception)
+                    {
+                        return _creador.crearRespuesta(false, "Fallo al seleccionar los generos favoritos.");
+                    }
 
-                respuesta = creador.crearRespuesta(true, "Usuario creado exitosamente.");
+                    usuarioCreado = _manejador.añadirUsuario(_assembler.updateusuarios(nuevoFanatico),
+                                listaGenerosFavoritos); //Se almacena el nuevo usuario
+                    nuevoFanatico = (Fanatico)_assembler.createUsuario(usuarioCreado);
+
+                    respuesta = _creador.crearRespuesta(true, nuevoFanatico.serialize());
+                }
+                    
+                if (pRol == "colaborador")
+                {
+                    Colaborador nuevoColaborador = new Colaborador();
+                    nuevoColaborador.deserialize(pDatosUsuario);
+                    nuevoColaborador.Estado = _manejador.obtenerEstado(1).estado;
+                    nuevoColaborador.TipoUsuario = _manejador.obtenerTipoUsuario(1).tipo;
+
+                    usuarioCreado = _manejador.añadirUsuario(_assembler.updateusuarios(nuevoColaborador)); //Se almacena el nuevo usuario
+                    nuevoColaborador = (Colaborador) _assembler.createUsuario(usuarioCreado);
+                    respuesta = _creador.crearRespuesta(true, nuevoColaborador.serialize());
+                }
             }
-            catch (Exception )
+            catch (Exception e)
             {
-                respuesta = creador.crearRespuesta(false, "Usuario ya existente. Intentar de nuevo.");
+                respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.");
             }
 
             return respuesta;

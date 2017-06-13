@@ -163,6 +163,7 @@
     <Compile Include="generosusuario.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="integrantes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -196,6 +197,7 @@
     <Compile Include="models\UsuariosModel.cs" />
     <Compile Include="models\UtilidadesModel.cs" />
     <Compile Include="MyConcertAPI.cs" />
+    <Compile Include="res\serial\SerialHelper.cs" />
     <Compile Include="viewModels\Banda.cs" />
     <Compile Include="viewModels\Cancion.cs" />
     <Compile Include="viewModels\Cartelera.cs" />

@@ -2,6 +2,8 @@
 using MyConcert_WebService.res.resultados;
 using System;
 using MyConcert_WebService.res.assembler;
+using Newtonsoft.Json.Linq;
+using MyConcert_WebService.res.serial;
 
 namespace MyConcert_WebService.models
 {
@@ -10,31 +12,36 @@ namespace MyConcert_WebService.models
         private ManejadorBD _manejador;
         private FabricaRespuestas _creador;
         private Assembler _convertidor;
+        private SerialHelper _serial;
 
         public BandaModel()
         {
             _manejador = new ManejadorBD();
             _creador = new FabricaRespuestas();
             _convertidor = new Assembler();
+            _serial = new SerialHelper();
         }
 
-        public Respuesta nuevaBanda(string pNombre, string[] pMiembros,
-                                string[] pCanciones, int[] pGeneros)
+        public Respuesta nuevaBanda(string pNombre, JArray pMiembros,
+                                JArray pCanciones, JArray pGeneros)
         {
             Respuesta respuesta = null;
             Banda banda = new Banda(pNombre, _manejador.obtenerEstado(1).estado);
+            string[] miembros = _serial.getArrayString(pMiembros);
+            string[] canciones = _serial.getArrayString(pCanciones);
+            int[] generos = _serial.getArrayInt(pGeneros);
 
             try
             {
                 _manejador.añadirBanda(_convertidor.updatebandas(banda), 
-                                       _convertidor.updateintegrantes(pMiembros),
-                                       _convertidor.updatecanciones(pCanciones),
-                                       _convertidor.updateListaGeneros(pGeneros));
+                                       _convertidor.updateintegrantes(miembros),
+                                       _convertidor.updatecanciones(canciones),
+                                       _convertidor.updateListaGeneros(generos));
                 respuesta = _creador.crearRespuesta(true, "Banda registrada correctamente.");
             } catch(Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
-                respuesta = _creador.crearRespuesta(false, e.ToString());
+                respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
+                //respuesta = _creador.crearRespuesta(false, e.ToString());
             }
 
             return respuesta;

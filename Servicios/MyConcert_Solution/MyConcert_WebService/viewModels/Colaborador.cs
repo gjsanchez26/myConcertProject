@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MyConcert_WebService.res.serial;
+using Newtonsoft.Json.Linq;
 using System;
 
 namespace MyConcert_WebService.viewModels
@@ -24,20 +25,22 @@ namespace MyConcert_WebService.viewModels
             this.Email = email;
         }
 
+        public Colaborador() { }
+
         public bool deserialize(JObject pObject)
         {
             bool estado = true;
             dynamic json = pObject;
             try
             {
-                this.Nombre = json.name;
-                this.Apellido = json.last_name;
-                this.NombreUsuario = json.username;
-                this.Contrasena = json.password;
-                this.Estado = json.state;
-                this.FechaInscripcion = json.inscription_date;
-                this.TipoUsuario = json.user_type;
-                this.Email = json.email;
+                this.Nombre = (string)json.name;
+                this.Apellido = (string)json.last_name;
+                this.NombreUsuario = (string)json.username;
+                this.Contrasena = (string)json.password;
+                this.Estado = "";
+                this.FechaInscripcion = DateTime.Now;
+                this.TipoUsuario = "";
+                this.Email = (string)json.email;
             }
             catch (Exception e)
             {
@@ -49,6 +52,7 @@ namespace MyConcert_WebService.viewModels
 
         public JObject serialize()
         {
+            Contrasena = "XXXXXXXX";
             return JObject.FromObject(this);
         }
     }
