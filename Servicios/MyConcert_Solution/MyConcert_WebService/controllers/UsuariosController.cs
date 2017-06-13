@@ -26,9 +26,9 @@ namespace MyConcert_WebService.controllers
             dynamic peticion = pDatosUsuario;
             string tipoUsuario = peticion.role;
             dynamic datosUsuario = peticion.user_data;
-            int[] generosFavoritos = getGenerosFavoritos((JArray)peticion.genres);
+            JArray listaGenerosFavoritos = peticion.genres;
             
-            Respuesta respuesta = _model.registrarUsuario(tipoUsuario, datosUsuario, generosFavoritos);
+            Respuesta respuesta = _model.registrarUsuario(tipoUsuario, datosUsuario, listaGenerosFavoritos);
             
             JObject respuestaPost = JObject.FromObject(respuesta);
 

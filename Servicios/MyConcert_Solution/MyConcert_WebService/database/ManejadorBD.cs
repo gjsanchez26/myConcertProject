@@ -159,9 +159,13 @@ namespace MyConcert_WebService
         {
             return usuDB.obtenerUsuario(username);
         }
-        public void añadirUsuario(usuarios us, List<generos> gen)
+        public usuarios añadirUsuario(usuarios us, List<generos> gen)
         {
-            usuDB.añadirUsuario(us, gen);
+            return usuDB.añadirUsuario(us, gen);
+        }
+        public usuarios añadirUsuario(usuarios us)
+        {
+            return usuDB.añadirUsuario(us);
         }
         public void añadirGeneroUsuario(generosusuario genUs)
         {

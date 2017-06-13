@@ -67,10 +67,8 @@ namespace MyConcert_WebService.database
             return us;
         }
 
-        public void añadirUsuario(usuarios us, List<generos> gen)
+        public usuarios añadirUsuario(usuarios us, List<generos> gen)
         {
-            
-
             using (myconcertEntities context = new myconcertEntities())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
@@ -98,10 +96,11 @@ namespace MyConcert_WebService.database
                     }
                 }
             }
+            return us;
         }
 
 
-        public void añadirUsuario(usuarios us)
+        public usuarios añadirUsuario(usuarios us)
         {
             using (myconcertEntities context = new myconcertEntities())
             {
@@ -128,9 +127,7 @@ namespace MyConcert_WebService.database
                 }
                 
             }
-
-
-
+            return us;
         }
         public void añadirGeneroUsuario(generosusuario genUs)
         {

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MyConcert_WebService.res.serial;
+using Newtonsoft.Json.Linq;
 using System;
 
 namespace MyConcert_WebService.viewModels
@@ -35,27 +36,30 @@ namespace MyConcert_WebService.viewModels
             this.Ubicacion = ubicacion;
         }
 
+        public Fanatico() { }
+
         public bool deserialize(JObject pObject)
         {
+            SerialHelper serial = new SerialHelper();
             bool estado = true;
             dynamic json = pObject;
             try
             {
-                this.Nombre = json.name;
-                this.Apellido = json.last_name;
-                this.NombreUsuario = json.username;
-                this.Contrasena = json.password;
-                this.Email = json.email;
-                this.Estado = json.state;
-                this.FechaInscripcion = json.inscription_date;
-                this.FotoPerfil = json.profile_pic;
-                this.FechaNacimiento = json.birth_date;
-                this.Telefono = json.phone;
-                this.Pais = json.country;
-                this.DescripcionPersonal = json.description;
-                this.TipoUsuario = json.user_type;
-                this.Universidad = json.university;
-                this.Ubicacion = json.ubication;
+                this.Nombre = (string)json.name;
+                this.Apellido = (string)json.last_name;
+                this.NombreUsuario = (string)json.username;
+                this.Contrasena = (string)json.password;
+                this.Email = (string)json.email;
+                this.Estado = "";
+                this.FechaInscripcion = DateTime.Now;
+                this.FotoPerfil = "";
+                this.FechaNacimiento = serial.fecha(json.birth_date);
+                this.Telefono = (string)json.phone;
+                this.Pais = (string)json.country;
+                this.DescripcionPersonal = (string)json.description;
+                this.TipoUsuario = "";
+                this.Universidad = (string)json.university;
+                this.Ubicacion = (string)json.ubication;
             }
             catch (Exception e)
             {
@@ -67,6 +71,7 @@ namespace MyConcert_WebService.viewModels
 
         public JObject serialize()
         {
+            Contrasena = "XXXXXXXX";
             return JObject.FromObject(this);
         }
 
