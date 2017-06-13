@@ -58,7 +58,6 @@ namespace MyConcert_WebService.models
         {
             Respuesta respuesta = null;
             usuarios usuarioCreado = null;
-            Usuario auxiliar = null;
             try
             {
                 if (pRol == "fanatico")
@@ -76,8 +75,7 @@ namespace MyConcert_WebService.models
                         {
                             listaGenerosFavoritos.Add(_manejador.obtenerGenero(arregloGenerosFavoritos[i]));
                         }
-
-                    } catch(Exception e)
+                    } catch(Exception)
                     {
                         return _creador.crearRespuesta(false, "Fallo al seleccionar los generos favoritos.");
                     }
@@ -103,7 +101,7 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, e.ToString());
+                respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.");
             }
 
             return respuesta;

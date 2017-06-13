@@ -163,6 +163,7 @@
     <Compile Include="generosusuario.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="integrantes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
