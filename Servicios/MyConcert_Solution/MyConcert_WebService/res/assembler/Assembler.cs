@@ -140,12 +140,12 @@ namespace MyConcert_WebService.res.assembler
             event_carte.PK_eventos = pEvento.Id;
             event_carte.nombreEve = pEvento.Nombre;
             event_carte.ubicacion = pEvento.Ubicacion;
-            event_carte.FK_EVENTOS_PAISES = manejadorDB.obtenerPais(pEvento.Pais).PK_paises;
+            event_carte.FK_EVENTOS_PAISES = _manejadorDB.obtenerPais(pEvento.Pais).PK_paises;
             event_carte.fechaInicio = pEvento.FechaInicioFestival;
             event_carte.fechaFinal = pEvento.FechaInicioFestival;
             event_carte.finalVotacion = pEvento.FechaFinalVotacion;
-            event_carte.FK_EVENTOS_TIPOSEVENTOS = manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
-            event_carte.FK_EVENTOS_ESTADOS = manejadorDB.obtenerEstado(pEvento.Estado).PK_estados;
+            event_carte.FK_EVENTOS_TIPOSEVENTOS = _manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
+            event_carte.FK_EVENTOS_ESTADOS = _manejadorDB.obtenerEstado(pEvento.Estado).PK_estados;
 
             return event_carte;
         }
@@ -156,16 +156,16 @@ namespace MyConcert_WebService.res.assembler
             event_feste.PK_eventos = pEvento.Id;
             event_feste.nombreEve = pEvento.Nombre;
             event_feste.ubicacion = pEvento.Ubicacion;
-            event_feste.FK_EVENTOS_PAISES = manejadorDB.obtenerPais(pEvento.Pais).PK_paises;
+            event_feste.FK_EVENTOS_PAISES = _manejadorDB.obtenerPais(pEvento.Pais).PK_paises;
             event_feste.fechaInicio = pEvento.FechaInicioFestival;
             event_feste.fechaFinal = pEvento.FechaInicioFestival;
             event_feste.ubicacion = pEvento.Ubicacion;
             event_feste.transporte = pEvento.Transporte;
             event_feste.servicios = pEvento.Servicios;
             event_feste.comida = pEvento.Comida;
-            event_feste.FK_EVENTOS_BANDAS_CHEF = manejadorDB.obtenerBanda(pEvento.RecomendacionChef).PK_bandas;
-            event_feste.FK_EVENTOS_TIPOSEVENTOS = manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
-            event_feste.FK_EVENTOS_ESTADOS = manejadorDB.obtenerEstado(pEvento.Estado).PK_estados;
+            event_feste.FK_EVENTOS_BANDAS_CHEF = _manejadorDB.obtenerBanda(pEvento.RecomendacionChef).PK_bandas;
+            event_feste.FK_EVENTOS_TIPOSEVENTOS = _manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
+            event_feste.FK_EVENTOS_ESTADOS = _manejadorDB.obtenerEstado(pEvento.Estado).PK_estados;
 
             return event_feste;
         }
@@ -277,7 +277,7 @@ namespace MyConcert_WebService.res.assembler
             return gene;
         }
 
-        public List<generos> createGenerosFavoritos(int[] pGeneros)
+        public List<generos> updateListaGeneros(int[] pGeneros)
         {
             List<generos> listaGeneros = new List<generos>();
 

@@ -3,6 +3,7 @@ using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.serial;
 using Newtonsoft.Json.Linq;
 using System;
+using MyConcert_WebService.res.assembler;
 
 namespace MyConcert_WebService.models
 {
@@ -18,30 +19,30 @@ namespace MyConcert_WebService.models
             Evento[] listaCarteleras = _convertidor.createListaEventos( _manejador.obtenerCarteleras());
             JObject[] arreglo = new JObject[listaCarteleras.Length];
 
-        //    for (int i = 0; i < arreglo.Length; i++)
-        //    {
-        //        arreglo[i] = JObject.FromObject(listaCarteleras[i]);
-        //    }
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                arreglo[i] = JObject.FromObject(listaCarteleras[i]);
+            }
 
-        //    return _creador.crearRespuesta(true, arreglo);
-        //}
+            return _creador.crearRespuesta(true, arreglo);
+        }
 
         public Respuesta getFestivales()
         {
             Evento[] listaFestivales = _convertidor.createListaEventos(_manejador.obtenerFestivales());
             JObject[] arreglo = new JObject[listaFestivales.Length];
 
-        //    for (int i = 0; i < arreglo.Length; i++)
-        //    {
-        //        arreglo[i] = JObject.FromObject(listaFestivales[i]);
-        //    }
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                arreglo[i] = JObject.FromObject(listaFestivales[i]);
+            }
 
-        //    return _creador.crearRespuesta(true, arreglo);
-        //}
+            return _creador.crearRespuesta(true, arreglo);
+        }
 
-        //public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, CategoriaBanda[] pListaCategorias)
-        //{
-        //    Respuesta respuesta = null;
+        public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, CategoriaBanda[] pListaCategorias)
+        {
+            Respuesta respuesta = null;
 
             try
             {
@@ -67,7 +68,7 @@ namespace MyConcert_WebService.models
                 respuesta = _creador.crearRespuesta(false, e.ToString());
             }
 
-        //    return respuesta;
-        //}
+            return respuesta;
+        }
     }
 }
