@@ -60,8 +60,6 @@ namespace MyConcert_WebService
             return banDB.obtenerGenerosBanda(PK_generosBanda);
         }
 
-      
-
         public canciones obtenerCancion(int PK_cancion)
         {
             
@@ -74,6 +72,18 @@ namespace MyConcert_WebService
             return banDB.obtenerComentario(PK_comentario);
         }
 
+        public List<integrantes> obtenerIntegrantes(bandas banda)
+        {
+            return banDB.obtenerIntegrantes(banda);
+        }
+        public List<comentarios> obtenerComentarios(bandas banda)
+        {
+            return banDB.obtenerComentarios(banda);
+        }
+        public List<generos> obtenerGenerosBanda(bandas banda)
+        {
+            return banDB.obtenerGenerosBanda(banda);
+        }
         //CATEGORIASDB
         public void añadirCategoria(categorias nuevaCategoria)
         {

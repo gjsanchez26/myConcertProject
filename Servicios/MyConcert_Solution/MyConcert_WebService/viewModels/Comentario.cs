@@ -13,11 +13,11 @@ namespace MyConcert_WebService.viewModels
         private string _fanatico;
         private DateTime _fecha;
         private string _contenido;
-        private int _calificacion;
+        private float _calificacion;
         private string _estado;
         private string _banda;
 
-        public Comentario(int _id, string _fanatico, DateTime _fecha, string _contenido, int _calificacion, string _estado, string _banda)
+        public Comentario(int _id, string _fanatico, DateTime _fecha, string _contenido, float _calificacion, string _estado, string _banda)
         {
             this._id = _id;
             this._fanatico = _fanatico;
@@ -34,13 +34,13 @@ namespace MyConcert_WebService.viewModels
             dynamic json = pObject;
             try
             {
-                this.Id = json.id;
-                this.Fanatico = json.user;
-                this.Fecha = json.date;
-                this.Contenido = json.content;
-                this.Calificacion = json.calification;
-                this.Estado = json.state;
-                this.Banda = json.band;
+                this.Id = (int)json.id;
+                this.Fanatico = (string)json.user;
+                this.Fecha = json.date; //colocar metodo para datetime
+                this.Contenido = (string)json.content;
+                this.Calificacion = (float)json.calification;
+                this.Estado = (string)json.state;
+                this.Banda = (string)json.band;
             }
             catch (Exception e)
             {
@@ -108,7 +108,7 @@ namespace MyConcert_WebService.viewModels
             }
         }
 
-        public int Calificacion
+        public float Calificacion
         {
             get
             {

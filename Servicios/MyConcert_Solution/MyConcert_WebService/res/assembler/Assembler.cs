@@ -1,6 +1,7 @@
 ﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.security;
 using System.Collections.Generic;
+using System;
 
 namespace MyConcert_WebService.res.assembler
 {
@@ -321,6 +322,90 @@ namespace MyConcert_WebService.res.assembler
             }
 
             return listaGeneros;
+        }
+
+        public Comentario createComentario(comentarios coment)
+        {
+            int id = coment.PK_comentarios;
+            string fanatico = _manejadorDB.obtenerUsuario(coment.FK_COMENTARIOS_USUARIOS).username;
+            DateTime fecha = coment.fechaCreacion;
+            string contenido = coment.comentario;
+            float calificacion = coment.calificacion;
+            string estado = _manejadorDB.obtenerEstado(coment.FK_COMENTARIOS_ESTADOS).estado;
+            string banda = _manejadorDB.obtenerBanda(coment.FK_COMENTARIOS_BANDAS).nombreBan;
+
+            Comentario nuevoComentario = new Comentario(id, fanatico, fecha, contenido, calificacion, estado, banda);
+            return nuevoComentario;
+        }
+
+        public comentarios updatecomentarios(Comentario coment)
+        {
+            comentarios nComent = new comentarios();
+            nComent.FK_COMENTARIOS_USUARIOS = coment.Fanatico;
+            nComent.fechaCreacion = coment.Fecha;
+            nComent.comentario = coment.Contenido;
+            nComent.calificacion = coment.Calificacion;
+            nComent.FK_COMENTARIOS_ESTADOS = _manejadorDB.obtenerEstado(coment.Estado).PK_estados;
+            nComent.FK_COMENTARIOS_BANDAS = _manejadorDB.obtenerBanda(coment.Banda).PK_bandas;
+
+            return nComent;
+
+            
+            ;
+        }
+
+        public Comentario[] createListaComentario(List<comentarios> coments)
+        {
+            Comentario[] arreglo = new Comentario[coments.Count];
+            int contador = 0;
+            foreach (comentarios i in coments)
+            {
+                arreglo[contador] = createComentario(i);
+                contador++;
+            }
+            return arreglo;
+        }
+
+        public MiembroBanda createMiembroBanda(integrantes integra)
+        {
+            int id = integra.PK_integrantes;
+            string nombre = integra.nombreInt;
+            string banda = _manejadorDB.obtenerBanda(integra.FK_INTEGRANTES_BANDAS).nombreBan;
+
+            MiembroBanda miembro = new MiembroBanda(id, nombre, banda);
+            return miembro;
+        }
+        public MiembroBanda[] createListaIntegrantes(List<integrantes> integrantes)
+        {
+            MiembroBanda[] arreglo = new MiembroBanda[integrantes.Count];
+            int contador = 0;
+            foreach (integrantes i in integrantes)
+            {
+                arreglo[contador] = createMiembroBanda(i);
+                contador++;
+            }
+            return arreglo;
+        }
+
+        public Cancion createCancion(canciones canc)
+        {
+            int id = canc.PK_canciones;
+            string nombre = canc.cancion;
+            string banda = _manejadorDB.obtenerBanda(canc.FK_CANCIONES_BANDAS).nombreBan;
+            Cancion nuevaCancion = new Cancion(id, nombre, banda);
+            return nuevaCancion;
+        }
+
+        public Cancion[] createListaCancion(List<canciones> canciones)
+        {
+            Cancion[] arreglo = new Cancion[canciones.Count];
+            int contador = 0;
+            foreach (canciones i in canciones)
+            {
+                arreglo[contador] = createCancion(i);
+                contador++;
+            }
+            return arreglo;
         }
     }
 }
