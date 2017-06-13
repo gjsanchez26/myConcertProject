@@ -45,6 +45,7 @@ namespace MyConcert_WebService.database
                     }
                     catch (Exception ex)
                     {
+                        dbContextTransaction.Rollback();
                         throw (ex);
                     }
                 }

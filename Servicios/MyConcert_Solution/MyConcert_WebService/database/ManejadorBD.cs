@@ -162,6 +162,11 @@ namespace MyConcert_WebService
         {
             return banDB.obtenerCanciones(banda);
         }
+
+        public int obtenerCantidadVotos(int cartelera, int categoria, int banda)
+        {
+            return eveDB.obtenerCantidadVotos(cartelera, categoria, banda);
+        }
         //USUARIOSDB
         public tiposusuarios obtenerTipoUsuario(string tipoUsuario)
         {
