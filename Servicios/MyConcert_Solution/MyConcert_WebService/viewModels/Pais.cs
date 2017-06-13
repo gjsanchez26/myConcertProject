@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace MyConcert_WebService.viewModels
 {
@@ -15,6 +12,28 @@ namespace MyConcert_WebService.viewModels
         {
             this._id = _id;
             this._nombre = _nombre;
+        }
+
+        public bool deserialize(JObject pObject)
+        {
+            bool estado = true;
+            dynamic json = pObject;
+            try
+            {
+                this.Id = json.id;
+                this.Nombre = json.name;
+            }
+            catch (Exception e)
+            {
+                estado = false;
+                throw (e);
+            }
+            return estado;
+        }
+
+        public JObject serialize()
+        {
+            return JObject.FromObject(this);
         }
 
         public string Nombre

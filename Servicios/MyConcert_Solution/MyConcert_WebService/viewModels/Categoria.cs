@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,29 @@ namespace MyConcert_WebService.viewModels
     {
         private int _id;
         private string _nombre;
+
+        public bool deserialize(JObject pObject)
+        {
+            bool estado = true;
+            dynamic json = pObject;
+            try
+            {
+                this.Id = json.id;
+                this.Nombre = json.name;
+            }
+            catch (Exception e)
+            {
+                estado = false;
+                throw (e);
+            }
+            return estado;
+        }
+
+        public JObject serialize()
+        {
+            return JObject.FromObject(this);
+        }
+
 
         public Categoria(int _id, string _nombre)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,34 @@ namespace MyConcert_WebService.viewModels
             this._estado = _estado;
             this._banda = _banda;
         }
+
+        public bool deserialize(JObject pObject)
+        {
+            bool estado = true;
+            dynamic json = pObject;
+            try
+            {
+                this.Id = json.id;
+                this.Fanatico = json.user;
+                this.Fecha = json.date;
+                this.Contenido = json.content;
+                this.Calificacion = json.calification;
+                this.Estado = json.state;
+                this.Banda = json.band;
+            }
+            catch (Exception e)
+            {
+                estado = false;
+                throw (e);
+            }
+            return estado;
+        }
+
+        public JObject serialize()
+        {
+            return JObject.FromObject(this);
+        }
+
 
         public int Id
         {
