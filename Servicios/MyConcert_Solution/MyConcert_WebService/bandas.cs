@@ -19,11 +19,11 @@ namespace MyConcert_WebService
         {
             this.canciones = new HashSet<canciones>();
             this.categoriasevento = new HashSet<categoriasevento>();
-            this.comentarios = new HashSet<comentarios>();
             this.generosbanda = new HashSet<generosbanda>();
             this.integrantes = new HashSet<integrantes>();
             this.votos = new HashSet<votos>();
             this.eventos = new HashSet<eventos>();
+            this.comentarios = new HashSet<comentarios>();
         }
     
         public int PK_bandas { get; set; }
@@ -36,8 +36,6 @@ namespace MyConcert_WebService
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<categoriasevento> categoriasevento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comentarios> comentarios { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<generosbanda> generosbanda { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<integrantes> integrantes { get; set; }
@@ -45,5 +43,7 @@ namespace MyConcert_WebService
         public virtual ICollection<votos> votos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<eventos> eventos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<comentarios> comentarios { get; set; }
     }
 }

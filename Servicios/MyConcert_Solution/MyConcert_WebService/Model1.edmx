@@ -43,7 +43,7 @@
           </Key>
           <Property Name="PK_comentarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="comentario" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="calificacion" Type="int" Nullable="false" />
+          <Property Name="calificacion" Type="float" Nullable="false" />
           <Property Name="fechaCreacion" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="FK_COMENTARIOS_BANDAS" Type="int" Nullable="false" />
           <Property Name="FK_COMENTARIOS_USUARIOS" Type="varchar" MaxLength="15" Nullable="false" />
@@ -597,11 +597,11 @@
           <NavigationProperty Name="estados" Relationship="Self.bandas_ibfk_1" FromRole="bandas" ToRole="estados" />
           <NavigationProperty Name="canciones" Relationship="Self.canciones_ibfk_1" FromRole="bandas" ToRole="canciones" />
           <NavigationProperty Name="categoriasevento" Relationship="Self.categoriasevento_ibfk_3" FromRole="bandas" ToRole="categoriasevento" />
-          <NavigationProperty Name="comentarios" Relationship="Self.comentarios_ibfk_1" FromRole="bandas" ToRole="comentarios" />
           <NavigationProperty Name="generosbanda" Relationship="Self.generosbanda_ibfk_1" FromRole="bandas" ToRole="generosbanda" />
           <NavigationProperty Name="integrantes" Relationship="Self.integrantes_ibfk_1" FromRole="bandas" ToRole="integrantes" />
           <NavigationProperty Name="votos" Relationship="Self.votos_ibfk_1" FromRole="bandas" ToRole="votos" />
           <NavigationProperty Name="eventos" Relationship="myconcertModel.eventos_ibfk_4" FromRole="bandas" ToRole="eventos" />
+          <NavigationProperty Name="comentarios" Relationship="myconcertModel.comentarios_ibfk_1" FromRole="bandas" ToRole="comentarios" />
         </EntityType>
         <EntityType Name="canciones">
           <Key>
@@ -633,21 +633,6 @@
           <NavigationProperty Name="categorias" Relationship="Self.categoriasevento_ibfk_2" FromRole="categoriasevento" ToRole="categorias" />
           <NavigationProperty Name="eventos" Relationship="myconcertModel.categoriasevento_ibfk_1" FromRole="categoriasevento" ToRole="eventos" />
         </EntityType>
-        <EntityType Name="comentarios">
-          <Key>
-            <PropertyRef Name="PK_comentarios" />
-          </Key>
-          <Property Name="PK_comentarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="comentario" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="calificacion" Type="Int32" Nullable="false" />
-          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" />
-          <Property Name="FK_COMENTARIOS_BANDAS" Type="Int32" Nullable="false" />
-          <Property Name="FK_COMENTARIOS_USUARIOS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FK_COMENTARIOS_ESTADOS" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bandas" Relationship="Self.comentarios_ibfk_1" FromRole="comentarios" ToRole="bandas" />
-          <NavigationProperty Name="estados" Relationship="Self.comentarios_ibfk_3" FromRole="comentarios" ToRole="estados" />
-          <NavigationProperty Name="usuarios" Relationship="myconcertModel.comentarios_ibfk_2" FromRole="comentarios" ToRole="usuarios" />
-        </EntityType>
         <EntityType Name="estados">
           <Key>
             <PropertyRef Name="PK_estados" />
@@ -655,9 +640,9 @@
           <Property Name="PK_estados" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="bandas" Relationship="Self.bandas_ibfk_1" FromRole="estados" ToRole="bandas" />
-          <NavigationProperty Name="comentarios" Relationship="Self.comentarios_ibfk_3" FromRole="estados" ToRole="comentarios" />
           <NavigationProperty Name="usuarios" Relationship="myconcertModel.usuarios_ibfk_1" FromRole="estados" ToRole="usuarios" />
           <NavigationProperty Name="eventos" Relationship="myconcertModel.eventos_ibfk_2" FromRole="estados" ToRole="eventos" />
+          <NavigationProperty Name="comentarios" Relationship="myconcertModel.comentarios_ibfk_3" FromRole="estados" ToRole="comentarios" />
         </EntityType>
         <EntityType Name="generos">
           <Key>
@@ -781,18 +766,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="comentarios_ibfk_1">
-          <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
-          <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="bandas">
-              <PropertyRef Name="PK_bandas" />
-            </Principal>
-            <Dependent Role="comentarios">
-              <PropertyRef Name="FK_COMENTARIOS_BANDAS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="generosbanda_ibfk_1">
           <End Role="bandas" Type="Self.bandas" Multiplicity="1" />
           <End Role="generosbanda" Type="Self.generosbanda" Multiplicity="*" />
@@ -853,18 +826,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="comentarios_ibfk_3">
-          <End Role="estados" Type="Self.estados" Multiplicity="1" />
-          <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="estados">
-              <PropertyRef Name="PK_estados" />
-            </Principal>
-            <Dependent Role="comentarios">
-              <PropertyRef Name="FK_COMENTARIOS_ESTADOS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="generosbanda_ibfk_2">
           <End Role="generos" Type="Self.generos" Multiplicity="1" />
           <End Role="generosbanda" Type="Self.generosbanda" Multiplicity="*" />
@@ -894,7 +855,6 @@
           <EntitySet Name="canciones" EntityType="Self.canciones" />
           <EntitySet Name="categorias" EntityType="Self.categorias" />
           <EntitySet Name="categoriasevento" EntityType="Self.categoriasevento" />
-          <EntitySet Name="comentarios" EntityType="Self.comentarios" />
           <EntitySet Name="estados" EntityType="Self.estados" />
           <EntitySet Name="generos" EntityType="Self.generos" />
           <EntitySet Name="generosbanda" EntityType="Self.generosbanda" />
@@ -917,10 +877,6 @@
             <End Role="bandas" EntitySet="bandas" />
             <End Role="categoriasevento" EntitySet="categoriasevento" />
           </AssociationSet>
-          <AssociationSet Name="comentarios_ibfk_1" Association="Self.comentarios_ibfk_1">
-            <End Role="bandas" EntitySet="bandas" />
-            <End Role="comentarios" EntitySet="comentarios" />
-          </AssociationSet>
           <AssociationSet Name="generosbanda_ibfk_1" Association="Self.generosbanda_ibfk_1">
             <End Role="bandas" EntitySet="bandas" />
             <End Role="generosbanda" EntitySet="generosbanda" />
@@ -941,10 +897,6 @@
             <End Role="categorias" EntitySet="categorias" />
             <End Role="votos" EntitySet="votos" />
           </AssociationSet>
-          <AssociationSet Name="comentarios_ibfk_3" Association="Self.comentarios_ibfk_3">
-            <End Role="estados" EntitySet="estados" />
-            <End Role="comentarios" EntitySet="comentarios" />
-          </AssociationSet>
           <AssociationSet Name="generosbanda_ibfk_2" Association="Self.generosbanda_ibfk_2">
             <End Role="generos" EntitySet="generos" />
             <End Role="generosbanda" EntitySet="generosbanda" />
@@ -954,10 +906,6 @@
             <End Role="generosusuario" EntitySet="generosusuario" />
           </AssociationSet>
           <EntitySet Name="usuarios" EntityType="myconcertModel.usuarios" />
-          <AssociationSet Name="comentarios_ibfk_2" Association="myconcertModel.comentarios_ibfk_2">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="comentarios" EntitySet="comentarios" />
-          </AssociationSet>
           <AssociationSet Name="usuarios_ibfk_1" Association="myconcertModel.usuarios_ibfk_1">
             <End Role="estados" EntitySet="estados" />
             <End Role="usuarios" EntitySet="usuarios" />
@@ -1007,6 +955,19 @@
             <End Role="eventos" EntitySet="eventos" />
             <End Role="votos" EntitySet="votos" />
           </AssociationSet>
+          <EntitySet Name="comentarios" EntityType="myconcertModel.comentarios" />
+          <AssociationSet Name="comentarios_ibfk_1" Association="myconcertModel.comentarios_ibfk_1">
+            <End Role="bandas" EntitySet="bandas" />
+            <End Role="comentarios" EntitySet="comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="comentarios_ibfk_2" Association="myconcertModel.comentarios_ibfk_2">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="comentarios" EntitySet="comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="comentarios_ibfk_3" Association="myconcertModel.comentarios_ibfk_3">
+            <End Role="estados" EntitySet="estados" />
+            <End Role="comentarios" EntitySet="comentarios" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="usuarios">
           <Key>
@@ -1027,26 +988,14 @@
           <Property Name="FK_USUARIOS_PAISES" Type="Int32" />
           <Property Name="FK_USUARIOS_UNIVERSIDADES" Type="Int32" />
           <Property Name="FK_USUARIOS_TIPOSUSUARIOS" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="comentarios" Relationship="myconcertModel.comentarios_ibfk_2" FromRole="usuarios" ToRole="comentarios" />
           <NavigationProperty Name="estados" Relationship="myconcertModel.usuarios_ibfk_1" FromRole="usuarios" ToRole="estados" />
           <NavigationProperty Name="generosusuario" Relationship="myconcertModel.generosusuario_ibfk_2" FromRole="usuarios" ToRole="generosusuario" />
           <NavigationProperty Name="paises" Relationship="myconcertModel.usuarios_ibfk_2" FromRole="usuarios" ToRole="paises" />
           <NavigationProperty Name="tiposusuarios" Relationship="myconcertModel.usuarios_ibfk_4" FromRole="usuarios" ToRole="tiposusuarios" />
           <NavigationProperty Name="universidades" Relationship="myconcertModel.usuarios_ibfk_3" FromRole="usuarios" ToRole="universidades" />
           <NavigationProperty Name="votos" Relationship="myconcertModel.votos_ibfk_4" FromRole="usuarios" ToRole="votos" />
+          <NavigationProperty Name="comentarios" Relationship="myconcertModel.comentarios_ibfk_2" FromRole="usuarios" ToRole="comentarios" />
         </EntityType>
-        <Association Name="comentarios_ibfk_2">
-          <End Type="myconcertModel.usuarios" Role="usuarios" Multiplicity="1" />
-          <End Type="myconcertModel.comentarios" Role="comentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuarios">
-              <PropertyRef Name="username" />
-            </Principal>
-            <Dependent Role="comentarios">
-              <PropertyRef Name="FK_COMENTARIOS_USUARIOS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="usuarios_ibfk_1">
           <End Type="myconcertModel.estados" Role="estados" Multiplicity="1" />
           <End Type="myconcertModel.usuarios" Role="usuarios" Multiplicity="*" />
@@ -1215,6 +1164,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="comentarios">
+          <Key>
+            <PropertyRef Name="PK_comentarios" />
+          </Key>
+          <Property Name="PK_comentarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comentario" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="calificacion" Type="Single" Nullable="false" />
+          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="FK_COMENTARIOS_BANDAS" Type="Int32" Nullable="false" />
+          <Property Name="FK_COMENTARIOS_USUARIOS" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FK_COMENTARIOS_ESTADOS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bandas" Relationship="myconcertModel.comentarios_ibfk_1" FromRole="comentarios" ToRole="bandas" />
+          <NavigationProperty Name="usuarios" Relationship="myconcertModel.comentarios_ibfk_2" FromRole="comentarios" ToRole="usuarios" />
+          <NavigationProperty Name="estados" Relationship="myconcertModel.comentarios_ibfk_3" FromRole="comentarios" ToRole="estados" />
+        </EntityType>
+        <Association Name="comentarios_ibfk_1">
+          <End Type="myconcertModel.bandas" Role="bandas" Multiplicity="1" />
+          <End Type="myconcertModel.comentarios" Role="comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bandas">
+              <PropertyRef Name="PK_bandas" />
+            </Principal>
+            <Dependent Role="comentarios">
+              <PropertyRef Name="FK_COMENTARIOS_BANDAS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="comentarios_ibfk_2">
+          <End Type="myconcertModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="myconcertModel.comentarios" Role="comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="comentarios">
+              <PropertyRef Name="FK_COMENTARIOS_USUARIOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="comentarios_ibfk_3">
+          <End Type="myconcertModel.estados" Role="estados" Multiplicity="1" />
+          <End Type="myconcertModel.comentarios" Role="comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estados">
+              <PropertyRef Name="PK_estados" />
+            </Principal>
+            <Dependent Role="comentarios">
+              <PropertyRef Name="FK_COMENTARIOS_ESTADOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1254,19 +1254,6 @@
                 <ScalarProperty Name="FK_CATEGORIASEVENTO_EVENTOS" ColumnName="FK_CATEGORIASEVENTO_EVENTOS" />
                 <ScalarProperty Name="FK_CATEGORIASEVENTO_CATEGORIAS" ColumnName="FK_CATEGORIASEVENTO_CATEGORIAS" />
                 <ScalarProperty Name="FK_CATEGORIASEVENTO_BANDAS" ColumnName="FK_CATEGORIASEVENTO_BANDAS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="comentarios">
-            <EntityTypeMapping TypeName="myconcertModel.comentarios">
-              <MappingFragment StoreEntitySet="comentarios">
-                <ScalarProperty Name="PK_comentarios" ColumnName="PK_comentarios" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="calificacion" ColumnName="calificacion" />
-                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
-                <ScalarProperty Name="FK_COMENTARIOS_BANDAS" ColumnName="FK_COMENTARIOS_BANDAS" />
-                <ScalarProperty Name="FK_COMENTARIOS_USUARIOS" ColumnName="FK_COMENTARIOS_USUARIOS" />
-                <ScalarProperty Name="FK_COMENTARIOS_ESTADOS" ColumnName="FK_COMENTARIOS_ESTADOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1394,6 +1381,19 @@
                 <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
                 <ScalarProperty Name="nombreEve" ColumnName="nombreEve" />
                 <ScalarProperty Name="PK_eventos" ColumnName="PK_eventos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comentarios">
+            <EntityTypeMapping TypeName="myconcertModel.comentarios">
+              <MappingFragment StoreEntitySet="comentarios">
+                <ScalarProperty Name="FK_COMENTARIOS_ESTADOS" ColumnName="FK_COMENTARIOS_ESTADOS" />
+                <ScalarProperty Name="FK_COMENTARIOS_USUARIOS" ColumnName="FK_COMENTARIOS_USUARIOS" />
+                <ScalarProperty Name="FK_COMENTARIOS_BANDAS" ColumnName="FK_COMENTARIOS_BANDAS" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="calificacion" ColumnName="calificacion" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="PK_comentarios" ColumnName="PK_comentarios" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

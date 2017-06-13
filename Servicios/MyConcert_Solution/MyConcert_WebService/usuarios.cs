@@ -17,9 +17,9 @@ namespace MyConcert_WebService
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuarios()
         {
-            this.comentarios = new HashSet<comentarios>();
             this.generosusuario = new HashSet<generosusuario>();
             this.votos = new HashSet<votos>();
+            this.comentarios = new HashSet<comentarios>();
         }
     
         public string username { get; set; }
@@ -38,8 +38,6 @@ namespace MyConcert_WebService
         public Nullable<int> FK_USUARIOS_UNIVERSIDADES { get; set; }
         public int FK_USUARIOS_TIPOSUSUARIOS { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comentarios> comentarios { get; set; }
         public virtual estados estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<generosusuario> generosusuario { get; set; }
@@ -48,5 +46,7 @@ namespace MyConcert_WebService
         public virtual universidades universidades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<votos> votos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<comentarios> comentarios { get; set; }
     }
 }

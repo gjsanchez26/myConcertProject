@@ -45,5 +45,29 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
+
+        public void añadirVotos(List<votos> votaciones)
+        {
+            using (myconcertEntities context = new myconcertEntities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (votos i in votaciones) {
+                            context.votos.Add(i);
+                        }
+                        
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw (ex);
+                    }
+                }
+            }
+        }
     }
 }

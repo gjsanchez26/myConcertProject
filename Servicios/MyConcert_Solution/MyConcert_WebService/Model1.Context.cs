@@ -29,7 +29,6 @@ namespace MyConcert_WebService
         public virtual DbSet<canciones> canciones { get; set; }
         public virtual DbSet<categorias> categorias { get; set; }
         public virtual DbSet<categoriasevento> categoriasevento { get; set; }
-        public virtual DbSet<comentarios> comentarios { get; set; }
         public virtual DbSet<estados> estados { get; set; }
         public virtual DbSet<generos> generos { get; set; }
         public virtual DbSet<generosbanda> generosbanda { get; set; }
@@ -42,5 +41,6 @@ namespace MyConcert_WebService
         public virtual DbSet<votos> votos { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<eventos> eventos { get; set; }
+        public virtual DbSet<comentarios> comentarios { get; set; }
     }
 }

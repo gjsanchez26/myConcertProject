@@ -18,9 +18,9 @@ namespace MyConcert_WebService
         public estados()
         {
             this.bandas = new HashSet<bandas>();
-            this.comentarios = new HashSet<comentarios>();
             this.usuarios = new HashSet<usuarios>();
             this.eventos = new HashSet<eventos>();
+            this.comentarios = new HashSet<comentarios>();
         }
     
         public int PK_estados { get; set; }
@@ -29,10 +29,10 @@ namespace MyConcert_WebService
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bandas> bandas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comentarios> comentarios { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuarios> usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<eventos> eventos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<comentarios> comentarios { get; set; }
     }
 }

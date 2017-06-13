@@ -23,7 +23,7 @@ namespace MyConcert_WebService
         public int FK_COMENTARIOS_ESTADOS { get; set; }
     
         public virtual bandas bandas { get; set; }
-        public virtual estados estados { get; set; }
         public virtual usuarios usuarios { get; set; }
+        public virtual estados estados { get; set; }
     }
 }

@@ -405,5 +405,27 @@ namespace MyConcert_WebService.res.assembler
             }
             return arreglo;
         }
+
+        public votos updatevotos (Voto voto)
+        {
+            votos votacion = new votos();
+            votacion.valor = voto.Cantidad;
+            votacion.FK_VOTOS_BANDAS = _manejadorDB.obtenerBanda(voto.Banda).PK_bandas;
+            votacion.FK_VOTOS_CATEGORIAS = _manejadorDB.obtenerCategoria(voto.Categoria).PK_categorias;
+            votacion.FK_VOTOS_EVENTOS = voto.Cartelera;
+            votacion.FK_VOTOS_USUARIOS = voto.Fanatico;
+            return votacion;
+        }
+
+        public List<votos> updateListavotos(Voto[] votaciones)
+        {
+            List<votos> lista = new List<votos>();
+            
+            foreach (Voto i in votaciones)
+            {
+                lista.Add(updatevotos(i));
+            }
+            return lista;
+        }
     }
 }
