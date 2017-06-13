@@ -1,6 +1,7 @@
 ﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.security;
 using System.Collections.Generic;
+using System;
 
 namespace MyConcert_WebService.res.assembler
 {
@@ -12,8 +13,9 @@ namespace MyConcert_WebService.res.assembler
         public List<integrantes> updateintegrantes(string[] pIntegrantes)
         {
             List<integrantes> integran = new List<integrantes>();
-            for (int i = 0; i < integran.Count; i++)
+            for (int i = 0; i < pIntegrantes.Length; i++)
             {
+                Console.WriteLine(pIntegrantes[i]);
                 integrantes integrante = new integrantes();
                 integrante.nombreInt = pIntegrantes[i];
                 integran.Add(integrante);
@@ -24,7 +26,7 @@ namespace MyConcert_WebService.res.assembler
         public List<canciones> updatecanciones(string[] pCanciones)
         {
             List<canciones> canciones = new List<canciones>();
-            for (int i = 0; i < canciones.Count; i++)
+            for (int i = 0; i < pCanciones.Length; i++)
             {
                 canciones cancion = new canciones();
                 cancion.cancion = pCanciones[i];

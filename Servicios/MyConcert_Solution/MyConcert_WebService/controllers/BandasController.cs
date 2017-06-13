@@ -12,12 +12,13 @@ namespace MyConcert_WebService.controllers
     public class BandasController : ApiController
     {
         private BandaModel _model = new BandaModel();
-        private SerializerJSON _serial = new SerializerJSON();
 
         //Obtener todas las bandas disponibles.
         public JObject Get()
         {
-            ResultadoObjeto respuesta = new ResultadoObjeto();
+            Respuesta respuesta = null;
+
+
 
             //Solicita bandas a base de datos.
             return JObject.FromObject(respuesta); //Retorna lista con bandas.
@@ -36,9 +37,9 @@ namespace MyConcert_WebService.controllers
         {
             dynamic peticion = pPeticion;
             string datosBanda = peticion.band_data;
-            string[] listaMiembros = _serial.getArrayString((JArray) peticion.members);
-            string[] listaCanciones = _serial.getArrayString((JArray) peticion.songs);
-            int[] listaGenerosMusicales = _serial.getArrayInt((JArray) peticion.genres);
+            JArray listaMiembros = (JArray) peticion.members;
+            JArray listaCanciones = (JArray) peticion.songs;
+            JArray listaGenerosMusicales = (JArray) peticion.genres;
 
             Respuesta respuesta = new Respuesta();
 
