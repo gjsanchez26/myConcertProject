@@ -8,13 +8,11 @@ namespace MyConcert_WebService.database
 {
     public class EventosDB
     {
-        private UtilidadesDB _utilidadesDB = new UtilidadesDB();
 
         //CREADORES DE OBJETOS
-        public void añadirCartelera(Cartelera pCartelera, CategoriaBanda[] pCategorias)
+        public void añadirCartelera(eventos pCartelera, List<categoriasevento> categoriasBanda)
         {
-            eventos nuevoEvento = convertirCarteleraAeventos(pCartelera);
-            List<categoriasevento> categoriasBanda = convertirCategoriaBandaAcategoriasevento(pCategorias);
+            eventos nuevoEvento = null;
 
             using (myconcertEntities context = new myconcertEntities())
             {
@@ -41,117 +39,27 @@ namespace MyConcert_WebService.database
             }
         }
 
-        private List<categoriasevento> convertirCategoriaBandaAcategoriasevento(CategoriaBanda[] pArrayCategoriaBanda)
-        {
-            List<categoriasevento> categoriasBandas = new List<categoriasevento>();
-            categoriasevento cat_even_aux = null;
-            for (int i = 0; i < pArrayCategoriaBanda.Length; i++)
-            {
-                for (int j=0; j < pArrayCategoriaBanda[i]._bandasID.Length; i++)
-                {
-                    cat_even_aux = new categoriasevento();
-                    cat_even_aux.FK_CATEGORIASEVENTO_BANDAS = pArrayCategoriaBanda[i]._bandasID[j];
-                    cat_even_aux.FK_CATEGORIASEVENTO_CATEGORIAS = pArrayCategoriaBanda[i]._categoriaID;
-                    categoriasBandas.Add(cat_even_aux);
-                }
-            }
-            return categoriasBandas;
-        }
-
-        private eventos convertirCarteleraAeventos(Cartelera pEvento)
-        {
-            eventos event_carte = new eventos();
-            event_carte.PK_eventos = pEvento.Id;
-            event_carte.nombreEve = pEvento.Nombre;
-            event_carte.ubicacion = pEvento.Ubicacion;
-            event_carte.FK_EVENTOS_PAISES = _utilidadesDB.obtenerPais(pEvento.Pais).PK_paises;
-            event_carte.fechaInicio = pEvento.FechaInicioFestival;
-            event_carte.fechaFinal = pEvento.FechaInicioFestival;
-            event_carte.finalVotacion = pEvento.FechaFinalVotacion;
-            event_carte.FK_EVENTOS_TIPOSEVENTOS = obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
-            event_carte.FK_EVENTOS_ESTADOS = _utilidadesDB.obtenerEstado(pEvento.Estado).PK_estados;
-
-            return event_carte;
-        }
-
         //OBTENER LISTA DE OBJETOS
-        public Evento[] obtenerCarteleras()
+        public List<eventos> obtenerCarteleras()
         {
             List<eventos> obj = null;
-            Evento[] arreglo = null;
             try
             {
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.eventos.Where(r => r.FK_EVENTOS_TIPOSEVENTOS==1).ToList();
                 }
-                arreglo = new Evento[obj.Count];
-                int c = 0;
-                foreach (eventos i in obj)
-                {
-                    arreglo[c] = convertireventosAEvento(i);
-                    c++;
-                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.InnerException.ToString());
             }
-            return arreglo;
+            return obj;
         }
 
-
-        public Evento convertireventosAEvento(eventos pEvento)
-        {
-            Evento evento;
-            string country, event_type, state, chef;
-
-            if (pEvento.FK_EVENTOS_TIPOSEVENTOS == 1)
-            {
-                country = _utilidadesDB.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
-                event_type = obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
-                state = _utilidadesDB.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
-
-                evento =
-                new Cartelera(pEvento.PK_eventos,
-                                pEvento.nombreEve,
-                                pEvento.ubicacion,
-                                country,
-                                pEvento.fechaInicio,
-                                pEvento.fechaFinal,
-                                pEvento.finalVotacion.Value,
-                                event_type,
-                                state);
-            }
-            else
-            {
-                country = _utilidadesDB.obtenerPais(pEvento.FK_EVENTOS_PAISES).pais;
-                event_type = obtenerTipoEvento(pEvento.FK_EVENTOS_TIPOSEVENTOS).tipo;
-                state = _utilidadesDB.obtenerEstado(pEvento.FK_EVENTOS_ESTADOS).estado;
-                chef = null;
-
-                evento =
-                new Festival(pEvento.PK_eventos,
-                            pEvento.nombreEve,
-                            pEvento.ubicacion,
-                            country,
-                            pEvento.fechaInicio,
-                            pEvento.finalVotacion.Value,
-                            event_type,
-                            state,
-                            pEvento.comida,
-                            pEvento.transporte,
-                            pEvento.servicios,
-                            chef);
-            }
-
-            return evento;
-        }
-
-        public Evento[] obtenerFestivales()
+        public List<eventos> obtenerFestivales()
         {
             List<eventos> obj = null;
-            Evento[] arreglo = null;
             try
             {
                 
@@ -159,19 +67,19 @@ namespace MyConcert_WebService.database
                 {
                     obj = context.eventos.Where(r => r.FK_EVENTOS_TIPOSEVENTOS == 2).ToList();
                 }
-                arreglo = new Evento[obj.Count];
-                int c = 0;
-                foreach (eventos i in obj)
-                {
-                    arreglo[c] = convertireventosAEvento(i);
-                    c++;
-                }
+                //arreglo = new Evento[obj.Count];
+                //int c = 0;
+                //foreach (eventos i in obj)
+                //{
+                //    arreglo[c] = convertireventosAEvento(i);
+                //    c++;
+                //}
             }
             catch (Exception ex)
             {
                 Console.Write(ex.InnerException.ToString());
             }
-            return arreglo;
+            return obj;
         }
         
         //OBTENER 1 OBJETO

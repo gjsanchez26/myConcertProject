@@ -9,39 +9,22 @@ namespace MyConcert_WebService.database
 {
     class UtilidadesDB
     {
-
-        private Universidad convertiruniversidadesAUniversidad(universidades pUniversidad )
+        public bool conexionBaseDatos()
         {
-            
-            int id = pUniversidad.PK_universidades;
-            string nombre = obtenerUniversidad(id).nombreUni;
-            Universidad uni = new Universidad(id,nombre);
-            return uni;
+            using (myconcertEntities dbContext = new myconcertEntities())
+            {
+                return dbContext.Database.Exists();
 
+            }
 
         }
 
         //OBTENER LISTA DE OBJETOS
-        private Pais convertirpaisesAPais(paises pPais)
-        {
-            int id = pPais.PK_paises;
-            string nombre = obtenerPais(id).pais;
-            Pais pais = new Pais(id,nombre);
-            return pais;
-        } 
 
-        private GeneroMusical convertirgenerosAGenero(generos pGenero)
-        {
-            int id = pGenero.PK_generos;
-            string nombre = obtenerGenero(id).genero;
-            GeneroMusical gene = new GeneroMusical(id, nombre);
-            return gene;
-        }
-
-        public GeneroMusical[] obtenerGeneros()
+        public List<generos> obtenerGeneros()
         {
             List<generos> gen = null;
-            GeneroMusical[] arGenMus=null;
+            
             
             try
             {
@@ -52,24 +35,17 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
+                
             }
 
-            arGenMus = new GeneroMusical[gen.Count];
-            int c = 0;
-            foreach (generos i in gen)
-            {
-                arGenMus[c] = convertirgenerosAGenero(i);
-                c++;
-            }
-
-            return arGenMus;
+            return gen;
         }
 
-        public Pais[] obtenerPaises()
+        public List<paises> obtenerPaises()
         {
             List<paises> lista = null;
-            Pais[] arreglo = null;
+            
 
             try
             {
@@ -79,26 +55,19 @@ namespace MyConcert_WebService.database
                     lista = context.paises.ToList();
 
                 }
-                arreglo = new Pais[lista.Count];
-                int c = 0;
-                foreach (paises i in lista)
-                {
-                    arreglo[c] = convertirpaisesAPais(i);
-                    c++;
-                }
+                
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
+                
             }
-            return arreglo;
+            return lista;
         }
 
-        public Universidad[] obtenerUniversidades()
+        public List<universidades> obtenerUniversidades()
         {
             List<universidades> lista = null;
-            Universidad[] arreglo = null;
-
             try
             {
                 using (myconcertEntities context = new myconcertEntities())
@@ -107,19 +76,14 @@ namespace MyConcert_WebService.database
                     lista = context.universidades.ToList();
 
                 }
-                arreglo = new Universidad[lista.Count];
-                int c = 0;
-                foreach (universidades i in lista)
-                {
-                    arreglo[c] = convertiruniversidadesAUniversidad(i);
-                    c++;
-                }
+                
             }
             catch (Exception ex)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (ex);
+                
             }
-            return arreglo;
+            return lista;
         }
         //OBTENER 1 OBJETO
 

@@ -10,7 +10,6 @@ namespace MyConcert_WebService.database
     class UsuariosDB
     {
         private UtilidadesDB _utilidades = new UtilidadesDB();
-        private SHA256Encriptation _encriptador = new SHA256Encriptation();
 
         public tiposusuarios obtenerTipoUsuario(int PK_tipoUsuario)
         {
@@ -24,6 +23,7 @@ namespace MyConcert_WebService.database
             }
             catch (Exception ex)
             {
+                throw (ex);
                 Console.Write(ex.InnerException.ToString());
             }
             return obj;
@@ -48,10 +48,9 @@ namespace MyConcert_WebService.database
             return obj;
         }
 
-        public Usuario obtenerUsuario(string username)
+        public usuarios obtenerUsuario(string username)
         {
             usuarios us = null;
-            Usuario user = null;
             try
             {
 
@@ -65,15 +64,13 @@ namespace MyConcert_WebService.database
             {
                 throw (ex);
             }
-            user = convertirusuariosAUsuario(us);
-            return user;
+            
+            return us;
         }
 
-        public void añadirUsuario(Usuario pUsuarioNuevo, int[] pGenerosFavoritos)
+        public void añadirUsuario(usuarios us, List<generos> gen)
         {
-            usuarios us = convertirUsuarioAusuarios(pUsuarioNuevo);
-
-            List<generos> gen = covertirGenerosFavoritos(pGenerosFavoritos);
+            
 
             using (myconcertEntities context = new myconcertEntities())
             {
@@ -102,93 +99,6 @@ namespace MyConcert_WebService.database
                     }
                 }
             }
-        }
-
-        private usuarios convertirUsuarioAusuarios(Usuario pUser)
-        {
-
-            usuarios usuario = new usuarios();
-            usuario.nombre = pUser.Nombre;
-            usuario.apellido = pUser.Apellido;
-            usuario.username = pUser.NombreUsuario;
-            usuario.contraseña = _encriptador.sha256Encrypt(pUser.Contrasena);
-            usuario.correo = pUser.Email;
-            usuario.FK_USUARIOS_ESTADOS = _utilidades.obtenerEstado(pUser.Estado).PK_estados;
-            usuario.fechaInscripcion = pUser.FechaInscripcion;
-
-            if (pUser.TipoUsuario == obtenerTipoUsuario(2).tipo)
-            {
-                Fanatico fanatico = (Fanatico) pUser;
-                usuario.fechaNacimiento = fanatico.FechaNacimiento;
-                usuario.telefono = fanatico.Telefono;
-                usuario.FK_USUARIOS_PAISES = _utilidades.obtenerPais(fanatico.Pais).PK_paises;
-                usuario.descripcion = fanatico.DescripcionPersonal;
-                usuario.FK_USUARIOS_TIPOSUSUARIOS = obtenerTipoUsuario(fanatico.TipoUsuario).PK_tiposUsuarios;
-                usuario.FK_USUARIOS_UNIVERSIDADES = _utilidades.obtenerUniversidad(fanatico.Universidad).PK_universidades;
-                usuario.ubicacion = fanatico.Ubicacion;
-                usuario.foto = fanatico.FotoPerfil;
-            } else
-            {
-                usuario.FK_USUARIOS_TIPOSUSUARIOS = obtenerTipoUsuario(pUser.TipoUsuario).PK_tiposUsuarios;
-            }
-            return usuario;
-        }
-
-        private Usuario convertirusuariosAUsuario(usuarios pUser)
-        {
-            Usuario user = null;
-
-            if (obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(2).tipo)
-            {
-                string country = _utilidades.obtenerPais((int) pUser.FK_USUARIOS_PAISES).pais;
-                string state = _utilidades.obtenerEstado(pUser.FK_USUARIOS_ESTADOS).estado;
-                string university = _utilidades.obtenerUniversidad((int)pUser.FK_USUARIOS_UNIVERSIDADES).nombreUni;
-                string user_type = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
-                user = 
-                    new Fanatico(pUser.nombre,
-                                pUser.apellido,
-                                pUser.username,
-                                pUser.contraseña,
-                                pUser.correo,
-                                state,
-                                pUser.fechaInscripcion,
-                                pUser.foto,
-                                pUser.fechaNacimiento.Value,
-                                pUser.telefono,
-                                country,
-                                pUser.descripcion,
-                                university,
-                                user_type,
-                                pUser.ubicacion);
-
-            } else if(obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo == obtenerTipoUsuario(1).tipo)
-            {
-                string stateColaborador = _utilidades.obtenerEstado(pUser.FK_USUARIOS_ESTADOS).estado;
-                string user_typeColaborador = obtenerTipoUsuario(pUser.FK_USUARIOS_TIPOSUSUARIOS).tipo;
-                user = 
-                    new Colaborador(pUser.nombre,
-                                    pUser.apellido,
-                                    pUser.username,
-                                    pUser.contraseña,
-                                    pUser.correo,
-                                    stateColaborador,
-                                    pUser.fechaInscripcion,
-                                    user_typeColaborador);
-            }
-
-            return user;
-        }
-
-        public List<generos> covertirGenerosFavoritos(int[] pGeneros)
-        {
-            List<generos> listaGeneros = new List<generos>();
-
-            foreach (int genero in pGeneros)
-            {
-                listaGeneros.Add(_utilidades.obtenerGenero(genero));
-            }
-
-            return listaGeneros;
         }
 
 

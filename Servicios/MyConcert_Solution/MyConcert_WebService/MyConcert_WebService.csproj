@@ -219,7 +219,6 @@
     <Compile Include="res\chef\Chef.cs" />
     <Compile Include="res\chef\CommentsTable.cs" />
     <Compile Include="res\DolarStrategy.cs" />
-    <Compile Include="res\Product.cs" />
     <Compile Include="res\resultados\FabricaRespuestas.cs" />
     <Compile Include="res\resultados\Respuesta.cs" />
     <Compile Include="res\resultados\ResultadoArreglo.cs" />

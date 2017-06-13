@@ -9,36 +9,24 @@ namespace MyConcert_WebService.database
 {
     class CategoriasDB
     {
-        public void añadirCategoria(Categoria pCategoria)
+        public void añadirCategoria(categorias pCategoria)
         {
-            categorias categoriaNueva = convertirCategoriaAcategorias(pCategoria);
 
             using (myconcertEntities context = new myconcertEntities())
             {
-                using (var dbContextTransaction = context.Database.BeginTransaction())
-                {
+                
                     try
                     {
-                        categoriaNueva = context.categorias.Add(categoriaNueva);
+                        context.categorias.Add(pCategoria);
 
                         context.SaveChanges();
-                        dbContextTransaction.Commit();
 
                     }
                     catch (Exception e)
                     {
                         throw (e);
                     }
-                }
             }
-        }
-         
-        
-        private categorias convertirCategoriaAcategorias(Categoria pCategoria)
-        {
-            categorias cat = new categorias();
-            cat.categoria = pCategoria.Nombre;
-            return cat;
         }
 
         public categorias obtenerCategoria(int PK_categoria)

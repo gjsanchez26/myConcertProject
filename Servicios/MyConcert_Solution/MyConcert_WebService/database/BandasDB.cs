@@ -7,16 +7,10 @@ namespace MyConcert_WebService.database
 {
     class BandasDB
     {
-        UtilidadesDB utiDB = new UtilidadesDB();
         
-        public void añadirBanda(Banda pBanda, string[] pIntegrantes, string[] pCanciones,int[] pGeneros )
+        public void añadirBanda(bandas banda, List<integrantes> integ, List<canciones> can, List<generos> gen)
         {
-            bandas banda = convertirBandaAbanda(pBanda);
-
-            UsuariosDB usuDB = new UsuariosDB();
-            List<generos> gen = usuDB.covertirGenerosFavoritos(pGeneros);
-            List<canciones> can = convertirCancionesAcanciones(pCanciones);
-            List<integrantes> integ = convertirIntegrantesAintegrantes(pIntegrantes);
+            
             using (myconcertEntities context = new myconcertEntities())
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
@@ -55,53 +49,6 @@ namespace MyConcert_WebService.database
                     }
                 }
             }
-        }
-
-        private List<integrantes> convertirIntegrantesAintegrantes(string[] pIntegrantes)
-        {
-            List<integrantes> integran = new List<integrantes>();
-            for (int i = 0; i < integran.Count; i++)
-            {
-                integrantes integrante = new integrantes();
-                 integrante.nombreInt= pIntegrantes[i];
-                integran.Add(integrante);
-            }
-            return integran;
-        }
-
-        private List<canciones> convertirCancionesAcanciones(string[] pCanciones)
-        {
-            List<canciones> canciones= new List<canciones>();
-            for(int i=0; i < canciones.Count; i++)
-            {
-                canciones cancion = new canciones();
-                cancion.cancion = pCanciones[i];
-                canciones.Add(cancion);
-            }
-            return canciones;
-        }
-        
- 
-        private Banda convertirbandaABanda(bandas pBanda)
-        {
-            EventosDB eveDB = new EventosDB();
-            int id = pBanda.PK_bandas;
-            string nombre = pBanda.nombreBan;
-            float calificacion = eveDB.getCalificacion(pBanda);
-            string estado = utiDB.obtenerEstado(pBanda.FK_BANDAS_ESTADOS).estado;
-            Banda ban = new Banda(id, nombre, calificacion, estado);
-            return ban;
-        } 
-
-        private bandas convertirBandaAbanda(Banda pBanda)
-        {
-            EventosDB eveDB = new EventosDB();
-            string nombre = pBanda.Nombre;
-            int estado = utiDB.obtenerEstado(pBanda.Estado).PK_estados;
-            bandas ban = new bandas();
-            ban.FK_BANDAS_ESTADOS = estado;
-            ban.nombreBan = nombre;
-            return ban;
         }
 
         public bandas obtenerBanda(int PK_banda)
@@ -240,7 +187,6 @@ namespace MyConcert_WebService.database
             List<canciones> obj = null;
             try
             {
-
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.canciones.Where(r => r.FK_CANCIONES_BANDAS == banda.PK_bandas).ToList();
@@ -253,6 +199,25 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
+
+        public List<bandas> obtenerBandas()
+        {
+            List<bandas> obj = null;
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.bandas.ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.InnerException.ToString());
+            }
+            return obj;
+        }
+    }
     }
 
 }
