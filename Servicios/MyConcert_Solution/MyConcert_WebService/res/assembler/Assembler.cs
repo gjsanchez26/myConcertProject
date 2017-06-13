@@ -419,5 +419,16 @@ namespace MyConcert_WebService.res.assembler
             votacion.FK_VOTOS_USUARIOS = voto.Fanatico;
             return votacion;
         }
+
+        public List<votos> updateListavotos(Voto[] votaciones)
+        {
+            List<votos> lista = new List<votos>();
+            
+            foreach (Voto i in votaciones)
+            {
+                lista.Add(updatevotos(i));
+            }
+            return lista;
+        }
     }
 }
