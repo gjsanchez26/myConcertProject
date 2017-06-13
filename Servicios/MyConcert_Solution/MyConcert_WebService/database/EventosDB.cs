@@ -10,7 +10,7 @@ namespace MyConcert_WebService.database
     {
 
         //CREADORES DE OBJETOS
-        public void añadirCartelera(eventos pCartelera, List<categoriasevento> categoriasBanda)
+        public void añadirEvento(eventos pEvento, List<categoriasevento> categoriasBanda)
         {
             eventos nuevoEvento = null;
 
@@ -39,6 +39,10 @@ namespace MyConcert_WebService.database
             }
         }
 
+        public void añadirFestival(eventos pFestival, List<categoriasevento> pCategorias)
+        {
+
+        }
         //OBTENER LISTA DE OBJETOS
         public List<eventos> obtenerCarteleras()
         {

@@ -105,6 +105,17 @@ namespace MyConcert_WebService.res.assembler
             return evento;
         }
 
+        public Evento[] createListaEventos(List<eventos> evens)
+        {
+            Evento[] arreglo = new Evento[evens.Count];
+            int contador = 0;
+            foreach (eventos i in evens)
+            {
+                arreglo[contador] = createEvento(i);
+                contador++;
+            }
+            return arreglo;
+        }
         public List<categoriasevento> updatecategoriasevento(CategoriaBanda[] pArrayCategoriaBanda)
         {
             List<categoriasevento> categoriasBandas = new List<categoriasevento>();
@@ -132,10 +143,30 @@ namespace MyConcert_WebService.res.assembler
             event_carte.fechaInicio = pEvento.FechaInicioFestival;
             event_carte.fechaFinal = pEvento.FechaInicioFestival;
             event_carte.finalVotacion = pEvento.FechaFinalVotacion;
-            //event_carte.FK_EVENTOS_TIPOSEVENTOS = _manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
+            event_carte.FK_EVENTOS_TIPOSEVENTOS = _manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
             event_carte.FK_EVENTOS_ESTADOS = _manejadorDB.obtenerEstado(pEvento.Estado).PK_estados;
 
             return event_carte;
+        }
+
+        public eventos updateeventos(Festival pEvento)
+        {
+            eventos event_feste = new eventos();
+            event_feste.PK_eventos = pEvento.Id;
+            event_feste.nombreEve = pEvento.Nombre;
+            event_feste.ubicacion = pEvento.Ubicacion;
+            event_feste.FK_EVENTOS_PAISES = _manejadorDB.obtenerPais(pEvento.Pais).PK_paises;
+            event_feste.fechaInicio = pEvento.FechaInicioFestival;
+            event_feste.fechaFinal = pEvento.FechaInicioFestival;
+            event_feste.ubicacion = pEvento.Ubicacion;
+            event_feste.transporte = pEvento.Transporte;
+            event_feste.servicios = pEvento.Servicios;
+            event_feste.comida = pEvento.Comida;
+            event_feste.FK_EVENTOS_BANDAS_CHEF = _manejadorDB.obtenerBanda(pEvento.RecomendacionChef).PK_bandas;
+            event_feste.FK_EVENTOS_TIPOSEVENTOS = _manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
+            event_feste.FK_EVENTOS_ESTADOS = _manejadorDB.obtenerEstado(pEvento.Estado).PK_estados;
+
+            return event_feste;
         }
         public usuarios updateusuarios(Usuario pUser)
         {
@@ -237,6 +268,41 @@ namespace MyConcert_WebService.res.assembler
             return pais;
         }
 
+        public Universidad[] createListaUniversidad(List<universidades> uni)
+        {
+            Universidad[] arreglo = new Universidad[uni.Count];
+            int contador = 0;
+            foreach (universidades i in uni)
+            {
+                arreglo[contador] = createUniversidad(i);
+                contador++;
+            }
+            return arreglo;
+        }
+
+        public Pais[] createListaPais(List<paises> paises) 
+        {
+            Pais[] arreglo = new Pais[paises.Count];
+            int contador = 0;
+            foreach (paises i in paises)
+            {
+                arreglo[contador] = createPais(i);
+                contador++;
+            }
+            return arreglo;
+        }
+
+        public GeneroMusical[] createListaGenero(List<generos> gens)
+        {
+            GeneroMusical[] arreglo = new GeneroMusical[gens.Count];
+            int contador = 0;
+            foreach (generos i in gens)
+            {
+                arreglo[contador] = createGenero(i);
+                contador++;
+            }
+            return arreglo;
+        }
         public GeneroMusical createGenero(generos pGenero)
         {
             int id = pGenero.PK_generos;
@@ -245,7 +311,7 @@ namespace MyConcert_WebService.res.assembler
             return gene;
         }
 
-        public List<generos> createGenerosFavoritos(int[] pGeneros)
+        public List<generos> updateListaGeneros(int[] pGeneros)
         {
             List<generos> listaGeneros = new List<generos>();
 

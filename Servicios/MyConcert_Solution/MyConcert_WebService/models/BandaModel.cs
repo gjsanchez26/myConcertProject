@@ -1,6 +1,7 @@
 ﻿using MyConcert_WebService.viewModels;
 using MyConcert_WebService.res.resultados;
 using System;
+using MyConcert_WebService.res.assembler;
 
 namespace MyConcert_WebService.models
 {
@@ -8,11 +9,13 @@ namespace MyConcert_WebService.models
     {
         private ManejadorBD _manejador;
         private FabricaRespuestas _creador;
+        private Assembler _convertidor;
 
         public BandaModel()
         {
             _manejador = new ManejadorBD();
             _creador = new FabricaRespuestas();
+            _convertidor = new Assembler();
         }
 
         public Respuesta nuevaBanda(string pNombre, string[] pMiembros,
@@ -23,7 +26,10 @@ namespace MyConcert_WebService.models
 
             try
             {
-                //_manejador.añadirBanda(banda, pMiembros, pCanciones, pGeneros);
+                _manejador.añadirBanda(_convertidor.updatebandas(banda), 
+                                       _convertidor.updateintegrantes(pMiembros),
+                                       _convertidor.updatecanciones(pCanciones),
+                                       _convertidor.updateListaGeneros(pGeneros));
                 respuesta = _creador.crearRespuesta(true, "Banda registrada correctamente.");
             } catch(Exception e)
             {

@@ -3,6 +3,7 @@ using MyConcert_WebService.res.resultados;
 using MyConcert_WebService.res.serial;
 using Newtonsoft.Json.Linq;
 using System;
+using MyConcert_WebService.res.assembler;
 
 namespace MyConcert_WebService.models
 {
@@ -11,61 +12,63 @@ namespace MyConcert_WebService.models
         private ManejadorBD _manejador = new ManejadorBD();
         private FabricaRespuestas _creador = new FabricaRespuestas();
         private SerializerJSON _serial = new SerializerJSON();
+        private Assembler _convertidor = new Assembler();
 
-        //public Respuesta getCarteleras()
-        //{
-        //    Evento[] listaCarteleras = _manejador.obtenerCarteleras();
-        //    JObject[] arreglo = new JObject[listaCarteleras.Length];
+        public Respuesta getCarteleras()
+        {
+            Evento[] listaCarteleras = _convertidor.createListaEventos( _manejador.obtenerCarteleras());
+            JObject[] arreglo = new JObject[listaCarteleras.Length];
 
-        //    for (int i = 0; i < arreglo.Length; i++)
-        //    {
-        //        arreglo[i] = JObject.FromObject(listaCarteleras[i]);
-        //    }
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                arreglo[i] = JObject.FromObject(listaCarteleras[i]);
+            }
 
-        //    return _creador.crearRespuesta(true, arreglo);
-        //}
+            return _creador.crearRespuesta(true, arreglo);
+        }
 
-        //public Respuesta getFestivales()
-        //{
-        //    Evento[] listaFestivales = _manejador.obtenerFestivales();
-        //    JObject[] arreglo = new JObject[listaFestivales.Length];
+        public Respuesta getFestivales()
+        {
+            Evento[] listaFestivales = _convertidor.createListaEventos(_manejador.obtenerFestivales());
+            JObject[] arreglo = new JObject[listaFestivales.Length];
 
-        //    for (int i = 0; i < arreglo.Length; i++)
-        //    {
-        //        arreglo[i] = JObject.FromObject(listaFestivales[i]);
-        //    }
+            for (int i = 0; i < arreglo.Length; i++)
+            {
+                arreglo[i] = JObject.FromObject(listaFestivales[i]);
+            }
 
-        //    return _creador.crearRespuesta(true, arreglo);
-        //}
+            return _creador.crearRespuesta(true, arreglo);
+        }
 
-        //public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, CategoriaBanda[] pListaCategorias)
-        //{
-        //    Respuesta respuesta = null;
+        public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, CategoriaBanda[] pListaCategorias)
+        {
+            Respuesta respuesta = null;
 
-        //    try
-        //    {
-        //        switch (pTipoEvento)
-        //        {
-        //            case "cartelera":
-        //                Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
-        //                _manejador.añadirCartelera(nuevaCartelera, pListaCategorias);
-        //                respuesta = _creador.crearRespuesta(false, "Cartelera creada exitosamente.");
-        //                break;
-        //            case "festival":
-        //                Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
-        //                _manejador.añadirFestival(nuevoFestival, pListaCategorias);
-        //                respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
-        //                break;
-        //            default:
-        //                respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
-        //            break;
-        //        }
-        //    } catch(Exception e)
-        //    {
-        //        respuesta = _creador.crearRespuesta(false, e.ToString());
-        //    }
+            try
+            {
+                switch (pTipoEvento)
+                {
+                    case "cartelera":
+                        Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
+                         
+                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), _convertidor.updatecategoriasevento(pListaCategorias));
+                        respuesta = _creador.crearRespuesta(false, "Cartelera creada exitosamente.");
+                        break;
+                    case "festival":
+                        Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
+                        _manejador.añadirFestival(_convertidor.updateeventos(nuevoFestival), _convertidor.updatecategoriasevento(pListaCategorias));
+                        respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
+                        break;
+                    default:
+                        respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
+                    break;
+                }
+            } catch(Exception e)
+            {
+                respuesta = _creador.crearRespuesta(false, e.ToString());
+            }
 
-        //    return respuesta;
-        //}
+            return respuesta;
+        }
     }
 }
