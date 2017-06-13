@@ -18,7 +18,7 @@ namespace MyConcert_WebService.controllers
         {
             Respuesta respuesta = null;
 
-
+            respuesta = _model.getCatalogoBandas();
 
             //Solicita bandas a base de datos.
             return JObject.FromObject(respuesta); //Retorna lista con bandas.

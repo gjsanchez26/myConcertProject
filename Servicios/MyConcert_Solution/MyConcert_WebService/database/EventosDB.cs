@@ -222,9 +222,9 @@ namespace MyConcert_WebService.database
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Console.Write(ex.InnerException.ToString());
+                throw (e);
             }
             return calificacion;
         }

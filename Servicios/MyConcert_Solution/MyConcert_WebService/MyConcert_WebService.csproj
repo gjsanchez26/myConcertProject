@@ -197,6 +197,7 @@
     <Compile Include="models\UsuariosModel.cs" />
     <Compile Include="models\UtilidadesModel.cs" />
     <Compile Include="MyConcertAPI.cs" />
+    <Compile Include="res\resultados\ResultadoDetalle.cs" />
     <Compile Include="res\serial\SerialHelper.cs" />
     <Compile Include="viewModels\Banda.cs" />
     <Compile Include="viewModels\Cancion.cs" />

@@ -9,6 +9,7 @@ namespace MyConcert_WebService.viewModels
         private string _nombre;
         private float _calificacion;
         private string _estado;
+        public string url_image;
 
         public Banda(int id, string nombre, float calificacion, string estado)
         {
