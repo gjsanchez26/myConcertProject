@@ -263,9 +263,6 @@ namespace MyConcert_WebService.database
                         obj.Add(context.generos.FirstOrDefault(g => g.PK_generos == i.PK_generos));
                     }
                 }
-
-                
-
             }
             catch (Exception ex)
             {

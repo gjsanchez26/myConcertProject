@@ -15,10 +15,11 @@ namespace MyConcert_WebService.controllers
         //Obtener todas las categorias disponibles.
         public JObject Get()
         {
-            ResultadoObjeto respuesta = new ResultadoObjeto();
+            Respuesta respuesta = null;
 
-            //Solicita categorias a base de datos.
-            return JObject.FromObject(respuesta); //Retorna lista con categorias.
+            respuesta = _model.getCategorias();
+            
+            return JObject.FromObject(respuesta); 
         }
 
         //Obtener categorias de evento especifico.

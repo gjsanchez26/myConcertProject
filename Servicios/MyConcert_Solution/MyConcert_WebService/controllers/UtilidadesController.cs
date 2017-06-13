@@ -14,10 +14,8 @@ namespace MyConcert_WebService.controllers
         private FabricaRespuestas _creador = new FabricaRespuestas();
 
         //Obtener paises, universidades o generos segun solicitud.
-        public JObject Post(JObject pRequest)
+        public JObject Get(string data)
         {
-            dynamic peticion = pRequest;
-            string data = peticion.rata;
 
             Respuesta respuesta = null;
 

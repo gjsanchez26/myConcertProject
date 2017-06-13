@@ -24,11 +24,11 @@ namespace MyConcert_WebService.controllers
         }
 
         //Obtener banda especifica.
-        public JObject Get(int pIDBanda)
+        public JObject Get(int id)
         {
             Respuesta respuesta = null;
 
-            respuesta = _model.getBanda(pIDBanda);
+            respuesta = _model.getBanda(id);
 
             return JObject.FromObject(respuesta);
         }

@@ -63,6 +63,11 @@ namespace MyConcert_WebService.res.assembler
             return cat;
         }
 
+        public Categoria createCategoria(categorias pCategoria)
+        {
+            return new Categoria(pCategoria.PK_categorias, pCategoria.categoria);
+        }
+
         public Evento createEvento(eventos pEvento)
         {
             Evento evento;
