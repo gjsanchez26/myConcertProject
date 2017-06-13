@@ -89,7 +89,7 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-        public integrantes obtenerIntegrante(int PK_integrante)
+        public integrantes obtenerIntegrante(int PK_banda)
         {
             integrantes obj = null;
             try
@@ -97,7 +97,7 @@ namespace MyConcert_WebService.database
 
                 using (myconcertEntities context = new myconcertEntities())
                 {
-                    obj = context.integrantes.FirstOrDefault(g => g.PK_integrantes == PK_integrante);
+                    obj = context.integrantes.FirstOrDefault(g => g.FK_INTEGRANTES_BANDAS == PK_banda);
                 }
 
             }

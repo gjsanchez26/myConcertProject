@@ -4,6 +4,8 @@ using System;
 using MyConcert_WebService.res.assembler;
 using Newtonsoft.Json.Linq;
 using MyConcert_WebService.res.serial;
+using System.Collections.Generic;
+using Sptfy;
 
 namespace MyConcert_WebService.models
 {
@@ -13,6 +15,7 @@ namespace MyConcert_WebService.models
         private FabricaRespuestas _creador;
         private Assembler _convertidor;
         private SerialHelper _serial;
+        private SpotifyUtils _spotify;
 
         public BandaModel()
         {
@@ -20,6 +23,7 @@ namespace MyConcert_WebService.models
             _creador = new FabricaRespuestas();
             _convertidor = new Assembler();
             _serial = new SerialHelper();
+            _spotify = new SpotifyUtils();
         }
 
         public Respuesta nuevaBanda(string pNombre, JArray pMiembros,
@@ -45,6 +49,43 @@ namespace MyConcert_WebService.models
             }
 
             return respuesta;
+        }
+
+        public Respuesta getCatalogoBandas()
+        {
+            Respuesta respuesta = null;
+
+            try
+            {
+                List<bandas> catalogoBandas = _manejador.obtenerBandas();
+                Banda[] arregloBandas = new Banda[catalogoBandas.Count];
+                JObject[] listaBandas = new JObject[catalogoBandas.Count];
+                int iterator = 0;
+                foreach (bandas banda in catalogoBandas)
+                {
+                    arregloBandas[iterator] = _convertidor.createBanda(banda);
+                    arregloBandas[iterator].url_image = _spotify.searchArtistImages(banda.nombreBan);
+                    listaBandas[iterator] = arregloBandas[iterator].serialize();
+                    iterator++;
+                }
+
+                respuesta = _creador.crearRespuesta(true, listaBandas);
+            } catch(Exception e)
+            {
+                respuesta = _creador.crearRespuesta(false, "Error al generar catalogo de bandas.", e.ToString());
+            }
+
+            return respuesta;
+        }
+
+        public Respuesta getBanda(int pIDBanda)
+        {
+            bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
+            generosbanda generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery.PK_bandas);
+            integrantes integrandesBandaQuery = _manejador.obtenerIntegrante(bandaQuery.PK_bandas);
+
+
+            return new Respuesta();
         }
     }
 }

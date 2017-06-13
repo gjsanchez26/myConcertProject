@@ -150,21 +150,30 @@ namespace Sptfy
           * @brief Solicita dato de un artista en especifico. Retorna una de las imagenes de un artista proporcionada por spotify.
           * @param partist El nombre del artista.
           * @return Lista de imagenes del artista, proveida por spotify.
+          * Ernesto: Modificacion de retorno
           */
-        public List<Image> searchArtistImages(string partist)
+        public string searchArtistImages(string partist)
         {
+            string url = null;
             FullArtist info_artist = null;
             SearchItem item = _spotify.SearchItems(partist, SearchType.Artist);
-
-            //Busca el dato 
-            for (int i = 0; i < item.Artists.Items.Count; i++)
+            try
             {
-                if (partist == item.Artists.Items[i].Name)
+                //Busca el dato 
+                for (int i = 0; i < item.Artists.Items.Count; i++)
                 {
-                    info_artist = item.Artists.Items[i];
+                    if (partist == item.Artists.Items[i].Name)
+                    {
+                        info_artist = item.Artists.Items[i];
+                    }
                 }
+                url = info_artist.Images.ToArray()[0].Url;
+            } catch(Exception)
+            {
+                url = "No_image";
             }
-            return info_artist.Images;
+            
+            return url;
         }
 
 

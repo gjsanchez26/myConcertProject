@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MyConcert_WebService.res.serial;
+using Newtonsoft.Json.Linq;
 using System;
 
 namespace MyConcert_WebService.viewModels
@@ -42,19 +43,20 @@ namespace MyConcert_WebService.viewModels
 
         public bool deserialize(JObject pObject)
         {
+            SerialHelper serial = new SerialHelper();
             bool estado = true;
             dynamic json = pObject;
             try
             {
-                this.Id = json.id;
-                this.Nombre = json.name;
-                this.Ubicacion = json.ubication;
-                this.Pais = json.country;
-                this.FechaInicioFestival = json.initial_date;
-                this.FechaFinalFestival = json.final_date;
-                this.FechaFinalVotacion = json.vote_final_date;
-                this.TipoEvento = json.event_type;
-                this.Estado = json.state;
+                this.Id = (int) json.id;
+                this.Nombre = (string) json.name;
+                this.Ubicacion = (string) json.ubication;
+                this.Pais = (string) json.country;
+                this.FechaInicioFestival = serial.fecha(json.initial_date);
+                this.FechaFinalFestival = serial.fecha(json.final_date);
+                this.FechaFinalVotacion = serial.fecha(json.vote_final_date);
+                this.TipoEvento = (string) json.event_type;
+                this.Estado = (string) json.state;
             }
             catch (Exception e)
             {

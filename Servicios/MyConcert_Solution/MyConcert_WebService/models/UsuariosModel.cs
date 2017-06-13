@@ -47,6 +47,7 @@ namespace MyConcert_WebService.models
                 else                                                  //Si el usuario y contrasena son validos.
                 {
                     Usuario usuarioViewModel = _assembler.createUsuario(usuarioActual);
+                    usuarioViewModel.Contrasena = "XXXXXXX";
                     respuesta = _creador.crearRespuesta(true, JObject.FromObject(usuarioViewModel));
                 }
             }

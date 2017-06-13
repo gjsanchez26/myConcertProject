@@ -18,5 +18,10 @@ namespace MyConcert_WebService.res.resultados
         {
             return new ResultadoArreglo(pExito, pArray);
         }
+
+        public Respuesta crearRespuesta(bool pExito, string pContenido, string pDetalleError)
+        {
+            return new ResultadoDetalle(pExito, pContenido, pDetalleError);
+        }
     }
 }

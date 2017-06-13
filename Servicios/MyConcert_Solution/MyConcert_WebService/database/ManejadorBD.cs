@@ -42,13 +42,19 @@ namespace MyConcert_WebService
             return banDB.obtenerBanda(PK_banda);
         }
 
+        public List<bandas> obtenerBandas()
+        {
+
+            return banDB.obtenerBandas();
+        }
+
         public bandas obtenerBanda(string PK_banda)
         {
 
             return banDB.obtenerBanda(PK_banda);
         }
 
-        public integrantes obtenerIntegrante(int PK_integrante)
+        public integrantes obtenerIntegrante(int PK_banda)
         {
            
             return banDB.obtenerIntegrante(PK_integrante);

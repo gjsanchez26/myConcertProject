@@ -214,9 +214,9 @@ namespace MyConcert_WebService.database
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw (ex);
+                throw (e);
             }
             return calificacion;
         }

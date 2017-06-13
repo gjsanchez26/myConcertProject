@@ -197,6 +197,7 @@
     <Compile Include="models\UsuariosModel.cs" />
     <Compile Include="models\UtilidadesModel.cs" />
     <Compile Include="MyConcertAPI.cs" />
+    <Compile Include="res\resultados\ResultadoDetalle.cs" />
     <Compile Include="res\serial\SerialHelper.cs" />
     <Compile Include="viewModels\Banda.cs" />
     <Compile Include="viewModels\Cancion.cs" />
@@ -257,7 +258,6 @@
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
@@ -270,6 +270,19 @@
   <ItemGroup>
     <Content Include="database\Creacion Base.txt" />
     <Content Include="database\Populación Base.txt" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\active.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\active2.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\edit.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\First.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\Last.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\locked.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\locked2.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\minus.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\Next.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\plus.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\Previous.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\visible.png" />
+    <Content Include="MindFusion.Diagramming.Controls\Resources\visible2.png" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -284,6 +297,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="res\JSON\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MindFusion.Diagramming.Controls\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MindFusion.Diagramming\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
