@@ -213,12 +213,13 @@ namespace MyConcert_WebService.database
                     calificacion = (float)context.comentarios.Where(r => r.FK_COMENTARIOS_BANDAS == banda.PK_bandas).Average(r => r.calificacion);
 
                 }
+                return calificacion;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw (e);
+                return calificacion;
             }
-            return calificacion;
+            
         }
 
         public int obtenerCantidadVotos(int cartelera, int categoria, int banda)

@@ -81,11 +81,92 @@ namespace MyConcert_WebService.models
         public Respuesta getBanda(int pIDBanda)
         {
             bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
-            generosbanda generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery.PK_bandas);
-            integrantes integrandesBandaQuery = _manejador.obtenerIntegrante(bandaQuery.PK_bandas);
+            Console.WriteLine(bandaQuery.nombreBan);
+            List<generos> generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery);
+            List<integrantes> integrantesBandaQuery = _manejador.obtenerIntegrantes(bandaQuery);
+            List<canciones> cancionesBandaQuery = _manejador.obtenerCanciones(bandaQuery);
+            List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery);
+            Console.WriteLine("Datos recopilados");
 
+            string[] generosString = agruparGeneros(generosBandaQuery);
+            string[] miembrosString = agruparMiembros(integrantesBandaQuery);
+            JObject[] cancionesObj = agruparCanciones(cancionesBandaQuery, bandaQuery.nombreBan);
+            JObject[] comentariosObj = agruparComentarios(comentarioBandaQuery);
 
-            return new Respuesta();
+            dynamic response = new JObject();
+
+            dynamic band_dataObj = new JObject();
+            band_dataObj.name = bandaQuery.nombreBan;
+            band_dataObj.image_band = _spotify.searchArtistImages(bandaQuery.nombreBan);
+            band_dataObj.calification = _manejador.getCalificacion(bandaQuery);
+            band_dataObj.followers = _spotify.searchArtistFollowers(bandaQuery.nombreBan);
+            band_dataObj.popularity = _spotify.searchArtistPopularity(bandaQuery.nombreBan);
+
+            response.band_data = band_dataObj;
+            response.genres = generosString;
+            response.members = miembrosString;
+            response.songs = cancionesObj;
+            response.comments = comentariosObj;
+
+            return _creador.crearRespuesta(true, response);
+        }
+
+        private string[] agruparGeneros(List<generos> pLista)
+        {
+            string[] generosString = new string[pLista.Count];
+            int iterator = 0;
+            foreach (generos gen in pLista)
+            {
+                generosString[iterator] = gen.genero;
+                iterator++;
+            }
+            return generosString;
+        }
+
+        private string[] agruparMiembros(List<integrantes> pLista)
+        {
+            string[] miembrosString = new string[pLista.Count];
+            int iterator = 0;
+            foreach (integrantes miembro in pLista)
+            {
+                miembrosString[iterator] = miembro.nombreInt;
+                iterator++;
+            }
+            return miembrosString;
+        }
+
+        private JObject[] agruparCanciones(List<canciones> pLista, string artist)
+        {
+            JObject[] cancionesObject = new JObject[pLista.Count];
+            int iterator = 0;
+            foreach (canciones cancion in pLista)
+            {
+                cancionesObject[iterator] = new JObject();
+                dynamic song = cancionesObject[iterator];
+                song.song_name = cancion.cancion;
+                song.url_sound_test = _spotify.searchURLTrack(artist, cancion.cancion);
+                iterator++;
+            }
+
+            return cancionesObject;
+        }
+
+        private JObject[] agruparComentarios(List<comentarios> pLista)
+        {
+            JObject[] comentariosObject = new JObject[pLista.Count];
+            int iterator = 0;
+            foreach (comentarios comentario in pLista)
+            {
+                comentariosObject[iterator] = new JObject();
+                dynamic comentarioActual = comentariosObject[iterator];
+                comentarioActual.user = _manejador.obtenerUsuario(comentario.FK_COMENTARIOS_USUARIOS).username;
+                comentarioActual.date = comentario.fechaCreacion;
+                comentarioActual.calification = comentario.calificacion;
+                comentarioActual.commentary = comentario.comentario;
+                iterator++;
+            }
+
+            return comentariosObject;
         }
     }
 }

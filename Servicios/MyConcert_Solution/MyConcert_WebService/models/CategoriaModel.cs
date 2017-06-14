@@ -2,10 +2,8 @@
 using MyConcert_WebService.res.resultados;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyConcert_WebService.res.assembler;
+using Newtonsoft.Json.Linq;
 
 namespace MyConcert_WebService.models
 {
@@ -33,5 +31,30 @@ namespace MyConcert_WebService.models
             return respuesta;
         }
 
+        public Respuesta getCategorias()
+        {
+            Respuesta respuesta = null;
+
+            try
+            {
+                List<categorias> listaCategorias = _manejador.obtenerCategorias();
+                JObject[] arregloCategorias = new JObject[listaCategorias.Count];
+                int iterator = 0;
+                foreach (categorias catActual in listaCategorias)
+                {
+                    Categoria auxiliar = new Categoria(catActual.PK_categorias,
+                                        catActual.categoria);
+                    arregloCategorias[iterator] = JObject.FromObject(auxiliar);
+                    iterator++;
+                }
+                respuesta = _creador.crearRespuesta(true, arregloCategorias);
+
+            } catch(Exception e)
+            {
+                respuesta = _creador.crearRespuesta(false, "Error al obtener cartegorias.", e.ToString());
+            }
+
+            return respuesta;
+        }
     }
 }

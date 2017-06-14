@@ -212,53 +212,53 @@ namespace Sptfy
             return tracks.Tracks[pindex].Name;
         }
 
-        
+
         /**
-       * @brief Solicita dato de una cancion en especifico. Retorna el URL
+       * @brief Solicita dato de una cancion en especifico. Retorna el URL.
        * @param partist El nombre del artista.
-       * @param pnametrack indice para acceder a alguna cancion de la lista.
+       * @param pnametrack nombre de la canción.
        * @return URL de la cancion.
        */
-        public string searchURLTrack(string pidartist, string pnametrack)
+        public string searchURLTrack(string partist, string pnametrack)
         {
-            SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
+            SearchItem item = _spotify.SearchItems(pnametrack, SearchType.Track);
             string url = null;
-            for (int i = 0; i < tracks.Tracks.Count; i++)
+            for (int i = 0; i < item.Tracks.Items.Count; i++)
             {
-                if (tracks.Tracks[i].Name == pnametrack)
+                if (item.Tracks.Items[i].Artists[0].Name == partist)
                 {
-                    url = tracks.Tracks[i].PreviewUrl;
+                    url = item.Tracks.Items[i].PreviewUrl;
                 }
             }
             return url;
         }
-        
+
         /**
        * @brief Solicita dato de una cancion en especifico. Retorna el nombre del album al que pertenece.
        * @param partist El nombre del artista.
-       * @param pnametrack indice para acceder a alguna cancion de la lista.
+       * @param pnametrack nombre de la cancion que pertenece al album.
        * @return Album de la cancion.
        */
-        public string searchAlbumTrack(string pidartist, string pnametrack)
+        public string searchAlbumTrack(string partist, string pnametrack)
         {
-            SeveralTracks tracks = _spotify.GetArtistsTopTracks(pidartist, "CR");
+            SearchItem item = _spotify.SearchItems(pnametrack, SearchType.Track);
             string album = null;
-            for (int i = 0; i < tracks.Tracks.Count; i++)
+            for (int i = 0; i < item.Tracks.Items.Count; i++)
             {
-                if (tracks.Tracks[i].Name == pnametrack)
+                if (item.Tracks.Items[i].Artists[0].Name == partist)
                 {
-                    album = tracks.Tracks[i].Album.Name;
+                    album = item.Tracks.Items[i].Album.Name;
                 }
             }
             return album;
         }
 
-         /**
-         * @brief Funcion que obtiene las caracteristicas que describen una cancion por medio de Spotify.
-         * Retorna un JSON con dichas caracteristicas.
-         * @param pid Identificador de la cancion a evaluar.
-         * @return un objeto con todas las caracteristicas de la cancion.
-         */
+        /**
+        * @brief Funcion que obtiene las caracteristicas que describen una cancion por medio de Spotify.
+        * Retorna un JSON con dichas caracteristicas.
+        * @param pid Identificador de la cancion a evaluar.
+        * @return un objeto con todas las caracteristicas de la cancion.
+        */
         public async Task<JObject> trackFeatures(string pid)
         {
             //Solicita los datos de analisis de una cancion 
