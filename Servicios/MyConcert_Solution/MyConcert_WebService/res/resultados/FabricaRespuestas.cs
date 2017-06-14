@@ -23,5 +23,10 @@ namespace MyConcert_WebService.res.resultados
         {
             return new ResultadoDetalle(pExito, pContenido, pDetalleError);
         }
+
+        public Respuesta crearRespuesta(bool pExito, JObject pUser, JObject[] pGenres)
+        {
+            return new ResultadoUsuario(pExito, pUser, pGenres);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace MyConcert_WebService.controllers
 
             respuesta = _model.getUsuario(username);
 
-            return new JObject();
+            return JObject.FromObject(respuesta);
         }
 
         //Crear usuario nuevo.

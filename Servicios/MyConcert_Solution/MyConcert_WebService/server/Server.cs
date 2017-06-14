@@ -10,7 +10,7 @@ namespace MyConcert_WebService.server
         public Server()
         {
             string url = "http://localhost:";
-            string port = "22345";
+            string port = "12345";
             var config = new HttpSelfHostConfiguration(url+port);
 
             config.Routes.MapHttpRoute(
