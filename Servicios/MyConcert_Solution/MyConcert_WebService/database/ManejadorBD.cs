@@ -57,7 +57,7 @@ namespace MyConcert_WebService
         public integrantes obtenerIntegrante(int PK_banda)
         {
            
-            return banDB.obtenerIntegrante(PK_integrante);
+            return banDB.obtenerIntegrante(PK_banda);
         }
 
         public generosbanda obtenerGenerosBanda(int PK_generosBanda)
