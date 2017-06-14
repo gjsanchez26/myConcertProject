@@ -94,7 +94,7 @@ this.obtenerListaCarteleras = function(){
         return json;
 
     }
-    
+
     
     
     

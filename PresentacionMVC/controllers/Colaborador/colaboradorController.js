@@ -1,6 +1,6 @@
 myConcert.controller("colaboradorController", function($scope, $http, colaboradorModel){
     
-    $scope.usuario;
+    $scope.colaborador={};
     $scope.carteleraVotacion;
     $scope.listaCarteleras;
     $scope.informacionCartelera;

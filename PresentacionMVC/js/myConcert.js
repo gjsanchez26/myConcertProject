@@ -46,4 +46,4 @@ var configMyConcert = function($routeProvider){
  
 //creamos el modulo y le aplicamos la configuración
 var myConcert = angular.module("myConcert", ["ngRoute"]).config(configMyConcert);
- window.location.href = "#registroForm";
+window.location.href = "#registroForm";
