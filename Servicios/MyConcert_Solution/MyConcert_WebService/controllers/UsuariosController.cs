@@ -12,10 +12,11 @@ namespace MyConcert_WebService.controllers
         private UsuariosModel _model = new UsuariosModel();
 
         //Obtener usuario especifico.
-        public JObject Get(JObject pNombreUsuario)
+        public JObject Get(string username)
         {
-            dynamic peticion = pNombreUsuario;
-            string nombreUsuario = peticion.username;
+            Respuesta respuesta = null;
+
+            respuesta = _model.getUsuario(username);
 
             return new JObject();
         }

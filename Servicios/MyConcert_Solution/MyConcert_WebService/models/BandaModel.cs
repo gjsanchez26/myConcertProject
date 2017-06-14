@@ -88,8 +88,8 @@ namespace MyConcert_WebService.models
             List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery);
             Console.WriteLine("Datos recopilados");
 
-            string[] generosString = agruparGeneros(generosBandaQuery);
-            string[] miembrosString = agruparMiembros(integrantesBandaQuery);
+            string[] generosString = _serial.agruparGeneros(generosBandaQuery);
+            string[] miembrosString = _serial.agruparMiembros(integrantesBandaQuery);
             JObject[] cancionesObj = agruparCanciones(cancionesBandaQuery, bandaQuery.nombreBan);
             JObject[] comentariosObj = agruparComentarios(comentarioBandaQuery);
 
@@ -109,30 +109,6 @@ namespace MyConcert_WebService.models
             response.comments = comentariosObj;
 
             return _creador.crearRespuesta(true, response);
-        }
-
-        private string[] agruparGeneros(List<generos> pLista)
-        {
-            string[] generosString = new string[pLista.Count];
-            int iterator = 0;
-            foreach (generos gen in pLista)
-            {
-                generosString[iterator] = gen.genero;
-                iterator++;
-            }
-            return generosString;
-        }
-
-        private string[] agruparMiembros(List<integrantes> pLista)
-        {
-            string[] miembrosString = new string[pLista.Count];
-            int iterator = 0;
-            foreach (integrantes miembro in pLista)
-            {
-                miembrosString[iterator] = miembro.nombreInt;
-                iterator++;
-            }
-            return miembrosString;
         }
 
         private JObject[] agruparCanciones(List<canciones> pLista, string artist)

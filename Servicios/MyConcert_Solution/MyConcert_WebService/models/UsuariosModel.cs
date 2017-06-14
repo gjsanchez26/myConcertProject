@@ -17,6 +17,23 @@ namespace MyConcert_WebService.models
         private SHA256Encriptation _encriptador = new SHA256Encriptation();
         private SerialHelper _serial = new SerialHelper();
         
+        public Respuesta getUsuario(string pUsername)
+        {
+            Respuesta respuesta = null;
+
+            usuarios userActual = _manejador.obtenerUsuario(pUsername);
+            List<generos> listaGenerosFavoritos = _manejador.obtenerGenerosUsuario(userActual);
+            Usuario viewUserActual = _assembler.createUsuario(userActual);
+            viewUserActual.Contrasena = "XXXXXXXX";
+
+            dynamic json = new JObject();
+            json.user = JObject.FromObject(viewUserActual);
+            json.genres = _serial.agruparGeneros(listaGenerosFavoritos);
+
+            respuesta = _creador.crearRespuesta(true, json);
+            return respuesta;
+        }
+
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
             Respuesta respuesta = null;
@@ -29,7 +46,7 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                return respuesta = _creador.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.");
+                return respuesta = _creador.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.", e.ToString());
                 throw (e);
             }
 

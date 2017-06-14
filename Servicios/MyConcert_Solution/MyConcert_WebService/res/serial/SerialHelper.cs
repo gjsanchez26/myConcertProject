@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace MyConcert_WebService.res.serial
@@ -42,6 +43,30 @@ namespace MyConcert_WebService.res.serial
                               CultureInfo.InvariantCulture);
 
             return d;
+        }
+
+        public string[] agruparGeneros(List<generos> pLista)
+        {
+            string[] generosString = new string[pLista.Count];
+            int iterator = 0;
+            foreach (generos gen in pLista)
+            {
+                generosString[iterator] = gen.genero;
+                iterator++;
+            }
+            return generosString;
+        }
+
+        public string[] agruparMiembros(List<integrantes> pLista)
+        {
+            string[] miembrosString = new string[pLista.Count];
+            int iterator = 0;
+            foreach (integrantes miembro in pLista)
+            {
+                miembrosString[iterator] = miembro.nombreInt;
+                iterator++;
+            }
+            return miembrosString;
         }
     }
 }
