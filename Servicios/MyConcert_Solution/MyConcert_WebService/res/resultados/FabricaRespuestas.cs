@@ -28,5 +28,10 @@ namespace MyConcert_WebService.res.resultados
         {
             return new ResultadoUsuario(pExito, pUser, pGenres);
         }
+
+        public Respuesta crearRespuesta(bool pExito, JObject pBand, JObject[] pGenres, JObject[] pMembers, JObject[] pSongs, JObject[] pComments)
+        {
+            return new ResultadoBanda(pExito, pBand, pGenres, pMembers, pSongs, pComments);
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyConcert_WebService.viewModels
 {
-    class MiembroBanda
+    public class MiembroBanda
     {
         private int _id;
         private string _nombre;

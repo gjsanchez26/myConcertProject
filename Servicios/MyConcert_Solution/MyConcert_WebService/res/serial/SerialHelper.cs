@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MyConcert_WebService.viewModels;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,6 +37,18 @@ namespace MyConcert_WebService.res.serial
             return lista;
         }
 
+        public JObject[] agruparGeneros(GeneroMusical[] arreglo)
+        {
+            JObject[] generosString = new JObject[arreglo.Length];
+            int iterator = 0;
+            foreach (GeneroMusical gen in arreglo)
+            {
+                generosString[iterator] = JObject.FromObject(gen);
+                iterator++;
+            }
+            return generosString;
+        }
+
         public DateTime fecha(string pFecha)
         {
             DateTime d = DateTime.ParseExact(pFecha.Substring(0, 24),
@@ -57,13 +70,13 @@ namespace MyConcert_WebService.res.serial
             return generosString;
         }
 
-        public string[] agruparMiembros(List<integrantes> pLista)
+        public JObject[] agruparMiembros(MiembroBanda[] pLista)
         {
-            string[] miembrosString = new string[pLista.Count];
+            JObject[] miembrosString = new JObject[pLista.Length];
             int iterator = 0;
-            foreach (integrantes miembro in pLista)
+            foreach (MiembroBanda miembro in pLista)
             {
-                miembrosString[iterator] = miembro.nombreInt;
+                miembrosString[iterator] = JObject.FromObject(miembro);
                 iterator++;
             }
             return miembrosString;

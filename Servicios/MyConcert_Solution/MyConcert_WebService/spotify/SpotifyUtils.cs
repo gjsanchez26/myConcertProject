@@ -83,18 +83,27 @@ namespace Sptfy
           */
         public int searchArtistPopularity(string partist)
         {
+            int popularity = 0;
             FullArtist info_artist = null;
             SearchItem item = _spotify.SearchItems(partist, SearchType.Artist);
-
-            //Busca el dato 
-            for (int i = 0; i < item.Artists.Items.Count; i++)
+            try
             {
-                if (partist == item.Artists.Items[i].Name)
+                //Busca el dato 
+                for (int i = 0; i < item.Artists.Items.Count; i++)
                 {
-                    info_artist = item.Artists.Items[i];
+                    if (partist == item.Artists.Items[i].Name)
+                    {
+                        info_artist = item.Artists.Items[i];
+                    }
                 }
+                popularity = info_artist.Popularity;
             }
-            return info_artist.Popularity;
+            catch (Exception)
+            {
+                popularity = 0;
+            }
+
+            return popularity;
         }
 
         /**
@@ -109,18 +118,26 @@ namespace Sptfy
         */
         public int searchArtistFollowers(string partist)
         {
+            int followers = 0;
             FullArtist info_artist = null;
             SearchItem item = _spotify.SearchItems(partist, SearchType.Artist);
-
-            //Busca el dato 
-            for (int i = 0; i < item.Artists.Items.Count; i++)
+            try
             {
-                if (partist == item.Artists.Items[i].Name)
+                //Busca el dato 
+                for (int i = 0; i < item.Artists.Items.Count; i++)
                 {
-                    info_artist = item.Artists.Items[i];
+                    if (partist == item.Artists.Items[i].Name)
+                    {
+                        info_artist = item.Artists.Items[i];
+                    }
                 }
+                followers = info_artist.Followers.Total;
+            } catch(Exception)
+            {
+                followers = 0;
             }
-            return info_artist.Followers.Total;
+
+            return followers;
         }
 
         

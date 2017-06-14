@@ -24,24 +24,12 @@ namespace MyConcert_WebService.models
             usuarios userActual = _manejador.obtenerUsuario(pUsername);
             List<generos> listaGenerosFavoritos = _manejador.obtenerGenerosUsuario(userActual);
             GeneroMusical[] arreglogenerosFavoritos = _assembler.createListaGenero(listaGenerosFavoritos);
-            JObject[] jsonArregloGenerosFavoritos = convertir(arreglogenerosFavoritos);
+            JObject[] jsonArregloGenerosFavoritos = _serial.agruparGeneros(arreglogenerosFavoritos);
             Usuario viewUserActual = _assembler.createUsuario(userActual);
             viewUserActual.Contrasena = "XXXXXXXX";
 
             respuesta = _creador.crearRespuesta(true, JObject.FromObject(viewUserActual), jsonArregloGenerosFavoritos);
             return respuesta;
-        }
-
-        private JObject[] convertir(GeneroMusical[] arreglo)
-        {
-            JObject[] generosString = new JObject[arreglo.Length];
-            int iterator = 0;
-            foreach (GeneroMusical gen in arreglo)
-            {
-                generosString[iterator] = JObject.FromObject(gen);
-                iterator++;
-            }
-            return generosString;
         }
 
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)

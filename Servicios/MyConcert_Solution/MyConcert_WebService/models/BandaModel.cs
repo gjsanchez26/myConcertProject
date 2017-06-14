@@ -83,18 +83,17 @@ namespace MyConcert_WebService.models
             bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
             Console.WriteLine(bandaQuery.nombreBan);
             List<generos> generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery);
+            GeneroMusical[] arregloGenerosBandaQuery = _convertidor.createListaGenero(generosBandaQuery);
             List<integrantes> integrantesBandaQuery = _manejador.obtenerIntegrantes(bandaQuery);
+            MiembroBanda[] arregloIntegrantesBandaQuery = _convertidor.createListaIntegrantes(integrantesBandaQuery);
             List<canciones> cancionesBandaQuery = _manejador.obtenerCanciones(bandaQuery);
             List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery);
-            Console.WriteLine("Datos recopilados");
 
-            string[] generosString = _serial.agruparGeneros(generosBandaQuery);
-            string[] miembrosString = _serial.agruparMiembros(integrantesBandaQuery);
+            JObject[] generosObj = _serial.agruparGeneros(arregloGenerosBandaQuery);
+            JObject[] miembrosObj = _serial.agruparMiembros(arregloIntegrantesBandaQuery);
             JObject[] cancionesObj = agruparCanciones(cancionesBandaQuery, bandaQuery.nombreBan);
             JObject[] comentariosObj = agruparComentarios(comentarioBandaQuery);
-
-            dynamic response = new JObject();
-
+            
             dynamic band_dataObj = new JObject();
             band_dataObj.name = bandaQuery.nombreBan;
             band_dataObj.image_band = _spotify.searchArtistImages(bandaQuery.nombreBan);
@@ -102,13 +101,9 @@ namespace MyConcert_WebService.models
             band_dataObj.followers = _spotify.searchArtistFollowers(bandaQuery.nombreBan);
             band_dataObj.popularity = _spotify.searchArtistPopularity(bandaQuery.nombreBan);
 
-            response.band_data = band_dataObj;
-            response.genres = generosString;
-            response.members = miembrosString;
-            response.songs = cancionesObj;
-            response.comments = comentariosObj;
+            Respuesta respuesta = _creador.crearRespuesta(true, band_dataObj, generosObj, miembrosObj, cancionesObj, comentariosObj);
 
-            return _creador.crearRespuesta(true, response);
+            return respuesta;
         }
 
         private JObject[] agruparCanciones(List<canciones> pLista, string artist)
