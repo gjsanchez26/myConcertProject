@@ -168,7 +168,7 @@ namespace MyConcert_WebService.database
 
         public List<generos> obtenerGenerosUsuario(usuarios us)
         {
-            List<generos> obj = null;
+            List<generos> obj = new List<generos>();
             try
             {
 
@@ -181,7 +181,7 @@ namespace MyConcert_WebService.database
                                          .Where(r=> r.gu.FK_GENEROSUSUARIO_USUARIOS==us.username)
                                          .Select(z=> new { PK_generos = z.g.PK_generos,
                                                            genero=z.g.genero}).ToList();
-
+                   
                     foreach(var i in gen)
                     {
                         obj.Add(context.generos.FirstOrDefault(g=>g.PK_generos==i.PK_generos));

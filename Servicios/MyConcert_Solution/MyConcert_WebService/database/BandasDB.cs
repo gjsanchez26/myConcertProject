@@ -244,7 +244,7 @@ namespace MyConcert_WebService.database
      
         public List<generos> obtenerGenerosBanda(bandas banda)
         {
-            List<generos> obj = null;
+            List<generos> obj = new List<generos>();
             
             try
             {
