@@ -1,5 +1,4 @@
 ﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res;
 using MyConcert_WebService.res.resultados;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
@@ -15,20 +14,10 @@ namespace MyConcert_WebService.controllers
         //Obtener todas las categorias disponibles.
         public JObject Get()
         {
-            Respuesta respuesta = null;
 
-            respuesta = _model.getCategorias();
+            Respuesta respuesta = _model.getCategorias();
             
             return JObject.FromObject(respuesta); 
-        }
-
-        //Obtener categorias de evento especifico.
-        public JObject Get(int pIDEvento)
-        {
-            ResultadoObjeto respuesta = new ResultadoObjeto();
-
-            //Solicita categorias a base de datos.
-            return JObject.FromObject(respuesta); //Retorna lista de categorias.
         }
 
         //Crear categoria nueva.
@@ -36,9 +25,8 @@ namespace MyConcert_WebService.controllers
         {
             dynamic datosCategoria = pDatosCategoria;
             string nombreCat = datosCategoria.name;
-            Respuesta respuesta = new Respuesta();
 
-            respuesta = _model.nuevaCategoria(nombreCat);
+            Respuesta respuesta = _model.nuevaCategoria(nombreCat);
            
             return JObject.FromObject(respuesta); 
         }

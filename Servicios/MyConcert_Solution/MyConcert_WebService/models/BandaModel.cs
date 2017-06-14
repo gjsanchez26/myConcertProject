@@ -44,8 +44,8 @@ namespace MyConcert_WebService.models
                 respuesta = _creador.crearRespuesta(true, "Banda registrada correctamente.");
             } catch(Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
-                //respuesta = _creador.crearRespuesta(false, e.ToString());
+                //respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
+                respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.", e.ToString());
             }
 
             return respuesta;

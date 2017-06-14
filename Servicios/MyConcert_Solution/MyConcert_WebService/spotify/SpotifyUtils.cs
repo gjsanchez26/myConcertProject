@@ -247,6 +247,8 @@ namespace Sptfy
                     url = item.Tracks.Items[i].PreviewUrl;
                 }
             }
+            if (url == null)
+                url = "No_song_URL";
             return url;
         }
 

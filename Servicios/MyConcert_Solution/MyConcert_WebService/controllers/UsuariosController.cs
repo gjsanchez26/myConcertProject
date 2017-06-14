@@ -14,9 +14,7 @@ namespace MyConcert_WebService.controllers
         //Obtener usuario especifico.
         public JObject Get(string username)
         {
-            Respuesta respuesta = null;
-
-            respuesta = _model.getUsuario(username);
+            Respuesta respuesta = _model.getUsuario(username);
 
             return JObject.FromObject(respuesta);
         }
@@ -34,22 +32,6 @@ namespace MyConcert_WebService.controllers
             JObject respuestaPost = JObject.FromObject(respuesta);
 
             return respuestaPost;
-
-        }
-
-        private int[] getGenerosFavoritos(JArray pGenerosFavoritos)
-        {
-            dynamic generosFavoritos = pGenerosFavoritos;
-            int[] lista = new int[pGenerosFavoritos.Count];
-            int iterator = 0;
-
-            foreach (dynamic i in generosFavoritos)
-            {
-                lista[iterator] = i;
-                iterator++;
-            }
-
-            return lista;
         }
     }
 }

@@ -78,8 +78,4 @@ namespace MyConcert_WebService.viewModels
             }
         }
     }
-
-        
-
-        
-    }
+}

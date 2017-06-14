@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Globalization;
 
 namespace MyConcert_WebService.res.serial
-{
+{ 
     public class SerialHelper
     {
+        private ManejadorBD _manejador = new ManejadorBD();
+
         public int[] getArrayInt(JArray pArray)
         {
             dynamic arrayInt = pArray;
@@ -80,6 +82,54 @@ namespace MyConcert_WebService.res.serial
                 iterator++;
             }
             return miembrosString;
+        }
+
+        public CategoriaBanda[] getArrayCategoriaBandaEvento(JArray pArray)
+        {
+            dynamic arrayCategoriaBandaJSON = pArray;
+            CategoriaBanda[] listaRespuesta = new CategoriaBanda[pArray.Count];
+
+            int iterator = 0;
+            CategoriaBanda cat_band_serial = null;
+            foreach (JObject JSON in arrayCategoriaBandaJSON)
+            {
+                dynamic categoriaBandaJSON = JSON;
+                int[] bands = getArrayInt((JArray)categoriaBandaJSON.bands);
+                cat_band_serial = new CategoriaBanda((int)categoriaBandaJSON.category, bands);
+                listaRespuesta[iterator] = cat_band_serial;
+                iterator++;
+            }
+
+            return listaRespuesta;
+        }
+
+        public Cartelera leerDatosCartelera(dynamic pDatosEvento)
+        {
+            return new Cartelera(0,
+                            (string)pDatosEvento.name,
+                            (string)pDatosEvento.ubication,
+                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
+                            (DateTime)pDatosEvento.initial_date,
+                            (DateTime)pDatosEvento.final_date,
+                            (DateTime)pDatosEvento.vote_final_date,
+                            _manejador.obtenerTipoEvento(1).tipo,
+                            _manejador.obtenerEstado(1).estado);
+        }
+
+        public Festival leerDatosFestival(dynamic pDatosEvento)
+        {
+            return new Festival(0,
+                            (string)pDatosEvento.name,
+                            (string)pDatosEvento.ubication,
+                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
+                            (DateTime)pDatosEvento.initial_date,
+                            (DateTime)pDatosEvento.final_date,
+                            _manejador.obtenerTipoEvento(1).tipo,
+                            _manejador.obtenerEstado(1).estado,
+                            (string)pDatosEvento.food,
+                            (string)pDatosEvento.transport,
+                            (string)pDatosEvento.services,
+                            ""); //Recomendacion del chef
         }
     }
 }

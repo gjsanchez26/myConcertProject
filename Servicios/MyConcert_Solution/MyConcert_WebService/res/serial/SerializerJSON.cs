@@ -103,36 +103,5 @@ namespace MyConcert_WebService.res.serial
 
             return lista;
         }
-
-        
-
-        public Cartelera leerDatosCartelera(dynamic pDatosEvento)
-        {
-            return new Cartelera(0,
-                            (string) pDatosEvento.name,
-                            (string)pDatosEvento.ubication,
-                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
-                            (DateTime)pDatosEvento.initial_date,
-                            (DateTime)pDatosEvento.final_date,
-                            (DateTime)pDatosEvento.vote_final_date,
-                            _manejador.obtenerTipoEvento(1).tipo,
-                            _manejador.obtenerEstado(1).estado);
-        }
-
-        public Festival leerDatosFestival(dynamic pDatosEvento)
-        {
-            return new Festival(0,
-                            (string)pDatosEvento.name,
-                            (string)pDatosEvento.ubication,
-                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
-                            (DateTime)pDatosEvento.initial_date,
-                            (DateTime)pDatosEvento.final_date,
-                            _manejador.obtenerTipoEvento(1).tipo,
-                            _manejador.obtenerEstado(1).estado,
-                            (string)pDatosEvento.food,
-                            (string)pDatosEvento.transport,
-                            (string)pDatosEvento.services,
-                            ""); //Recomendacion del chef
-        }
     }
 }

@@ -269,5 +269,10 @@ namespace MyConcert_WebService
         {
             return votDB.obtenerVoto(PK_voto);
         }
+
+        public void añadirVotos(List<votos> pVotos)
+        {
+            votDB.añadirVotos(pVotos);
+        }
     }
 }

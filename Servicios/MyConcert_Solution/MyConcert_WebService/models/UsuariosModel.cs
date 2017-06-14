@@ -117,7 +117,8 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.");
+                //respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.");
+                respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.", e.ToString());
             }
 
             return respuesta;
