@@ -79,24 +79,7 @@ namespace MyConcert_WebService.database
         }
         
         //OBTENER 1 OBJETO
-        public categoriasevento obtenerCategoriasEvento(int PK_categoriasEvento)
-        {
-            categoriasevento obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.categoriasevento.FirstOrDefault(r => r.PK_categoriasEvento == PK_categoriasEvento);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
-        }
+       
 
         public eventos obtenerEvento(int PK_evento)
         {
@@ -242,6 +225,61 @@ namespace MyConcert_WebService.database
                 throw (ex);
             }
             return votos;
+        }
+
+        public List<categorias> obtenerCategoriasEvento( int evento)
+        {
+            List<categorias> obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.categorias.Join(context.categoriasevento,
+                                                   c => c.PK_categorias,
+                                                   ce => ce.FK_CATEGORIASEVENTO_CATEGORIAS,
+                                                   (c, ce) => new { c, ce })
+                                                   .Where(w => w.ce.FK_CATEGORIASEVENTO_EVENTOS == evento)
+                                                   .Select(s => s.c).ToList(); ;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return obj;
+        }
+
+        public void crearFestival(eventos festival,List<bandas> perdedoras)
+        {
+            using (myconcertEntities context = new myconcertEntities())
+            {
+                
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        eventos fest = context.eventos.FirstOrDefault(e => e.PK_eventos == festival.PK_eventos);
+
+                        fest = festival;
+                        foreach (bandas b in perdedoras)
+                        {
+                            categoriasevento ce = context.categoriasevento.FirstOrDefault(w => w.FK_CATEGORIASEVENTO_BANDAS == b.PK_bandas &&w.FK_CATEGORIASEVENTO_EVENTOS==fest.PK_eventos);
+                            votos vot = context.votos.FirstOrDefault(w => w.FK_VOTOS_BANDAS == b.PK_bandas && w.FK_VOTOS_EVENTOS == fest.PK_eventos);
+                            context.categoriasevento.Remove(ce);
+                            context.votos.Remove(vot);
+                        }
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw (ex);
+                    }
+                }
+            }
         }
     }
 }

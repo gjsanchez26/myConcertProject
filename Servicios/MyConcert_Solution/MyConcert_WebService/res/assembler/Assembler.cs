@@ -432,5 +432,18 @@ namespace MyConcert_WebService.res.assembler
             }
             return lista;
         }
+
+        public Categoria[] createListaCategorias(List<categorias> cate)
+        {
+            Categoria[] arreglo = new Categoria[cate.Count];
+            int contador = 0;
+            foreach (categorias i in cate)
+            {
+                arreglo[contador] = createCategoria(i);
+                contador++;
+            }
+            return arreglo;
+        }
+        
     }
 }

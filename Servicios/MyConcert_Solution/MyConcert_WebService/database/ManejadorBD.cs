@@ -115,6 +115,11 @@ namespace MyConcert_WebService
         }
 
         //EVENTOSDB
+
+        public eventos obtenerEvento(int PK_evento)
+        {
+            return eveDB.obtenerEvento(PK_evento);
+        }
         public void añadirCartelera(eventos pCartelera, List<categoriasevento> pCategorias)
         {
             eveDB.añadirEvento(pCartelera, pCategorias);
@@ -139,11 +144,6 @@ namespace MyConcert_WebService
         public categoriasevento obtenerCategoriasEvento(int PK_categoriasEvento)
         {
             return eveDB.obtenerCategoriasEvento(PK_categoriasEvento);
-        }
-
-        public eventos obtenerEvento(int PK_evento)
-        {
-            return obtenerEvento(PK_evento);
         }
 
         public tiposeventos obtenerTipoEvento(int PK_tipoEvento)
@@ -178,6 +178,11 @@ namespace MyConcert_WebService
         public int obtenerCantidadVotos(int cartelera, int categoria, int banda)
         {
             return eveDB.obtenerCantidadVotos(cartelera, categoria, banda);
+        }
+
+        public void crearFestival(eventos festival, List<bandas> perdedoras)
+        {
+           eveDB.crearFestival(festival, perdedoras);
         }
         //USUARIOSDB
         public tiposusuarios obtenerTipoUsuario(string tipoUsuario)
@@ -274,5 +279,7 @@ namespace MyConcert_WebService
         {
             votDB.añadirVotos(pVotos);
         }
+
+
     }
 }
