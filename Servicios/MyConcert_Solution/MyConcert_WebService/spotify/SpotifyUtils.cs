@@ -204,17 +204,25 @@ namespace Sptfy
         */
         public string searchTracks(string pidartist, string psong)
         {
-            string tmp = null;
-            SeveralTracks tracklist = _spotify.GetArtistsTopTracks(pidartist, "CR");
-            for (int i = 0; i < tracklist.Tracks.Count; i++)
+            SearchItem item = _spotify.SearchItems(psong, SearchType.Track);
+            string id = null;
+            try
             {
-                if (tracklist.Tracks[i].Name == psong)
+                for (int i = 0; i < item.Tracks.Items.Count; i++)
                 {
-                    tmp = tracklist.Tracks[i].Id;
-                    break;
+                    if (item.Tracks.Items[i].Artists[0].Name == partist)
+                    {
+                        id = item.Tracks.Items[i].Id;
+                        break;
+                    }
                 }
             }
-            return tmp;
+            catch (Exception)
+            {
+                id = "No_ID";
+            }
+
+            return (id == null) ? "No_ID" : id;
         }
 
         /**
@@ -240,16 +248,22 @@ namespace Sptfy
         {
             SearchItem item = _spotify.SearchItems(pnametrack, SearchType.Track);
             string url = null;
-            for (int i = 0; i < item.Tracks.Items.Count; i++)
+            try
             {
-                if (item.Tracks.Items[i].Artists[0].Name == partist)
+                for (int i = 0; i < item.Tracks.Items.Count; i++)
                 {
-                    url = item.Tracks.Items[i].PreviewUrl;
+                    if (item.Tracks.Items[i].Artists[0].Name == partist)
+                    {
+                        url = item.Tracks.Items[i].PreviewUrl;
+                        break;
+                    }
                 }
-            }
-            if (url == null)
+            } 
+            catch (Exception)
+            {
                 url = "No_song_URL";
-            return url;
+            }
+            return (url == null) ? "No_song_URL" : url;
         }
 
         /**
@@ -262,14 +276,22 @@ namespace Sptfy
         {
             SearchItem item = _spotify.SearchItems(pnametrack, SearchType.Track);
             string album = null;
-            for (int i = 0; i < item.Tracks.Items.Count; i++)
+            try
             {
-                if (item.Tracks.Items[i].Artists[0].Name == partist)
+                for (int i = 0; i < item.Tracks.Items.Count; i++)
                 {
-                    album = item.Tracks.Items[i].Album.Name;
+                    if (item.Tracks.Items[i].Artists[0].Name == partist)
+                    {
+                        album = item.Tracks.Items[i].Album.Name;
+                        break;
+                    }
                 }
             }
-            return album;
+            catch(Exception)
+            {
+                album = "No_album";
+            }
+            return (album == null) ? "No_album" : album;
         }
 
         /**

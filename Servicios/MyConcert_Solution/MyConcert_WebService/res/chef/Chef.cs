@@ -21,7 +21,7 @@ namespace MyConcert_WebService.res
     class Chef
     {
         private SpotifyUtils _spotify;
-        CommentsTable _commentsTable;
+        private CommentsTable _commentsTable;
 
         /**********************************************************/
 
@@ -67,10 +67,9 @@ namespace MyConcert_WebService.res
                         break;
                     }
                     id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
-                    if (id_track != null)
+                    if (id_track != "No_ID")
                     {
                         tmp.Add(id_track);
-                        Console.WriteLine("cosa: " + tmp[i]);
                     }
                 }                
                 id_tracks.Add(tmp);
@@ -114,14 +113,8 @@ namespace MyConcert_WebService.res
                     n -= 1;
                 }
             }
-            if (n == 0)
-            {
-                return 0;
-            } else
-            {
-               
-                return (res/n);
-            }
+            return (n == 0) ? 0 : res/n;
+            
         }
 
         /**
