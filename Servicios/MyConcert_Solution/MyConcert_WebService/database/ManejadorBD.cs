@@ -181,7 +181,11 @@ namespace MyConcert_WebService
 
         public int obtenerCantidadVotos(int cartelera, int categoria, int banda)
         {
-            return eveDB.obtenerCantidadVotos(cartelera, categoria, banda);
+            return votDB.obtenerCantidadVotos(cartelera, categoria, banda);
+        }
+        public int obtenerCantidadVotos(int cartelera, int banda)
+        {
+            return votDB.obtenerCantidadVotos(cartelera, banda);
         }
 
         public void crearFestival(eventos festival, List<bandas> perdedoras)

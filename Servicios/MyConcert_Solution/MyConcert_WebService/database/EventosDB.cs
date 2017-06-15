@@ -204,27 +204,7 @@ namespace MyConcert_WebService.database
             
         }
 
-        public int obtenerCantidadVotos(int cartelera, int categoria, int banda)
-        {
-            int votos = 0;
-            try
-            {
-                using (myconcertEntities context = new myconcertEntities())
-                {
-
-                    votos = (int)context.votos.Where(r => (r.FK_VOTOS_EVENTOS == cartelera) 
-                                                    && (r.FK_VOTOS_CATEGORIAS==categoria)
-                                                    &&(r.FK_VOTOS_BANDAS==banda))
-                                                    .Sum(r => r.valor);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return votos;
-        }
+       
 
         
         public void crearFestival(eventos festival,List<bandas> perdedoras)
