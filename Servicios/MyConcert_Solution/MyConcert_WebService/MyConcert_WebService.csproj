@@ -199,6 +199,7 @@
     <Compile Include="MyConcertAPI.cs" />
     <Compile Include="res\resultados\ResultadoBanda.cs" />
     <Compile Include="res\resultados\ResultadoDetalle.cs" />
+    <Compile Include="res\resultados\ResultadoEvento.cs" />
     <Compile Include="res\resultados\ResultadoUsuario.cs" />
     <Compile Include="res\serial\SerialHelper.cs" />
     <Compile Include="viewModels\Banda.cs" />

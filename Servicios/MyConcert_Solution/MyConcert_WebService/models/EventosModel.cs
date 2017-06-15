@@ -4,6 +4,7 @@ using MyConcert_WebService.res.serial;
 using Newtonsoft.Json.Linq;
 using System;
 using MyConcert_WebService.res.assembler;
+using System.Collections.Generic;
 
 namespace MyConcert_WebService.models
 {
@@ -13,6 +14,7 @@ namespace MyConcert_WebService.models
         private FabricaRespuestas _creador = new FabricaRespuestas();
         private Assembler _convertidor = new Assembler();
         private SerialHelper _serial = new SerialHelper();
+        private ChefModel _chef = new ChefModel();
 
         public Respuesta getCarteleras()
         {
@@ -40,6 +42,15 @@ namespace MyConcert_WebService.models
             return _creador.crearRespuesta(true, arreglo);
         }
 
+        public Respuesta getEvento(int pID)
+        {
+            Respuesta respuesta = null;
+
+
+
+            return respuesta;
+        }
+
         public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, JArray pListaCategorias)
         {
             Respuesta respuesta = null;
@@ -57,8 +68,23 @@ namespace MyConcert_WebService.models
                         break;
                     case "festival":
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
+                        eventos nuevoEvento = _convertidor.updateeventos(nuevoFestival);
 
-                        _manejador.añadirFestival(_convertidor.updateeventos(nuevoFestival), _convertidor.updatecategoriasevento(categorias));
+                        List<string> bandasGanadoras = new List<string>();
+                        foreach(CategoriaBanda cat_band in categorias)
+                        {
+                            foreach(int IDBanda in cat_band._bandasID)
+                            {
+                                bandasGanadoras.Add(_manejador.obtenerBanda(IDBanda).nombreBan);
+                            }
+                        }
+
+
+
+                        string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
+                        nuevoEvento.FK_EVENTOS_BANDAS_CHEF = _manejador.obtenerBanda(bandaRecomendada).PK_bandas;
+
+                        _manejador.añadirFestival(nuevoEvento, _convertidor.updatecategoriasevento(categorias));
                         respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
                         break;
                     default:

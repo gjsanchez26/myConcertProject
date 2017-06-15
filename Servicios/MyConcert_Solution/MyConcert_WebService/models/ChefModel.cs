@@ -31,7 +31,7 @@ namespace MyConcert_WebService.models
          * @param pwinners Lista de bandas ganadoras.
          * @param id_fest El identificador del evento a realzarse.
          */
-        public void executeChefProcess(List<string> pwinners, int id_fest)
+        public string executeChefProcess(List<string> pwinners, int id_fest)
         {
             /* ALGORITMO DEL CHEF */
             Console.WriteLine("Algoritmo del Chef");
@@ -54,9 +54,9 @@ namespace MyConcert_WebService.models
             Chef _chef = new Chef();
             try
             {
-                string res = _chef.chefAlgorythm(pwinners, _other, other_songs, winner_songs);
+                return _chef.chefAlgorythm(pwinners, _other, other_songs, winner_songs);
                 /*SE SOLICITA INFO A LA BASE DE DATOS RESPECTO A LA BANDA*/
-                /*SE ENVIA LA BANDA RECOMENDADA A JAVASCRIPT*/
+                /*SE GENERA LA BANDA RECOMENDADA*/
             }
             catch (Exception)
             {
@@ -69,7 +69,7 @@ namespace MyConcert_WebService.models
                 List<float> amount_stars_other = getRating(other_bands);
                 List<float> amount_stars_winners = getRating(winner_bands);
 
-                _chef.alternativeChefAlgorythm(pwinners, _other, amount_comments_other, amount_stars_other,
+                return _chef.alternativeChefAlgorythm(pwinners, _other, amount_comments_other, amount_stars_other,
                     amount_comments_winners, amount_stars_winners);
             }
         }

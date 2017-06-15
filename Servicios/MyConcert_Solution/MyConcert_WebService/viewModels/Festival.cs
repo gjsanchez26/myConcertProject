@@ -28,6 +28,7 @@ namespace MyConcert_WebService.viewModels
                         string servicios,
                         string recomendacionChef)
         {
+            this.Id = _id;
             this.Nombre = nombre;
             this.Ubicacion = ubicacion;
             this.Pais = pais;
