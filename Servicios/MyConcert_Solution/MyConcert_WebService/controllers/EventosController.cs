@@ -34,12 +34,13 @@ namespace MyConcert_WebService.controllers
         }
 
         //Obtener informacion de evento especifico.
-        public JObject Get(int pIDEvento)
+        public JObject Get(int id)
         {
             Respuesta respuesta = null;
-            
-            //Solicita evento a base de datos.
-            return JObject.FromObject(respuesta); //Retorna objeto evento.
+
+            respuesta = _model.getEvento(id);
+
+            return JObject.FromObject(respuesta);
         }
 
         //Crear evento nuevo.

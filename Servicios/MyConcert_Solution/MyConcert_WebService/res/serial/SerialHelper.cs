@@ -118,7 +118,7 @@ namespace MyConcert_WebService.res.serial
 
         public Festival leerDatosFestival(dynamic pDatosEvento)
         {
-            return new Festival(0,
+            return new Festival((int) pDatosEvento.event_id,
                             (string)pDatosEvento.name,
                             (string)pDatosEvento.ubication,
                             _manejador.obtenerPais((int)pDatosEvento.country).pais,

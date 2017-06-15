@@ -18,6 +18,7 @@ namespace MyConcert_WebService.viewModels
                         string tipoEvento,
                         string estado)
         {
+            this.Id = _id;
             this.Nombre = nombre;
             this.Ubicacion = ubicacion;
             this.Pais = pais;
