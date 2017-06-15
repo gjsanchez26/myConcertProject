@@ -114,6 +114,10 @@ namespace MyConcert_WebService
             return catDB.obtenerCategorias();
         }
 
+        public List<bandas> obtenerBandasCategoria(int categoria, int evento)
+        {
+            return catDB.obtenerBandasCategoria(categoria, evento);
+        }
         //EVENTOSDB
 
         public eventos obtenerEvento(int PK_evento)
@@ -141,9 +145,9 @@ namespace MyConcert_WebService
             return eveDB.obtenerFestivales();
         }
 
-        public categoriasevento obtenerCategoriasEvento(int PK_categoriasEvento)
+        public List<categorias> obtenerCategoriasEvento(int PK_categoriasEvento)
         {
-            return eveDB.obtenerCategoriasEvento(PK_categoriasEvento);
+            return catDB.obtenerCategoriasEvento(PK_categoriasEvento);
         }
 
         public tiposeventos obtenerTipoEvento(int PK_tipoEvento)

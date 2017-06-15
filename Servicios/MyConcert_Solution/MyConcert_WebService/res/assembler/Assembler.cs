@@ -445,5 +445,16 @@ namespace MyConcert_WebService.res.assembler
             return arreglo;
         }
         
+        public Banda[] createListaBandas(List<bandas> bandas)
+        {
+            Banda[] arreglo = new Banda[bandas.Count];
+            int contador = 0;
+            foreach (bandas i in bandas)
+            {
+                arreglo[contador] = createBanda(i);
+                contador++;
+            }
+            return arreglo;
+        }
     }
 }

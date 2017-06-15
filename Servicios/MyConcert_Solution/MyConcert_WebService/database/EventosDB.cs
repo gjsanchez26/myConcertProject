@@ -226,30 +226,7 @@ namespace MyConcert_WebService.database
             return votos;
         }
 
-        public List<categorias> obtenerCategoriasEvento( int evento)
-        {
-            List<categorias> obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.categorias.Join(context.categoriasevento,
-                                                   c => c.PK_categorias,
-                                                   ce => ce.FK_CATEGORIASEVENTO_CATEGORIAS,
-                                                   (c, ce) => new { c, ce })
-                                                   .Where(w => w.ce.FK_CATEGORIASEVENTO_EVENTOS == evento)
-                                                   .Select(s => s.c).ToList(); ;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
-        }
-
+        
         public void crearFestival(eventos festival,List<bandas> perdedoras)
         {
             using (myconcertEntities context = new myconcertEntities())
