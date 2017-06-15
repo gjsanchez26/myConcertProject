@@ -236,7 +236,6 @@
     <Compile Include="res\serial\SerializerJSON.cs" />
     <Compile Include="res\Twitter\ConexionTwitter.cs" />
     <Compile Include="res\Twitter\TwitterManager.cs" />
-    <Compile Include="res\usr\Usuario.cs" />
     <Compile Include="server\Server.cs" />
     <Compile Include="res\SHA256Encriptation.cs" />
     <Compile Include="spotify\SpotifyUtils.cs" />
