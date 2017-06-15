@@ -25,48 +25,45 @@ namespace MyConcert_WebService.models
         public string executeChefProcess(List<string> pwinners, int id_fest)
         {
             ManejadorBD _managerDB = new ManejadorBD();
-            string respuesta = "";
             /* ALGORITMO DEL CHEF */
             Console.WriteLine("Algoritmo del Chef");
             /*se captura desde javascript al realizar la eleccion de las bandas ganadoras*/
+
             List<bandas> winner_bands = new List<bandas>();
-            List<bandas> other_bands = new List<bandas>();           
-
-            /*    _other.Add("Janis Joplin");
-                _other.Add("Jefferson Airplane");
-                _other.Add("Led Zeppelin");    */
-                
+            foreach (string nameBands in pwinners)
+            {
+                winner_bands.Add(_managerDB.obtenerBanda(nameBands));
+            }
+            
             eventos _evento = _managerDB.obtenerEvento(id_fest);
-            other_bands = _managerDB.obtenerBandasNoCartelera(_evento);
+            List<bandas> other_bands = _managerDB.obtenerBandasNoCartelera(_evento);
             List<string> _other = getBandsNames(other_bands);
-
+            
             /* POR MIENTRAS: winner_songs */
             List<List<canciones>> winner_songs = getAllSongsArtists(winner_bands);
             List<List<canciones>> other_songs = getAllSongsArtists(other_bands);
-
+            
             Chef _chef = new Chef();
             try
             {
-                respuesta= _chef.chefAlgorythm(pwinners, _other, other_songs, winner_songs);
+                return _chef.chefAlgorythm(pwinners, _other, other_songs, winner_songs);
                 /*SE SOLICITA INFO A LA BASE DE DATOS RESPECTO A LA BANDA*/
                 /*SE GENERA LA BANDA RECOMENDADA*/
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("Error: No hay suficiente informacion de las bandas en Spotify...");
-                Console.WriteLine("Algoritmo del Chef alternativo");
-                Console.WriteLine("NO Stack1");
                 List<float> amount_comments_other = getComments(other_bands);
                 List<float> amount_comments_winners = getComments(winner_bands);
-                Console.WriteLine("NO STACK 2");
+
                 List<float> amount_stars_other = getRating(other_bands);
                 List<float> amount_stars_winners = getRating(winner_bands);
-                Console.WriteLine("NO STACK 3");
-                respuesta = _chef.alternativeChefAlgorythm(pwinners, _other, amount_comments_other, amount_stars_other,
+
+                Console.WriteLine("Error: No hay suficiente informacion de las bandas en Spotify...");
+                Console.WriteLine("Algoritmo del Chef alternativo");
+                
+                return _chef.alternativeChefAlgorythm(pwinners, _other, amount_comments_other, amount_stars_other,
                     amount_comments_winners, amount_stars_winners);
             }
-            return respuesta;
-
         }
 
         /*******************************************************************/
@@ -86,14 +83,10 @@ namespace MyConcert_WebService.models
         {
             ManejadorBD _managerDB = new ManejadorBD();
             List<float> _comments = new List<float>();
-    
-            Console.WriteLine(pbands.Count);
             for (int i = 0; i < pbands.Count; i++)
             {
-                Console.WriteLine(i);
                 _comments.Add(_managerDB.getCantidadComentarios(pbands[i]));
             }
-            
             return _comments;
         }
 
