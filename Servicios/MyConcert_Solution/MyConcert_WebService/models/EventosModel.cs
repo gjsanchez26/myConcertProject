@@ -45,10 +45,53 @@ namespace MyConcert_WebService.models
         public Respuesta getEvento(int pID)
         {
             Respuesta respuesta = null;
+            eventos eventoSolicitado = _manejador.obtenerEvento(pID);
+            List<categorias> listaCategoriasEvento = _manejador.obtenerCategoriasEvento(eventoSolicitado.PK_eventos);
 
+            if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos)
+            {
+                JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, listaCategoriasEvento);
+                Evento eventoAuxiliar = _convertidor.createEvento(eventoSolicitado);
+                respuesta = _creador.crearRespuestaEvento(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
 
+            }
+            else if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(2).PK_tiposEventos)
+            {
+                List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, listaCategoriasEvento);
+                JObject[] bandas = new JObject[bandasFestival.Count];
+                foreach(bandas band in bandasFestival)
+                {
+
+                }
+
+            }
 
             return respuesta;
+        }
+
+        private JObject[] obtenerCategoriasCartelera(int pID, List<categorias> listaCategoriasEvento)
+        {
+            JObject[] categoriasEventoEspecifico = new JObject[listaCategoriasEvento.Count];
+            int iterator = 0;
+            foreach (categorias categoriaActual in listaCategoriasEvento)
+            {
+                List<bandas> bandasCategoria = _manejador.obtenerBandasCategoria(categoriaActual.PK_categorias, pID);
+                JObject[] bandaConResultado = new JObject[bandasCategoria.Count];
+                int iterator2 = 0;
+                foreach (bandas bandaActual in bandasCategoria)
+                {
+                    dynamic bands = new JObject();
+                    bands.name_band = bandaActual.nombreBan;
+                    bands.result = _manejador.obtenerCantidadVotos(pID, categoriaActual.PK_categorias, bandaActual.PK_bandas);
+                    bandaConResultado[iterator2] = bands;
+                    iterator2++;
+                }
+                CategoriaBandaVotacion catActualConBanda = new CategoriaBandaVotacion(categoriaActual.categoria, bandaConResultado);
+                categoriasEventoEspecifico[iterator] = JObject.FromObject(catActualConBanda);
+                iterator++;
+            }
+
+            return categoriasEventoEspecifico;
         }
 
         public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, JArray pListaCategorias)
@@ -70,21 +113,17 @@ namespace MyConcert_WebService.models
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
                         eventos nuevoEvento = _convertidor.updateeventos(nuevoFestival);
 
-                        List<string> bandasGanadoras = new List<string>();
-                        foreach(CategoriaBanda cat_band in categorias)
-                        {
-                            foreach(int IDBanda in cat_band._bandasID)
-                            {
-                                bandasGanadoras.Add(_manejador.obtenerBanda(IDBanda).nombreBan);
-                            }
-                        }
-
-
+                        List<bandas> bandasGanadorasFestival = parseBandas(categorias);
+                        List<categorias> categoriasCartelera = _manejador.obtenerCategoriasEvento(nuevoEvento.PK_eventos);
+                        List<bandas> todasBandasCartelera = extraerBandasEvento(nuevoEvento, categoriasCartelera);
+                        List<bandas> bandasPerdedoras = extraerBandasNoSeleccionadas(bandasGanadorasFestival, todasBandasCartelera);
+                        List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
 
                         string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
                         nuevoEvento.FK_EVENTOS_BANDAS_CHEF = _manejador.obtenerBanda(bandaRecomendada).PK_bandas;
 
-                        _manejador.añadirFestival(nuevoEvento, _convertidor.updatecategoriasevento(categorias));
+                        _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
+
                         respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
                         break;
                     default:
@@ -98,6 +137,59 @@ namespace MyConcert_WebService.models
             }
 
             return respuesta;
+        }
+
+        private static List<string> bandasToString(List<bandas> bandasGanadorasFestival)
+        {
+            List<string> bandasGanadoras = new List<string>();
+            foreach (bandas bandaGanadora in bandasGanadorasFestival)
+            {
+                bandasGanadoras.Add(bandaGanadora.nombreBan);
+            }
+
+            return bandasGanadoras;
+        }
+        
+        private List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
+        {
+            List<bandas> bandasPerdedoras = new List<bandas>();
+            foreach (bandas bandaGanadora in bandasGanadorasFestival)
+            {
+                bandas bandaEliminar = todasBandasCartelera.Find(x => x.Equals(bandaGanadora));
+                if (bandaEliminar != null)
+                    todasBandasCartelera.Remove(bandaEliminar);
+                else
+                    bandasPerdedoras.Add(bandaEliminar);
+            }
+            return bandasPerdedoras;
+        }
+
+        private List<bandas> extraerBandasEvento(eventos nuevoEvento, List<categorias> categoriasCartelera)
+        {
+            List<bandas> todasBandasCartelera = new List<bandas>();
+            foreach (categorias categoriaActual in categoriasCartelera)
+            {
+                foreach (bandas bandaActual in _manejador.obtenerBandasCategoria(categoriaActual.PK_categorias, nuevoEvento.PK_eventos))
+                {
+                    todasBandasCartelera.Add(bandaActual);
+                }
+            }
+
+            return todasBandasCartelera;
+        }
+
+        private List<bandas> parseBandas(CategoriaBanda[] categorias)
+        {
+            List<bandas> bandasGanadorasFestival = new List<bandas>();
+            foreach (CategoriaBanda cat_band in categorias)
+            {
+                foreach (int IDBanda in cat_band._bandasID)
+                {
+                    bandasGanadorasFestival.Add(_manejador.obtenerBanda(IDBanda));
+                }
+            }
+
+            return bandasGanadorasFestival;
         }
     }
 }

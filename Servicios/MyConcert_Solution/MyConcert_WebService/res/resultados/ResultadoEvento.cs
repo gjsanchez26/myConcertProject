@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert_WebService.res.resultados
 {
@@ -11,5 +6,12 @@ namespace MyConcert_WebService.res.resultados
     {
         public JObject event_data;
         public JObject[] categories;
+
+        public ResultadoEvento(bool pSuccess, JObject event_data, JObject[] categories)
+        {
+            this.success = pSuccess;
+            this.event_data = event_data;
+            this.categories = categories;
+        }
     }
 }

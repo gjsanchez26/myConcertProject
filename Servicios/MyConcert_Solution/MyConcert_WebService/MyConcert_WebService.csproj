@@ -206,11 +206,13 @@
     <Compile Include="viewModels\Cancion.cs" />
     <Compile Include="viewModels\Cartelera.cs" />
     <Compile Include="viewModels\Categoria.cs" />
+    <Compile Include="viewModels\CategoriaBandaVotacion.cs" />
     <Compile Include="viewModels\Colaborador.cs" />
     <Compile Include="viewModels\Comentario.cs" />
     <Compile Include="viewModels\Evento.cs" />
     <Compile Include="viewModels\Fanatico.cs" />
     <Compile Include="viewModels\Festival.cs" />
+    <Compile Include="viewModels\FestivalBandas.cs" />
     <Compile Include="viewModels\GeneroMusical.cs" />
     <Compile Include="viewModels\MiembroBanda.cs" />
     <Compile Include="viewModels\Pais.cs" />

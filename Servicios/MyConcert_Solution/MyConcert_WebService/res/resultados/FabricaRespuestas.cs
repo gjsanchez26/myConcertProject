@@ -33,5 +33,10 @@ namespace MyConcert_WebService.res.resultados
         {
             return new ResultadoBanda(pExito, pBand, pGenres, pMembers, pSongs, pComments);
         }
+
+        public Respuesta crearRespuestaEvento(bool pExito, JObject[] pCategories, JObject pEventData)
+        {
+            return new ResultadoEvento(pExito, pEventData, pCategories);
+        }
     }
 }
