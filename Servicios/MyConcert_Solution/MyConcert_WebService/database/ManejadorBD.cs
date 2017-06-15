@@ -167,7 +167,7 @@ namespace MyConcert_WebService
 
         public int getCantidadComentarios(bandas banda)
         {
-            return getCantidadComentarios(banda);
+            return eveDB.getCantidadComentarios(banda);
         }
         
         public float getCalificacion(bandas banda)

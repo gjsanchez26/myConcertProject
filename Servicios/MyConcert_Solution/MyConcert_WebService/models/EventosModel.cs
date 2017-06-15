@@ -126,6 +126,7 @@ namespace MyConcert_WebService.models
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
 
                         string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
+
                         nuevoEvento.FK_EVENTOS_BANDAS_CHEF = _manejador.obtenerBanda(bandaRecomendada).PK_bandas;
 
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
