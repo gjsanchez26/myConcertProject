@@ -17,15 +17,6 @@ namespace MyConcert_WebService.models
      */
     class ChefModel
     {
-        //Manejador de base de datos 
-        private ManejadorBD _managerDB;
-
-        public ChefModel()
-        {
-            _managerDB = new ManejadorBD();
-        }
-
-
         /**
          * @brief Funcion que solicita dependencias y ejecuta el algoritmo del chef según los parámetros indicados. 
          * @param pwinners Lista de bandas ganadoras.
@@ -33,6 +24,7 @@ namespace MyConcert_WebService.models
          */
         public string executeChefProcess(List<string> pwinners, int id_fest)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             /* ALGORITMO DEL CHEF */
             Console.WriteLine("Algoritmo del Chef");
             /*se captura desde javascript al realizar la eleccion de las bandas ganadoras*/
@@ -89,6 +81,7 @@ namespace MyConcert_WebService.models
          */
         public List<float> getComments(List<bandas> pbands)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             List<float> _comments = new List<float>();
             for (int i = 0; i < pbands.Count; i++)
             {
@@ -104,6 +97,7 @@ namespace MyConcert_WebService.models
          */
         public List<float> getRating(List<bandas> pbands)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             List<float> _ratings = new List<float>();
             for (int i = 0; i < pbands.Count; i++)
             {
@@ -134,6 +128,7 @@ namespace MyConcert_WebService.models
          */
         public List<List<canciones>> getAllSongsArtists(List<bandas> pbands)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             List<List<canciones>> _songs = new List<List<canciones>>();
             for (int i = 0; i < pbands.Count; i++)
             {

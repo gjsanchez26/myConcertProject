@@ -1,4 +1,5 @@
-﻿using MyConcert_WebService.server;
+﻿using MyConcert_WebService.controllers;
+using MyConcert_WebService.server;
 using System;
 using System.Globalization;
 
@@ -9,7 +10,7 @@ namespace MyConcert_WebService
         
         public static void Main(string[] args)
         {
-
+            //EventosController error = new EventosController(); 
             Server server = new Server();
             //string dateString = "Fri Jun 30 2017 00:00:00 GMT -0600 (Central Standard time)";
             //DateTime d = DateTime.ParseExact(dateString.Substring(0, 24),
@@ -17,6 +18,7 @@ namespace MyConcert_WebService
             //                  CultureInfo.InvariantCulture);
             //Console.WriteLine(d.ToString());
             //Console.ReadLine();
+
         }
 
        

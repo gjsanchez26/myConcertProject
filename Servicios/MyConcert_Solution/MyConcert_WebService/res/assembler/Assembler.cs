@@ -169,7 +169,8 @@ namespace MyConcert_WebService.res.assembler
             event_feste.transporte = pEvento.Transporte;
             event_feste.servicios = pEvento.Servicios;
             event_feste.comida = pEvento.Comida;
-            event_feste.FK_EVENTOS_BANDAS_CHEF = _manejadorDB.obtenerBanda(pEvento.RecomendacionChef).PK_bandas;
+            bandas banda = _manejadorDB.obtenerBanda(pEvento.RecomendacionChef);
+            event_feste.FK_EVENTOS_BANDAS_CHEF = banda == null ? 0 : banda.PK_bandas;
             event_feste.FK_EVENTOS_TIPOSEVENTOS = _manejadorDB.obtenerTipoEvento(pEvento.TipoEvento).PK_tiposEventos;
             event_feste.FK_EVENTOS_ESTADOS = _manejadorDB.obtenerEstado(pEvento.Estado).PK_estados;
 

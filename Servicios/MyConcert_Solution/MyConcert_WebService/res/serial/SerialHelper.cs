@@ -129,7 +129,7 @@ namespace MyConcert_WebService.res.serial
                             (string)pDatosEvento.food,
                             (string)pDatosEvento.transport,
                             (string)pDatosEvento.services,
-                            ""); //Recomendacion del chef
+                            "null"); //Recomendacion del chef
         }
     }
 }
