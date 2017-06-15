@@ -29,6 +29,7 @@ namespace MyConcert_WebService.res
         public Chef()
         {
             _spotify = new SpotifyUtils();
+            _commentsTable = new CommentsTable();
         }
 
         /**
@@ -269,7 +270,7 @@ namespace MyConcert_WebService.res
             List<float> amount_comments_other, List<float> amount_stars_other, List<float> amount_comments_winners,
             List<float> amount_stars_winners)
         {
-            _commentsTable = new CommentsTable();
+            //_commentsTable = new CommentsTable();
            
             //Se calculan los promedios de las posibles bandas recomendadas
 
