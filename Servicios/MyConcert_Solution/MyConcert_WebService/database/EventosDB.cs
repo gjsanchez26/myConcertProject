@@ -221,10 +221,13 @@ namespace MyConcert_WebService.database
                         fest = festival;
                         foreach (bandas b in perdedoras)
                         {
-                            categoriasevento ce = context.categoriasevento.FirstOrDefault(w => w.FK_CATEGORIASEVENTO_BANDAS == b.PK_bandas &&w.FK_CATEGORIASEVENTO_EVENTOS==fest.PK_eventos);
-                            votos vot = context.votos.FirstOrDefault(w => w.FK_VOTOS_BANDAS == b.PK_bandas && w.FK_VOTOS_EVENTOS == fest.PK_eventos);
+                            categoriasevento ce = context.categoriasevento.FirstOrDefault(w => w.FK_CATEGORIASEVENTO_BANDAS == b.PK_bandas && w.FK_CATEGORIASEVENTO_EVENTOS==fest.PK_eventos);
+                            List<votos> vot = context.votos.Where(w => w.FK_VOTOS_BANDAS == b.PK_bandas && w.FK_VOTOS_EVENTOS == fest.PK_eventos).ToList();
                             context.categoriasevento.Remove(ce);
-                            context.votos.Remove(vot);
+                            foreach (votos v in vot)
+                            {
+                                context.votos.Remove(v);
+                            }
                         }
                         context.SaveChanges();
                         dbContextTransaction.Commit();

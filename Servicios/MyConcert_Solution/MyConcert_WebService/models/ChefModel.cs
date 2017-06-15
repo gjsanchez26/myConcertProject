@@ -17,15 +17,6 @@ namespace MyConcert_WebService.models
      */
     class ChefModel
     {
-        //Manejador de base de datos 
-        private ManejadorBD _managerDB;
-
-        public ChefModel()
-        {
-            _managerDB = new ManejadorBD();
-        }
-
-
         /**
          * @brief Funcion que solicita dependencias y ejecuta el algoritmo del chef según los parámetros indicados. 
          * @param pwinners Lista de bandas ganadoras.
@@ -33,24 +24,25 @@ namespace MyConcert_WebService.models
          */
         public string executeChefProcess(List<string> pwinners, int id_fest)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             /* ALGORITMO DEL CHEF */
             Console.WriteLine("Algoritmo del Chef");
             /*se captura desde javascript al realizar la eleccion de las bandas ganadoras*/
+
             List<bandas> winner_bands = new List<bandas>();
-            List<bandas> other_bands = new List<bandas>();           
-
-            /*    _other.Add("Janis Joplin");
-                _other.Add("Jefferson Airplane");
-                _other.Add("Led Zeppelin");    */
-                
+            foreach (string nameBands in pwinners)
+            {
+                winner_bands.Add(_managerDB.obtenerBanda(nameBands));
+            }
+            
             eventos _evento = _managerDB.obtenerEvento(id_fest);
-            other_bands = _managerDB.obtenerBandasNoCartelera(_evento);
+            List<bandas> other_bands = _managerDB.obtenerBandasNoCartelera(_evento);
             List<string> _other = getBandsNames(other_bands);
-
+            
             /* POR MIENTRAS: winner_songs */
             List<List<canciones>> winner_songs = getAllSongsArtists(winner_bands);
             List<List<canciones>> other_songs = getAllSongsArtists(other_bands);
-
+            
             Chef _chef = new Chef();
             try
             {
@@ -58,17 +50,17 @@ namespace MyConcert_WebService.models
                 /*SE SOLICITA INFO A LA BASE DE DATOS RESPECTO A LA BANDA*/
                 /*SE GENERA LA BANDA RECOMENDADA*/
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("Error: No hay suficiente informacion de las bandas en Spotify...");
-                Console.WriteLine("Algoritmo del Chef alternativo");
-
                 List<float> amount_comments_other = getComments(other_bands);
                 List<float> amount_comments_winners = getComments(winner_bands);
 
                 List<float> amount_stars_other = getRating(other_bands);
                 List<float> amount_stars_winners = getRating(winner_bands);
 
+                Console.WriteLine("Error: No hay suficiente informacion de las bandas en Spotify...");
+                Console.WriteLine("Algoritmo del Chef alternativo");
+                
                 return _chef.alternativeChefAlgorythm(pwinners, _other, amount_comments_other, amount_stars_other,
                     amount_comments_winners, amount_stars_winners);
             }
@@ -89,6 +81,7 @@ namespace MyConcert_WebService.models
          */
         public List<float> getComments(List<bandas> pbands)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             List<float> _comments = new List<float>();
             for (int i = 0; i < pbands.Count; i++)
             {
@@ -104,6 +97,7 @@ namespace MyConcert_WebService.models
          */
         public List<float> getRating(List<bandas> pbands)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             List<float> _ratings = new List<float>();
             for (int i = 0; i < pbands.Count; i++)
             {
@@ -134,6 +128,7 @@ namespace MyConcert_WebService.models
          */
         public List<List<canciones>> getAllSongsArtists(List<bandas> pbands)
         {
+            ManejadorBD _managerDB = new ManejadorBD();
             List<List<canciones>> _songs = new List<List<canciones>>();
             for (int i = 0; i < pbands.Count; i++)
             {

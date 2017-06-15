@@ -61,18 +61,26 @@ namespace Sptfy
          */
         public string searchArtistID(string partist)
         {
+            string respuesta = "";
             FullArtist info_artist = null;
             SearchItem item = _spotify.SearchItems(partist, SearchType.Artist);
-
-            //Busca el dato 
-            for (int i = 0; i < item.Artists.Items.Count; i++)
+            try
             {
-                if (partist == item.Artists.Items[i].Name)
+                //Busca el dato 
+                for (int i = 0; i < item.Artists.Items.Count; i++)
                 {
-                    info_artist = item.Artists.Items[i];
+                    if (partist == item.Artists.Items[i].Name)
+                    {
+                        info_artist = item.Artists.Items[i];
+                    }
                 }
+                respuesta = info_artist.Id;
+            } catch(Exception e)
+            {
+                respuesta = "";
             }
-            return info_artist.Id;
+
+            return respuesta;
         }
         
         

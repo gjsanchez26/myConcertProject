@@ -59,11 +59,17 @@ namespace MyConcert_WebService.models
             {
                 List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, listaCategoriasEvento);
                 JObject[] bandas = new JObject[bandasFestival.Count];
-                foreach(bandas band in bandasFestival)
+                int iterator = 0;
+                foreach(bandas bandaActual in bandasFestival)
                 {
-
+                    dynamic banda = new JObject();
+                    banda.name_band = bandaActual.nombreBan;
+                    banda.votes = _manejador.obtenerCantidadVotos(eventoSolicitado.PK_eventos, bandaActual.PK_bandas);
+                    bandas[iterator] = banda; 
                 }
-
+                Evento evento = _convertidor.createEvento(eventoSolicitado);
+                FestivalBandas fest = new FestivalBandas(JObject.FromObject(evento), bandas);
+                respuesta = _creador.crearRespuesta(true, JObject.FromObject(fest));
             }
 
             return respuesta;
@@ -120,6 +126,7 @@ namespace MyConcert_WebService.models
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
 
                         string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
+
                         nuevoEvento.FK_EVENTOS_BANDAS_CHEF = _manejador.obtenerBanda(bandaRecomendada).PK_bandas;
 
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);

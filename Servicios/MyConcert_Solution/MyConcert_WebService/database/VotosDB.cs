@@ -83,9 +83,9 @@ namespace MyConcert_WebService.database
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-                throw (ex);
+                votos = 0;
             }
             return votos;
         }
@@ -104,9 +104,9 @@ namespace MyConcert_WebService.database
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-                throw (ex);
+                votos = 0;
             }
             return votos;
         }
