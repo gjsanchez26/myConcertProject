@@ -10,15 +10,18 @@ myConcert.controller("crearCarteleraController", function($scope, $http, crearCa
         console.log("creacionCartelera");
         crearCarteleraModel.crearCartelera($scope.cartelera);
     };
-    $scope.agregarCategoria = function(){
-        crearCarteleraModel.agregarCategoria($scope.cartelera);     
+    $scope.agregarCategorias = function(){
+        crearCarteleraModel.agregarCategorias($scope.cartelera);     
     }
+    
     $scope.obtenerBandas = function(categoria){
         crearCarteleraModel.obtenerBandas(categoria,$scope.cartelera); 
         console.log("aqui1");
     }
-    $scope.agregarBanda = function (Banda) {
-        crearCarteleraModel.agregarBanda(Banda);
+    $scope.agregarBanda = function (banda) {
+        console.log("Nombre de Banda");
+        console.log(banda);
+        crearCarteleraModel.agregarUnaBanda(banda.Id);
     }
     $scope.crearCategoria = function(){
         crearCarteleraModel.crearCategoria();

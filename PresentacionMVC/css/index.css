@@ -5,12 +5,15 @@
     font-family: 'Titillium Web', sans-serif;
     box-sizing: border-box;   
 }
-
+html, body{
+    
+}
 
 body{
     background-image: url(/images/background1.jpg);
+    height: 99%;
+    overflow:hidden;
     height: 250px;
-    overflow-y: auto;
     background-size: 100vw 100vh;
     background-attachment: fixed;
     margin: 0;
@@ -192,4 +195,9 @@ textarea {
   margin-top: -20px;
   text-align: right;
 }
+
+
+
+
+
 

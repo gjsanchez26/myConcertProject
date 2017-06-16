@@ -1,28 +1,36 @@
 myConcert.service("crearCarteleraModel", function($routeParams, $location, $http){
 var myURL ="http://192.168.100.12:12345";
+
 var listaCategorias=[];
 var listaBandas=[]; 
-var listaTemporalBandas=[]
+var listaTemporalBandas=[];
+var listaTemporalCategorias=[];
+    
 var listaCategorias=[];
 var listaCategoriaBanda=[];
 var categoriaActual;
-this.agregarCategoria = function (cartelera){
-    listaCategorias.push(cartelera.categoria);
-    console.log(listaCategorias);
-    cartelera.categoria="";
-    cartelera.listaCategorias=listaCategorias;
+  
+this.agregarCategorias = function (cartelera){
+    for (i = 0; i < cartelera.categoriasElegidas.length; i++) {
+        listaTemporalCategorias.push(cartelera.categoriasElegidas[i]);
+    }
+    cartelera.listaCategorias = listaTemporalCategorias;
+
 }
-this.agregarBanda= function(banda){
-    listaTemporalBandas.push(banda.nombre); 
+
+this.agregarUnaBanda= function(banda){
+    listaTemporalBandas.push(banda); 
     console.log("Lista Temporal");
     console.log(listaTemporalBandas);
 }
 
 this.crearCategoria= function(banda){
     var categorias = {
-        "category": categoriaActual,
+        "category": categoriaActual.Id,
         "bands": listaTemporalBandas        
     }
+    listaTemporalCategorias=[];
+    listaTemporalBandas=[];
     console.log("Categoria y Bandas");
     console.log(categorias);
     listaCategoriaBanda.push(categorias); 
@@ -71,43 +79,42 @@ this.obtenerBandas  = function(categoria,cartelera){
 this.crearCartelera= function (cartelera) {
     var Cartelera;
     Cartelera = {
-        "event_type":              "Cartelera",
+        "event_type":                     "cartelera",
         "event_data":
                {   
                 "name":                   cartelera.nombre,
                 "ubication":              cartelera.ubicacion,
-                "country":                cartelera.pais,
+                "country":                document.getElementById("paisSeleccionado").value,
                 "initial_date":           cartelera.fechaInicioFestival,
                 "initial_hour":           cartelera.horaInicioFestival,
                 "final_date":             cartelera.fechaFinalFestival,
-                "final_hous" :            cartelera.horaFinalFestival,   
-                "vote_initial_date":      cartelera.fechaInicioVotacion,
+                "final_hour" :            cartelera.horaFinalFestival,   
                 "vote_final_date":        cartelera.fechaFinalVotacion,
                },
-        "Categories": listaCategoriaBanda
+        "categories": listaCategoriaBanda
        
     };
 
     
     console.log(Cartelera);
- /*   
+ 
     $http({
                 method: 'POST',
-                url: myURL+"/API/Carteleras",
+                url: myURL+"/API/Eventos",
                 headers: {
                     'Content-Type' : 'application/json'
                 },
-                data: Fanatico
+                data: Cartelera
                 }).then(function(result){
                     if (result.data.success)
-                    {alert("Usuario Creado");
+                    {alert("Cartelera Creada");
                      window.location.href = "#vistaColaborador";
                     }
                     else alert(result.data.content)
 
                 }, function(error) {
                     console.log(error);
-                });*/
+                });
 }
 
 this.obtenerPaises = function(cartelera) {
@@ -144,7 +151,7 @@ this.obtenerCategorias = function(cartelera) {
                     console.log(result);
                     if (result.data.success)
                     {   
-                        cartelera.listaCategorias=result.data.Elements;
+                        cartelera.CategoriasDisponibles=result.data.Elements;
 
                     }
                     else alert(result.data.content)

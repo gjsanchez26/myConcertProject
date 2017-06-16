@@ -1,6 +1,6 @@
 
 var configMyConcert = function($routeProvider){
-    
+
     $routeProvider
         .when("/home", {
             controller: "myConcertController",
@@ -38,6 +38,10 @@ var configMyConcert = function($routeProvider){
             controller: "verCatalogoController",
             templateUrl: "views/Colaborador/verCatalogoView.html"
         })
+        .when("/crearFestival", {
+            controller: "crearFestivalController",
+            templateUrl: "views/Colaborador/crearFestivalView.html"
+        })
         
         
     ;
@@ -45,5 +49,5 @@ var configMyConcert = function($routeProvider){
 }
  
 //creamos el modulo y le aplicamos la configuración
-var myConcert = angular.module("myConcert", ["ngRoute"]).config(configMyConcert);
+var myConcert = angular.module("myConcert",  ['ngAnimate', 'ngAria', 'ui.bootstrap', 'ngMaterial', 'ngMessages', 'ngRoute', 'ui.router']).config(configMyConcert);
 window.location.href = "#registroForm";

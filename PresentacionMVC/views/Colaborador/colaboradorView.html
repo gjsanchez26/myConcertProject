@@ -1,4 +1,4 @@
-<div ng-controller="colaboradorController" >
+<div ng-controller="colaboradorController">
         <div style="margin: 0px 0px 0px 0px;">
         <nav  class="navbar navbar-inverse">
           <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" id="idUser" href="#"  ng-click="obtenerBandas()" style="color:#FFFFFF">MyConcert</a>
+              <a class="navbar-brand" id="idUser" href="#crearFestival" style="color:#FFFFFF">MyConcert</a>
              
             </div>
             <a class="navbar-brand" id="idUser" href="#home" style="color:#FFFFFF"></a>
@@ -44,7 +44,7 @@
           </div>
         </nav>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" >
           <div class="row">
                 <div class="col-sm-1 col-md-2 sidenav">
                   
@@ -60,20 +60,18 @@
 
                 </div>
                  
-                <div class="col-sm-3 col-md-4" style="background: rgba(38, 0, 51, 0.4); margin: 0px 0px 0px 25px;">
-                        <div id="panelCarteleras">
-                       
-                        <div ng-repeat="item in listaCarteleras">
+                <div class="col-sm-3 col-md-4" style="background: rgba(38, 0, 51, 0.4); margin: 0px 0px 0px 60px; position:static; height:650px; overflow-y:scroll; ">
+                        <div id="panelCarteleras" >                   
+                        <div ng-repeat="item in listaCarteleras" >
                           <hr>
                           <h2 style="color:#FFFFFF" >{{item.nombre}}</h2>
-                          <span type="button" class="btn btn-info"  data-toggle="modal" href="#infoCarteleraModal" >Ver</span>
-                          <p style="color:#BCAFB9; width:100%; height:100%" ng-click= "obtenerCarterelera(item)";>Informacion</p>
+                          <span type="button" ng-click="obtenerUnaCartelera(item)" class="btn btn-info"  data-toggle="modal" href="#infoCarteleraModal"  >Ver</span>
+                          <p style="color:#BCAFB9; width:100%; height:100%" ng-click= "obtenerCarterelera(item)" href="#crearFestival">Informacion</p>
                           <br><br>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-sm-3 col-md-4" style="background: rgba(38, 0, 51, 0.4); margin: 0px 0px 0px 50px;">
+                <div class="col-sm-3 col-md-4" style="background: rgba(38, 0, 51, 0.4); margin: 0px 0px 0px 60px; position:static;  height:650px; overflow-y:scroll;">
                      <div id = "panelFestivales"  >
                         <div id="FestivalEspecifico">
                               <hr>
@@ -97,8 +95,6 @@
 
                 </div>
                 <div class="container">
-                          
-
                           <!-- Modal -->
                           <div id="infoCarteleraModal" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
                           
@@ -110,19 +106,151 @@
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                   <h4 class="modal-title">Cartelera de Votacion</h4>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body"  style="color:#6d153d">
+                                    <h1 style="color:#6d153d">{{infoCartelera.event_data.name}}</h1>
+                                    <div class="top-row">
+                                         <div class="form-group">
+                                              <label style="color:#6d153d" class="control-label col-sm-2" for="fechaInicioFestival">Fecha Inicio:</label>
+                                              <div class="col-sm-10">
+                                                  <p id="fechaInicioFestival" name="fechaInicioFestival">{{infoCartelera.event_data.initial_date}}</p>
+                                              </div>
+                                         </div>
+                                        <div class="form-group">
+                                              <label style="color:#6d153d" class="control-label col-sm-2" for="finVotacion">Fecha Inicio:</label>
+                                              <div class="col-sm-10">
+                                                  <p id="fechaFinalFestival" name="fechaFinalFestival">{{infoCartelera.event_data.final_date}}</p>
+                                              </div>
+                                         </div>
+                                        
+                                    </div>
+                                    <div class="top-row">
+                                         <div class="form-group">
+                                              <label style="color:#6d153d" class="control-label col-sm-2" for="lugar">Lugar:</label>
+                                              <div class="col-sm-10">
+                                                  <p id="lugar" name="lugar">{{infoCartelera.event_data.ubication}},{{infoCartelera.event_data.country}}</p>
+                                              </div>
+                                         </div>
+                                        <div class="form-group">
+                                              <label style="color:#6d153d" class="control-label col-sm-2" for="finVotacion">Fin Votaciones:</label>
+                                              <div class="col-sm-10">
+                                                  <p id="finVotacion" name="finVotacion">{{infoCartelera.event_data.vote_final_date}}</p>
+                                              </div>
+                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div  class="col-sm-6 col-md-6 col-lg-12" >
+                                            <uib-accordion close-others="oneAtATime" style=" display:block;margin-left:auto;margin-right:auto;">
+                                                <uib-accordion-group ng-repeat="cartelera in infoCartelera.categories" ng-scroll="cartelera in infoCartelera.categories" is-open="cartelera.isOpen" ng-click="updateOpenStatus()">
+                                                    <uib-accordion-heading style="background-color:#6d153d" ng-model="checkTitle">
+                                                        {{cartelera.category}}
+                                                    </uib-accordion-heading>
+                                                        <a>{{cartelera.category}}</a>
+                                                        <div >
+                                                          <h2>Resultados Parciales</h2>          
+                                                          <table class="table table-hover">
+                                                            <thead>
+                                                              <tr>
+                                                                <th>Banda</th>
+                                                                <th>Votos</th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                              <tr ng-repeat ="banda in cartelera.results">
+                                                                <td >{{banda.band}}</td>
+                                                                <td>{{banda.votes}}</td>
+                                                              </tr>
+                                                          
+                                                            </tbody>
+                                                          </table>
+                                                        </div>
+                                                </uib-accordion-group>
+                                            </uib-accordion>
+                                    </div>
+
+                                    </div>
                                     
                                  
-                                </div>
+                                
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="agregarBandas()">Close</button>
+                                  <button type="button" class="button button-block"  href="#FestivalModal"  data-toggle="modal" ng-click="crearFestival()" data-dismiss="modal">CONVERTIR EN FESTIVAL</button>
                                 </div>
                               </div>
 
                             </div>
                           </div>
 
+                
+                    <!-- Modal -->
+                    <div class="container">
+                          <div id="FestivalModal" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;  ">
+                          
+                            <div class="modal-dialog modal-lg  ">
+
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Crear Festival</h4>
+                                </div>
+                                <div class="modal-body" >
+                                    <div class="top-row">
+                                        <div>
+                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
+                                                <label for="C_Name" style="color:#6d153d" >Informacion Comida</label>
+                                                <textarea style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="7" cols="20"></textarea>
+                                            </div>
+                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
+                                                <label for="C_Name" style="color:#6d153d" >Informacion de Servicios</label>
+                                                <textarea style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="7" cols="20"></textarea>
+                                            </div>
+                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
+                                                <label for="C_Name" style="color:#6d153d">Informacion de Transporte</label>
+                                                <textarea style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="7" cols="20"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback" style="margin: 10px 0px 0px 0px;">
+                                         <h3>Selecciones las bandas deseadas</h3>
+                                         <div  class="col-sm-6 col-md-6 col-lg-12" >
+                                                <uib-accordion close-others="oneAtATime" style="display:block">
+                                                    <uib-accordion-group ng-repeat="cartelera in infoCartelera.categories" ng-scroll="cartelera in infoCartelera.categories" is-open="cartelera.isOpen" ng-click="updateOpenStatus()">
+                                                        <uib-accordion-heading style="background-color:#6d153d" ng-model="checkTitle">
+                                                            {{cartelera.category}}
+                                                        </uib-accordion-heading>
+                                                            <a>{{cartelera.category}}</a>
+                                                            <div >
+                                                              <h4>Resultados Parciales</h4>          
+                                                              <table class="table table-hover">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th>Banda</th>
+                                                                    <th>Votos</th>
+                                                                    <th>Seleccionar</th>
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                  <tr ng-repeat ="banda in cartelera.results">
+                                                                    <td >{{banda.band}}</td>
+                                                                    <td>{{banda.votes}}</td>
+                                                                    <td><input type="checkbox" ng-model="bandasSeleccionadas" name="bandasSeleccionadas" value="{{banda.band}}.{{cartelera.category}}" checked></td>
+                                                                  </tr>
+
+                                                                </tbody>
+                                                              </table>
+                                                            </div>
+                                                    </uib-accordion-group>
+                                                </uib-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="button button-block" data-dismiss="modal"  ng-click="crearFestival()">CREAR FESTIVAL</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                         </div>
+                </div>  
           </div>
         
     
