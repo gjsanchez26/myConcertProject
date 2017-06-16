@@ -194,5 +194,24 @@ namespace MyConcert.database
             }
             return obj;
         }
-    }
+
+        public void añadirComentario(comentarios coment)
+        {
+            using (myconcertEntities context = new myconcertEntities())
+            {
+
+                try
+                {
+                    context.comentarios.Add(coment);
+
+                    context.SaveChanges();
+
+                }
+                catch (Exception e)
+                {
+                    throw (e);
+                }
+            }
+        }
+       }
 }

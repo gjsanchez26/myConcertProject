@@ -21,10 +21,16 @@ namespace MyConcert
              usuDB = new UsuariosDB();
              utiDB = new UtilidadesDB();
              votDB = new VotosDB();
+
         }
 
         //BANDASDB
 
+
+        public void añadirComentario(comentarios coment)
+        {
+            banDB.añadirComentario(coment);
+        }
         public void añadirBanda(bandas banda, List<integrantes> integ, List <canciones> canciones, List<generos> gen)
         {
             
