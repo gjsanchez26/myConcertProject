@@ -74,7 +74,7 @@ namespace MyConcert.viewModels
             return JObject.FromObject(this);
         }
 
-        internal string RecomendacionChef
+        public string RecomendacionChef
         {
             get
             {

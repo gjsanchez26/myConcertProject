@@ -23,17 +23,17 @@ namespace MyConcert.resources.services
             {
                 CredentialStore = new SingleUserInMemoryCredentialStore
                 {
-                    ConsumerKey = "6xkDbM2YckJmuORo6l8x63Chh",
-                    ConsumerSecret = "G5RzCrPHHmv1sXtdJZeQKOrdDlPjLE11attPRlrqmdgm6f0bMe",
-                    AccessToken = "861808810465341440-sIiLeRKb6pfvygyib1q9GVF7Hqkqs6K",
-                    AccessTokenSecret = "6o0vnhse0z33we5oO1AOSxgbQckgsDbDTTTtwzIz8PbIP"
+                    ConsumerKey = _consumerKey,
+                    ConsumerSecret = _consumerSecret,
+                    AccessToken = _accessToken,
+                    AccessTokenSecret = _accessTokenSecret
                 }
             };
 
             _contexto = new TwitterContext(auth);
         }
 
-        public static async Task enviarTweet(string pMensaje)
+        public async Task enviarTweet(string pMensaje)
         {
             var tweet = await _contexto.TweetAsync(pMensaje);
 

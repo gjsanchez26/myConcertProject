@@ -13,27 +13,5 @@ namespace MyConcert.viewModels
             _categoriaID = categoriaID;
             _bandasID = bandasID;
         }
-
-        public bool deserialize(JObject pObject)
-        {
-            bool estado = true;
-            dynamic json = pObject;
-            try
-            {
-                this._categoriaID = json.id;
-                this._bandasID = json.bands;
-            }
-            catch (Exception e)
-            {
-                estado = false;
-                throw (e);
-            }
-            return estado;
-        }
-
-        public JObject serialize()
-        {
-            return JObject.FromObject(this);
-        }
     }
 }

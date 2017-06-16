@@ -11,10 +11,5 @@ namespace MyConcert.resources.results
             this.success = pExito;
             this.content = pObjeto;
         }
-
-        public ResultadoObjeto()
-        {
-
-        }
     }
 }

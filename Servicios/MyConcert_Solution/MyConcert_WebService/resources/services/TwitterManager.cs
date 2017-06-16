@@ -19,5 +19,16 @@ namespace MyConcert.resources.services
 
 
         }
+
+        public async void enviarTweet(string mensaje)
+        {
+            try
+            {
+                await _conexion.enviarTweet(mensaje);
+            } catch(Exception e)
+            {
+                throw (e);
+            }
+        }
     }
 }

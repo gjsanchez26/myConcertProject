@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using MyConcert.resources.assembler;
 using System.Collections.Generic;
+using MyConcert.resources.services;
 
 namespace MyConcert.models
 {
@@ -12,6 +13,13 @@ namespace MyConcert.models
     {
         private SerialHelper _serial = new SerialHelper();
         private ChefModel _chef = new ChefModel();
+
+        public EventosModel()
+        {
+            this._manejador = new FacadeDB();
+            this._fabricaRespuestas = new FabricaRespuestas();
+            this._convertidor = new Assembler();
+        }
 
         public Respuesta getCarteleras()
         {
@@ -49,7 +57,7 @@ namespace MyConcert.models
             {
                 JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, listaCategoriasEvento);
                 Evento eventoAuxiliar = _convertidor.createEvento(eventoSolicitado);
-                respuesta = _fabricaRespuestas.crearRespuestaEvento(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
+                respuesta = _fabricaRespuestas.crearRespuesta(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
 
             }
             else if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(2).PK_tiposEventos)
@@ -102,15 +110,20 @@ namespace MyConcert.models
             Respuesta respuesta = null;
             try
             {
+                string nombreEvento = null;
                 CategoriaBanda[] categorias = _serial.getArrayCategoriaBandaEvento(pListaCategorias);
 
                 switch (pTipoEvento)
                 {
                     case "cartelera":
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
-                        
+                        nombreEvento = nuevaCartelera.Nombre;
 
-                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), _convertidor.updatecategoriasevento(categorias));
+                        List<categoriasevento> categoriasEvento = _convertidor.updatecategoriasevento(categorias);
+                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), categoriasEvento);
+
+                        publicarBandasTwitter(nombreEvento, categoriasEvento);
+
                         respuesta = _fabricaRespuestas.crearRespuesta(true, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
@@ -134,6 +147,8 @@ namespace MyConcert.models
                         nuevoEvento.FK_EVENTOS_BANDAS_CHEF = _manejador.obtenerBanda(bandaRecomendada).PK_bandas;
 
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
+
+                        publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
 
                         respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente.");
                         break;
@@ -206,6 +221,37 @@ namespace MyConcert.models
             }
 
             return bandasGanadorasFestival;
+        }
+
+        private void publicarBandasTwitter(string pNombreEvento, List<categoriasevento> pListaCategoriasBanda)
+        {
+            TwitterManager twitter = new TwitterManager(); 
+            foreach (categoriasevento cat_eve in pListaCategoriasBanda)
+            {
+                string nombreBanda = _manejador.obtenerBanda(cat_eve.FK_CATEGORIASEVENTO_BANDAS).nombreBan;
+                string mensajeTweet = "¡Vota por tu banda. " + nombreBanda + " en el festival " + pNombreEvento +"!";
+                try
+                {
+                    twitter.enviarTweet(mensajeTweet);
+                } catch(Exception e)
+                {
+                    throw (e);
+                }
+            }
+        }
+
+        private void publicarFestivalNuevoTwitter(string pNombreEvento)
+        {
+            TwitterManager twitter = new TwitterManager();
+            try
+            {
+                string mensajeTweet = "¡Visita nuestro nuevo festival " + pNombreEvento +"!";
+                twitter.enviarTweet(mensajeTweet);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
         }
     }
 }
