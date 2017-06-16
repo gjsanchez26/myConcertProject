@@ -1,5 +1,6 @@
 myConcert.service("registroModel", function($routeParams, $location, $http){
-var myURL ="http://192.168.100.12:12345";
+//var myURL ="http://192.168.100.12:12345";
+var myURL ="http://192.168.43.30:12345";  
 var paises;
 this.verificarUsuario = function(usuarioLogin){  
     
@@ -36,7 +37,7 @@ this.verificarUsuario = function(usuarioLogin){
     
 this.crearUsuario = function (usuario) {
     var Fanatico;
-    if($('input[name="tipoUsuario"]:checked').length > 0){
+    if(!($('input[name="tipoUsuario"]:checked').length > 0)){
         Fanatico = {
         "role":              "fanatico",
         "user_data":

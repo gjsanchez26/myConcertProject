@@ -1,12 +1,15 @@
 myConcert.controller("registroController", function($scope, $http, registroModel){
     console.log("Here");
-    $scope.usuario;
+    $scope.usuario={};
     $scope.usuarioLogin; 
-    
+    $scope.listaPaises={};
+    $scope.listaGeneros={};
+    $scope.listaUniversidades={};
+    $scope.listaPaises = registroModel.obtenerPaises($scope.usuario);
+    $scope.listaGeneros = registroModel.obtenerGeneros($scope.usuario);
+    $scope.listaUniversidades = registroModel.obtenerUniversidades($scope.usuario);
     $scope.obtenerListas = function (){
-        $scope.listaPaises = registroModel.obtenerPaises($scope.usuario);
-        $scope.listaGeneros = registroModel.obtenerGeneros($scope.usuario);
-        $scope.listaUniversidades = registroModel.obtenerUniversidades($scope.usuario);
+        
         console.log("Listas a Mostrar");
         console.log($scope.listaPaises);
         console.log($scope.listaGeneros);

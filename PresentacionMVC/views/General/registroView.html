@@ -13,7 +13,7 @@
                                   <form>
                                       <div class="top-row">
                                         <div class="form-group">
-                                          <label class="checkbox-inline"><span><input style="margin: 5px 0px 0px 100px;" name ="tipoUsuario" ng-model ="usuario.tipo" ng-change="obtenerListas()" type="checkbox" value="">Registrarse como fanatico</span></label>
+                                          <label class="checkbox-inline"><span><input style="margin: 5px 0px 0px 100px;" name ="tipoUsuario" ng-model ="usuario.tipo"  type="checkbox" value="">Registrarse como colaborador</span></label>
                                         </div>
                                         <div class="form-group">
                                           <label>Nombre de Usuario<span class="req">*</span></label>
@@ -44,7 +44,7 @@
                                         <input ng-model="usuario.Confirmacion" type="password"required autocomplete="off" style="color:#ffffff"/>
                                       </div>
 
-                                      <div ng-show = "usuario.tipo">
+                                      <div ng-show = "!(usuario.tipo)">
                                             <div >
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
                                                       <label for="F_FechaNacimiento">Fecha de Nacimiento</label>
@@ -52,7 +52,7 @@
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
                                                         <label for="F_Telefono">Telefono</label>
-                                                        <input id=F_Telefono type="number" ng-model="usuario.telefono" placeholder="Telefono" style="color:#ffffff">
+                                                        <input id=F_Telefono type="string" ng-model="usuario.telefono" placeholder="Telefono" style="color:#ffffff">
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
                                                         <label for="F_Ubicacion">Ubicación</label>
@@ -78,8 +78,9 @@
                                                       <label for="F_Descripcion">Descripción Personal</label>
                                                       <textarea  rows="5" id="F_Descripcion" ng-model="usuario.descripcion" style="color:#ffffff"></textarea>
                                                     </div>
-                                                    <div class="checkbox">
-                                                      <label><input type="checkbox" value="" id="usuario.terminos" name="aceptoTerminos">Acepto los términos y Condiciones</label>
+                                                    <div class="form-group">
+                                                        <label ><input style="margin: 0px 0px 0px 150px;"type="checkbox" value="" id="usuario.terminos" name="aceptoTerminos">Acepto los términos y Condiciones</label>
+                                                        
                                                     </div>
                                             </div>
                                           </div>
