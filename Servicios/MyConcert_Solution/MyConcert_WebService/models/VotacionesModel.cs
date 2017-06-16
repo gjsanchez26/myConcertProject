@@ -40,25 +40,20 @@ namespace MyConcert.models
 
         private List<votos> generarVotos(int pEvento, string pNombreUsuario, JArray pCategorias)
         {
-            JArray votosJSON = null;
             List<Voto> listaParseVotaciones = new List<Voto>();
             foreach (dynamic categoria in pCategorias)
             {
-                string nombreCategoria = (string)categoria.category;
-                votosJSON = (JArray)categoria.votes;
-                foreach (dynamic votacion in votosJSON)
-                {
-                    string nombreBanda = (string)votacion.band;
-                    int cantidadVoto = (int)votacion.vote;
-                    Voto votoActual =
+                int idCategoria = (int)categoria.category;
+                int idBanda = (int)categoria.band;
+                int cantidadVoto = (int)categoria.vote;
+                Voto votoActual =
                         new Voto(0,
                                 pNombreUsuario,
                                 cantidadVoto,
-                                nombreBanda,
-                                nombreCategoria,
+                                _manejador.obtenerBanda(idBanda).nombreBan,
+                                _manejador.obtenerCategoria(idCategoria).categoria,
                                 pEvento);
-                    listaParseVotaciones.Add(votoActual);
-                }
+                listaParseVotaciones.Add(votoActual);
             }
             List<votos> listaVotaciones = _convertidor.updateListavotos(listaParseVotaciones.ToArray());
             return listaVotaciones;

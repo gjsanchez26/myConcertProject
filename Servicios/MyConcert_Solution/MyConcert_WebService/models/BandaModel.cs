@@ -66,6 +66,8 @@ namespace MyConcert.models
                     iterator++;
                 }
 
+
+
                 respuesta = _fabricaRespuestas.crearRespuesta(true, listaBandas);
             } catch(Exception e)
             {

@@ -74,6 +74,12 @@ namespace MyConcert
             return catDB.obtenerCategoria(PK_categoria);
         }
 
+        public categorias obtenerCategoria(int PK_categoria)
+        {
+
+            return catDB.obtenerCategoria(PK_categoria);
+        }
+
         public List<categorias> obtenerCategorias()
         {
             
