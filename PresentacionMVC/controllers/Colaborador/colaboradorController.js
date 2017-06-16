@@ -3,33 +3,39 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
     $scope.colaborador={};
     $scope.banda={};   
     $scope.cartelera={}; 
+    $scope.Festival={};
     $scope.carteleraVotacion;
-    $scope.listaCarteleras;
+    $scope.listaCarteleras={};
     $scope.infoCartelera={};
     $scope.isFirstOpen = true;
-
-    $scope.listaCarteleras = colaboradorModel.obtenerListaCarteleras();
-    $scope.obtenerUnaCartelera= function(cartelera){
-       console.log("asdsada");
-       $scope.infoCartelera = colaboradorModel.obtenerUnaCartelera(cartelera);  
-    }
-    $scope.obtenerCarterelera= function(cartelera){
-        $scope.carterela = obtenerCartelera(cartelera);
-    }
-    $scope.convertirEnFestival=function(){
-        window.location.href = "#crearFestival";
-        
-    }
+    $scope.eventoFlag1 = true;
     $scope.oneAtATime = true;
     $scope.isOpen = false;
+    colaboradorModel.obtenerListaCarteleras($scope.cartelera);
+    colaboradorModel.obtenerListaFestivales($scope.cartelera);
+    
+    
+    $scope.obtenerUnaCartelera= function(evento){
+        colaboradorModel.obtenerUnaCartelera(evento,$scope.cartelera);
+    }; 
+    
+    $scope.obtenerUnFestival= function(evento){
+        colaboradorModel.obtenerUnFestival(evento,$scope.festival);
+    };
+    
+    $scope.obtenerCartelera= function(cartelera){
+        $scope.carterela = obtenerCartelera(cartelera);
+    }
+    
+    $scope.convertirEnFestival=function(){
+        $scope.eventoFlag1=false;    
+    }
     
     $scope.crearFestival =function(){
-        console.log("creacion de festival");
-        colaboradorModel.crearFestival($scope.infoCartelera);
-        
+        colaboradorModel.crearFestival($scope.cartelera);
     }
     // Data 
-     $scope.groups = [
+    $scope.groups = [
     {
       title: "Dynamic Group Header - 1",
       content: "Content - 1"
