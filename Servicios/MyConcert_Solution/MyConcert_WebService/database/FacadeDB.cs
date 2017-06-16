@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyConcert
 {   //FACADE CAPA DE DATOS
-    public class ManejadorBD
+    public class FacadeDB
     {
         private BandasDB banDB;
         private CategoriasDB catDB;
@@ -13,7 +13,7 @@ namespace MyConcert
         private UtilidadesDB utiDB;
         private VotosDB votDB;
 
-        public ManejadorBD()
+        public FacadeDB()
         {
              banDB = new BandasDB();
              catDB = new CategoriasDB();
@@ -21,12 +21,8 @@ namespace MyConcert
              usuDB = new UsuariosDB();
              utiDB = new UtilidadesDB();
              votDB = new VotosDB();
-    }
-
-        public bool conexionBaseDatos()
-        {
-            return utiDB.conexionBaseDatos();
         }
+
         //BANDASDB
 
         public void añadirBanda(bandas banda, List<integrantes> integ, List <canciones> canciones, List<generos> gen)
@@ -54,30 +50,6 @@ namespace MyConcert
             return banDB.obtenerBanda(PK_banda);
         }
 
-        public integrantes obtenerIntegrante(int PK_banda)
-        {
-           
-            return banDB.obtenerIntegrante(PK_banda);
-        }
-
-        public generosbanda obtenerGenerosBanda(int PK_generosBanda)
-        {
-            
-            return banDB.obtenerGenerosBanda(PK_generosBanda);
-        }
-
-        public canciones obtenerCancion(int PK_cancion)
-        {
-            
-            return banDB.obtenerCancion(PK_cancion);
-        }
-
-        public comentarios obtenerComentario(int PK_comentario)
-        {
-            
-            return banDB.obtenerComentario(PK_comentario);
-        }
-
         public List<integrantes> obtenerIntegrantes(bandas banda)
         {
             return banDB.obtenerIntegrantes(banda);
@@ -94,12 +66,6 @@ namespace MyConcert
         public void añadirCategoria(categorias nuevaCategoria)
         {
             catDB.añadirCategoria(nuevaCategoria);
-        }
-
-        public categorias obtenerCategoria(int PK_categoria)
-        {
-            
-            return catDB.obtenerCategoria(PK_categoria);
         }
 
         public categorias obtenerCategoria(string PK_categoria)
@@ -127,11 +93,6 @@ namespace MyConcert
         public void añadirCartelera(eventos pCartelera, List<categoriasevento> pCategorias)
         {
             eveDB.añadirEvento(pCartelera, pCategorias);
-        }
-
-        public void añadirFestival(eventos pFestival, List<categoriasevento> pCategorias)
-        {
-            eveDB.añadirEvento(pFestival, pCategorias);
         }
 
         public List<eventos> obtenerCarteleras()
@@ -215,14 +176,6 @@ namespace MyConcert
         {
             return usuDB.añadirUsuario(us);
         }
-        public void añadirGeneroUsuario(generosusuario genUs)
-        {
-            usuDB.añadirGeneroUsuario(genUs);
-        }
-        public generosusuario obtenerGenerosUsuario(int PK_generosUsuario)
-        {
-            return usuDB.obtenerGenerosUsuario(PK_generosUsuario);
-        }
 
         public List<generos> obtenerGenerosUsuario(usuarios us)
         {
@@ -279,10 +232,6 @@ namespace MyConcert
         }
 
         //VOTOSDB
-        public votos obtenerVoto(int PK_voto)
-        {
-            return votDB.obtenerVoto(PK_voto);
-        }
 
         public void añadirVotos(List<votos> pVotos)
         {

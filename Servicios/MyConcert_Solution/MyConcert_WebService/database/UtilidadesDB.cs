@@ -9,18 +9,7 @@ namespace MyConcert.database
 {
     class UtilidadesDB
     {
-        public bool conexionBaseDatos()
-        {
-            using (myconcertEntities dbContext = new myconcertEntities())
-            {
-                return dbContext.Database.Exists();
-
-            }
-
-        }
-
         //OBTENER LISTA DE OBJETOS
-
         public List<generos> obtenerGeneros()
         {
             List<generos> gen = null;
@@ -216,24 +205,5 @@ namespace MyConcert.database
             }
             return ge;
         }
-        public generos obtenerGenero(string genero)
-        {
-            generos ge = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    ge = context.generos.FirstOrDefault(g => g.genero == genero);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return ge;
-        }
     }
-
 }

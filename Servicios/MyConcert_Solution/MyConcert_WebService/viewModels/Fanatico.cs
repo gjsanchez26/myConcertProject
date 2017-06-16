@@ -1,4 +1,4 @@
-﻿using MyConcert.res.serial;
+﻿using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
 
@@ -53,7 +53,7 @@ namespace MyConcert.viewModels
                 this.Estado = "";
                 this.FechaInscripcion = DateTime.Now;
                 this.FotoPerfil = "";
-                this.FechaNacimiento = serial.fecha((string)json.birth_date);
+                this.FechaNacimiento = serial.parseFecha((string)json.birth_date);
                 this.Telefono = (string)json.phone;
                 this.Pais = (string)json.country;
                 this.DescripcionPersonal = (string)json.description;

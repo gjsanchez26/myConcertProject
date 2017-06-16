@@ -1,5 +1,5 @@
-﻿using MyConcert.res.assembler;
-using MyConcert.res.resultados;
+﻿using MyConcert.resources.assembler;
+using MyConcert.resources.results;
 using MyConcert.viewModels;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,12 +7,8 @@ using System.Collections.Generic;
 
 namespace MyConcert.models
 {
-    public class VotacionesModel
+    public class VotacionesModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private Assembler _assembler = new Assembler();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
-
         public Respuesta nuevaVotacion(int pEvento, string pNombreUsuario, JArray pCategorias)
         {
             Respuesta respuesta = null;
@@ -25,18 +21,18 @@ namespace MyConcert.models
             catch (Exception e)
             {
                 //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.");
-                respuesta = _creador.crearRespuesta(false, "Error al interpretar votaciones.", e.ToString());
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.", e.ToString());
             }
 
             try
             {
                 _manejador.añadirVotos(listaVotaciones);
-                respuesta = _creador.crearRespuesta(true, "Votacion procesada.");
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Votacion procesada.");
             }
             catch (Exception e)
             {
                 //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion.");
-                respuesta = _creador.crearRespuesta(false, "Error al procesar votacion.", e.ToString());
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion.", e.ToString());
             }
 
             return respuesta;
@@ -64,7 +60,7 @@ namespace MyConcert.models
                     listaParseVotaciones.Add(votoActual);
                 }
             }
-            List<votos> listaVotaciones = _assembler.updateListavotos(listaParseVotaciones.ToArray());
+            List<votos> listaVotaciones = _convertidor.updateListavotos(listaParseVotaciones.ToArray());
             return listaVotaciones;
         }
     }

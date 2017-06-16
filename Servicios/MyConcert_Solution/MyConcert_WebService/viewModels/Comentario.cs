@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyConcert.viewModels
 {
-    class Comentario
+    public class Comentario
     {
         private int _id;
         private string _fanatico;

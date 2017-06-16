@@ -1,25 +1,22 @@
 ﻿using MyConcert.viewModels;
-using MyConcert.res.resultados;
+using MyConcert.resources.results;
 using System;
-using MyConcert.res.assembler;
+using MyConcert.resources.assembler;
 using Newtonsoft.Json.Linq;
-using MyConcert.res.serial;
+using MyConcert.resources.serial;
 using System.Collections.Generic;
-using Sptfy;
+using MyConcert.resources.services;
 
 namespace MyConcert.models
 {
     public class BandaModel : AbstractModel
     {
-        private ManejadorBD _manejador;
-        private FabricaRespuestas _fabricaRespuestas;
-        private Assembler _convertidor;
         private SerialHelper _serial;
         private SpotifyUtils _spotify;
 
         public BandaModel()
         {
-            _manejador = new ManejadorBD();
+            _manejador = new FacadeDB();
             _fabricaRespuestas = new FabricaRespuestas();
             _convertidor = new Assembler();
             _serial = new SerialHelper();

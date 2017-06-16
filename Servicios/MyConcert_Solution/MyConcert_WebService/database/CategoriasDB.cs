@@ -1,9 +1,6 @@
-﻿using MyConcert.viewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert.database
 {
@@ -27,25 +24,6 @@ namespace MyConcert.database
                         throw (e);
                     }
             }
-        }
-
-        public categorias obtenerCategoria(int PK_categoria)
-        {
-            categorias obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.categorias.FirstOrDefault(r => r.PK_categorias == PK_categoria);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
         }
 
         public categorias obtenerCategoria(string categoria)

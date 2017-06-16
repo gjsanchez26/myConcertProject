@@ -3,7 +3,7 @@ using System;
 
 namespace MyConcert.viewModels
 {
-    class Cancion
+    public class Cancion
     {
         private int _id;
         private string _nombre;

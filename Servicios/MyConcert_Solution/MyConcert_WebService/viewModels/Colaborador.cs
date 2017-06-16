@@ -1,4 +1,4 @@
-﻿using MyConcert.res.serial;
+﻿using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
 

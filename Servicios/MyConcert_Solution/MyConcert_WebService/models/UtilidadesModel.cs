@@ -1,21 +1,17 @@
 ﻿using MyConcert.viewModels;
-using MyConcert.res.resultados;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert.res.assembler;
+using MyConcert.resources.assembler;
 
 namespace MyConcert.models
 {
-    public class UtilidadesModel
+    public class UtilidadesModel : AbstractModel
     {
-        private ManejadorBD _manejador;
-        private FabricaRespuestas _creador;
-        private Assembler _convertidor;
-
         public UtilidadesModel()
         {
-            _manejador = new ManejadorBD();
-            _creador = new FabricaRespuestas();
+            _manejador = new FacadeDB();
+            _fabricaRespuestas = new FabricaRespuestas();
             _convertidor = new Assembler();
         }
 
@@ -29,7 +25,7 @@ namespace MyConcert.models
                 arreglo[i] = JObject.FromObject(listaUniversidades[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
         public Respuesta getPaises()
@@ -48,10 +44,10 @@ namespace MyConcert.models
             }
             catch (Exception e)
             {
-                return _creador.crearRespuesta(false, e.ToString());
+                return _fabricaRespuestas.crearRespuesta(false, e.ToString());
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
         public Respuesta getGenerosMusicales()
@@ -64,7 +60,7 @@ namespace MyConcert.models
                 arreglo[i] = JObject.FromObject(listaGenerosMusicales[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
     }
 }

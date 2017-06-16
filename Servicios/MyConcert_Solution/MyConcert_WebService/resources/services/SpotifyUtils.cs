@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Sptfy
+namespace MyConcert.resources.services
 {
     
     /**
@@ -75,7 +75,7 @@ namespace Sptfy
                     }
                 }
                 respuesta = info_artist.Id;
-            } catch(Exception e)
+            } catch(Exception)
             {
                 respuesta = "";
             }

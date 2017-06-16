@@ -1,4 +1,4 @@
-﻿using MyConcert.res.serial;
+﻿using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
 
@@ -53,9 +53,9 @@ namespace MyConcert.viewModels
                 this.Nombre = (string) json.name;
                 this.Ubicacion = (string) json.ubication;
                 this.Pais = (string) json.country;
-                this.FechaInicioFestival = serial.fecha(json.initial_date);
-                this.FechaFinalFestival = serial.fecha(json.final_date);
-                this.FechaFinalVotacion = serial.fecha(json.vote_final_date);
+                this.FechaInicioFestival = serial.parseFecha(json.initial_date);
+                this.FechaFinalFestival = serial.parseFecha(json.final_date);
+                this.FechaFinalVotacion = serial.parseFecha(json.vote_final_date);
                 this.TipoEvento = (string) json.event_type;
                 this.Estado = (string) json.state;
             }

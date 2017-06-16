@@ -1,12 +1,12 @@
-﻿using MyConcert.res.assembler;
-using MyConcert.res.resultados;
+﻿using MyConcert.resources.assembler;
+using MyConcert.resources.results;
 
 namespace MyConcert.models
 {
     public abstract class AbstractModel
     {
-        private ManejadorBD _manejador;
-        private Assembler _convertidor;
-        private FabricaRespuestas _fabricaRespuestas;
+        protected FacadeDB _manejador;
+        protected Assembler _convertidor;
+        protected FabricaRespuestas _fabricaRespuestas;
     }
 }

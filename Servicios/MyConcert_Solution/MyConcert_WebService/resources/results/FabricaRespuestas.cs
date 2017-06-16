@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace MyConcert.res.resultados
+namespace MyConcert.resources.results
 {
-    class FabricaRespuestas
+    public class FabricaRespuestas
     {
         public Respuesta crearRespuesta(bool pExito, JObject pObjeto)
         {

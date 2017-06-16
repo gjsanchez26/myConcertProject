@@ -1,18 +1,15 @@
 ﻿using MyConcert.viewModels;
-using MyConcert.res.resultados;
-using MyConcert.res.serial;
+using MyConcert.resources.results;
+using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert.res.assembler;
+using MyConcert.resources.assembler;
 using System.Collections.Generic;
 
 namespace MyConcert.models
 {
-    public class EventosModel
+    public class EventosModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
-        private Assembler _convertidor = new Assembler();
         private SerialHelper _serial = new SerialHelper();
         private ChefModel _chef = new ChefModel();
 
@@ -26,7 +23,7 @@ namespace MyConcert.models
                 arreglo[i] = JObject.FromObject(listaCarteleras[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
         public Respuesta getFestivales()
@@ -39,7 +36,7 @@ namespace MyConcert.models
                 arreglo[i] = JObject.FromObject(listaFestivales[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
         public Respuesta getEvento(int pID)
@@ -52,7 +49,7 @@ namespace MyConcert.models
             {
                 JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, listaCategoriasEvento);
                 Evento eventoAuxiliar = _convertidor.createEvento(eventoSolicitado);
-                respuesta = _creador.crearRespuestaEvento(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
+                respuesta = _fabricaRespuestas.crearRespuestaEvento(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
 
             }
             else if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(2).PK_tiposEventos)
@@ -69,7 +66,7 @@ namespace MyConcert.models
                 }
                 Evento evento = _convertidor.createEvento(eventoSolicitado);
                 FestivalBandas fest = new FestivalBandas(JObject.FromObject(evento), bandas);
-                respuesta = _creador.crearRespuesta(true, JObject.FromObject(fest));
+                respuesta = _fabricaRespuestas.crearRespuesta(true, JObject.FromObject(fest));
             }
 
             return respuesta;
@@ -114,7 +111,7 @@ namespace MyConcert.models
                         
 
                         _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), _convertidor.updatecategoriasevento(categorias));
-                        respuesta = _creador.crearRespuesta(true, "Cartelera creada exitosamente.");
+                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
@@ -138,16 +135,16 @@ namespace MyConcert.models
 
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
 
-                        respuesta = _creador.crearRespuesta(true, "Festival creado exitosamente.");
+                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente.");
                         break;
                     default:
-                        respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
+                        respuesta = _fabricaRespuestas.crearRespuesta(false, "Tipo de evento no existente.");
                     break;
                 }
             } catch(Exception e)
             {
                 //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.");
-                respuesta = _creador.crearRespuesta(false, "Error al crear evento.", e.ToString());
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.", e.ToString());
             }
 
             return respuesta;

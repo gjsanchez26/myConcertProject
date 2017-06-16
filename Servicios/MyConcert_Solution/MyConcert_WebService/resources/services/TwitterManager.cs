@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert.res.Twitter
+namespace MyConcert.resources.services
 {
     class TwitterManager
     {

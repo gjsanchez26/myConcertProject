@@ -1,18 +1,14 @@
 ﻿using MyConcert.viewModels;
-using MyConcert.res.resultados;
+using MyConcert.resources.results;
 using System;
 using System.Collections.Generic;
-using MyConcert.res.assembler;
+using MyConcert.resources.assembler;
 using Newtonsoft.Json.Linq;
 
 namespace MyConcert.models
 {
     public class CategoriaModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas _fabricaRespuestas = new FabricaRespuestas();
-        private Assembler _convertidor = new Assembler();
-
         public Respuesta nuevaCategoria(string pNombre)
         {
             Respuesta respuesta = null;

@@ -1,5 +1,5 @@
 ﻿using MyConcert.models;
-using MyConcert.res.resultados;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -40,7 +40,7 @@ namespace MyConcert.controllers
             JArray listaCanciones = (JArray) peticion.songs;
             JArray listaGenerosMusicales = (JArray) peticion.genres;
 
-            Respuesta respuesta = new Respuesta();
+            Respuesta respuesta = null;
 
             respuesta = _model.nuevaBanda(datosBanda, listaMiembros, listaCanciones, listaGenerosMusicales);
 

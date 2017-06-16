@@ -1,6 +1,4 @@
-﻿using MyConcert.viewModels;
-using MyConcert.security;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -98,8 +96,7 @@ namespace MyConcert.database
             }
             return us;
         }
-
-
+        
         public usuarios añadirUsuario(usuarios us)
         {
             using (myconcertEntities context = new myconcertEntities())
@@ -128,42 +125,6 @@ namespace MyConcert.database
                 
             }
             return us;
-        }
-        public void añadirGeneroUsuario(generosusuario genUs)
-        {
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    context.generosusuario.Add(genUs);
-                    context.SaveChanges();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-        }
-
-        public generosusuario obtenerGenerosUsuario(int PK_generosUsuario)
-        {
-            generosusuario obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.generosusuario.FirstOrDefault(g => g.PK_generosUsuario == PK_generosUsuario);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
         }
 
         public List<generos> obtenerGenerosUsuario(usuarios us)

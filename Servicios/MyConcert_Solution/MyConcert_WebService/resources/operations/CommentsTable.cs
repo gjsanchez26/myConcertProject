@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
 /**
- * @namespace MyConcert.res.chef
+ * @namespace MyConcert.resources.chef
  * @brief Almacena las clases relacionadas al
  * algoritmo del chef para la recomendacion de 
  * una banda. 
  */
-namespace MyConcert.res.chef
+namespace MyConcert.resources.operations
 {
     /**
      * @class CommentsTable

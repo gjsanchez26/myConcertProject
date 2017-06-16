@@ -1,13 +1,13 @@
 ﻿using MyConcert.viewModels;
-using MyConcert.security;
 using System.Collections.Generic;
 using System;
+using MyConcert.resources.security;
 
-namespace MyConcert.res.assembler
+namespace MyConcert.resources.assembler
 {
-    class Assembler
+    public class Assembler
     {
-        ManejadorBD _manejadorDB = new ManejadorBD();
+        FacadeDB _manejadorDB = new FacadeDB();
         SHA256Encriptation _encriptador= new SHA256Encriptation();
 
         public List<integrantes> updateintegrantes(string[] pIntegrantes)

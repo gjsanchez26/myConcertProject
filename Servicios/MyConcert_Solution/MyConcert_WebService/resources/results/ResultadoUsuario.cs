@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace MyConcert.res.resultados
+namespace MyConcert.resources.results
 {
     public class ResultadoUsuario : Respuesta
     {

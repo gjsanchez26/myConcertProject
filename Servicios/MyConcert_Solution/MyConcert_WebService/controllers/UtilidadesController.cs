@@ -1,5 +1,5 @@
 ﻿using MyConcert.models;
-using MyConcert.res.resultados;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;

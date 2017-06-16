@@ -78,8 +78,6 @@ namespace MyConcert.database
         }
         
         //OBTENER 1 OBJETO
-       
-
         public eventos obtenerEvento(int PK_evento)
         {
             eventos obj = null;
@@ -204,9 +202,6 @@ namespace MyConcert.database
             
         }
 
-       
-
-        
         public void crearFestival(eventos festival,List<bandas> perdedoras)
         {
             using (myconcertEntities context = new myconcertEntities())

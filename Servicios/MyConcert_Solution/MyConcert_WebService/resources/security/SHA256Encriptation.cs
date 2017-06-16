@@ -2,12 +2,12 @@
 using System.Security.Cryptography;
 
 /**
- * @namespace MyConcert.res.security
+ * @namespace MyConcert.resources.security
  * @brief Almacena las clase para establecer seguridad
  * a las contraseñas de los usuarios con el algoritmo
  * SHA256.
  */
-namespace MyConcert.security
+namespace MyConcert.resources.security
 {
     /**
      * @class SHA256Encriptation

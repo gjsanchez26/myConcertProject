@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace MyConcert.res.serial
+namespace MyConcert.resources.serial
 { 
     public class SerialHelper
     {
-        private ManejadorBD _manejador = new ManejadorBD();
+        private FacadeDB _manejador = new FacadeDB();
 
         public int[] getArrayInt(JArray pArray)
         {
@@ -51,7 +51,7 @@ namespace MyConcert.res.serial
             return generosString;
         }
 
-        public DateTime fecha(string pFecha)
+        public DateTime parseFecha(string pFecha)
         {
             DateTime d = DateTime.Parse(pFecha, CultureInfo.InvariantCulture);
 
