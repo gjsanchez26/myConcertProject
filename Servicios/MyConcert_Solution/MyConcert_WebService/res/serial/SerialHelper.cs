@@ -1,10 +1,10 @@
-﻿using MyConcert_WebService.viewModels;
+﻿using MyConcert.viewModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace MyConcert_WebService.res.serial
+namespace MyConcert.res.serial
 { 
     public class SerialHelper
     {

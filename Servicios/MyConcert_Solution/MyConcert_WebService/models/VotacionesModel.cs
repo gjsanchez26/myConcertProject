@@ -1,11 +1,11 @@
-﻿using MyConcert_WebService.res.assembler;
-using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.viewModels;
+﻿using MyConcert.res.assembler;
+using MyConcert.res.resultados;
+using MyConcert.viewModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
     public class VotacionesModel
     {
@@ -24,7 +24,7 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al interpretar votaciones.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.");
                 respuesta = _creador.crearRespuesta(false, "Error al interpretar votaciones.", e.ToString());
             }
 
@@ -35,7 +35,7 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al procesar votacion.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion.");
                 respuesta = _creador.crearRespuesta(false, "Error al procesar votacion.", e.ToString());
             }
 

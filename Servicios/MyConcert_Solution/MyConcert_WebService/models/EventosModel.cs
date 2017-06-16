@@ -1,12 +1,12 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.res.serial;
+﻿using MyConcert.viewModels;
+using MyConcert.res.resultados;
+using MyConcert.res.serial;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert_WebService.res.assembler;
+using MyConcert.res.assembler;
 using System.Collections.Generic;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
     public class EventosModel
     {
@@ -146,7 +146,7 @@ namespace MyConcert_WebService.models
                 }
             } catch(Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al crear evento.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.");
                 respuesta = _creador.crearRespuesta(false, "Error al crear evento.", e.ToString());
             }
 

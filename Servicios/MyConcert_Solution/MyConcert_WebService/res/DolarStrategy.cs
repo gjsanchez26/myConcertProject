@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.res
+namespace MyConcert.res
 {
     /**
      * @class DolarStrategy

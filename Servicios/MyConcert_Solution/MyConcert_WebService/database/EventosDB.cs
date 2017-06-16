@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     public class EventosDB
     {

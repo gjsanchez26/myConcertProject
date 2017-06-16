@@ -1,13 +1,13 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.security;
+﻿using MyConcert.viewModels;
+using MyConcert.res.resultados;
+using MyConcert.security;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert_WebService.res.assembler;
-using MyConcert_WebService.res.serial;
+using MyConcert.res.assembler;
+using MyConcert.res.serial;
 using System.Collections.Generic;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
     public class UsuariosModel
     {
@@ -117,7 +117,7 @@ namespace MyConcert_WebService.models
             }
             catch (Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al ingresar usuario nuevo.");
                 respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.", e.ToString());
             }
 

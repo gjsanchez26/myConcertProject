@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyConcert_WebService\MyConcert_WebService.csproj">
+    <ProjectReference Include="..\MyConcert_WebService\MyConcert.csproj">
       <Project>{84de399e-eab7-4ea8-a7d4-4e26d7c7dea5}</Project>
-      <Name>MyConcert_WebService</Name>
+      <Name>MyConcert</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

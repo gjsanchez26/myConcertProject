@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
     public class CategoriaBanda
     {

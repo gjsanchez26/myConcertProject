@@ -191,12 +191,11 @@
     <Compile Include="models\BandaModel.cs" />
     <Compile Include="models\CategoriaModel.cs" />
     <Compile Include="models\ChefModel.cs" />
+    <Compile Include="models\AbstractModel.cs" />
     <Compile Include="models\EventosModel.cs" />
-    <Compile Include="models\FilesModel.cs" />
     <Compile Include="models\UsuariosModel.cs" />
     <Compile Include="models\UtilidadesModel.cs" />
     <Compile Include="models\VotacionesModel.cs" />
-    <Compile Include="MyConcertAPI.cs" />
     <Compile Include="res\resultados\ResultadoBanda.cs" />
     <Compile Include="res\resultados\ResultadoDetalle.cs" />
     <Compile Include="res\resultados\ResultadoEvento.cs" />
@@ -236,7 +235,7 @@
     <Compile Include="res\serial\SerializerJSON.cs" />
     <Compile Include="res\Twitter\ConexionTwitter.cs" />
     <Compile Include="res\Twitter\TwitterManager.cs" />
-    <Compile Include="server\Server.cs" />
+    <Compile Include="config\ServerAPI.cs" />
     <Compile Include="res\SHA256Encriptation.cs" />
     <Compile Include="spotify\SpotifyUtils.cs" />
     <Compile Include="tiposeventos.cs">
@@ -261,6 +260,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram3.cd" />
     <None Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>

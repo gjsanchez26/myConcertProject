@@ -1,4 +1,4 @@
-﻿using MyConcert_WebService.res.chef;
+﻿using MyConcert.res.chef;
 using Newtonsoft.Json.Linq;
 using Sptfy;
 using System;
@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 /**
- * @namespace MyConcert_WebService.res.chef
+ * @namespace MyConcert.res.chef
  * @brief Almacena las clases relacionadas al
  * algoritmo del chef para la recomendacion de 
  * una banda. 
  */
-namespace MyConcert_WebService.res
+namespace MyConcert.res
 {
     /**
      * @class Chef 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
     public class Evento
     {

@@ -1,9 +1,9 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.security;
+﻿using MyConcert.viewModels;
+using MyConcert.security;
 using System.Collections.Generic;
 using System;
 
-namespace MyConcert_WebService.res.assembler
+namespace MyConcert.res.assembler
 {
     class Assembler
     {

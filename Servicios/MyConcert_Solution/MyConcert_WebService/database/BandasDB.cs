@@ -1,9 +1,9 @@
-﻿using MyConcert_WebService.viewModels;
+﻿using MyConcert.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     class BandasDB
     {

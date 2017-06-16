@@ -1,8 +1,8 @@
-﻿using MyConcert_WebService.database;
-using MyConcert_WebService.viewModels;
+﻿using MyConcert.database;
+using MyConcert.viewModels;
 using System.Collections.Generic;
 
-namespace MyConcert_WebService
+namespace MyConcert
 {   //FACADE CAPA DE DATOS
     public class ManejadorBD
     {

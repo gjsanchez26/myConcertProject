@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace MyConcert_WebService.res.resultados
+namespace MyConcert.res.resultados
 {
     public class ResultadoUsuario : Respuesta
     {

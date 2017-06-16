@@ -1,11 +1,11 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.security;
+﻿using MyConcert.viewModels;
+using MyConcert.security;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     class UsuariosDB
     {

@@ -1,8 +1,8 @@
-﻿using MyConcert_WebService.viewModels;
+﻿using MyConcert.viewModels;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace MyConcert_WebService.res.serial
+namespace MyConcert.res.serial
 {
     public class SerializerJSON
     {

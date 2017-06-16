@@ -1,4 +1,4 @@
-﻿namespace MyConcert_WebService.res.resultados
+﻿namespace MyConcert.res.resultados
 {
     public class ResultadoString : Respuesta
     {

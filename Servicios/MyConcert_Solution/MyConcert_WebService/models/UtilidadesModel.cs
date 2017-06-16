@@ -1,10 +1,10 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.viewModels;
+using MyConcert.res.resultados;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert_WebService.res.assembler;
+using MyConcert.res.assembler;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
     public class UtilidadesModel
     {

@@ -1,11 +1,11 @@
-﻿using MyConcert_WebService.viewModels;
+﻿using MyConcert.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     class CategoriasDB
     {

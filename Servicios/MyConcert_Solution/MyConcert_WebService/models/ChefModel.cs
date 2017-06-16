@@ -1,14 +1,14 @@
-﻿using MyConcert_WebService.res;
+﻿using MyConcert.res;
 using System;
 using System.Collections.Generic;
 
 /**
- * @namespace MyConcert_WebService.models
+ * @namespace MyConcert.models
  * @brief Almacena las clases que definen la lógica
  * entre los modulos de la base de datos y los 
  * controladores.
  */
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
     /**
      * @class ChefModel
