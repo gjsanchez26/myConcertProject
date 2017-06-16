@@ -111,11 +111,10 @@ namespace MyConcert.models
             try
             {
                 string nombreEvento = null;
-                CategoriaBanda[] categorias = _serial.getArrayCategoriaBandaEvento(pListaCategorias);
-
                 switch (pTipoEvento)
                 {
                     case "cartelera":
+                        CategoriaBanda[] categorias = _serial.getArrayCategoriaBandaEvento(pListaCategorias);
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
                         nombreEvento = nuevaCartelera.Nombre;
 
@@ -127,20 +126,16 @@ namespace MyConcert.models
                         respuesta = _fabricaRespuestas.crearRespuesta(true, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
+                        FestivalCategoriaBanda[] categoriasFestival = _serial.getArrayFestivalCategoriaBanda(pListaCategorias); 
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
                         eventos nuevoEvento = _convertidor.updateeventos(nuevoFestival);
 
-                        List<bandas> bandasGanadorasFestival = parseBandas(categorias);
+                        List<bandas> bandasGanadorasFestival = parseBandas(categoriasFestival);
                         List<categorias> categoriasCartelera = _manejador.obtenerCategoriasEvento(nuevoEvento.PK_eventos);
                         List<bandas> todasBandasCartelera = extraerBandasEvento(nuevoEvento, categoriasCartelera);
                         List<bandas> bandasPerdedoras = extraerBandasNoSeleccionadas(bandasGanadorasFestival, todasBandasCartelera);
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
                         List<string> bandasPerdedorasString = bandasToString(bandasPerdedoras);
-
-                        foreach(string str in bandasPerdedorasString)
-                        {
-                            Console.WriteLine(str);
-                        }
 
                         string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
 
@@ -187,7 +182,7 @@ namespace MyConcert.models
                     todasBandasCartelera.Remove(bandaEliminar);
                     Console.WriteLine(bandaEliminar.nombreBan);
                 } else {
-                    bandasPerdedoras.Add(bandaEliminar);
+                    bandasPerdedoras.Add(bandaGanadora);
                     //Console.WriteLine(bandaEliminar.nombreBan);
                 }
                     
@@ -209,15 +204,12 @@ namespace MyConcert.models
             return todasBandasCartelera;
         }
 
-        private List<bandas> parseBandas(CategoriaBanda[] categorias)
+        private List<bandas> parseBandas(FestivalCategoriaBanda[] categorias)
         {
             List<bandas> bandasGanadorasFestival = new List<bandas>();
-            foreach (CategoriaBanda cat_band in categorias)
+            foreach (FestivalCategoriaBanda cat_band in categorias)
             {
-                foreach (int IDBanda in cat_band._bandasID)
-                {
-                    bandasGanadorasFestival.Add(_manejador.obtenerBanda(IDBanda));
-                }
+                bandasGanadorasFestival.Add(_manejador.obtenerBanda(cat_band.idBanda));
             }
 
             return bandasGanadorasFestival;

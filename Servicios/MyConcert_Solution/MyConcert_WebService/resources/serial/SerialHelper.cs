@@ -129,5 +129,20 @@ namespace MyConcert.resources.serial
                             (string)pDatosEvento.services,
                             "null"); //Recomendacion del chef
         }
+
+        public FestivalCategoriaBanda[] getArrayFestivalCategoriaBanda(JArray pListaCategorias)
+        {
+            List<FestivalCategoriaBanda> lista = new List<FestivalCategoriaBanda>();
+            FestivalCategoriaBanda fesCatBanActual = null;
+            foreach(dynamic categoriaActual in pListaCategorias)
+            {
+                fesCatBanActual = 
+                    new FestivalCategoriaBanda((int)categoriaActual.category,
+                                                (int)categoriaActual.band);
+                lista.Add(fesCatBanActual);
+            }
+
+            return lista.ToArray();
+        }
     }
 }

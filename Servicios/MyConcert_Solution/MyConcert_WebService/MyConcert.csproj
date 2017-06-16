@@ -212,6 +212,7 @@
     <Compile Include="viewModels\Fanatico.cs" />
     <Compile Include="viewModels\Festival.cs" />
     <Compile Include="viewModels\FestivalBandas.cs" />
+    <Compile Include="viewModels\FestivalCategoriaBanda.cs" />
     <Compile Include="viewModels\GeneroMusical.cs" />
     <Compile Include="viewModels\MiembroBanda.cs" />
     <Compile Include="viewModels\Pais.cs" />
