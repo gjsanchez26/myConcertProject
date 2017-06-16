@@ -53,7 +53,7 @@ namespace MyConcert_WebService.viewModels
                 this.Estado = "";
                 this.FechaInscripcion = DateTime.Now;
                 this.FotoPerfil = "";
-                this.FechaNacimiento = serial.fecha(json.birth_date);
+                this.FechaNacimiento = serial.fecha((string)json.birth_date);
                 this.Telefono = (string)json.phone;
                 this.Pais = (string)json.country;
                 this.DescripcionPersonal = (string)json.description;
@@ -64,6 +64,7 @@ namespace MyConcert_WebService.viewModels
             catch (Exception e)
             {
                 estado = false;
+                Console.WriteLine(e.ToString());
                 throw (e);
             }
             return estado;

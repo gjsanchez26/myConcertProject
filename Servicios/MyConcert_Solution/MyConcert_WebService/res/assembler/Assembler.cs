@@ -123,13 +123,14 @@ namespace MyConcert_WebService.res.assembler
             }
             return arreglo;
         }
+
         public List<categoriasevento> updatecategoriasevento(CategoriaBanda[] pArrayCategoriaBanda)
         {
             List<categoriasevento> categoriasBandas = new List<categoriasevento>();
             categoriasevento cat_even_aux = null;
             for (int i = 0; i < pArrayCategoriaBanda.Length; i++)
             {
-                for (int j = 0; j < pArrayCategoriaBanda[i]._bandasID.Length; i++)
+                for (int j = 0; j < pArrayCategoriaBanda[i]._bandasID.Length; j++)
                 {
                     cat_even_aux = new categoriasevento();
                     cat_even_aux.FK_CATEGORIASEVENTO_BANDAS = pArrayCategoriaBanda[i]._bandasID[j];

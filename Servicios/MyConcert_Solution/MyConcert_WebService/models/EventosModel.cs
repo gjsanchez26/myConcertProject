@@ -100,7 +100,7 @@ namespace MyConcert_WebService.models
             return categoriasEventoEspecifico;
         }
 
-        public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, JArray pListaCategorias)
+        public Respuesta crearEvento(string pTipoEvento, JObject pDatosEventoJSON, JArray pListaCategorias)
         {
             Respuesta respuesta = null;
             try
@@ -111,9 +111,10 @@ namespace MyConcert_WebService.models
                 {
                     case "cartelera":
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
-                         
+                        
+
                         _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), _convertidor.updatecategoriasevento(categorias));
-                        respuesta = _creador.crearRespuesta(false, "Cartelera creada exitosamente.");
+                        respuesta = _creador.crearRespuesta(true, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
@@ -124,6 +125,12 @@ namespace MyConcert_WebService.models
                         List<bandas> todasBandasCartelera = extraerBandasEvento(nuevoEvento, categoriasCartelera);
                         List<bandas> bandasPerdedoras = extraerBandasNoSeleccionadas(bandasGanadorasFestival, todasBandasCartelera);
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
+                        List<string> bandasPerdedorasString = bandasToString(bandasPerdedoras);
+
+                        foreach(string str in bandasPerdedorasString)
+                        {
+                            Console.WriteLine(str);
+                        }
 
                         string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
 
@@ -131,7 +138,7 @@ namespace MyConcert_WebService.models
 
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
 
-                        respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
+                        respuesta = _creador.crearRespuesta(true, "Festival creado exitosamente.");
                         break;
                     default:
                         respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
@@ -146,7 +153,7 @@ namespace MyConcert_WebService.models
             return respuesta;
         }
 
-        private static List<string> bandasToString(List<bandas> bandasGanadorasFestival)
+        private List<string> bandasToString(List<bandas> bandasGanadorasFestival)
         {
             List<string> bandasGanadoras = new List<string>();
             foreach (bandas bandaGanadora in bandasGanadorasFestival)
@@ -164,9 +171,14 @@ namespace MyConcert_WebService.models
             {
                 bandas bandaEliminar = todasBandasCartelera.Find(x => x.Equals(bandaGanadora));
                 if (bandaEliminar != null)
+                {
                     todasBandasCartelera.Remove(bandaEliminar);
-                else
+                    Console.WriteLine(bandaEliminar.nombreBan);
+                } else {
                     bandasPerdedoras.Add(bandaEliminar);
+                    //Console.WriteLine(bandaEliminar.nombreBan);
+                }
+                    
             }
             return bandasPerdedoras;
         }

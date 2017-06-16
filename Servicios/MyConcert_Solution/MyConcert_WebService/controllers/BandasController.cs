@@ -31,11 +31,11 @@ namespace MyConcert_WebService.controllers
             return JObject.FromObject(respuesta);
         }
 
-        //Crear banda nueva.
+        //Crear banda nueva.    
         public JObject Post(JObject pPeticion)
         {
             dynamic peticion = pPeticion;
-            string datosBanda = peticion.band_data;
+            string datosBanda = (string) peticion.band_data;
             JArray listaMiembros = (JArray) peticion.members;
             JArray listaCanciones = (JArray) peticion.songs;
             JArray listaGenerosMusicales = (JArray) peticion.genres;

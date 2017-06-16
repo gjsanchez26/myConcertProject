@@ -19,7 +19,7 @@ namespace MyConcert_WebService.database
                 {
                     try
                     {
-                        nuevoEvento = context.eventos.Add(nuevoEvento);
+                        nuevoEvento = context.eventos.Add(pEvento);
 
                         foreach (categoriasevento cat_eve in categoriasBanda)
                         {

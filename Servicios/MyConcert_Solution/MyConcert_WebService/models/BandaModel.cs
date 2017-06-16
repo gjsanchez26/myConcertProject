@@ -81,7 +81,6 @@ namespace MyConcert_WebService.models
         public Respuesta getBanda(int pIDBanda)
         {
             bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
-            Console.WriteLine(bandaQuery.nombreBan);
             List<generos> generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery);
             GeneroMusical[] arregloGenerosBandaQuery = _convertidor.createListaGenero(generosBandaQuery);
             List<integrantes> integrantesBandaQuery = _manejador.obtenerIntegrantes(bandaQuery);

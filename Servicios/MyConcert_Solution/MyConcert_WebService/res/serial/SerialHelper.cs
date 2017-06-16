@@ -53,9 +53,7 @@ namespace MyConcert_WebService.res.serial
 
         public DateTime fecha(string pFecha)
         {
-            DateTime d = DateTime.ParseExact(pFecha.Substring(0, 24),
-                              "ddd MMM d yyyy HH:mm:ss",
-                              CultureInfo.InvariantCulture);
+            DateTime d = DateTime.Parse(pFecha, CultureInfo.InvariantCulture);
 
             return d;
         }
@@ -86,8 +84,8 @@ namespace MyConcert_WebService.res.serial
 
         public CategoriaBanda[] getArrayCategoriaBandaEvento(JArray pArray)
         {
-            dynamic arrayCategoriaBandaJSON = pArray;
-            CategoriaBanda[] listaRespuesta = new CategoriaBanda[pArray.Count];
+            dynamic arrayCategoriaBandaJSON = (JArray) pArray;
+            CategoriaBanda[] listaRespuesta = new CategoriaBanda[arrayCategoriaBandaJSON.Count];
 
             int iterator = 0;
             CategoriaBanda cat_band_serial = null;
