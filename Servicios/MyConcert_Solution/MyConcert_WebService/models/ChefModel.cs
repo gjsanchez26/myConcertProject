@@ -20,6 +20,13 @@ namespace MyConcert.models
      */
     public class ChefModel : AbstractModel
     {
+        public ChefModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
+
         /**
          * @brief Funcion que solicita dependencias y ejecuta el algoritmo del chef según los parámetros indicados. 
          * @param pwinners Lista de bandas ganadoras.
