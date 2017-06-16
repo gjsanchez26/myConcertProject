@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
     public class CategoriaBandaVotacion
     {

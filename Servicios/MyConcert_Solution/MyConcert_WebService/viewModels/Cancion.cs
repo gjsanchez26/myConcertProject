@@ -1,36 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
-    class Cancion
+    public class Cancion
     {
         private int _id;
         private string _nombre;
         private string _banda;
-
-        public bool deserialize(JObject pObject)
-        {
-            bool estado = true;
-            dynamic json = pObject;
-            try
-            {
-                Id = json.id;
-                Nombre = json.name;
-                Banda = json.band;
-            }
-            catch (Exception e)
-            {
-                estado = false;
-                throw (e);
-            }
-            return estado;
-        }
-
-        public JObject serialize()
-        {
-            return JObject.FromObject(this);
-        }
 
         public Cancion(int _id, string _nombre, string _banda)
         {

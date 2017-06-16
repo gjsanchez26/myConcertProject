@@ -1,20 +1,25 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.res.serial;
+﻿using MyConcert.viewModels;
+using MyConcert.resources.results;
+using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert_WebService.res.assembler;
+using MyConcert.resources.assembler;
 using System.Collections.Generic;
+using MyConcert.resources.services;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class EventosModel
+    public class EventosModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
-        private Assembler _convertidor = new Assembler();
         private SerialHelper _serial = new SerialHelper();
         private ChefModel _chef = new ChefModel();
+
+        public EventosModel()
+        {
+            this._manejador = new FacadeDB();
+            this._fabricaRespuestas = new FabricaRespuestas();
+            this._convertidor = new Assembler();
+        }
 
         public Respuesta getCarteleras()
         {
@@ -26,7 +31,7 @@ namespace MyConcert_WebService.models
                 arreglo[i] = JObject.FromObject(listaCarteleras[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
         public Respuesta getFestivales()
@@ -39,7 +44,7 @@ namespace MyConcert_WebService.models
                 arreglo[i] = JObject.FromObject(listaFestivales[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
         public Respuesta getEvento(int pID)
@@ -52,7 +57,7 @@ namespace MyConcert_WebService.models
             {
                 JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, listaCategoriasEvento);
                 Evento eventoAuxiliar = _convertidor.createEvento(eventoSolicitado);
-                respuesta = _creador.crearRespuestaEvento(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
+                respuesta = _fabricaRespuestas.crearRespuesta(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
 
             }
             else if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(2).PK_tiposEventos)
@@ -69,7 +74,7 @@ namespace MyConcert_WebService.models
                 }
                 Evento evento = _convertidor.createEvento(eventoSolicitado);
                 FestivalBandas fest = new FestivalBandas(JObject.FromObject(evento), bandas);
-                respuesta = _creador.crearRespuesta(true, JObject.FromObject(fest));
+                respuesta = _fabricaRespuestas.crearRespuesta(true, JObject.FromObject(fest));
             }
 
             return respuesta;
@@ -100,20 +105,26 @@ namespace MyConcert_WebService.models
             return categoriasEventoEspecifico;
         }
 
-        public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, JArray pListaCategorias)
+        public Respuesta crearEvento(string pTipoEvento, JObject pDatosEventoJSON, JArray pListaCategorias)
         {
             Respuesta respuesta = null;
             try
             {
+                string nombreEvento = null;
                 CategoriaBanda[] categorias = _serial.getArrayCategoriaBandaEvento(pListaCategorias);
 
                 switch (pTipoEvento)
                 {
                     case "cartelera":
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
-                         
-                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), _convertidor.updatecategoriasevento(categorias));
-                        respuesta = _creador.crearRespuesta(false, "Cartelera creada exitosamente.");
+                        nombreEvento = nuevaCartelera.Nombre;
+
+                        List<categoriasevento> categoriasEvento = _convertidor.updatecategoriasevento(categorias);
+                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), categoriasEvento);
+
+                        publicarBandasTwitter(nombreEvento, categoriasEvento);
+
+                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
@@ -124,6 +135,12 @@ namespace MyConcert_WebService.models
                         List<bandas> todasBandasCartelera = extraerBandasEvento(nuevoEvento, categoriasCartelera);
                         List<bandas> bandasPerdedoras = extraerBandasNoSeleccionadas(bandasGanadorasFestival, todasBandasCartelera);
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
+                        List<string> bandasPerdedorasString = bandasToString(bandasPerdedoras);
+
+                        foreach(string str in bandasPerdedorasString)
+                        {
+                            Console.WriteLine(str);
+                        }
 
                         string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
 
@@ -131,22 +148,24 @@ namespace MyConcert_WebService.models
 
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
 
-                        respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
+                        publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
+
+                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente.");
                         break;
                     default:
-                        respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
+                        respuesta = _fabricaRespuestas.crearRespuesta(false, "Tipo de evento no existente.");
                     break;
                 }
             } catch(Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al crear evento.");
-                respuesta = _creador.crearRespuesta(false, "Error al crear evento.", e.ToString());
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.", e.ToString());
             }
 
             return respuesta;
         }
 
-        private static List<string> bandasToString(List<bandas> bandasGanadorasFestival)
+        private List<string> bandasToString(List<bandas> bandasGanadorasFestival)
         {
             List<string> bandasGanadoras = new List<string>();
             foreach (bandas bandaGanadora in bandasGanadorasFestival)
@@ -164,9 +183,14 @@ namespace MyConcert_WebService.models
             {
                 bandas bandaEliminar = todasBandasCartelera.Find(x => x.Equals(bandaGanadora));
                 if (bandaEliminar != null)
+                {
                     todasBandasCartelera.Remove(bandaEliminar);
-                else
+                    Console.WriteLine(bandaEliminar.nombreBan);
+                } else {
                     bandasPerdedoras.Add(bandaEliminar);
+                    //Console.WriteLine(bandaEliminar.nombreBan);
+                }
+                    
             }
             return bandasPerdedoras;
         }
@@ -197,6 +221,37 @@ namespace MyConcert_WebService.models
             }
 
             return bandasGanadorasFestival;
+        }
+
+        private void publicarBandasTwitter(string pNombreEvento, List<categoriasevento> pListaCategoriasBanda)
+        {
+            TwitterManager twitter = new TwitterManager(); 
+            foreach (categoriasevento cat_eve in pListaCategoriasBanda)
+            {
+                string nombreBanda = _manejador.obtenerBanda(cat_eve.FK_CATEGORIASEVENTO_BANDAS).nombreBan;
+                string mensajeTweet = "¡Vota por tu banda. " + nombreBanda + " en el festival " + pNombreEvento +"!";
+                try
+                {
+                    twitter.enviarTweet(mensajeTweet);
+                } catch(Exception e)
+                {
+                    throw (e);
+                }
+            }
+        }
+
+        private void publicarFestivalNuevoTwitter(string pNombreEvento)
+        {
+            TwitterManager twitter = new TwitterManager();
+            try
+            {
+                string mensajeTweet = "¡Visita nuestro nuevo festival " + pNombreEvento +"!";
+                twitter.enviarTweet(mensajeTweet);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
         }
     }
 }

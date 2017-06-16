@@ -1,10 +1,10 @@
-﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.models;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace MyConcert_WebService.controllers
+namespace MyConcert.controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BandasController : ApiController
@@ -31,16 +31,16 @@ namespace MyConcert_WebService.controllers
             return JObject.FromObject(respuesta);
         }
 
-        //Crear banda nueva.
+        //Crear banda nueva.    
         public JObject Post(JObject pPeticion)
         {
             dynamic peticion = pPeticion;
-            string datosBanda = peticion.band_data;
+            string datosBanda = (string) peticion.band_data;
             JArray listaMiembros = (JArray) peticion.members;
             JArray listaCanciones = (JArray) peticion.songs;
             JArray listaGenerosMusicales = (JArray) peticion.genres;
 
-            Respuesta respuesta = new Respuesta();
+            Respuesta respuesta = null;
 
             respuesta = _model.nuevaBanda(datosBanda, listaMiembros, listaCanciones, listaGenerosMusicales);
 

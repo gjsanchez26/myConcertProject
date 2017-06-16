@@ -1,8 +1,8 @@
-﻿using MyConcert_WebService.res.serial;
+﻿using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
     class Colaborador : Usuario
     {

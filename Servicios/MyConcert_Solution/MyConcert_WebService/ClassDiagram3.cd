@@ -1,0 +1,633 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="MyConcert.controllers.BandasController">
+    <Position X="3.75" Y="12.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAgAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\BandasController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.controllers.CategoriasController">
+    <Position X="6.25" Y="12.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAgAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\CategoriasController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.controllers.EventosController">
+    <Position X="1.25" Y="12.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAABAAgAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\EventosController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.controllers.FilesController">
+    <Position X="8.75" Y="12.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\FilesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.controllers.LoginController">
+    <Position X="8.75" Y="14" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.controllers.UsuariosController">
+    <Position X="3.75" Y="14.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAgAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\UsuariosController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.controllers.UtilidadesController">
+    <Position X="1.25" Y="14.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAABAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\UtilidadesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.controllers.VotacionesController">
+    <Position X="6" Y="14.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>controllers\VotacionesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.database.BandasDB">
+    <Position X="0.5" Y="25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAJAAAAAEAAAAAAAAAAAAAQAAAAAAAQAAAAgAABAAAA=</HashCode>
+      <FileName>database\BandasDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.database.CategoriasDB">
+    <Position X="4.25" Y="28" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAIAAIAAAAEAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>database\CategoriasDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.database.EventosDB">
+    <Position X="0.5" Y="27.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QAQACAAAAAAAAEACAAAAAAAAAAAAAAAAAAAAAIOAAAA=</HashCode>
+      <FileName>database\EventosDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.database.UsuariosDB">
+    <Position X="7.25" Y="25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAIAEAAAAAAAgAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>database\UsuariosDB.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_utilidades" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyConcert.database.UtilidadesDB">
+    <Position X="7.75" Y="27.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAQAAAACAAAAAAAAAAAAAAAEAAAIAAQAEAA=</HashCode>
+      <FileName>database\UtilidadesDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.database.VotosDB">
+    <Position X="4" Y="25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>database\VotosDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.FacadeDB">
+    <Position X="4.5" Y="26.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gAZACgAAmIQAIEAKAEAAAAwBAgAAAATEAAEogofAEAA=</HashCode>
+      <FileName>database\FacadeDB.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="banDB" />
+      <Field Name="eveDB" />
+      <Field Name="usuDB" />
+      <Field Name="utiDB" />
+      <Field Name="catDB" />
+      <Field Name="votDB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyConcert.myconcertEntities" Collapsed="true">
+    <Position X="32.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQCEwIAAAAAAQIEAAQAAQEABAAAAAACACAIAAYAA=</HashCode>
+      <FileName>Model1.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.bandas">
+    <Position X="38.25" Y="14" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAQAEwAAAAAAAAAAAAQAAAAABAAAAABCAAAIAAAAE=</HashCode>
+      <FileName>bandas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.canciones">
+    <Position X="45.75" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAQAAAAAQAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>canciones.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.categorias">
+    <Position X="42" Y="14" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAIAIAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>categorias.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.categoriasevento">
+    <Position X="48.25" Y="14" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AABAAgEAEAAABAAQAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>categoriasevento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.comentarios">
+    <Position X="48.5" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAQAACAAAgQAAAAEAAAAAAAAAAgIAACAAAAAIA=</HashCode>
+      <FileName>comentarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.estados">
+    <Position X="48.25" Y="16.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAACAEAAAAAAAAQAAAAAAAAAIBAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>estados.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.eventos">
+    <Position X="38.25" Y="17.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gBIEAAAwAAAAQAAQoAACAIAAABAAiAAACAAAAIAAMAA=</HashCode>
+      <FileName>eventos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.generos">
+    <Position X="44.5" Y="22.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAIAAAAAAAAAAAAAAAAIACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>generos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.generosbanda">
+    <Position X="41" Y="23" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAQAEAAAAAAAAAAAAAIAAAAAQAAAAA=</HashCode>
+      <FileName>generosbanda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.generosusuario">
+    <Position X="48.25" Y="22.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAQAAAAAAAAAIAACAAABAAA=</HashCode>
+      <FileName>generosusuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.integrantes">
+    <Position X="43.25" Y="25.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAACAAAAAEACAAAAAAA=</HashCode>
+      <FileName>integrantes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.paises">
+    <Position X="42" Y="19.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAFAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>paises.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.tiposeventos">
+    <Position X="38.25" Y="23" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAEAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tiposeventos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.tiposusuarios">
+    <Position X="39.25" Y="25.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>tiposusuarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.universidades">
+    <Position X="47.75" Y="25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACAAAEAAA=</HashCode>
+      <FileName>universidades.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.usuarios">
+    <Position X="44.75" Y="16.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>ACAQACAQIAQAAACAgAECAAEAAABAAACAACAABJAAYEI=</HashCode>
+      <FileName>usuarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.votos">
+    <Position X="42" Y="16.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAFAAIAAQAAQAAAAAAAQAAAABAAAQAQCAAAAAAA=</HashCode>
+      <FileName>votos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.models.BandaModel">
+    <Position X="17.25" Y="18.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAIAABAAAAAAAAAAAAAEAAAAAAAACQAAAAQAAAAAA=</HashCode>
+      <FileName>models\BandaModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.models.CategoriaModel">
+    <Position X="15.75" Y="22.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>models\CategoriaModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.models.ChefModel">
+    <Position X="13.5" Y="16" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAQAAAAQAAAAAAAAAAAAAAAAAACAAAIAAA=</HashCode>
+      <FileName>models\ChefModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.models.EventosModel">
+    <Position X="13.5" Y="18.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAgEAAAAAAAAAAABAABAwAAAADAAAAEAAAAAAA=</HashCode>
+      <FileName>models\EventosModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_chef" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyConcert.models.UsuariosModel">
+    <Position X="17.25" Y="16" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAEAAAAAAAEAAAAAAAADAAAAAAAAAAAA=</HashCode>
+      <FileName>models\UsuariosModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.models.UtilidadesModel">
+    <Position X="20.5" Y="17.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>models\UtilidadesModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.models.VotacionesModel">
+    <Position X="20.5" Y="16" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>models\VotacionesModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.assembler.Assembler" Collapsed="true">
+    <Position X="21.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIgIBACAAUwAAYCAAICAAFAxAAgAAQBA0AMAAAEABAQ=</HashCode>
+      <FileName>resources\assembler\Assembler.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_encriptador" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyConcert.resources.operations.DolarStrategy" Collapsed="true">
+    <Position X="23" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\operations\DolarStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.operations.CommentsTable" Collapsed="true">
+    <Position X="19.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAABAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>resources\operations\CommentsTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.FabricaRespuestas" Collapsed="true">
+    <Position X="21" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>resources\results\FabricaRespuestas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.Respuesta" Collapsed="true">
+    <Position X="21.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\results\Respuesta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.ResultadoArreglo" Collapsed="true">
+    <Position X="19.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\results\ResultadoArreglo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.ResultadoBanda" Collapsed="true">
+    <Position X="21.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAgAAAAAAQAAAAAAAACAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\results\ResultadoBanda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.ResultadoDetalle" Collapsed="true">
+    <Position X="23" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\results\ResultadoDetalle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.ResultadoString" Collapsed="true">
+    <Position X="23" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\results\ResultadoError.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.ResultadoEvento" Collapsed="true">
+    <Position X="21.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\results\ResultadoEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.ResultadoObjeto" Collapsed="true">
+    <Position X="20" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\results\ResultadoObjeto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.results.ResultadoUsuario" Collapsed="true">
+    <Position X="19.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>resources\results\ResultadoUsuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.serial.SerialHelper" Collapsed="true">
+    <Position X="19.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEAAAAAAgAAAAAAIAAAAAACAAAEAAAABAEAgAAAAA=</HashCode>
+      <FileName>resources\serial\SerialHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.security.SHA256Encriptation" Collapsed="true">
+    <Position X="21" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>resources\security\SHA256Encriptation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.services.ConexionTwitter" Collapsed="true">
+    <Position X="21.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAABQAIAAAAAAAAAAAAAAAIAIAAAAAAAAA=</HashCode>
+      <FileName>resources\services\ConexionTwitter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.services.TwitterManager" Collapsed="true">
+    <Position X="21.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>resources\services\TwitterManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_conexion" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyConcert.resources.services.SpotifyUtils" Collapsed="true">
+    <Position X="23" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEAEAEAAAAAEAyABAAAEAAgAEAIAACCAAAAAAAAAA=</HashCode>
+      <FileName>resources\services\SpotifyUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Banda">
+    <Position X="27.75" Y="25" Width="2" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAgChAAAAAAACAAAAABAoAAAAAAAAAAAQAAAAAIAAAg=</HashCode>
+      <FileName>viewModels\Banda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Cancion">
+    <Position X="30" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAABAAAAAAAABAgAAAAAAAAAAgAAAAAAIAAAA=</HashCode>
+      <FileName>viewModels\Cancion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Cartelera">
+    <Position X="28.25" Y="16.75" Width="2.5" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAIAAAAAAAAAAEQAAAAAAAAAA=</HashCode>
+      <FileName>viewModels\Cartelera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Categoria">
+    <Position X="29.75" Y="22.5" Width="1.75" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAABAoAAAAAAAAAAAQAAAAAIAAAA=</HashCode>
+      <FileName>viewModels\Categoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.CategoriaBanda">
+    <Position X="31.75" Y="27" Width="1.5" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAIgAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>viewModels\CategoriaBanda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.CategoriaBandaVotacion">
+    <Position X="33.75" Y="26.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>viewModels\CategoriaBandaVotacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Colaborador">
+    <Position X="33.5" Y="16.75" Width="2.25" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>viewModels\Colaborador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Comentario">
+    <Position X="25.75" Y="23.75" Width="1.75" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAgDhAAAABAAAAEAAABAcBBAAAAAAAAgQAAAAAAAAAg=</HashCode>
+      <FileName>viewModels\Comentario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Evento">
+    <Position X="25.75" Y="16.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAICGAACAAQAAgAAAABAgIAAQAAACAIAAAAAAAMAAAg=</HashCode>
+      <FileName>viewModels\Evento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Fanatico">
+    <Position X="33.5" Y="18.25" Width="2.25" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAQAQAAAAAAAAAIIAAAAgAAAIAQECAAgEAAIA=</HashCode>
+      <FileName>viewModels\Fanatico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Festival">
+    <Position X="28.25" Y="19" Width="2.5" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAAAAIAAAAAAAIAAAAABIAAAAAAICAAASAgAAAAAAAA=</HashCode>
+      <FileName>viewModels\Festival.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.FestivalBandas">
+    <Position X="25.75" Y="28.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>viewModels\FestivalBandas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.GeneroMusical">
+    <Position X="31.75" Y="24.5" Width="1.75" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAABAoAAAAAAAAAAAQAAAAAIAAAA=</HashCode>
+      <FileName>viewModels\GeneroMusical.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.MiembroBanda">
+    <Position X="31.75" Y="21.5" Width="1.5" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAABAAAAAAAABAoAAAAAAAAAAgQAAAAAIAAAA=</HashCode>
+      <FileName>viewModels\MiembroBanda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Pais">
+    <Position X="25.75" Y="21.25" Width="1.75" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAABAoAAAAAAAAAAAQAAAAAIAAAA=</HashCode>
+      <FileName>viewModels\Pais.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Universidad">
+    <Position X="27.75" Y="22.5" Width="1.75" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAABAoAAAAAAAAAAAQAAAAAIAAAA=</HashCode>
+      <FileName>viewModels\Universidad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Usuario">
+    <Position X="31" Y="16.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAACgAAAZEAEgggAAAAAAAAAAQAIEAAAIAEAk=</HashCode>
+      <FileName>viewModels\Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.viewModels.Voto">
+    <Position X="34.25" Y="22.5" Width="1.5" />
+    <Members>
+      <Method Name="deserialize" Hidden="true" />
+      <Method Name="serialize" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAEAIBAAAAAgAARAYBAAAgAAAAAgQAAAAAABAAA=</HashCode>
+      <FileName>viewModels\Voto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.server.ServerAPI">
+    <Position X="12.75" Y="4" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAIAAAAAAAAAAAAAAAAgAAAAAAAAAAABAAgAAA=</HashCode>
+      <FileName>config\ServerAPI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Web.Http.ApiController" Collapsed="true">
+    <Position X="6" Y="11" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyConcert.models.AbstractModel">
+    <Position X="17.25" Y="14" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAgAAAQAAAAAA=</HashCode>
+      <FileName>models\AbstractModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyConcert.resources.operations.Chef" Collapsed="true">
+    <Position X="19.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAQAEAAAACAIAAAAAAAEABAAAQAAAAAAEAAAAIQAI=</HashCode>
+      <FileName>resources\operations\Chef.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_commentsTable" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

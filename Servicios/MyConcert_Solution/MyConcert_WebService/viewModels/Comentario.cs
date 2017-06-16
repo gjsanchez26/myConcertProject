@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
-    class Comentario
+    public class Comentario
     {
         private int _id;
         private string _fanatico;

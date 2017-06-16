@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     public class EventosDB
     {
@@ -19,7 +19,7 @@ namespace MyConcert_WebService.database
                 {
                     try
                     {
-                        nuevoEvento = context.eventos.Add(nuevoEvento);
+                        nuevoEvento = context.eventos.Add(pEvento);
 
                         foreach (categoriasevento cat_eve in categoriasBanda)
                         {
@@ -78,8 +78,6 @@ namespace MyConcert_WebService.database
         }
         
         //OBTENER 1 OBJETO
-       
-
         public eventos obtenerEvento(int PK_evento)
         {
             eventos obj = null;
@@ -204,9 +202,6 @@ namespace MyConcert_WebService.database
             
         }
 
-       
-
-        
         public void crearFestival(eventos festival,List<bandas> perdedoras)
         {
             using (myconcertEntities context = new myconcertEntities())

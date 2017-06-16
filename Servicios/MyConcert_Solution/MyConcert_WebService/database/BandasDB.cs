@@ -1,9 +1,9 @@
-﻿using MyConcert_WebService.viewModels;
+﻿using MyConcert.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     class BandasDB
     {
@@ -80,99 +80,6 @@ namespace MyConcert_WebService.database
                 using (myconcertEntities context = new myconcertEntities())
                 {
                     obj = context.bandas.FirstOrDefault(r => r.nombreBan == banda);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
-        }
-        public integrantes obtenerIntegrante(int PK_banda)
-        {
-            integrantes obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.integrantes.FirstOrDefault(g => g.FK_INTEGRANTES_BANDAS == PK_banda);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
-        }
-
-        public generosbanda obtenerGenerosBanda(int PK_generosBanda)
-        {
-            generosbanda obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.generosbanda.FirstOrDefault(g => g.PK_generosBanda == PK_generosBanda);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
-        }
-
-        public void añadirCancion(canciones cancion)
-        {
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    context.canciones.Add(cancion);
-                    context.SaveChanges();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-        }
-
-        public canciones obtenerCancion(int PK_cancion)
-        {
-            canciones obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.canciones.FirstOrDefault(r => r.PK_canciones == PK_cancion);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
-        }
-
-        public comentarios obtenerComentario(int PK_comentario)
-        {
-            comentarios obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.comentarios.FirstOrDefault(r => r.PK_comentarios == PK_comentario);
                 }
 
             }

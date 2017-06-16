@@ -1,9 +1,9 @@
-﻿using MyConcert_WebService.res.resultados;
+﻿using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace MyConcert_WebService.controllers
+namespace MyConcert.controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FilesController : ApiController
@@ -12,7 +12,7 @@ namespace MyConcert_WebService.controllers
         {
             dynamic peticion = pPeticion;
 
-            return new Respuesta();
+            return null;
         } 
     }
 }

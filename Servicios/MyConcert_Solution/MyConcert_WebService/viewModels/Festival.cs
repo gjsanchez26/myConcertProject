@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
     public class Festival : Evento
     {
@@ -74,7 +74,7 @@ namespace MyConcert_WebService.viewModels
             return JObject.FromObject(this);
         }
 
-        internal string RecomendacionChef
+        public string RecomendacionChef
         {
             get
             {

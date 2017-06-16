@@ -2,48 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     class VotosDB
     {
-        public votos obtenerVoto(int PK_voto)
-        {
-            votos obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.votos.FirstOrDefault(g => g.PK_votos == PK_voto);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.InnerException.ToString());
-            }
-            return obj;
-        }
-
-        public List<votos> obtenerVotos(int PK_categoria)
-        {
-            List<votos> obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.votos.Where(v=> v.FK_VOTOS_CATEGORIAS== PK_categoria).ToList();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.InnerException.ToString());
-            }
-            return obj;
-        }
-
         public void añadirVotos(List<votos> votaciones)
         {
             using (myconcertEntities context = new myconcertEntities())

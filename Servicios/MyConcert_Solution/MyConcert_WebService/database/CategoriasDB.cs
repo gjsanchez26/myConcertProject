@@ -1,11 +1,8 @@
-﻿using MyConcert_WebService.viewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     class CategoriasDB
     {
@@ -29,25 +26,6 @@ namespace MyConcert_WebService.database
             }
         }
 
-        public categorias obtenerCategoria(int PK_categoria)
-        {
-            categorias obj = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    obj = context.categorias.FirstOrDefault(r => r.PK_categorias == PK_categoria);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return obj;
-        }
-
         public categorias obtenerCategoria(string categoria)
         {
             categorias obj = null;
@@ -66,6 +44,26 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
+
+        public categorias obtenerCategoria(int categoria)
+        {
+            categorias obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.categorias.FirstOrDefault(r => r.PK_categorias == categoria);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return obj;
+        }
+
         public List<categorias> obtenerCategorias()
         {
             List<categorias> obj = null;

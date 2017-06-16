@@ -1,26 +1,23 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.viewModels;
+using MyConcert.resources.results;
 using System;
-using MyConcert_WebService.res.assembler;
+using MyConcert.resources.assembler;
 using Newtonsoft.Json.Linq;
-using MyConcert_WebService.res.serial;
+using MyConcert.resources.serial;
 using System.Collections.Generic;
-using Sptfy;
+using MyConcert.resources.services;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class BandaModel
+    public class BandaModel : AbstractModel
     {
-        private ManejadorBD _manejador;
-        private FabricaRespuestas _creador;
-        private Assembler _convertidor;
         private SerialHelper _serial;
         private SpotifyUtils _spotify;
 
         public BandaModel()
         {
-            _manejador = new ManejadorBD();
-            _creador = new FabricaRespuestas();
+            _manejador = new FacadeDB();
+            _fabricaRespuestas = new FabricaRespuestas();
             _convertidor = new Assembler();
             _serial = new SerialHelper();
             _spotify = new SpotifyUtils();
@@ -41,11 +38,11 @@ namespace MyConcert_WebService.models
                                        _convertidor.updateintegrantes(miembros),
                                        _convertidor.updatecanciones(canciones),
                                        _convertidor.updateListaGeneros(generos));
-                respuesta = _creador.crearRespuesta(true, "Banda registrada correctamente.");
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Banda registrada correctamente.");
             } catch(Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
-                respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.", e.ToString());
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.", e.ToString());
             }
 
             return respuesta;
@@ -69,10 +66,12 @@ namespace MyConcert_WebService.models
                     iterator++;
                 }
 
-                respuesta = _creador.crearRespuesta(true, listaBandas);
+
+
+                respuesta = _fabricaRespuestas.crearRespuesta(true, listaBandas);
             } catch(Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al generar catalogo de bandas.", e.ToString());
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al generar catalogo de bandas.", e.ToString());
             }
 
             return respuesta;
@@ -81,7 +80,6 @@ namespace MyConcert_WebService.models
         public Respuesta getBanda(int pIDBanda)
         {
             bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
-            Console.WriteLine(bandaQuery.nombreBan);
             List<generos> generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery);
             GeneroMusical[] arregloGenerosBandaQuery = _convertidor.createListaGenero(generosBandaQuery);
             List<integrantes> integrantesBandaQuery = _manejador.obtenerIntegrantes(bandaQuery);
@@ -101,7 +99,7 @@ namespace MyConcert_WebService.models
             band_dataObj.followers = _spotify.searchArtistFollowers(bandaQuery.nombreBan);
             band_dataObj.popularity = _spotify.searchArtistPopularity(bandaQuery.nombreBan);
 
-            Respuesta respuesta = _creador.crearRespuesta(true, band_dataObj, generosObj, miembrosObj, cancionesObj, comentariosObj);
+            Respuesta respuesta = _fabricaRespuestas.crearRespuesta(true, band_dataObj, generosObj, miembrosObj, cancionesObj, comentariosObj);
 
             return respuesta;
         }

@@ -1,10 +1,11 @@
-﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.models;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace MyConcert_WebService.controllers
+namespace MyConcert.controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventosController : ApiController
@@ -19,10 +20,10 @@ namespace MyConcert_WebService.controllers
 
             switch (type)
             {
-                case "cartelera":
+                case "carteleras":
                     respuesta = _model.getCarteleras();
                     break;
-                case "festival":
+                case "festivales":
                     respuesta = _model.getFestivales();
                     break;
                 default:
@@ -47,8 +48,8 @@ namespace MyConcert_WebService.controllers
         public JObject Post(JObject pDatosEvento)
         {
             dynamic peticion = pDatosEvento;
-            string tipoEvento = peticion.event_type;
-            JObject datosEventoJSON = peticion.event_data;
+            string tipoEvento = (string) peticion.event_type;
+            JObject datosEventoJSON = (JObject) peticion.event_data;
             JArray categorias = (JArray) peticion.categories;
 
             Respuesta respuesta = null;

@@ -1,18 +1,14 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.viewModels;
+using MyConcert.resources.results;
 using System;
 using System.Collections.Generic;
-using MyConcert_WebService.res.assembler;
+using MyConcert.resources.assembler;
 using Newtonsoft.Json.Linq;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class CategoriaModel
+    public class CategoriaModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
-        private Assembler _convertidor = new Assembler();
-
         public Respuesta nuevaCategoria(string pNombre)
         {
             Respuesta respuesta = null;
@@ -21,10 +17,10 @@ namespace MyConcert_WebService.models
             try
             {
                 _manejador.añadirCategoria(_convertidor.updatecategorias(nueva));
-                respuesta = _creador.crearRespuesta(true, "Categoria creada satisfactoriamente.");
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Categoria creada satisfactoriamente.");
             } catch(Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al crear categoria. Intente de nuevo.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear categoria. Intente de nuevo.");
                 throw (e);
             }
 
@@ -47,11 +43,11 @@ namespace MyConcert_WebService.models
                     arregloCategorias[iterator] = JObject.FromObject(auxiliar);
                     iterator++;
                 }
-                respuesta = _creador.crearRespuesta(true, arregloCategorias);
+                respuesta = _fabricaRespuestas.crearRespuesta(true, arregloCategorias);
 
             } catch(Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al obtener cartegorias.", e.ToString());
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al obtener cartegorias.", e.ToString());
             }
 
             return respuesta;
