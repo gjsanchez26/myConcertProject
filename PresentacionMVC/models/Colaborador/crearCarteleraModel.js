@@ -1,11 +1,11 @@
 myConcert.service("crearCarteleraModel", function($routeParams, $location, $http){
-var myURL ="http://192.168.100.12:12345";
-
+//var myURL ="http://192.168.100.12:12345";
+var myURL ="http://192.168.43.30:12345";
 var listaCategorias=[];
 var listaBandas=[]; 
 var listaTemporalBandas=[];
 var listaTemporalCategorias=[];
-    
+var listaCategoriasCrear=[];    
 var listaCategorias=[];
 var listaCategoriaBanda=[];
 var categoriaActual;
@@ -19,24 +19,22 @@ this.agregarCategorias = function (cartelera){
 }
 
 this.agregarUnaBanda= function(banda){
-    listaTemporalBandas.push(banda); 
-    console.log("Lista Temporal");
-    console.log(listaTemporalBandas);
-}
-
-this.crearCategoria= function(banda){
-    var categorias = {
-        "category": categoriaActual.Id,
-        "bands": listaTemporalBandas        
+    var bandaXCategoria={
+        "category": categoriaActual.Nombre,
+        "band": banda
     }
+    listaTemporalBandas.push(bandaXCategoria); 
+}
+/*
+this.crearCategoria= function(){
+
+   // listaCategoriaBanda.push(categorias);
+    //listaCategoriasCrear.push(listaTemporalBandas);
     listaTemporalCategorias=[];
     listaTemporalBandas=[];
-    console.log("Categoria y Bandas");
-    console.log(categorias);
-    listaCategoriaBanda.push(categorias); 
-    console.log("ListaBandaCategoria");
-    console.log(listaCategoriaBanda);
-}
+    console.log("Categarias a Crear");
+    console.log(listaCategoriasCrear);
+}*/
 
 
 this.obtenerInformacionBanda = function(){
@@ -91,7 +89,7 @@ this.crearCartelera= function (cartelera) {
                 "final_hour" :            cartelera.horaFinalFestival,   
                 "vote_final_date":        cartelera.fechaFinalVotacion,
                },
-        "categories": listaCategoriaBanda
+        "categories": listaTemporalBandas
        
     };
 
@@ -102,12 +100,13 @@ this.crearCartelera= function (cartelera) {
                 method: 'POST',
                 url: myURL+"/API/Eventos",
                 headers: {
-                    'Content-Type' : 'application/json'
+                    'Content-Type' :'application/json'
                 },
                 data: Cartelera
                 }).then(function(result){
                     if (result.data.success)
                     {alert("Cartelera Creada");
+                     listaTemporalBandas=[]
                      window.location.href = "#vistaColaborador";
                     }
                     else alert(result.data.content)
@@ -115,6 +114,9 @@ this.crearCartelera= function (cartelera) {
                 }, function(error) {
                     console.log(error);
                 });
+        listaCategorias=[];
+        listaCategoriaBanda=[]; 
+        listaTemporalBandas=[];
 }
 
 this.obtenerPaises = function(cartelera) {

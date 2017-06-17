@@ -1,55 +1,55 @@
-myConcert.service("colaboradorModel", function($routeParams, $location, $http){
+myConcert.service("fanaticoModel", function($routeParams, $location, $http){
 //var myURL ="http://192.168.100.12:12345"; 
 var myURL ="http://192.168.43.30:12345";     
 var listaBandasActuales={}; 
 var tipoUsuario="";
-
+var carteleraActual=0;
     
-this.crearFestival = function(cartelera){
-            console.log("EEEEEEEEEEEEEEEE");
-            console.log(cartelera.info);
-            var listaBandadXCategoria=[];
+this.crearVotacion = function(cartelera){
+           var listaBandadXCategoria=[];
             var checkboxes = document.getElementsByName('bandasSeleccionadas');
+            var listaVotos = document.getElementsByName('voto');
             var vals = "";
             for (var i=0, n=checkboxes.length;i<n;i++) 
             {
-                if (checkboxes[i].checked) 
-                {   var temp = checkboxes[i].value;
+                    var temp = checkboxes[i].value;
                     var res = temp.split(".")
                     var bandaXCategoria = { 
+                        "cartelera":cartelelaActual,
                         "band":res[0],
-                        "category":res[1]  
+                        "category":res[1],
+                        "vote":parseInt(listaVotos[i].value),
+                        "username":localStorage.getItem("userName")
+                    }               
+                    listaBandadXCategoria.push(bandaXCategoria);    
+            }
+            console.log(listaBandadXCategoria); 
+    
+    $http({
+                method: 'POST',
+                url: myURL+"/API/Votaciones",
+                headers: {'Content-Type' : 'application/json'},
+                data: listaBandadXCategoria
+                })
+                
+                .then(function(result){
+                    if (result.data.success){
+                        alert("Votacion Realizada Correctamente")
+
                     }
-                    
-                    listaBandadXCategoria.push(bandaXCategoria);
-                    vals += ","+checkboxes[i].value;
-                }
-            }
-            if (vals) vals = vals.substring(1);
-            console.log(vals);
-            console.log(listaBandadXCategoria);
-            nuevoFestival = {
-              "event_type" : "festival",
-              "event_data" : {
-                        "event_id" : cartelera.info.event_data.Id,
-                        "name" : cartelera.info.event_data.Nombre,
-                        "ubication": cartelera.info.event_data.Ubicacion,
-                        "country": cartelera.info.event_data.Pais,
-                        "initial_date" : cartelera.info.event_data.FechaInicioFestival,
-                        "final_date" : cartelera.info.event_data.FechaFinalFestival,
-                        "vote_final_date" :cartelera.info.event_data.FechaFinalVotacion,
-                        "food" : document.getElementById("cartelera.comida").value,
-                        "transport" : document.getElementById("cartelera.comida").value,
-                        "services" : document.getElementById("cartelera.servicios").value
-              },
-              "categories" : listaBandadXCategoria
-            }
-            console.log(nuevoFestival);
+                    else alert(result.data)
+
+                }, function(error) {
+                    console.log(error);
+                });
+    
 }
+
 
                   
 this.obtenerUnaCartelera=function(evento,cartelera){
-
+    
+    cartelelaActual=evento.Id
     $http({
                 method: 'GET',
                 url: myURL+"/API/eventos?id="+evento.Id,

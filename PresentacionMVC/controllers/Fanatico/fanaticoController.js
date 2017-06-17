@@ -1,5 +1,4 @@
-myConcert.controller("colaboradorController", function($scope, $http, colaboradorModel){
-    
+myConcert.controller("fanaticoController", function($scope, $http, fanaticoModel){
     $scope.colaborador={};
     $scope.banda={};   
     $scope.cartelera={}; 
@@ -11,17 +10,17 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
     $scope.eventoFlag1 = true;
     $scope.oneAtATime = true;
     $scope.isOpen = false;
-    
-    colaboradorModel.obtenerListaCarteleras($scope.cartelera);
-    colaboradorModel.obtenerListaFestivales($scope.cartelera);
+    fanaticoModel.obtenerListaCarteleras($scope.cartelera);
+    fanaticoModel.obtenerListaFestivales($scope.cartelera);
     
     
     $scope.obtenerUnaCartelera= function(evento){
-        colaboradorModel.obtenerUnaCartelera(evento,$scope.cartelera);
+
+        fanaticoModel.obtenerUnaCartelera(evento,$scope.cartelera);
     }; 
     
     $scope.obtenerUnFestival= function(evento){
-        colaboradorModel.obtenerUnFestival(evento,$scope.festival);
+        fanaticoModel.obtenerUnFestival(evento,$scope.festival);
     };
     
     $scope.obtenerCartelera= function(cartelera){
@@ -32,8 +31,9 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
         $scope.eventoFlag1=false;    
     }
     
-    $scope.crearFestival =function(){
-        colaboradorModel.crearFestival($scope.cartelera);
+    $scope.crearVotacion =function(){
+        fanaticoModel.crearVotacion($scope.cartelera);
+        $scope.eventoFlag1=true;  
     }
     // Data 
     $scope.groups = [

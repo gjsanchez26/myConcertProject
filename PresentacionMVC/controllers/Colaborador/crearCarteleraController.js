@@ -19,13 +19,12 @@ myConcert.controller("crearCarteleraController", function($scope, $http, crearCa
         console.log("aqui1");
     }
     $scope.agregarBanda = function (banda) {
-        console.log("Nombre de Banda");
-        console.log(banda);
-        crearCarteleraModel.agregarUnaBanda(banda.Id);
+
+        crearCarteleraModel.agregarUnaBanda(banda.Nombre);
     }
-    $scope.crearCategoria = function(){
+/*    $scope.crearCategoria = function(){
         crearCarteleraModel.crearCategoria();
-    }
+    }*/
     $scope.obtenerInformacionBanda = function(banda){
         crearCarteleraModel.obtenerInformacionBanda(banda);
     }

@@ -9,7 +9,7 @@
                         <span class="icon-bar"></span>
                       </button>
 
-                      <a class="navbar-brand" id="idUser" href="#"  style="color:#FFFFFF">MyConcert</a>
+                      <a class="navbar-brand" id="idUser" href="#"  ng-click="obtenerBandas()" style="color:#FFFFFF">MyConcert</a>
 
                     </div>
                     <a class="navbar-brand" id="idUser" href="#home" style="color:#FFFFFF"></a>
@@ -56,28 +56,47 @@
                 <div class="top-row">
                     <div>
                         <div class="form-group has-feedback" >
-                            <h2 style="color:#ffffff">{{colaborador.NombreUsuario}}</h2>
+                            <h2 style="color:#ffffff">{{colaborador.nombreUsuario}}</h2>
                             <label for="C_Name">Nombre Usuario</label>
                         </div>
                         <div class="form-group has-feedback" >
-                            <h3 style="color:#ffffff" >{{colaborador.Nombre}} {{colaborador.Apellido}}</h3>
+                            <h3 style="color:#ffffff" >{{colaborador.nombre}} {{colaborador.apellido}}</h3>
                             <label for="C_Name">Nombre Completo</label>
                         </div>
                         <div class="form-group has-feedback" >
                             
-                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{colaborador.FechaNacimiento}}</h3>
+                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{colaborador.fechaNacimiento}}</h3>
                             <label for="C_Name">Fecha de Nacimiento</label>
                         </div>
                     </div>
                     <div>
                         <div class="form-group has-feedback" > 
-                            <h3 style="color:#ffffff" >{{colaborador.FechaInscripcion}}</h3>
+                            <h3 style="color:#ffffff" >{{colaborador.fechaInscripcion}}</h3>
                             <label for="C_Name">Fecha Inscripción</label>
                         </div>    
+                        <div class="form-group has-feedback" >
+                            
+                            <h3 style="color:#ffffff">{{colaborador.ubicacion}},{{colaborador.pais}}</h3>
+                            <label for="C_Name">Ubicación</label>
+                        </div>    
+  
+                        <div class="form-group has-feedback" >
+                            <h3 style="color:#ffffff" >{{colaborador.universidad}}</h3>
+                            <label for="C_Name">Universidad</label>
+                        </div>
+
                     </div>        
                 </div>
-
-
+                <div >
+                  <h1 style="color:#ffffff"> Lista de Generos</h1>
+                  <div class="list-group">
+                    <li ng-repeat="item in colaborador.generos" class="list-group-item">{{item}}</li>
+                  </div>
+                </div>
+                <div>
+                    <pre>{{colaborador.descripcion}}</pre>
+                    <label for="C_Name">Descripción</label>
+                </div>
                 
 
             </div>

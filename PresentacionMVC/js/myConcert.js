@@ -42,6 +42,11 @@ var configMyConcert = function($routeProvider){
             controller: "crearFestivalController",
             templateUrl: "views/Colaborador/crearFestivalView.html"
         })
+        .when("/vistaFanatico", {
+            controller: "fanaticoController",
+            templateUrl: "views/Fanatico/fanaticoView.html"
+        })
+    
         
         
     ;
@@ -50,4 +55,5 @@ var configMyConcert = function($routeProvider){
  
 //creamos el modulo y le aplicamos la configuración
 var myConcert = angular.module("myConcert",  ['ngAnimate', 'ngAria', 'ui.bootstrap', 'ngMaterial', 'ngMessages', 'ngRoute', 'ui.router']).config(configMyConcert);
-window.location.href = "#registroForm";
+
+

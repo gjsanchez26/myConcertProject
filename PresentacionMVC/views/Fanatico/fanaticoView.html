@@ -1,4 +1,4 @@
-<div ng-controller="colaboradorController">
+<div ng-controller="fanaticoController">
         <div style="margin: 0px 0px 0px 0px;">
         <nav  class="navbar navbar-inverse">
           <div class="container-fluid">
@@ -14,23 +14,8 @@
             </div>
             <a class="navbar-brand" id="idUser" href="#home" style="color:#FFFFFF"></a>
             <div class="collapse navbar-collapse" id="myNavbar" style="color:#FFFFFF">
-              <ul class="nav navbar-nav">
-                  
-                   
-                    <li class="dropdown" style="color:#FFFFFF">
-                      <a class="dropdown-toggle" data-toggle="dropdown" >Crear<span class="caret"></span></a>
-                      <ul class="dropdown-menu style="color:#FFFFFF"">
-                          <li style="color:#FFFFFF" id="crearBanda"><a href="#crearBanda">Banda</a></li>
-                          <li style="color:#FFFFFF" id="crearCategoria"><a href="#crearCategoria">Categoria</a></li>
-                          <li style="color:#FFFFFF" id="crearCartelera"><a href="#crearCartelera">Cartelera</a></li>
-                          
-                      </ul>
-                    </li>
-                  
-              </ul>
-              <ul class="nav navbar-nav navbar-left">
-                    <li style="color:#FFFFFF" id="myBtn"><a href="#catalogoBandas">Catalogo de Bandas</a></li>
-              </ul>
+            
+      
               <ul class="nav navbar-nav navbar-right">
                     <li style="color:#FFFFFF"class="submit" id="myBtn"><a href="#registroForm">Cerrar Sesión</a></li>
               </ul>
@@ -49,7 +34,7 @@
                 <div class="col-sm-1 col-md-2 sidenav">
                   
                   <ul class="nav nav-pills nav-stacked">
-                    <h1 style="color:#FFFFFF" >Colaborador</h1>
+                    <h1 style="color:#FFFFFF" >Fanatico</h1>
                     <div id="imagenPerfil">
                     </div>
                     <li class="active"></li>
@@ -182,20 +167,9 @@
                                              </div>
                                         </div>
                                     </div>
-                                  
+                               
                                     <div ng-show="!(eventoFlag1)" ng-hide="eventoFlag1">
-                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
-                                                <label for="C_Name" style="color:#6d153d" >Informacion Comida</label>
-                                                <textarea   id="cartelera.comida" ng-model="cartelera.Comida" style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="2" cols="20"></textarea>
-                                            </div>
-                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
-                                                <label for="C_Name" style="color:#6d153d" >Informacion de Servicios</label>
-                                                <textarea   id="cartelera.servicios" ng-model="cartelera.servicios" style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="2" cols="20"></textarea>
-                                            </div>
-                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
-                                                <label for="C_Name" style="color:#6d153d">Informacion de Transporte</label>
-                                                <textarea   id="cartelera.transporte" ng-model="cartelera.transporte" style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="2" cols="20"></textarea>
-                                            </div>
+    
                                     </div>
                                     <div  class="form-group has-feedback" style="margin: 10px 0px 0px 0px;">
                                          <h3>Selecciones las bandas deseadas</h3>
@@ -213,14 +187,14 @@
                                                                           <tr>
                                                                             <th>Banda</th>
                                                                             <th>Votos</th>
-                                                                            <th  ng-show ="!(eventoFlag1)">Seleccionar</th>
+                                                                            <th  ng-show ="!(eventoFlag1)">Asigne sus Votos</th>
                                                                           </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                           <tr ng-repeat ="banda in cartelera.bands">
                                                                             <td>{{banda.name_band}}</td>
                                                                             <td>{{banda.result}}</td>
-                                                                            <td><input ng-show="!(eventoFlag1)" type="checkbox" ng-model="bandasSeleccionadas" name="bandasSeleccionadas" value="{{banda.name_band}}.{{cartelera.category}}" checked></td>
+                                                                            <td><div class="col-xs-3"><input ng-show="!(eventoFlag1)" id="number" type="number" max="100"  class="form-control" ng-model="votas" name="voto"> <input type="checkbox" ng-model="bandasSeleccionadas" name="bandasSeleccionadas" value="{{banda.name_band}}.{{cartelera.category}}" style="display:none" checked> </div></td>
                                                                           </tr>
 
                                                                         </tbody>
@@ -231,6 +205,7 @@
                                         </div>
                                   </div>
                                   </div>
+                                  
                                 <!--    <div  class="col-sm-6 col-md-6 col-lg-12" >
                                             <uib-accordion close-others="oneAtATime" style=" display:block;margin-left:auto;margin-right:auto;">
                                                 <uib-accordion-group ng-repeat="cartelera in infoCartelera.categories" ng-scroll="cartelera in infoCartelera.categories" is-open="cartelera.isOpen" ng-click="updateOpenStatus()">
@@ -264,9 +239,9 @@
                                     
                      
                                 <div class="modal-footer">
-                                  <button ng-show="eventoFlag1" type="button" class="button button-block"  data-toggle="modal" ng-click="convertirEnFestival()" >CONVERTIR EN FESTIVAL</button>
+                                  <button ng-show="eventoFlag1" type="button" class="button button-block"  data-toggle="modal" ng-click="convertirEnFestival()" >INICIAR VOTACIÓN</button>
                                    <div class="modal-footer">
-                                  <button ng-show="!(eventoFlag1)" type="button" class="button button-block" data-dismiss="modal"  ng-click="crearFestival()">CREAR FESTIVAL</button>
+                                  <button ng-show="!(eventoFlag1)" type="button" class="button button-block" data-dismiss="modal"  ng-click="crearVotacion()">VOTAR</button>
                                 </div>
                                 </div>
                               </div>
@@ -338,7 +313,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="button button-block" data-dismiss="modal" >CREAR FESTIVAL</button>
+                                  <button type="button" class="button button-block" data-dismiss="modal"  ng-click="crearVotacion()">CREAR FESTIVAL</button>
                                 </div>
                               </div>
                             </div>

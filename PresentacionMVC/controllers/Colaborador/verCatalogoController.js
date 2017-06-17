@@ -1,6 +1,13 @@
 myConcert.controller("verCatalogoController", function($scope, $http, verCatalogoModel){
     $scope.catalogo={};
-    verCatalogoModel.obtenerBandas($scope.catalogo);  
+    $scope.banda={};
+    
+    verCatalogoModel.obtenerBandas($scope.catalogo);
+    $scope.verBandaEspecifica = function(banda){
+        verCatalogoModel.verBandaEspecifica(banda.Id,$scope.catalogo);
+    }
+    
+   // verCatalogoModel.verBanda($scope.catalogo);  
     console.log("aaaaaaaa");
     $scope.currentPage = 0;
     $scope.pageSize = 20;
@@ -17,5 +24,7 @@ myConcert.controller("verCatalogoController", function($scope, $http, verCatalog
        window.location.href = "#vistaColaborador";          
         } 
     }
+
+   
     
 }   ); 
