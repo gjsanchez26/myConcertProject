@@ -80,8 +80,11 @@ namespace MyConcert.models
             try
             {
                 List<bandas> catalogoBandas = _manejador.obtenerBandas();
+                bandas[] arrayCatalogoBandas = catalogoBandas.ToArray();
                 Banda[] arregloBandas = new Banda[catalogoBandas.Count];
+
                 JObject[] listaBandas = new JObject[catalogoBandas.Count];
+
                 int iterator = 0;
                 foreach (bandas banda in catalogoBandas)
                 {
@@ -90,8 +93,6 @@ namespace MyConcert.models
                     listaBandas[iterator] = arregloBandas[iterator].serialize();
                     iterator++;
                 }
-
-
 
                 respuesta = _fabricaRespuestas.crearRespuesta(true, listaBandas);
             } catch(Exception e)

@@ -47,23 +47,42 @@ namespace MyConcert.models
             return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
+        public bool existeEnLista(List<categorias> lista, categorias categoria)
+        {
+            foreach (categorias catActual in lista)
+            {
+                if (categoria.Equals(catActual))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public Respuesta getEvento(int pID)
         {
             Respuesta respuesta = null;
             eventos eventoSolicitado = _manejador.obtenerEvento(pID);
             List<categorias> listaCategoriasEvento = _manejador.obtenerCategoriasEvento(eventoSolicitado.PK_eventos);
-            List<categorias> listaCategoriasSinRepetidos = eliminarCategoriasRepetidas(listaCategoriasEvento);
+            List<categorias> categoriasSinRepetir = new List<categorias>();
+            foreach (categorias catActual in listaCategoriasEvento)
+            {
+                if (!existeEnLista(categoriasSinRepetir, catActual))
+                {
+                    categoriasSinRepetir.Add(catActual);
+                }
+            }
 
             if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos)
             {
-                JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, listaCategoriasEvento);
+                JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, categoriasSinRepetir);
                 Evento eventoAuxiliar = _convertidor.createEvento(eventoSolicitado);
                 respuesta = _fabricaRespuestas.crearRespuesta(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
 
             }
             else if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(2).PK_tiposEventos)
             {
-                List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, listaCategoriasEvento);
+                List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, categoriasSinRepetir);
                 JObject[] bandas = new JObject[bandasFestival.Count];
                 int iterator = 0;
                 foreach (bandas bandaActual in bandasFestival)
