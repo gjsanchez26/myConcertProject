@@ -20,8 +20,7 @@ namespace MyConcert
              eveDB = new EventosDB();
              usuDB = new UsuariosDB();
              utiDB = new UtilidadesDB();
-             votDB = new VotosDB();
-
+            votDB = new VotosDB();
         }
 
         //BANDASDB

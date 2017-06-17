@@ -91,13 +91,17 @@ namespace MyConcert.database
 
                 using (myconcertEntities context = new myconcertEntities())
                 {
-                    obj = context.categorias.Join(context.categoriasevento,
+                     obj = context.categorias.Join(context.categoriasevento,
                                                    c => c.PK_categorias,
                                                    ce => ce.FK_CATEGORIASEVENTO_CATEGORIAS,
                                                    (c, ce) => new { c, ce })
                                                    .Where(w => w.ce.FK_CATEGORIASEVENTO_EVENTOS == evento)
-                                                   .Select(s => s.c).ToList();
+                                                   .Select(s => s.c).OrderBy(g=>g.PK_categorias).ToList() ;
+
+
+                   
                 }
+
 
             }
             catch (Exception ex)
