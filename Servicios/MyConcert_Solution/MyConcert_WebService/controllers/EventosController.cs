@@ -7,6 +7,9 @@ using System.Web.Http.Cors;
 
 namespace MyConcert.controllers
 {
+    /**
+     * Eventos Controller
+     * */
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventosController : ApiController
     {
@@ -20,13 +23,13 @@ namespace MyConcert.controllers
 
             switch (type)
             {
-                case "carteleras":
+                case "carteleras":      //Si necesita carteleras
                     respuesta = _model.getCarteleras();
                     break;
-                case "festivales":
+                case "festivales":      //Si necesita festivales
                     respuesta = _model.getFestivales();
                     break;
-                default:
+                default:        //Si no existe el tipo de evento
                     respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
                     break;
             }

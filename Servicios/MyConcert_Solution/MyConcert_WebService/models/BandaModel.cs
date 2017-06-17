@@ -23,6 +23,7 @@ namespace MyConcert.models
             _spotify = new SpotifyUtils();
         }
 
+        //Registrar nueva banda en el sistema
         public Respuesta nuevaBanda(string pNombre, JArray pMiembros,
                                 JArray pCanciones, JArray pGeneros)
         {
@@ -32,6 +33,7 @@ namespace MyConcert.models
             string[] canciones = _serial.getArrayString(pCanciones);
             int[] generos = _serial.getArrayInt(pGeneros);
 
+            //Almacena banda nueva
             try
             {
                 _manejador.añadirBanda(_convertidor.updatebandas(banda), 
@@ -39,15 +41,17 @@ namespace MyConcert.models
                                        _convertidor.updatecanciones(canciones),
                                        _convertidor.updateListaGeneros(generos));
                 respuesta = _fabricaRespuestas.crearRespuesta(true, "Banda registrada correctamente.");
-            } catch(Exception e)
+            } catch(Exception)
             {
-                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.", e.ToString());
+                //Retorna respuesta de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya existente.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.", e.ToString());
             }
 
             return respuesta;
         }
 
+        //Generar comentario en banda
         public Respuesta generarComentario(int idBand, string user, string comment, float calification)
         {
             Respuesta respuesta = null;
@@ -62,17 +66,19 @@ namespace MyConcert.models
                             _manejador.obtenerEstado(1).estado,
                             _manejador.obtenerBanda(idBand).nombreBan);
                 comentarios parseComment = _convertidor.updatecomentarios(comentario);
-                _manejador.añadirComentario(parseComment);
+                _manejador.añadirComentario(parseComment); //Almacena comentario
                 respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.");
-            } catch(Exception e)
+            } catch(Exception)
             {
-                //respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.");
-                respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.", e.ToString());
+                //Retorna error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al generar comentario.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.", e.ToString());
             }
 
             return respuesta;
         }
 
+        //Obtener catalogo de bandas
         public Respuesta getCatalogoBandas()
         {
             Respuesta respuesta = null;
@@ -85,6 +91,7 @@ namespace MyConcert.models
 
                 JObject[] listaBandas = new JObject[catalogoBandas.Count];
 
+                //Organizar bandas para envio
                 int iterator = 0;
                 foreach (bandas banda in catalogoBandas)
                 {
@@ -94,25 +101,43 @@ namespace MyConcert.models
                     iterator++;
                 }
 
-                respuesta = _fabricaRespuestas.crearRespuesta(true, listaBandas);
-            } catch(Exception e)
+                respuesta = _fabricaRespuestas.crearRespuesta(true, listaBandas); //Retorna catalogo de bandas
+            } catch(Exception)
             {
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al generar catalogo de bandas.", e.ToString());
+                //Retorna respuesta de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al generar catalogo de bandas.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al generar catalogo de bandas.", e.ToString());
             }
 
             return respuesta;
         }
 
+        //Obtener banda especifica
         public Respuesta getBanda(int pIDBanda)
         {
-            bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
+            bandas bandaQuery;
+            try
+            {
+                //Obtener banda
+                bandaQuery = _manejador.obtenerBanda(pIDBanda);
+            } catch(Exception)
+            {
+                return _fabricaRespuestas.crearRespuesta(false, "Error al obtener banda o no existe.");
+                //return _fabricaRespuestas.crearRespuesta(false, "Error al obtener banda o no existe.", e.ToSring());
+            }
+            
+            //Obtener generos musicales de banda
             List<generos> generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery);
             GeneroMusical[] arregloGenerosBandaQuery = _convertidor.createListaGenero(generosBandaQuery);
             List<integrantes> integrantesBandaQuery = _manejador.obtenerIntegrantes(bandaQuery);
+            //Lista de integrantes
             MiembroBanda[] arregloIntegrantesBandaQuery = _convertidor.createListaIntegrantes(integrantesBandaQuery);
-            List<canciones> cancionesBandaQuery = _manejador.obtenerCanciones(bandaQuery);
-            List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery);
+            //Lista de canciones
+            List<canciones> cancionesBandaQuery = _manejador.obtenerCanciones(bandaQuery);  
+            //Lista de comentarios
+            List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery); //Lista de comentarios
 
+            //Organiza datos para envio
             JObject[] generosObj = _serial.agruparGeneros(arregloGenerosBandaQuery);
             JObject[] miembrosObj = _serial.agruparMiembros(arregloIntegrantesBandaQuery);
             JObject[] cancionesObj = agruparCanciones(cancionesBandaQuery, bandaQuery.nombreBan);
@@ -125,11 +150,13 @@ namespace MyConcert.models
             band_dataObj.followers = _spotify.searchArtistFollowers(bandaQuery.nombreBan);
             band_dataObj.popularity = _spotify.searchArtistPopularity(bandaQuery.nombreBan);
 
+            //Retorna respuesta exitosa
             Respuesta respuesta = _fabricaRespuestas.crearRespuesta(true, band_dataObj, generosObj, miembrosObj, cancionesObj, comentariosObj);
 
             return respuesta;
         }
 
+        //Agrupa canciones para envio
         public JObject[] agruparCanciones(List<canciones> pLista, string artist)
         {
             JObject[] cancionesObject = new JObject[pLista.Count];
@@ -143,9 +170,11 @@ namespace MyConcert.models
                 iterator++;
             }
 
+            //Retorna canciones en JSON
             return cancionesObject;
         }
 
+        //Agrupa comentarios para envio
         public JObject[] agruparComentarios(List<comentarios> pLista)
         {
             JObject[] comentariosObject = new JObject[pLista.Count];
@@ -161,6 +190,7 @@ namespace MyConcert.models
                 iterator++;
             }
 
+            //Retorna comentarios en JSON
             return comentariosObject;
         }
     }

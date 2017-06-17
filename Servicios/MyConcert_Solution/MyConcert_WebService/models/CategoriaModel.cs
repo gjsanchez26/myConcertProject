@@ -16,6 +16,7 @@ namespace MyConcert.models
             _fabricaRespuestas = new FabricaRespuestas();
         }
 
+        //Registrar nueva categoria
         public Respuesta nuevaCategoria(string pNombre)
         {
             Respuesta respuesta = null;
@@ -23,10 +24,13 @@ namespace MyConcert.models
 
             try
             {
+                //Almacena categoria
                 _manejador.añadirCategoria(_convertidor.updatecategorias(nueva));
+                //Retorna respuesta exitosa
                 respuesta = _fabricaRespuestas.crearRespuesta(true, "Categoria creada satisfactoriamente.");
             } catch(Exception e)
             {
+                //Retorna respuesta de error
                 respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear categoria. Intente de nuevo.");
                 throw (e);
             }
@@ -34,15 +38,17 @@ namespace MyConcert.models
             return respuesta;
         }
 
+        //Obtener categorias
         public Respuesta getCategorias()
         {
             Respuesta respuesta = null;
 
             try
             {
-                List<categorias> listaCategorias = _manejador.obtenerCategorias();
+                List<categorias> listaCategorias = _manejador.obtenerCategorias(); //Solicita categorias
                 JObject[] arregloCategorias = new JObject[listaCategorias.Count];
                 int iterator = 0;
+                //Organiza informacion para envio
                 foreach (categorias catActual in listaCategorias)
                 {
                     Categoria auxiliar = new Categoria(catActual.PK_categorias,
@@ -50,11 +56,14 @@ namespace MyConcert.models
                     arregloCategorias[iterator] = JObject.FromObject(auxiliar);
                     iterator++;
                 }
+                //Retorna respuesta exitosa
                 respuesta = _fabricaRespuestas.crearRespuesta(true, arregloCategorias);
 
-            } catch(Exception e)
+            } catch(Exception)
             {
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al obtener cartegorias.", e.ToString());
+                //Retorna respuesta de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al obtener cartegorias.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al obtener cartegorias.", e.ToString());
             }
 
             return respuesta;

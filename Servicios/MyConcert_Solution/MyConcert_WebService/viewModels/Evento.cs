@@ -43,7 +43,7 @@ namespace MyConcert.viewModels
             }
         }
 
-        internal string Pais
+        public string Pais
         {
             get
             {

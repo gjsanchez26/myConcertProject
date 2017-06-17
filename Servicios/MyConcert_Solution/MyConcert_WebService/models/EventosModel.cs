@@ -21,6 +21,7 @@ namespace MyConcert.models
             this._convertidor = new Assembler();
         }
 
+        //Obtener carteleras
         public Respuesta getCarteleras()
         {
             Evento[] listaCarteleras = _convertidor.createListaEventos( _manejador.obtenerCarteleras());
@@ -34,6 +35,7 @@ namespace MyConcert.models
             return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
+        //Obtener festivales
         public Respuesta getFestivales()
         {
             Evento[] listaFestivales = _convertidor.createListaEventos(_manejador.obtenerFestivales());
@@ -47,6 +49,7 @@ namespace MyConcert.models
             return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
+        //Verifica si elemento existe en lista
         public bool existeEnLista(List<categorias> lista, categorias categoria)
         {
             foreach (categorias catActual in lista)
@@ -59,21 +62,17 @@ namespace MyConcert.models
             return false;
         }
 
+        //Obtener evento especifico
         public Respuesta getEvento(int pID)
         {
             Respuesta respuesta = null;
             eventos eventoSolicitado = _manejador.obtenerEvento(pID);
             List<categorias> listaCategoriasEvento = _manejador.obtenerCategoriasEvento(eventoSolicitado.PK_eventos);
             List<categorias> categoriasSinRepetir = new List<categorias>();
-            foreach (categorias catActual in listaCategoriasEvento)
-            {
-                if (!existeEnLista(categoriasSinRepetir, catActual))
-                {
-                    categoriasSinRepetir.Add(catActual);
-                }
-            }
+            generarCategorias(listaCategoriasEvento, categoriasSinRepetir);
 
-            if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos)
+            //Si el evento es una cartelera
+            if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos) 
             {
                 JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, categoriasSinRepetir);
                 Evento eventoAuxiliar = _convertidor.createEvento(eventoSolicitado);
@@ -98,6 +97,17 @@ namespace MyConcert.models
             }
 
             return respuesta;
+        }
+
+        private void generarCategorias(List<categorias> listaCategoriasEvento, List<categorias> categoriasSinRepetir)
+        {
+            foreach (categorias catActual in listaCategoriasEvento)
+            {
+                if (!existeEnLista(categoriasSinRepetir, catActual))
+                {
+                    categoriasSinRepetir.Add(catActual);
+                }
+            }
         }
 
         private List<categorias> eliminarCategoriasRepetidas(List<categorias> listaCategoriasEvento)

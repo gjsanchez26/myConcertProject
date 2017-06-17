@@ -15,8 +15,8 @@ namespace MyConcert.server
         public ServerAPI()
         {
             _url_servidor = "http://localhost:";
-            //_puerto = "12345";             //Puerto Release
-            _puerto = "22345";                      //Puerto Debug
+            _puerto = "12345";             //Puerto Release
+            //_puerto = "22345";                      //Puerto Debug
 
             _configuracion_servidor = new HttpSelfHostConfiguration(_url_servidor + _puerto);
 
@@ -27,11 +27,12 @@ namespace MyConcert.server
             //Habilita CORS
             _configuracion_servidor.EnableCors();
 
-            //Format JSON
+            //Configuracion para aceptar formato JSON
             var appXmlType =
                 _configuracion_servidor.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             _configuracion_servidor.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 
+            //Inicializa el servidor
             using (_servidor = new HttpSelfHostServer(_configuracion_servidor))
             {
                 _servidor.OpenAsync().Wait();
@@ -41,6 +42,8 @@ namespace MyConcert.server
             }
         }
 
+        //Metodo Main.
+        //Inicia el servidor API.
         public static void Main(string[] args)
         {
             ServerAPI _server = new ServerAPI();

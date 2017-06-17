@@ -11,7 +11,7 @@ namespace MyConcert.resources.operations
      * @brief Objeto que verifica la estrategia
      * de los cien dolares.
      */
-    class DolarStrategy
+    public class DolarStrategy
     {
         /**
         * @brief Verifica si los votos de un participante suman cien como resultado.

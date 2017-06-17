@@ -54,7 +54,6 @@ namespace MyConcert.resources.serial
         public DateTime parseFecha(string pFecha)
         {
             DateTime d = DateTime.Parse(pFecha, CultureInfo.InvariantCulture);
-
             return d;
         }
 
@@ -122,7 +121,7 @@ namespace MyConcert.resources.serial
                             (string)pDatosEvento.country,
                             (DateTime)pDatosEvento.initial_date,
                             (DateTime)pDatosEvento.final_date,
-                            _manejador.obtenerTipoEvento(1).tipo,
+                            _manejador.obtenerTipoEvento(2).tipo,
                             _manejador.obtenerEstado(1).estado,
                             (string)pDatosEvento.food,
                             (string)pDatosEvento.transport,

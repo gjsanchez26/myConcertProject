@@ -120,7 +120,7 @@ namespace MyConcert.database
                 {
                     obj = context.bandas.Join(context.categoriasevento,
                                                    b => b.PK_bandas,
-                                                   ce => ce.FK_CATEGORIASEVENTO_CATEGORIAS,
+                                                   ce => ce.FK_CATEGORIASEVENTO_BANDAS,
                                                    (b, ce) => new { b, ce })
                                                    .Where(w => w.ce.FK_CATEGORIASEVENTO_CATEGORIAS == categoria && w.ce.FK_CATEGORIASEVENTO_EVENTOS==evento )
                                                    .Select(s => s.b).ToList(); ;

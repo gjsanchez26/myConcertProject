@@ -6,6 +6,9 @@ using System.Web.Http.Cors;
 
 namespace MyConcert.controllers
 {
+    /**
+     * Categorias Controller
+     * */
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CategoriasController : ApiController
     {

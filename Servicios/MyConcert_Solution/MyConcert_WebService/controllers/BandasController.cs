@@ -6,6 +6,9 @@ using System.Web.Http.Cors;
 
 namespace MyConcert.controllers
 {
+    /**
+     * Bandas Controller
+     * */
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BandasController : ApiController
     {
@@ -47,6 +50,7 @@ namespace MyConcert.controllers
             return JObject.FromObject(respuesta);
         }
 
+        //Crear nuevo comentario para banda
         public JObject Put(JObject pPeticion)
         {
             Respuesta respuesta = null;

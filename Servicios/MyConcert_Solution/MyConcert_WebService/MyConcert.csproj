@@ -140,7 +140,6 @@
     <Compile Include="comentarios.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="controllers\FilesController.cs" />
     <Compile Include="database\BandasDB.cs" />
     <Compile Include="database\CategoriasDB.cs" />
     <Compile Include="database\EventosDB.cs" />

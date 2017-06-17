@@ -6,6 +6,9 @@ using System.Web.Http.Cors;
 
 namespace MyConcert.controllers
 {
+    /**
+     * Votaciones Controller
+     * */
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class VotacionesController : ApiController
     {
