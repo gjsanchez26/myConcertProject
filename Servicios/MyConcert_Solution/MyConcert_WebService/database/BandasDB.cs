@@ -5,9 +5,15 @@ using System.Linq;
 
 namespace MyConcert.database
 {
+    /*Clase que se encarga de realizar toda la manipulacion 
+     * de datos con respecto a la funcionalidad de bandas
+     * */
     class BandasDB
-    {
-
+    {   //DB = base de datos
+        /*Añade una banda a la DB
+         * Realiza una transacción en caso de que alguna solicitud falle, de esta manera solo añade la banda si todos
+         * los demas elementos que pertenecen a la banda son añadidos
+         */
         public void añadirBanda(bandas banda, List<integrantes> integ, List<canciones> can, List<generos> gen)
         {
 
@@ -51,7 +57,8 @@ namespace MyConcert.database
                 }
             }
         }
-
+        /*Obtiene la banda del id deseado
+         */
         public bandas obtenerBanda(int PK_banda)
         {
             bandas obj = null;
@@ -71,6 +78,8 @@ namespace MyConcert.database
             return obj;
         }
 
+        /*Obtiene una banda del nombre deseado
+         */
         public bandas obtenerBanda(string banda)
         {
             bandas obj = null;
@@ -89,7 +98,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*Obtiene la lista de canciones de una banda especifica
+         */
         public List<canciones> obtenerCanciones(bandas banda)
         {
             List<canciones> obj = null;
@@ -107,7 +117,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*Obtiene los integrantes de una banda especifica
+         */
         public List<integrantes> obtenerIntegrantes(bandas banda)
         {
             List<integrantes> obj = null;
@@ -130,7 +141,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*Obtiene los comentarios de una banda especifica
+         */
         public List<comentarios> obtenerComentarios (bandas banda)
         {
             List<comentarios> obj = null;
@@ -148,7 +160,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-     
+        /*Obtiene los generos de una banda especifica
+         */
         public List<generos> obtenerGenerosBanda(bandas banda)
         {
             List<generos> obj = new List<generos>();
@@ -177,6 +190,9 @@ namespace MyConcert.database
             }
             return obj;
         }
+
+        /*Obtiene todas las bandas registradas en la base de datos
+         */
         public List<bandas> obtenerBandas()
         {
             List<bandas> obj = null;
@@ -195,6 +211,8 @@ namespace MyConcert.database
             return obj;
         }
 
+        /*Añade un comentario a una banda especifica
+         */
         public void añadirComentario(comentarios coment)
         {
             using (myconcertEntities context = new myconcertEntities())
