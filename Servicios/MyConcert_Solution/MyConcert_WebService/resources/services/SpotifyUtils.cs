@@ -15,7 +15,7 @@ namespace MyConcert.resources.services
     * @class SpotifyUtils
     * @brief  Clase que maneja las búsquedas en Spotify, así como el
     * almacenamiento de información relevante.    */
-    class SpotifyUtils
+    public class SpotifyUtils
     {
         private static SpotifyWebAPI _spotify { get; set; }
         private static ClientCredentialsAuth _auth;

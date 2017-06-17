@@ -129,7 +129,7 @@ namespace MyConcert.models
             return respuesta;
         }
 
-        private JObject[] agruparCanciones(List<canciones> pLista, string artist)
+        public JObject[] agruparCanciones(List<canciones> pLista, string artist)
         {
             JObject[] cancionesObject = new JObject[pLista.Count];
             int iterator = 0;
@@ -145,7 +145,7 @@ namespace MyConcert.models
             return cancionesObject;
         }
 
-        private JObject[] agruparComentarios(List<comentarios> pLista)
+        public JObject[] agruparComentarios(List<comentarios> pLista)
         {
             JObject[] comentariosObject = new JObject[pLista.Count];
             int iterator = 0;
