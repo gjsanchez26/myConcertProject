@@ -48,6 +48,20 @@ namespace MyConcert.models
             return respuesta;
         }
 
+        public Respuesta generarComentario(int idBand, string user, string comment, float calification)
+        {
+            Comentario comentario = 
+                new Comentario(0,
+                            user,
+                            DateTime.Now,
+                            comment,
+                            calification,
+                            _manejador.obtenerEstado(1).estado,
+                            _manejador.obtenerBanda(idBand).nombreBan);
+            comentarios parseComment = _convertidor.updatecomentarios(comentario);
+            return null;
+        }
+
         public Respuesta getCatalogoBandas()
         {
             Respuesta respuesta = null;

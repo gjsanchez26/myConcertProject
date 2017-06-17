@@ -9,6 +9,13 @@ namespace MyConcert.models
 {
     public class VotacionesModel : AbstractModel
     {
+        public VotacionesModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
+
         public Respuesta nuevaVotacion(int pEvento, string pNombreUsuario, JArray pCategorias)
         {
             Respuesta respuesta = null;

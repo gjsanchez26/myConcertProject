@@ -114,7 +114,7 @@ namespace MyConcert.models
                 switch (pTipoEvento)
                 {
                     case "cartelera":
-                        CategoriaBanda[] categorias = _serial.getArrayCategoriaBandaEvento(pListaCategorias);
+                        FestivalCategoriaBanda[] categorias = _serial.getArrayFestivalCategoriaBanda(pListaCategorias);
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
                         nombreEvento = nuevaCartelera.Nombre;
 
@@ -173,7 +173,6 @@ namespace MyConcert.models
         
         private List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
         {
-            List<bandas> bandasPerdedoras = new List<bandas>();
             foreach (bandas bandaGanadora in bandasGanadorasFestival)
             {
                 bandas bandaEliminar = todasBandasCartelera.Find(x => x.Equals(bandaGanadora));
@@ -182,12 +181,11 @@ namespace MyConcert.models
                     todasBandasCartelera.Remove(bandaEliminar);
                     Console.WriteLine(bandaEliminar.nombreBan);
                 } else {
-                    bandasPerdedoras.Add(bandaGanadora);
-                    //Console.WriteLine(bandaEliminar.nombreBan);
+                    //bandasPerdedoras.Add(todasBandasCartelera);
                 }
                     
             }
-            return bandasPerdedoras;
+            return todasBandasCartelera;
         }
 
         private List<bandas> extraerBandasEvento(eventos nuevoEvento, List<categorias> categoriasCartelera)

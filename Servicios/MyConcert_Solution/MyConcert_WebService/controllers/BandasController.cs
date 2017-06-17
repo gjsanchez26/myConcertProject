@@ -46,5 +46,20 @@ namespace MyConcert.controllers
 
             return JObject.FromObject(respuesta);
         }
+
+        public JObject Put(JObject pPeticion)
+        {
+            Respuesta respuesta = null;
+            
+            dynamic peticion = pPeticion;
+            int idBand = peticion.band;
+            string user = peticion.user;
+            string comment = peticion.comment;
+            float calification = peticion.calification;
+
+            respuesta = _model.generarComentario(idBand, user, comment, calification);
+
+            return JObject.FromObject(respuesta);
+        }
     }
 }

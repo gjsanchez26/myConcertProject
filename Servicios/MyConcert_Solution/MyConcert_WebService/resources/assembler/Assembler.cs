@@ -124,19 +124,16 @@ namespace MyConcert.resources.assembler
             return arreglo;
         }
 
-        public List<categoriasevento> updatecategoriasevento(CategoriaBanda[] pArrayCategoriaBanda)
+        public List<categoriasevento> updatecategoriasevento(FestivalCategoriaBanda[] pArrayCategoriaBanda)
         {
             List<categoriasevento> categoriasBandas = new List<categoriasevento>();
             categoriasevento cat_even_aux = null;
-            for (int i = 0; i < pArrayCategoriaBanda.Length; i++)
+            foreach (FestivalCategoriaBanda actual in pArrayCategoriaBanda)
             {
-                for (int j = 0; j < pArrayCategoriaBanda[i]._bandasID.Length; j++)
-                {
-                    cat_even_aux = new categoriasevento();
-                    cat_even_aux.FK_CATEGORIASEVENTO_BANDAS = pArrayCategoriaBanda[i]._bandasID[j];
-                    cat_even_aux.FK_CATEGORIASEVENTO_CATEGORIAS = pArrayCategoriaBanda[i]._categoriaID;
-                    categoriasBandas.Add(cat_even_aux);
-                }
+                cat_even_aux = new categoriasevento();
+                cat_even_aux.FK_CATEGORIASEVENTO_BANDAS = actual.idBanda;
+                cat_even_aux.FK_CATEGORIASEVENTO_CATEGORIAS = actual.idCategoria;
+                categoriasBandas.Add(cat_even_aux);
             }
             return categoriasBandas;
         }
