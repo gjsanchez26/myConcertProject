@@ -96,7 +96,8 @@ namespace MyConcert.database
                                                    ce => ce.FK_CATEGORIASEVENTO_CATEGORIAS,
                                                    (c, ce) => new { c, ce })
                                                    .Where(w => w.ce.FK_CATEGORIASEVENTO_EVENTOS == evento)
-                                                   .Select(s => s.c).ToList(); ;
+                                                   .GroupBy(k => k.ce.FK_CATEGORIASEVENTO_EVENTOS)
+                                                   .Select(s => s.c).ToList();
                 }
 
             }

@@ -137,8 +137,8 @@ namespace MyConcert.resources.serial
             foreach(dynamic categoriaActual in pListaCategorias)
             {
                 fesCatBanActual = 
-                    new FestivalCategoriaBanda((int)categoriaActual.category,
-                                                (int)categoriaActual.band);
+                    new FestivalCategoriaBanda(_manejador.obtenerCategoria((string)categoriaActual.category).PK_categorias,
+                                                _manejador.obtenerBanda((string)categoriaActual.band).PK_bandas);
                 lista.Add(fesCatBanActual);
             }
 

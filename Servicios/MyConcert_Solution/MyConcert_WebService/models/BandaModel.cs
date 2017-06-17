@@ -50,7 +50,10 @@ namespace MyConcert.models
 
         public Respuesta generarComentario(int idBand, string user, string comment, float calification)
         {
-            Comentario comentario = 
+            Respuesta respuesta = null;
+            try
+            {
+                Comentario comentario =
                 new Comentario(0,
                             user,
                             DateTime.Now,
@@ -58,8 +61,16 @@ namespace MyConcert.models
                             calification,
                             _manejador.obtenerEstado(1).estado,
                             _manejador.obtenerBanda(idBand).nombreBan);
-            comentarios parseComment = _convertidor.updatecomentarios(comentario);
-            return null;
+                comentarios parseComment = _convertidor.updatecomentarios(comentario);
+                _manejador.añadirComentario(parseComment);
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.");
+            } catch(Exception e)
+            {
+                //respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.");
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.", e.ToString());
+            }
+
+            return respuesta;
         }
 
         public Respuesta getCatalogoBandas()

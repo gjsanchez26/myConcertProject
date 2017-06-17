@@ -52,6 +52,7 @@ namespace MyConcert.models
             Respuesta respuesta = null;
             eventos eventoSolicitado = _manejador.obtenerEvento(pID);
             List<categorias> listaCategoriasEvento = _manejador.obtenerCategoriasEvento(eventoSolicitado.PK_eventos);
+            List<categorias> listaCategoriasSinRepetidos = eliminarCategoriasRepetidas(listaCategoriasEvento);
 
             if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos)
             {
@@ -65,12 +66,12 @@ namespace MyConcert.models
                 List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, listaCategoriasEvento);
                 JObject[] bandas = new JObject[bandasFestival.Count];
                 int iterator = 0;
-                foreach(bandas bandaActual in bandasFestival)
+                foreach (bandas bandaActual in bandasFestival)
                 {
                     dynamic banda = new JObject();
                     banda.name_band = bandaActual.nombreBan;
                     banda.votes = _manejador.obtenerCantidadVotos(eventoSolicitado.PK_eventos, bandaActual.PK_bandas);
-                    bandas[iterator] = banda; 
+                    bandas[iterator] = banda;
                 }
                 Evento evento = _convertidor.createEvento(eventoSolicitado);
                 FestivalBandas fest = new FestivalBandas(JObject.FromObject(evento), bandas);
@@ -78,6 +79,24 @@ namespace MyConcert.models
             }
 
             return respuesta;
+        }
+
+        private List<categorias> eliminarCategoriasRepetidas(List<categorias> listaCategoriasEvento)
+        {
+            List<categorias> listaCategoriasSinRepetidos = new List<categorias>();
+            foreach (categorias catActual in listaCategoriasEvento)
+            {
+                foreach (categorias catActual2 in listaCategoriasSinRepetidos)
+                {
+                    if (catActual.Equals(catActual2))
+                    {
+                        break;
+                    }
+                }
+                listaCategoriasSinRepetidos.Add(catActual);
+            }
+
+            return listaCategoriasSinRepetidos;
         }
 
         private JObject[] obtenerCategoriasCartelera(int pID, List<categorias> listaCategoriasEvento)

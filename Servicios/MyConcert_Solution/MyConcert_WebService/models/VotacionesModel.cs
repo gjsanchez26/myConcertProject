@@ -24,6 +24,12 @@ namespace MyConcert.models
             try
             {
                 listaVotaciones = generarVotos(pEvento, pNombreUsuario, pCategorias);
+
+                List<List<votos>> matrizVotos = new List<List<votos>>();
+                foreach(votos votoActual in listaVotaciones)
+                {
+
+                }
             }
             catch (Exception e)
             {
