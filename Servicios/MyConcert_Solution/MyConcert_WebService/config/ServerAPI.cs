@@ -43,7 +43,26 @@ namespace MyConcert.server
 
         public static void Main(string[] args)
         {
-            ServerAPI _server = new ServerAPI();
+            //ServerAPI _server = new ServerAPI();
+            List<bandas> obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.bandas.Join(context.categoriasevento,
+                                                   b => b.PK_bandas,
+                                                   ce => ce.FK_CATEGORIASEVENTO_BANDAS,
+                                                   (b, ce) => new { b, ce })
+                                                   .Where(w => w.ce.FK_CATEGORIASEVENTO_CATEGORIAS == 1 && w.ce.FK_CATEGORIASEVENTO_EVENTOS == 1)
+                                                   .Select(s => s.b).ToList(); ;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
     }
 }

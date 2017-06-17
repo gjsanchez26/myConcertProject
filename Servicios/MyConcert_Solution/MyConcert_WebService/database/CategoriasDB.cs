@@ -6,6 +6,8 @@ namespace MyConcert.database
 {
     class CategoriasDB
     {
+        /*Crea una nueva categoria en la base
+         */
         public void añadirCategoria(categorias pCategoria)
         {
 
@@ -25,7 +27,8 @@ namespace MyConcert.database
                     }
             }
         }
-
+        /*Obtiene una categoria del id deseado
+         */
         public categorias obtenerCategoria(string categoria)
         {
             categorias obj = null;
@@ -44,7 +47,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*Obtiene una categoria del nombre deseado
+         */
         public categorias obtenerCategoria(int categoria)
         {
             categorias obj = null;
@@ -63,7 +67,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*Obtiene las categorias existentes
+         */
         public List<categorias> obtenerCategorias()
         {
             List<categorias> obj = null;
@@ -82,7 +87,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*Obtiene las categorias de un evento especifico
+         */
         public List<categorias> obtenerCategoriasEvento(int evento)
         {
             List<categorias> obj = null;
@@ -110,7 +116,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*Obtiene las bandas de una categoria de un evento en especifico
+         */
         public List<bandas> obtenerBandasCategoria(int categoria, int evento) {
             List<bandas> obj = null;
             try

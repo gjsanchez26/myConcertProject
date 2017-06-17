@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 namespace MyConcert
 {   //FACADE CAPA DE DATOS
+
+    /*
+     * Controlador basado en el patron facade
+     * Comunica capa de datos con capa de negocio.
+     * Usado para escritura, lectura, modificacion y eliminacion de datos en la base de datos
+     */
     public class FacadeDB
     {
         private BandasDB banDB;
@@ -13,6 +19,7 @@ namespace MyConcert
         private UtilidadesDB utiDB;
         private VotosDB votDB;
 
+        
         public FacadeDB()
         {
              banDB = new BandasDB();

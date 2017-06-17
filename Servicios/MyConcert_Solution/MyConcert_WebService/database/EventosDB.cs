@@ -8,7 +8,8 @@ namespace MyConcert.database
     public class EventosDB
     {
 
-        //CREADORES DE OBJETOS
+        /*Añade una evento a la base de datos, ya sea una cartelera o un festival
+         */
         public void añadirEvento(eventos pEvento, List<categoriasevento> categoriasBanda)
         {
             eventos nuevoEvento = null;
@@ -38,9 +39,8 @@ namespace MyConcert.database
                 }
             }
         }
-
-       
-        //OBTENER LISTA DE OBJETOS
+        /*
+         */
         public List<eventos> obtenerCarteleras()
         {
             List<eventos> obj = null;
@@ -57,7 +57,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*
+         */
         public List<eventos> obtenerFestivales()
         {
             List<eventos> obj = null;
@@ -76,8 +77,9 @@ namespace MyConcert.database
             }
             return obj;
         }
-        
-        //OBTENER 1 OBJETO
+        /*
+         */
+  
         public eventos obtenerEvento(int PK_evento)
         {
             eventos obj = null;
@@ -96,7 +98,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*
+         */
         public tiposeventos obtenerTipoEvento(int PK_tipoEvento)
         {
             tiposeventos obj = null;
@@ -115,7 +118,8 @@ namespace MyConcert.database
             }
             return obj;
         }
-
+        /*
+         */
         public tiposeventos obtenerTipoEvento(string tipoEvento)
         {
             tiposeventos obj = null;
@@ -134,8 +138,9 @@ namespace MyConcert.database
             }
             return obj;
         }
-
-        //ALGORITMO DEL CHEF
+        /*
+         */
+ 
         public List<bandas> obtenerBandasNoCartelera(eventos cartelera)
         {
             List<bandas> bandasCarte = null;
@@ -162,7 +167,8 @@ namespace MyConcert.database
             }
             return bandasCarte;
         }
-
+        /*
+         */
         public int getCantidadComentarios(bandas banda)
         {
             int cantidadComen = 0;
@@ -181,7 +187,8 @@ namespace MyConcert.database
             }
             return cantidadComen;
         }
-
+        /*
+         */
         public float getCalificacion(bandas banda)
         {
             float calificacion = 0;
@@ -201,7 +208,8 @@ namespace MyConcert.database
             }
             
         }
-
+        /*
+         */
         public void crearFestival(eventos festival,List<bandas> perdedoras)
         {
             using (myconcertEntities context = new myconcertEntities())
