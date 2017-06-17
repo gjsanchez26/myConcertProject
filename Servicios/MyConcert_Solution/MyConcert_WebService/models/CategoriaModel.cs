@@ -9,6 +9,13 @@ namespace MyConcert.models
 {
     public class CategoriaModel : AbstractModel
     {
+        public CategoriaModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
+
         public Respuesta nuevaCategoria(string pNombre)
         {
             Respuesta respuesta = null;

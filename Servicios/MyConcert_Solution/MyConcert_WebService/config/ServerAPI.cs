@@ -15,8 +15,8 @@ namespace MyConcert.server
         public ServerAPI()
         {
             _url_servidor = "http://localhost:";
-            //string _puerto = "12345";             //Puerto Release
-            _puerto = "22345";                      //Puerto Debug
+            _puerto = "12345";             //Puerto Release
+            //_puerto = "22345";                      //Puerto Debug
 
             _configuracion_servidor = new HttpSelfHostConfiguration(_url_servidor + _puerto);
 

@@ -9,6 +9,13 @@ namespace MyConcert.models
 {
     public class VotacionesModel : AbstractModel
     {
+        public VotacionesModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
+
         public Respuesta nuevaVotacion(int pEvento, string pNombreUsuario, JArray pCategorias)
         {
             Respuesta respuesta = null;
@@ -17,6 +24,12 @@ namespace MyConcert.models
             try
             {
                 listaVotaciones = generarVotos(pEvento, pNombreUsuario, pCategorias);
+
+                List<List<votos>> matrizVotos = new List<List<votos>>();
+                foreach(votos votoActual in listaVotaciones)
+                {
+
+                }
             }
             catch (Exception e)
             {

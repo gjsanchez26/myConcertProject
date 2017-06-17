@@ -106,7 +106,7 @@ namespace MyConcert.resources.serial
             return new Cartelera(0,
                             (string)pDatosEvento.name,
                             (string)pDatosEvento.ubication,
-                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
+                            (string)pDatosEvento.country,
                             (DateTime)pDatosEvento.initial_date,
                             (DateTime)pDatosEvento.final_date,
                             (DateTime)pDatosEvento.vote_final_date,
@@ -119,7 +119,7 @@ namespace MyConcert.resources.serial
             return new Festival((int) pDatosEvento.event_id,
                             (string)pDatosEvento.name,
                             (string)pDatosEvento.ubication,
-                            _manejador.obtenerPais((int)pDatosEvento.country).pais,
+                            (string)pDatosEvento.country,
                             (DateTime)pDatosEvento.initial_date,
                             (DateTime)pDatosEvento.final_date,
                             _manejador.obtenerTipoEvento(1).tipo,
@@ -137,8 +137,8 @@ namespace MyConcert.resources.serial
             foreach(dynamic categoriaActual in pListaCategorias)
             {
                 fesCatBanActual = 
-                    new FestivalCategoriaBanda((int)categoriaActual.category,
-                                                (int)categoriaActual.band);
+                    new FestivalCategoriaBanda(_manejador.obtenerCategoria((string)categoriaActual.category).PK_categorias,
+                                                _manejador.obtenerBanda((string)categoriaActual.band).PK_bandas);
                 lista.Add(fesCatBanActual);
             }
 

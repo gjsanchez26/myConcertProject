@@ -14,6 +14,13 @@ namespace MyConcert.models
         private SHA256Encriptation _encriptador = new SHA256Encriptation();
         private SerialHelper _serial = new SerialHelper();
         
+        public UsuariosModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
+
         public Respuesta getUsuario(string pUsername)
         {
             Respuesta respuesta = null;
