@@ -17,6 +17,27 @@ namespace MyConcert.models
             _fabricaRespuestas = new FabricaRespuestas();
         }
 
+        public bool comprobarEstrategiaCienDolares(List<List<votos>> matrizVotos)
+        {
+            DolarStrategy verificadorEstrategia = new DolarStrategy();
+            foreach (List<votos> lista in matrizVotos)
+            {
+                List<int> suma = new List<int>();
+                votos auxiliarVoto = null;
+                foreach (votos votoActual in lista)
+                {
+                    suma.Add(votoActual.valor);
+                    auxiliarVoto = votoActual;
+                }
+                if (!verificadorEstrategia.checkDolars(suma))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public Respuesta nuevaVotacion(JArray pCategorias)
         {
             Respuesta respuesta = null;
@@ -25,46 +46,11 @@ namespace MyConcert.models
             try
             {
                 listaVotaciones = generarVotos(pCategorias);
+                List<List<votos>> matrizVotos = mapearVotacionesPorCategoria(listaVotaciones);
 
-                List<List<votos>> matrizVotos = new List<List<votos>>();
-                foreach (votos votoARevisar in listaVotaciones)
+                if (!comprobarEstrategiaCienDolares(matrizVotos))
                 {
-                    bool agregado = false;
-                    foreach (List<votos> lista in matrizVotos)
-                    {
-                        foreach (votos votoActual in lista)
-                        {
-                            if (votoActual.FK_VOTOS_CATEGORIAS == votoARevisar.FK_VOTOS_CATEGORIAS)
-                            {
-                                lista.Add(votoARevisar);
-                                agregado = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!agregado)
-                    {
-                        List<votos> nuevaLista = new List<votos>();
-                        nuevaLista.Add(votoARevisar);
-                        matrizVotos.Add(nuevaLista);
-                    }
-                }
-
-                DolarStrategy verificadorEstrategia = new DolarStrategy();
-                foreach (List<votos> lista in matrizVotos)
-                {
-                    List<int> suma = new List<int>();
-                    votos auxiliarVoto = null;
-                    foreach (votos votoActual in lista)
-                    {
-                        suma.Add(votoActual.valor);
-                        auxiliarVoto = votoActual;
-                    }
-                    if (!verificadorEstrategia.checkDolars(suma)) 
-                    {
-                        return _fabricaRespuestas.crearRespuesta(false, "Ingrese la cantidad de créditos necesarios en la categoría: "
-                            +_manejador.obtenerCategoria(auxiliarVoto.FK_VOTOS_CATEGORIAS).categoria);
-                    }
+                    respuesta = _fabricaRespuestas.crearRespuesta(false, "Ingrese la cantidad de créditos necesarios en la categoría.");
                 }
             }
             catch (Exception e)
@@ -85,6 +71,35 @@ namespace MyConcert.models
             }
 
             return respuesta;
+        }
+
+        public List<List<votos>> mapearVotacionesPorCategoria(List<votos> listaVotaciones)
+        {
+            List<List<votos>> matrizVotos = new List<List<votos>>();
+            foreach (votos votoARevisar in listaVotaciones)
+            {
+                bool agregado = false;
+                foreach (List<votos> lista in matrizVotos)
+                {
+                    foreach (votos votoActual in lista)
+                    {
+                        if (votoActual.FK_VOTOS_CATEGORIAS == votoARevisar.FK_VOTOS_CATEGORIAS)
+                        {
+                            lista.Add(votoARevisar);
+                            agregado = true;
+                            break;
+                        }
+                    }
+                }
+                if (!agregado)
+                {
+                    List<votos> nuevaLista = new List<votos>();
+                    nuevaLista.Add(votoARevisar);
+                    matrizVotos.Add(nuevaLista);
+                }
+            }
+
+            return matrizVotos;
         }
 
         private List<votos> generarVotos(JArray pCategorias)

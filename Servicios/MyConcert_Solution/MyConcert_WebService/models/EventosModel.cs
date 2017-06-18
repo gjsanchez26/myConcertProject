@@ -1,11 +1,11 @@
-﻿using MyConcert.viewModels;
+﻿using MyConcert.resources.assembler;
 using MyConcert.resources.results;
 using MyConcert.resources.serial;
+using MyConcert.resources.services;
+using MyConcert.viewModels;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert.resources.assembler;
 using System.Collections.Generic;
-using MyConcert.resources.services;
 
 namespace MyConcert.models
 {
@@ -54,7 +54,7 @@ namespace MyConcert.models
         {
             foreach (categorias catActual in lista)
             {
-                if (categoria.Equals(catActual))
+                if (categoria.categoria == catActual.categoria)
                 {
                     return true;
                 }
@@ -68,8 +68,7 @@ namespace MyConcert.models
             Respuesta respuesta = null;
             eventos eventoSolicitado = _manejador.obtenerEvento(pID);
             List<categorias> listaCategoriasEvento = _manejador.obtenerCategoriasEvento(eventoSolicitado.PK_eventos);
-            List<categorias> categoriasSinRepetir = new List<categorias>();
-            generarCategorias(listaCategoriasEvento, categoriasSinRepetir);
+            List<categorias> categoriasSinRepetir = generarCategorias(listaCategoriasEvento);
 
             //Si el evento es una cartelera
             if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos) 
@@ -99,33 +98,17 @@ namespace MyConcert.models
             return respuesta;
         }
 
-        private void generarCategorias(List<categorias> listaCategoriasEvento, List<categorias> categoriasSinRepetir)
+        public List<categorias> generarCategorias(List<categorias> listaCategoriasEvento)
         {
+            List<categorias> categoriasRespuesta = new List<categorias>();
             foreach (categorias catActual in listaCategoriasEvento)
             {
-                if (!existeEnLista(categoriasSinRepetir, catActual))
+                if (!existeEnLista(categoriasRespuesta, catActual))
                 {
-                    categoriasSinRepetir.Add(catActual);
+                    categoriasRespuesta.Add(catActual);
                 }
             }
-        }
-
-        private List<categorias> eliminarCategoriasRepetidas(List<categorias> listaCategoriasEvento)
-        {
-            List<categorias> listaCategoriasSinRepetidos = new List<categorias>();
-            foreach (categorias catActual in listaCategoriasEvento)
-            {
-                foreach (categorias catActual2 in listaCategoriasSinRepetidos)
-                {
-                    if (catActual.Equals(catActual2))
-                    {
-                        break;
-                    }
-                }
-                listaCategoriasSinRepetidos.Add(catActual);
-            }
-
-            return listaCategoriasSinRepetidos;
+            return categoriasRespuesta;
         }
 
         private JObject[] obtenerCategoriasCartelera(int pID, List<categorias> listaCategoriasEvento)
@@ -208,7 +191,7 @@ namespace MyConcert.models
             return respuesta;
         }
 
-        private List<string> bandasToString(List<bandas> bandasGanadorasFestival)
+        public List<string> bandasToString(List<bandas> bandasGanadorasFestival)
         {
             List<string> bandasGanadoras = new List<string>();
             foreach (bandas bandaGanadora in bandasGanadorasFestival)
@@ -219,19 +202,15 @@ namespace MyConcert.models
             return bandasGanadoras;
         }
         
-        private List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
+        public List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
         {
             foreach (bandas bandaGanadora in bandasGanadorasFestival)
             {
-                bandas bandaEliminar = todasBandasCartelera.Find(x => x.Equals(bandaGanadora));
+                bandas bandaEliminar = todasBandasCartelera.Find(x => x.nombreBan.Equals(bandaGanadora.nombreBan));
                 if (bandaEliminar != null)
                 {
                     todasBandasCartelera.Remove(bandaEliminar);
-                    Console.WriteLine(bandaEliminar.nombreBan);
-                } else {
-                    //bandasPerdedoras.Add(todasBandasCartelera);
                 }
-                    
             }
             return todasBandasCartelera;
         }
