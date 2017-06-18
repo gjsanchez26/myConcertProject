@@ -269,6 +269,39 @@ namespace MyConcert.database
                 }
             }
         }
+
+        public bool comprobarBandaEnCartelera(DateTime fInicial, DateTime fFinal,bandas banda)
+        {
+            int conteo = 0; ;
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+
+                    conteo = context.eventos.Join(context.categoriasevento,
+                                                       e=>e.PK_eventos,
+                                                       ce=>ce.FK_CATEGORIASEVENTO_EVENTOS,
+                                                       (e,ce)=>new { e,ce})
+                                                       .Where(w=>w.ce.FK_CATEGORIASEVENTO_BANDAS==banda.PK_bandas)
+                                                       .Select(s=>s.e)
+                                                       .Count(c=>c.fechaInicio<fInicial&& c.fechaFinal>fInicial || c.fechaInicio < fFinal && c.fechaFinal > fFinal);
+
+                }
+                if (conteo == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+                
+            }
+            catch (Exception)
+            {
+                return calificacion;
+            }
+        }
     }
 }
 
