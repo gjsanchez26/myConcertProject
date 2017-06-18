@@ -31,6 +31,7 @@ namespace MyConcert.resources.operations
         {
             _spotify = new SpotifyUtils();
             _commentsTable = new CommentsTable();
+            _validations = new SimpleOperations();
         }
 
         /**
@@ -98,22 +99,24 @@ namespace MyConcert.resources.operations
         {
             float res = 0;
             int n = pid_tracks.Count;
-            Task<JObject> _sk;
-            dynamic _skills;
-            for (int i = 0; i < pid_tracks.Count; i++)
+            if (n == 0)
             {
-                if (pid_tracks.Count >= 3)
+                return 0;
+            }
+            else
+            {
+                Task<JObject> _sk;
+                dynamic _skills;
+                for (int i = 0; i < pid_tracks.Count; i++)
                 {
+
                     _sk = _spotify.trackFeatures(pid_tracks[i]);
                     _skills = _sk.Result;
                     res += indexSong(_skills);
+
                 }
-                else
-                {
-                    n -= 1;
-                }
-            }
-            return (n == 0) ? 0 : res/n;
+                return res / n;
+            }            
             
         }
 
@@ -175,24 +178,40 @@ namespace MyConcert.resources.operations
             List<double> other_indexes = new List<double>();
             for (int i = 0; i < id_other_tracks.Count; i++)
             {
-                other_indexes.Add(calculateIndex(id_other_tracks[i]));
+                if (id_other_tracks[i].Count < 3)
+                {
+                    other_indexes.Add(0);
+                }
+                else
+                {
+                    other_indexes.Add(calculateIndex(id_other_tracks[i]));
+                }
                 Console.WriteLine("Promedio otra banda "+i+": "+other_indexes[i]);
             }
             //Se calculan los indices de cada banda ganadora en cartelera
             List<double> winners_indexes = new List<double>();
+            int n2 = id_winners_tracks.Count;
             for (int i = 0; i < id_winners_tracks.Count; i++)
             {
-                winners_indexes.Add(calculateIndex(id_winners_tracks[i]));
+                if (id_winners_tracks[i].Count < 3)
+                {
+                    winners_indexes.Add(0);
+                    n2 -= 1;
+                }
+                else
+                {
+                    winners_indexes.Add(calculateIndex(id_winners_tracks[i]));
+                }
                 fest_index += winners_indexes[i];
             }
             //Se calcula el indice del festival 
-            if (winners_indexes.Count == 0)
+            if (n2 == 0)
             {
                 fest_index = 0;
             }
             else
             {
-                fest_index = (fest_index / winners_indexes.Count);
+                fest_index = (fest_index / n2);
             }
             Console.WriteLine("Indice festival: " + fest_index);
             
