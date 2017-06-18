@@ -16,13 +16,12 @@ this.agregarCancion= function (banda){
     banda.listaCanciones=listaCanciones;
 }
 this.crearBanda = function (banda) {
-    var banda;
-    
+    var banda; 
     Banda = {
-      "band_data": banda.nombre,
-      "members":listaMiembros,
-      "songs":listaCanciones,
-      "genres": banda.generos.map(function(a) {return a.Id;})          
+      "band_data" : banda.nombre,
+      "members"   : listaMiembros,
+      "songs"     : listaCanciones,
+      "genres"    : banda.generos.map(function(a) {return a.Id;})          
     }  
     console.log(Banda );  
     $http({
