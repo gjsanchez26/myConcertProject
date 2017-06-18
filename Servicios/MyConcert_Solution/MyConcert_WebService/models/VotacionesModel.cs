@@ -8,8 +8,12 @@ using System.Collections.Generic;
 
 namespace MyConcert.models
 {
+    /**
+     * Votaciones Model
+     * */
     public class VotacionesModel : AbstractModel
     {
+        //Inicializa variables locales
         public VotacionesModel()
         {
             _manejador = new FacadeDB();
@@ -17,27 +21,7 @@ namespace MyConcert.models
             _fabricaRespuestas = new FabricaRespuestas();
         }
 
-        public bool comprobarEstrategiaCienDolares(List<List<votos>> matrizVotos)
-        {
-            DolarStrategy verificadorEstrategia = new DolarStrategy();
-            foreach (List<votos> lista in matrizVotos)
-            {
-                List<int> suma = new List<int>();
-                votos auxiliarVoto = null;
-                foreach (votos votoActual in lista)
-                {
-                    suma.Add(votoActual.valor);
-                    auxiliarVoto = votoActual;
-                }
-                if (!verificadorEstrategia.checkDolars(suma))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
+        //Crear votaciones 
         public Respuesta nuevaVotacion(JArray pCategorias)
         {
             Respuesta respuesta = null;
@@ -45,36 +29,42 @@ namespace MyConcert.models
 
             try
             {
+                //Organiza la informacion de votos
                 listaVotaciones = generarVotos(pCategorias);
                 List<List<votos>> matrizVotos = mapearVotacionesPorCategoria(listaVotaciones);
 
                 if (!comprobarEstrategiaCienDolares(matrizVotos))
                 {
-                    respuesta = _fabricaRespuestas.crearRespuesta(false, "Ingrese la cantidad de créditos necesarios en la categoría.");
+                    //Retorna mensaje de error por no cumplir con la estrategia de los cien dolares 
+                    respuesta = _fabricaRespuestas.crearRespuesta(false, "Error: Es necesario completar los cien créditos en todas las categorías. Por favor intente de nuevo.");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.");
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.", e.ToString());
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones. Por favor intente de nuevo.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.", e.ToString());
             }
 
             try
             {
                 _manejador.añadirVotos(listaVotaciones);
-                respuesta = _fabricaRespuestas.crearRespuesta(true, "Votacion procesada.");
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Votacion procesada satisfactoriamente.");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion.");
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion.", e.ToString());
+                //Retorna mensaje de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false,  "Error al procesar votacion. Por favor intente de nuevo.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion. Por favor intente de nuevo.", e.ToString());
             }
 
+            //Retorna respuesta respectiva
             return respuesta;
         }
 
+        //Mapear las votaciones en una matriz de categorias
         public List<List<votos>> mapearVotacionesPorCategoria(List<votos> listaVotaciones)
         {
+            //Crea matriz de respuesta
             List<List<votos>> matrizVotos = new List<List<votos>>();
             foreach (votos votoARevisar in listaVotaciones)
             {
@@ -85,6 +75,7 @@ namespace MyConcert.models
                     {
                         if (votoActual.FK_VOTOS_CATEGORIAS == votoARevisar.FK_VOTOS_CATEGORIAS)
                         {
+                            //Si categorias son iguales las agrupa en la misma lista
                             lista.Add(votoARevisar);
                             agregado = true;
                             break;
@@ -93,17 +84,21 @@ namespace MyConcert.models
                 }
                 if (!agregado)
                 {
+                    //Agrega lista de votaciones a matriz de categorias
                     List<votos> nuevaLista = new List<votos>();
                     nuevaLista.Add(votoARevisar);
                     matrizVotos.Add(nuevaLista);
                 }
             }
 
+            //Retorna matriz de categorias
             return matrizVotos;
         }
 
+        //Interpretar votaciones desde JSON Array
         private List<votos> generarVotos(JArray pCategorias)
         {
+            //Lee informacion recibida
             List<Voto> listaParseVotaciones = new List<Voto>();
             foreach (dynamic categoria in pCategorias)
             {
@@ -121,8 +116,34 @@ namespace MyConcert.models
                                 cartelera);
                 listaParseVotaciones.Add(votoActual);
             }
+
+            //Convierte a dato almacenable
             List<votos> listaVotaciones = _convertidor.updateListavotos(listaParseVotaciones.ToArray());
             return listaVotaciones;
+        }
+
+        //Comprobar que se cumpla con la estrategia de los cien dólares
+        public bool comprobarEstrategiaCienDolares(List<List<votos>> matrizVotos)
+        {
+            DolarStrategy verificadorEstrategia = new DolarStrategy();
+            foreach (List<votos> lista in matrizVotos)
+            {
+                List<int> suma = new List<int>();
+                votos auxiliarVoto = null;
+                foreach (votos votoActual in lista)
+                {
+                    suma.Add(votoActual.valor);
+                    auxiliarVoto = votoActual;
+                }
+                if (!verificadorEstrategia.checkDolars(suma))
+                {
+                    //Estrategia falla
+                    return false;
+                }
+            }
+
+            //Estrategia cumplida 
+            return true;
         }
     }
 }

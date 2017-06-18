@@ -30,6 +30,9 @@ namespace MyConcert.models
             try
             {
                 usuarios userActual = _manejador.obtenerUsuario(pUsername); //Obtiene datos usuario
+                if (userActual == null)
+                    return _fabricaRespuestas.crearRespuesta(false, "Usuario no encontrado. Intente de nuevo por favor.");
+
                 List<generos> listaGenerosFavoritos = _manejador.obtenerGenerosUsuario(userActual); //Lista generos favoritos
                 GeneroMusical[] arreglogenerosFavoritos = _convertidor.createListaGenero(listaGenerosFavoritos);
                 JObject[] jsonArregloGenerosFavoritos = _serial.agruparGeneros(arreglogenerosFavoritos);
@@ -67,13 +70,13 @@ namespace MyConcert.models
 
             if (usuarioActual == null)                                  //Si no existe el nombre de usuario introducido.
             {
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Usuario no existente.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Usuario no existente. Por favor intente de nuevo.");
             }
             else
             {
                 if (usuarioActual.contraseña != passwordEncriptado)              //Si la contrasena es incorrecta.
                 {
-                    respuesta = _fabricaRespuestas.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
+                    respuesta = _fabricaRespuestas.crearRespuesta(false, "Contraseña incorrecta. Por favor intente de nuevo.");
                 }
                 else                                                  //Si el usuario y contrasena son validos.
                 {
@@ -86,6 +89,21 @@ namespace MyConcert.models
             }
 
             return respuesta;
+        }
+
+        private bool comprobarUsuarioUnico(Usuario pUsuario)
+        {
+            try
+            {
+                usuarios user = _manejador.obtenerUsuario(pUsuario.NombreUsuario);
+                if (user != null)
+                    return true;
+                else
+                    return false;
+            } catch(Exception e)
+            {
+                throw (e);
+            }
         }
 
         //Registrar nuevo usuario en el sistema
@@ -102,8 +120,14 @@ namespace MyConcert.models
                     nuevoFanatico.Estado = _manejador.obtenerEstado(1).estado;  //Establece estado activo
                     nuevoFanatico.TipoUsuario = _manejador.obtenerTipoUsuario(2).tipo;  //Rol fanatico
 
+                    if (comprobarUsuarioUnico(nuevoFanatico))
+                        return _fabricaRespuestas.crearRespuesta(false, "Ya se encuentra en uso el nombre de usuario. Intente con otro por favor.");
+
                     //Comprobar generos musicales favoritos seleccionados
                     int[] arregloGenerosFavoritos = _serial.getArrayInt(pListaGeneroFavoritos);
+                    if (arregloGenerosFavoritos.Length > 10)
+                        return _fabricaRespuestas.crearRespuesta(false, "Se seleccionaron más del máximo de 10 géneros musicales favoritos. Por favor intente con 10.");
+
                     List<generos> listaGenerosFavoritos = new List<generos>();
                     try
                     {
@@ -131,6 +155,9 @@ namespace MyConcert.models
                     nuevoColaborador.deserialize(pDatosUsuario);    //Parse JSON
                     nuevoColaborador.Estado = _manejador.obtenerEstado(1).estado;   //Rol colaborador
                     nuevoColaborador.TipoUsuario = _manejador.obtenerTipoUsuario(1).tipo;   //Establece como activo
+
+                    if (comprobarUsuarioUnico(nuevoColaborador))
+                        return _fabricaRespuestas.crearRespuesta(false, "Ya se encuentra en uso el nombre de usuario. Intente con otro por favor.");
 
                     usuarioCreado = _manejador.añadirUsuario(_convertidor.updateusuarios(nuevoColaborador)); //Se almacena el nuevo usuario
                     nuevoColaborador = (Colaborador) _convertidor.createUsuario(usuarioCreado); //Almacena nuevo colaborador

@@ -30,12 +30,26 @@ namespace MyConcert.models
             Respuesta respuesta = null;
             Banda banda = new Banda(pNombre, _manejador.obtenerEstado(1).estado);
             string[] miembros = _serial.getArrayString(pMiembros);
+            if (miembros.Length < 1)
+                return _fabricaRespuestas.crearRespuesta(false, "Debe ingresar al menos un integrante de banda.");
+
             string[] canciones = _serial.getArrayString(pCanciones);
-            int[] generos = _serial.getArrayInt(pGeneros);
+            if (canciones.Length < 3)
+                return _fabricaRespuestas.crearRespuesta(false, "Error, se ingresaron menos de las 3 canciones mínimas para banda nueva. Por favor intente nuevo.");
+            else if (canciones.Length > 10)
+                return _fabricaRespuestas.crearRespuesta(false, "Error, se ingresaron más de 10 canciones máximas. Por favor intente con menos.");
+
+                int[] generos = _serial.getArrayInt(pGeneros);
+            if (generos.Length > 10)
+                return _fabricaRespuestas.crearRespuesta(false, "Error: Se seleccionaron más del máximo de 10 géneros musicales. Por favor intente con 10 o menos.");
 
             //Almacena banda nueva
             try
             {
+                bandas bandaNueva = _manejador.obtenerBanda(banda.Nombre);
+                if (bandaNueva != null)
+                    return _fabricaRespuestas.crearRespuesta(false, "Error: Banda ya existente. Por favor intente de nuevo.");
+
                 _manejador.añadirBanda(_convertidor.updatebandas(banda), 
                                        _convertidor.updateintegrantes(miembros),
                                        _convertidor.updatecanciones(canciones),
@@ -51,12 +65,15 @@ namespace MyConcert.models
             return respuesta;
         }
 
-        //Generar comentario en banda
+        //Generar comentario de banda
         public Respuesta generarComentario(int idBand, string user, string comment, float calification)
         {
             Respuesta respuesta = null;
             try
             {
+                if (_manejador.obtenerBanda(idBand) == null)
+                    return _fabricaRespuestas.crearRespuesta(false, "Banda no existente. Por favor intente de nuevo.");
+
                 Comentario comentario =
                 new Comentario(0,
                             user,
@@ -66,6 +83,12 @@ namespace MyConcert.models
                             _manejador.obtenerEstado(1).estado,
                             _manejador.obtenerBanda(idBand).nombreBan);
                 comentarios parseComment = _convertidor.updatecomentarios(comentario);
+                if (calification < 0.0 || calification > 5.0)
+                    return _fabricaRespuestas.crearRespuesta(false, "Calificación debe estar entre 0 y 5 estrellas");
+
+                if (comment.Length > 140)
+                    return _fabricaRespuestas.crearRespuesta(false, "Comentario máximo de 140 caracteres. Por favor intente de nuevo.");
+
                 _manejador.añadirComentario(parseComment); //Almacena comentario
                 respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.");
             } catch(Exception)
@@ -120,6 +143,8 @@ namespace MyConcert.models
             {
                 //Obtener banda
                 bandaQuery = _manejador.obtenerBanda(pIDBanda);
+                if (bandaQuery == null)
+                    return _fabricaRespuestas.crearRespuesta(false, "Banda no existente. Por favor intente de nuevo.");
             } catch(Exception)
             {
                 return _fabricaRespuestas.crearRespuesta(false, "Error al obtener banda o no existe.");
