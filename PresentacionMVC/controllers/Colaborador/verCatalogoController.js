@@ -11,14 +11,13 @@ myConcert.controller("verCatalogoController", function($scope, $http,$sce, verCa
     }
     
     
-    
-
-
     document.getElementById('verCatalogoDiv').onclick = function(e) {
     if(e.target == document.getElementById('verCatalogoDiv')) {
        window.location.href = "#vistaColaborador";          
         } 
     }
+    
+
 
    
     

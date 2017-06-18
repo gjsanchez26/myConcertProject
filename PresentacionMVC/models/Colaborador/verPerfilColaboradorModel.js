@@ -1,5 +1,6 @@
 myConcert.service("verPerfilColaboradorModel", function($routeParams, $location, $http){
-var myURL = localStorage.getItem("url");   
+var myURL = localStorage.getItem("url"); 
+    
 this.obtenerPerfil = function(colaborador){
         console.log("12356")
         var infoColaborador={};                       
@@ -12,9 +13,8 @@ this.obtenerPerfil = function(colaborador){
                     if (result.data.success){
                         console.log("usuario")
                         console.log(result.data);
-                        colaborador=result.data.user;
+                        colaborador.info=result.data.user;
                         console.log(colaborador);
-                        return colaborador;
                     }
                     else alert(result.data)
 
@@ -22,6 +22,4 @@ this.obtenerPerfil = function(colaborador){
                     console.log(error);
         }); 
     }
-
-
 });

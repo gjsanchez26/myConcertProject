@@ -15,11 +15,11 @@ this.verificarUsuario = function(usuarioLogin){
     data: Credenciales
     }).then(function(result){
             if (result.data.success) {
-                  if (result.data.content.TipoUsuario=="colaborador")
+                  if (result.data.content.TipoUsuario=="Colaborador")
                       window.location.href = "#vistaColaborador";
                   else window.location.href = "#vistaFanatico";
                 }
-            else alert(result.data.content)
+            else alert(result.data.detail)
     }, function(error) {
         console.log(error);
     });
@@ -158,12 +158,8 @@ this.obtenerPaises = function(usuario) {
                     'Content-Type' : 'application/json'
                 },
                 }).then(function(result){
-                    console.log("Json GET_PAIS");
-                    console.log(result);
                     if (result.data.success)
                     {   
-                        console.log("Valor a Retornar");
-                        console.log(result.data.Elements);
                         usuario.listaPaises=result.data.Elements;
                         return result.data.Elements; 
                     }
@@ -171,8 +167,7 @@ this.obtenerPaises = function(usuario) {
 
                 }, function(error) {
                     console.log(error);
-                });
-    
+                }); 
 }
 
 this.obtenerUniversidades = function(usuario) {
@@ -183,12 +178,8 @@ this.obtenerUniversidades = function(usuario) {
                     'Content-Type' : 'application/json'
                 },
                 }).then(function(result){
-                    console.log("Json GET_PAIS");
-                    console.log(result);
                     if (result.data.success)
                     {   
-                        console.log("Valor a Retornar");
-                        console.log(result.data.Elements);
                         usuario.listaUniversidades=result.data.Elements;
                         return result.data.Elements; 
                     }
@@ -208,12 +199,8 @@ this.obtenerGeneros = function(usuario) {
                     'Content-Type' : 'application/json'
                 },
                 }).then(function(result){
-                    console.log("Json GET_PAIS");
-                    console.log(result);
                     if (result.data.success)
                     {   
-                        console.log("Valor a Retornar");
-                        console.log(result.data.Elements);
                         usuario.listaGeneros=result.data.Elements;
                         return result.data.Elements; 
                     }
