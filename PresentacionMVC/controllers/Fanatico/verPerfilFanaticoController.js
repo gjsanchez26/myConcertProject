@@ -2,7 +2,7 @@ myConcert.controller("verPerfilFanaticoController", function($scope, $http, verP
     $scope.fanatico ={};
     
     
-    verPerfilColaboradorModel.obtenerPerfil($scope.fanatico);
+    verPerfilFanaticoModel.obtenerPerfil($scope.fanatico);
     
     document.getElementById('perfilFanaticoDiv').onclick = function(e) {
     if(e.target == document.getElementById('perfilFanaticoDiv')) {

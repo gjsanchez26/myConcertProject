@@ -13,10 +13,10 @@ this.obtenerPerfil = function(fanatico){
                     if (result.data.success){
                         console.log("usuario")
                         console.log(result.data);
-                        fanatico.info=result.data.user;
-                        console.log(fanatico);
+                        fanatico.info=result.data;
+                        console.log(fanatico.info);
                     }
-                    else alert(result.data.detail)
+                    else alert(result.data.detail);
 
                 }, function(error) {
                     console.log(error);

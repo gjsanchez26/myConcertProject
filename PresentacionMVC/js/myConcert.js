@@ -45,7 +45,11 @@ var configMyConcert = function($routeProvider){
         .when("/vistaFanatico", {
             controller: "fanaticoController",
             templateUrl: "views/Fanatico/fanaticoView.html"
-        })     
+        }) 
+        .when("/verPerfilFanatico", {
+            controller: "verPerfilFanaticoController",
+            templateUrl: "views/Fanatico/verPerfilFanaticoView.html"
+        })
     ;
 }
  

@@ -19,7 +19,7 @@
                             <li style="color:#FFFFFF"class="submit" id="myBtn"><a href="#registroForm">Cerrar Sesión</a></li>
                       </ul>
                       <ul class="nav navbar-nav navbar-right">
-                             <li style="color:#FFFFFF" id="verPerfil" ><a href="#verPerfilColaborador">Ver Perfil</a></li>
+                             <li style="color:#FFFFFF" id="verPerfil" ><a href="#verPerfilFanatico">Ver Perfil</a></li>
                       </ul>
                       <ul class="nav navbar-nav navbar-right">
                              <li style="color:#FFFFFF" id="ayuda" ><a href="#verAyuda">Ayuda</a></li>
@@ -35,51 +35,61 @@
                 
                     <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                         <label for="C_Name">Foto Perfil</label>
-                        <h1>{{fanatico.foto}}</h1>
+                        <h1>{{fanatico.info.user.foto}}</h1>
                     </div>
                 <div class="top-row">
                     <div>
                         <div class="form-group has-feedback" >
-                            <h2 style="color:#ffffff">{{fanatico.nombreUsuario}}</h2>
+                            <h2 style="color:#ffffff">{{fanatico.info.user.NombreUsuario}}</h2>
                             <label for="C_Name">Nombre Usuario</label>
                         </div>
                         <div class="form-group has-feedback" >
-                            <h3 style="color:#ffffff" >{{fanatico.nombre}} {{fanatico.apellido}}</h3>
+                            <h3 style="color:#ffffff" >{{fanatico.info.user.Nombre}} {{fanatico.info.user.Apellido}}</h3>
                             <label for="C_Name">Nombre Completo</label>
                         </div>
                         <div class="form-group has-feedback" >
                             
-                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{fanatico.fechaNacimiento}}</h3>
+                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{fanatico.info.user.FechaNacimiento}}</h3>
                             <label for="C_Name">Fecha de Nacimiento</label>
+                        </div>
+                        <div class="form-group has-feedback" >
+                            
+                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{fanatico.info.user.Telefono}}</h3>
+                            <label for="C_Name">Teléfono</label>
                         </div>
                     </div>
                     <div>
                         <div class="form-group has-feedback" > 
-                            <h3 style="color:#ffffff" >{{fanatico.fechaInscripcion}}</h3>
+                            <h3 style="color:#ffffff" >{{fanatico.info.user.FechaInscripcion}}</h3>
                             <label for="C_Name">Fecha Inscripción</label>
                         </div>    
                         <div class="form-group has-feedback" >
                             
-                            <h3 style="color:#ffffff">{{fanatico.ubicacion}},{{fanatico.pais}}</h3>
+                            <h3 style="color:#ffffff">{{fanatico.info.user.Ubicacion}},{{fanatico.info.user.Pais}}</h3>
                             <label for="C_Name">Ubicación</label>
                         </div>    
   
                         <div class="form-group has-feedback" >
-                            <h3 style="color:#ffffff" >{{fanatico.universidad}}</h3>
+                            <h3 style="color:#ffffff" >{{fanatico.info.user.Universidad}}</h3>
                             <label for="C_Name">Universidad</label>
+                        </div>
+                        <div class="form-group has-feedback" >
+                            
+                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{fanatico.info.user.Email}}</h3>
+                            <label for="C_Name">Email</label>
                         </div>
 
                     </div>        
                 </div>
                 <div >
-                  <h1 style="color:#ffffff"> Lista de Generos</h1>
+                  <h3 style="color:#ffffff"> Lista de Generos Preferidos</h3>
                   <div class="list-group">
-                    <li ng-repeat="item in colaborador.generos" class="list-group-item">{{item}}</li>
+                    <li ng-repeat="item in fanatico.info.genres" class="list-group-item">{{item.Nombre}}</li>
                   </div>
                 </div>
                 <div>
-                    <pre>{{fanatico.descripcion}}</pre>
                     <label for="C_Name">Descripción</label>
+                    <pre>{{fanatico.info.user.DescripcionPersonal}}</pre>
                 </div>
                 
 
