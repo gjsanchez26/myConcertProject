@@ -98,6 +98,25 @@ namespace MyConcert.database
             }
             return obj;
         }
+
+        public eventos obtenerEvento(string evento)
+        {
+            eventos obj = null;
+            try
+            {
+
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                    obj = context.eventos.FirstOrDefault(r => r.nombreEve == evento);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return obj;
+        }
         /*
          */
         public tiposeventos obtenerTipoEvento(int PK_tipoEvento)
@@ -227,7 +246,6 @@ namespace MyConcert.database
                         fest.transporte = festival.transporte;
                         fest.FK_EVENTOS_TIPOSEVENTOS = festival.FK_EVENTOS_TIPOSEVENTOS;
                         context.SaveChanges();
-                        Console.WriteLine(perdedoras.Count);
                         foreach (bandas b in perdedoras)
                         {
 

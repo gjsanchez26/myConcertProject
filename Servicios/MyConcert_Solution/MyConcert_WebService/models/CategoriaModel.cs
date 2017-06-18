@@ -24,6 +24,10 @@ namespace MyConcert.models
 
             try
             {
+                //Verificar si existe categoria
+                categorias catAux = _manejador.obtenerCategoria(nueva.Nombre);
+                if (catAux != null)
+                    return _fabricaRespuestas.crearRespuesta(false, "Error: Categoria ya existente. Intente con otro nombre por favor.");
                 //Almacena categoria
                 _manejador.añadirCategoria(_convertidor.updatecategorias(nueva));
                 //Retorna respuesta exitosa

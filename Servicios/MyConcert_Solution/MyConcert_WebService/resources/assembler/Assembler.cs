@@ -15,7 +15,6 @@ namespace MyConcert.resources.assembler
             List<integrantes> integran = new List<integrantes>();
             for (int i = 0; i < pIntegrantes.Length; i++)
             {
-                Console.WriteLine(pIntegrantes[i]);
                 integrantes integrante = new integrantes();
                 integrante.nombreInt = pIntegrantes[i];
                 integran.Add(integrante);

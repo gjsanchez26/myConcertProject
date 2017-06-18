@@ -182,11 +182,9 @@ namespace MyConcert.resources.operations
             double fest_index = 0;
             List<string> id_winners = getIDArtists(winners);
             List<string> id_other = getIDArtists(other_bands);
-            Console.WriteLine("Algoritmo del Chef Principal");
             //Las canciones se obtienen de la base de datos
             List<List<string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
             List<List<string>> id_other_tracks = getIDTracks(id_other, other_songs);
-            Console.WriteLine("Algoritmo del Chef Principal");
             //Se calculan los indices de las bandas excluidas del festival 
             List<double> other_indexes = new List<double>();
             for (int i = 0; i < id_other_tracks.Count; i++)
@@ -194,7 +192,6 @@ namespace MyConcert.resources.operations
                 other_indexes.Add(calculateIndex(id_other_tracks[i]));
                 Console.WriteLine("Promedio otra banda "+i+": "+other_indexes[i]);
             }
-            Console.WriteLine("Algoritmo del Chef Principal");
             //Se calculan los indices de cada banda ganadora en cartelera
             List<double> winners_indexes = new List<double>();
             for (int i = 0; i < id_winners_tracks.Count; i++)
