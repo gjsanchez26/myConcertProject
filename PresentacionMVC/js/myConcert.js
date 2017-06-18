@@ -1,4 +1,4 @@
-
+localStorage.setItem("url","http://192.168.1.12:12345");
 var configMyConcert = function($routeProvider){
 
     $routeProvider
@@ -45,12 +45,8 @@ var configMyConcert = function($routeProvider){
         .when("/vistaFanatico", {
             controller: "fanaticoController",
             templateUrl: "views/Fanatico/fanaticoView.html"
-        })
-    
-        
-        
+        })     
     ;
- 
 }
  
 //creamos el modulo y le aplicamos la configuración

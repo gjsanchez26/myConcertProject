@@ -1,6 +1,6 @@
 myConcert.service("crearBandaModel", function($routeParams, $location, $http){
-//var myURL ="http://192.168.100.12:12345";
-var myURL ="http://192.168.43.30:12345";
+var myURL = localStorage.getItem("url");   
+    
 var listaMiembros=[];
 var listaCanciones=[];
 

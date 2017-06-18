@@ -82,7 +82,7 @@
                                     <div class="modal-body">
                                         <div class="top-row">
                                                 <div class="form-group">
-                                                      <label  style="color:#6d153d;" class="control-label col-sm-2" for="fechaInicioFestival">Nombre</label>
+                                                      <label  style="color:#6d153d;margin: 0px 20px 0px 0px;" class="control-label col-sm-2" for="fechaInicioFestival">Nombre</label>
                                                       <div class="col-sm-10">
                                                             <p id="fechaInicioFestival" style="color:#6d153d" name="fechaInicioFestival">{{catalogo.banda.band_data.name}}</p>
                                                       </div>
@@ -148,7 +148,8 @@
                                                             <td style="background: rgba(38, 0, 51, 0.1);">
                                                                 <div align="center">
                                                                     
-                                                                    <audio src="catalogo.cancion" controls>
+                                                                    <audio ng-src="catalogo.cancion" controls>
+                                                                        
                                                                     Your browser does not support the audio element.
                                                                     </audio>
                                                                     <h3>{{item.url_sound_test}}</h3>

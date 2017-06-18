@@ -1,13 +1,11 @@
 myConcert.service("colaboradorModel", function($routeParams, $location, $http){
-//var myURL ="http://192.168.100.12:12345"; 
-var myURL ="http://192.168.43.30:12345";     
+
+var myURL = localStorage.getItem("url");     
 var listaBandasActuales={}; 
 var tipoUsuario="";
 
     
 this.crearFestival = function(cartelera){
-            console.log("EEEEEEEEEEEEEEEE");
-            console.log(cartelera.info);
             var listaBandadXCategoria=[];
             var checkboxes = document.getElementsByName('bandasSeleccionadas');
             var vals = "";
@@ -34,7 +32,7 @@ this.crearFestival = function(cartelera){
                         "event_id" : cartelera.info.event_data.Id,
                         "name" : cartelera.info.event_data.Nombre,
                         "ubication": cartelera.info.event_data.Ubicacion,
-                        "country": cartelera.info.event_data.Pais,
+                        "country": "Costa Rica",
                         "initial_date" : cartelera.info.event_data.FechaInicioFestival,
                         "final_date" : cartelera.info.event_data.FechaFinalFestival,
                         "vote_final_date" :cartelera.info.event_data.FechaFinalVotacion,
@@ -45,6 +43,24 @@ this.crearFestival = function(cartelera){
               "categories" : listaBandadXCategoria
             }
             console.log(nuevoFestival);
+                $http({
+                method: 'POST',
+                url: myURL+"/API/eventos?id="+evento.Id,
+                headers: {'Content-Type' : 'application/json'},
+                data:nuevoFestival
+                })
+                .then(function(result){
+                    if (result.data.success){
+                        console.log(result.data);
+                        cartelera.info=result.data;
+                        console.log(cartelera.info);   
+                    }
+                    else alert(result.data)
+                }, function(error) {
+                    console.log(error);
+                }); 
+    
+    
 }
 
                   

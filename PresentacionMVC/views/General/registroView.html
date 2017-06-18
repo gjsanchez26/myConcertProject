@@ -1,4 +1,40 @@
 <div ng-controller="registroController">
+            <div style="margin: 0px 0px 0px 0px;">
+                <nav  class="navbar navbar-inverse">
+                  <div class="container-fluid">
+                    <div class="navbar-header" >
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+
+                      <a class="navbar-brand" id="idUser" href="#"  ng-click="obtenerBandas()" style="color:#FFFFFF">Prototipo MyConcert</a>
+
+                    </div>
+                    <a class="navbar-brand" id="idUser" href="#home" style="color:#FFFFFF"></a>
+                    <div class="collapse navbar-collapse" id="myNavbar" style="color:#FFFFFF">
+                      <ul class="nav navbar-nav navbar-left ">
+                            <li class="dropdown" style="color:#FFFFFF">
+                              <a class="dropdown-toggle" data-toggle="dropdown">Idioma<span class="caret"></span></a>
+                              <ul class="dropdown-menu style="color:#FFFFFF"">
+                                  <li style="color:#FFFFFF" ><a href="#">Español</a></li>
+                                  <li style="color:#FFFFFF" ><a href="#">Inglés</a></li>
+                                  <li style="color:#FFFFFF" ><a href="#">Portugués</a></li>
+                                  <li style="color:#FFFFFF" ><a href="#">Francés</a></li>
+                                  
+                              </ul>
+                            </li>
+
+                      </ul>
+
+                      <ul class="nav navbar-nav navbar-right">
+                             <li style="color:#FFFFFF" id="ayuda" ><a href="#verAyuda">Ayuda</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+            </div>
             <div class="form">
                     <h1 style="color:#ffffff" >My Concert</h1>  
                     <hr>
@@ -16,50 +52,49 @@
                                         </div>
                                         <div class="form-group">
                                           <label>Nombre de Usuario<span class="req">*</span></label>
-                                          <input ng-model="usuario.nombreUsuario" type="text" required autocomplete="off" style="color:#ffffff" />
+                                          <input ng-model="usuario.nombreUsuario" type="text" minlength="4" maxlength="8" required autocomplete="off" style="color:#ffffff" />
                                         </div>
                                         <div class="form-group">
                                           <label>Nombre<span class="req">*</span></label>
-                                          <input ng-model="usuario.Nombre" type="text" required autocomplete="off" style="color:#ffffff" />
+                                          <input ng-model="usuario.Nombre" type="text" maxlength="30" required autocomplete="off" style="color:#ffffff" />
                                         </div>
 
                                         <div class="form-group">
                                           <label>Apellido<span class="req">*</span></label>
-                                          <input ng-model="usuario.Apellido" type="text"required autocomplete="off" style="color:#ffffff"/>
+                                          <input ng-model="usuario.Apellido" type="text" maxlength="30" required autocomplete="off" style="color:#ffffff"/>
                                         </div>
                                       </div>
 
                                       <div class="form-group">
                                         <label>Correo<span class="req">*</span></label>
-                                        <input ng-model="usuario.Email" type="email"required autocomplete="off" style="color:#ffffff"/>
+                                        <input ng-model="usuario.Email" type="email" maxlength="30" required autocomplete="off" style="color:#ffffff"/>
                                       </div>
 
                                       <div class="form-group">
                                         <label>Contraseña<span class="req">*</span></label>
-                                        <input ng-model="usuario.Contrasena" type="password" required autocomplete="off" style="color:#ffffff"/>
+                                        <input ng-model="usuario.Contrasena"  type="password"  maxlength="8" required autocomplete="off" style="color:#ffffff"/>
                                       </div>
                                       <div class="form-group">
-                                        <label>Confirmación Contraseña<span class="req">*</span></label>
-                                        <input ng-model="usuario.Confirmacion" type="password" required autocomplete="off" style="color:#ffffff"/>
+                                        <label>Confirmación Contraseña * </label>
+                                        <input ng-model="usuario.Confirmacion" type="password" maxlength="8" required autocomplete="off" style="color:#ffffff"/>
                                       </div>
-
                                       <div ng-show = "!(usuario.tipo)">
                                             <div >
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
-                                                      <label for="F_FechaNacimiento">Fecha de Nacimiento</label>
-                                                      <input id=F_FechaNacimiento type="date" ng-model="usuario.fechaNacimiento" placeholder="Fecha de Nacimiento" style="color:#ffffff">
+                                                      <label for="F_FechaNacimiento">Fecha de Nacimient *o</label>
+                                                      <input id=F_FechaNacimiento type="date" required autocomplete="off" ng-model="usuario.fechaNacimiento" placeholder="Fecha de Nacimiento" style="color:#ffffff">
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;" >
-                                                        <label for="F_Telefono">Telefono</label>
-                                                        <input id=F_Telefono type="string" ng-model="usuario.telefono" placeholder="Telefono" style="color:#ffffff" required autocomplete="off">
+                                                        <label for="F_Telefono">Telefono *</label>
+                                                        <input id=F_Telefono type="string" maxlength="15" ng-model="usuario.telefono" placeholder="Telefono" style="color:#ffffff" required autocomplete="off">
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
                                                         <label for="F_Ubicacion">Ubicación</label>
-                                                        <input id=user type="text" ng-model="usuario.ubicacion" placeholder="Ubicacion" style="color:#ffffff">
+                                                        <input id=user type="text" ng-model="usuario.ubicacion" maxlength="100"  placeholder="Ubicacion" style="color:#ffffff">
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
-                                                        <label for="F_Pais">País</label>
-                                                        <select style="color:#ffffff" ng-model="usuario.pais" ng-options="x.Nombre for x in usuario.listaPaises">
+                                                        <label for="F_Pais">País *</label>
+                                                        <select style="color:#ffffff" ng-model="usuario.pais" ng-options="x.Nombre for x in usuario.listaPaises" required autocomplete="off">
                                                         </select>
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 0px 0px 0px;">
@@ -70,15 +105,16 @@
                                                     <div >
                                                       <label for="sel2">Seleccione sus géneros preferidos</label>
                                                       <select required autocomplete="off" multiple style="color:#ffffff" ng-model="usuario.generos" ng-options="x.Nombre for x in usuario.listaGeneros">
-                                                        </select>   
-
+                                                      </select>   
                                                     </div>
                                                     <div class="form-group">
                                                       <label for="F_Descripcion">Descripción Personal</label>
                                                       <textarea  rows="5" id="F_Descripcion" ng-model="usuario.descripcion" style="color:#ffffff"></textarea>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label><input required autocomplete="off" style="margin: 0px 0px 0px 150px;" type="checkbox" value="" id="usuario.terminos" >Acepto los términos y Condiciones</label>
+                                                    <div class="form-group" style="display:block">
+                                                        <label for="usuario.terminos"><input style="position:relative;left:-110px;" required autocomplete="off" type="checkbox" name="usuario.terminos" id="usuario.terminos" value="">
+                                                        Acepto los términos y Condiciones</label>
+                                                        
                                                         
                                                     </div>
                                             </div>
@@ -91,13 +127,13 @@
                                 <form>
                                     <div class="form-group">
                                         <label>Nombre Usuario<span class="req">*</span></label>
-                                        <input style="color:#ffffff" ng-model="usuarioLogin.login" type="text" required autocomplete="off"/>
+                                        <input style="color:#ffffff" ng-model="usuarioLogin.login" minlength="4" maxlength="8" type="text" required autocomplete="off"/>
                                     </div>
                                     <div class="form-group">
                                         <label>Contraseña<span class="req">*</span></label>
-                                        <input style="color:#ffffff" ng-model="usuarioLogin.password" type="password"required autocomplete="off"/>
+                                        <input style="color:#ffffff" ng-model="usuarioLogin.password"  maxlength="8" type="password" required autocomplete="off"/>
                                     </div>
-                                    <button class="button button-block" ng-click="ingresarUsuario()" href="#vistaColaborador">Ingresar</button>
+                                    <button class="button button-block" type="'submit" ng-click="ingresarUsuario()" href="#vistaColaborador">Ingresar</button>
                                 </form>
                             </div>
                     </div><!-- tab-content -->
