@@ -1,88 +1,108 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.security;
+﻿using MyConcert.viewModels;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert_WebService.res.assembler;
-using MyConcert_WebService.res.serial;
+using MyConcert.resources.assembler;
+using MyConcert.resources.serial;
 using System.Collections.Generic;
+using MyConcert.resources.security;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class UsuariosModel
+    public class UsuariosModel : AbstractModel
     {
-        private Assembler _assembler = new Assembler();
-        private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
         private SHA256Encriptation _encriptador = new SHA256Encriptation();
         private SerialHelper _serial = new SerialHelper();
         
+        //Constructor para inicializar variables del AbstractModel
+        public UsuariosModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
+
+        //Obtener usuario especifico
         public Respuesta getUsuario(string pUsername)
         {
             Respuesta respuesta = null;
 
-            usuarios userActual = _manejador.obtenerUsuario(pUsername);
-            List<generos> listaGenerosFavoritos = _manejador.obtenerGenerosUsuario(userActual);
-            GeneroMusical[] arreglogenerosFavoritos = _assembler.createListaGenero(listaGenerosFavoritos);
-            JObject[] jsonArregloGenerosFavoritos = _serial.agruparGeneros(arreglogenerosFavoritos);
-            Usuario viewUserActual = _assembler.createUsuario(userActual);
-            viewUserActual.Contrasena = "XXXXXXXX";
+            try
+            {
+                usuarios userActual = _manejador.obtenerUsuario(pUsername); //Obtiene datos usuario
+                List<generos> listaGenerosFavoritos = _manejador.obtenerGenerosUsuario(userActual); //Lista generos favoritos
+                GeneroMusical[] arreglogenerosFavoritos = _convertidor.createListaGenero(listaGenerosFavoritos);
+                JObject[] jsonArregloGenerosFavoritos = _serial.agruparGeneros(arreglogenerosFavoritos);
+                Usuario viewUserActual = _convertidor.createUsuario(userActual);
+                viewUserActual.Contrasena = "XXXXXXXX"; //Oculta password
 
-            respuesta = _creador.crearRespuesta(true, JObject.FromObject(viewUserActual), jsonArregloGenerosFavoritos);
+                //Retorna respuesta exitosa con datos de usuario
+                respuesta = _fabricaRespuestas.crearRespuesta(true, JObject.FromObject(viewUserActual), jsonArregloGenerosFavoritos);
+            } catch(Exception)
+            {
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error en obtener la informacion.");
+            }
+            
             return respuesta;
         }
 
+        //Comprobar inicio de sesion
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
             Respuesta respuesta = null;
             usuarios usuarioActual;
-            string passwordEncriptado = _encriptador.sha256Encrypt(pPassword);
+            string passwordEncriptado = _encriptador.sha256Encrypt(pPassword);  //Encripta password para comparacion
 
             try
             {
-                usuarioActual = _manejador.obtenerUsuario(pUsername);
+                usuarioActual = _manejador.obtenerUsuario(pUsername);   //Obtener datos usuario
             }
             catch (Exception e)
             {
-                return respuesta = _creador.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.", e.ToString());
+                //Respuesta de error
+                return respuesta = _fabricaRespuestas.crearRespuesta(false, "Usuario incorrecto o no existente. Por favor intente de nuevo.", e.ToString());
                 throw (e);
             }
 
 
             if (usuarioActual == null)                                  //Si no existe el nombre de usuario introducido.
             {
-                respuesta = _creador.crearRespuesta(false, "Usuario no existente.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Usuario no existente.");
             }
             else
             {
                 if (usuarioActual.contraseña != passwordEncriptado)              //Si la contrasena es incorrecta.
                 {
-                    respuesta = _creador.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
+                    respuesta = _fabricaRespuestas.crearRespuesta(false, "Contraseña incorrecta. Intente de nuevo.");
                 }
                 else                                                  //Si el usuario y contrasena son validos.
                 {
-                    Usuario usuarioViewModel = _assembler.createUsuario(usuarioActual);
+                    Usuario usuarioViewModel = _convertidor.createUsuario(usuarioActual);
                     usuarioViewModel.Contrasena = "XXXXXXX";
-                    respuesta = _creador.crearRespuesta(true, JObject.FromObject(usuarioViewModel));
+
+                    //Retorna respuesta exitosa y datos del usuario
+                    respuesta = _fabricaRespuestas.crearRespuesta(true, JObject.FromObject(usuarioViewModel));
                 }
             }
 
             return respuesta;
         }
 
+        //Registrar nuevo usuario en el sistema
         public Respuesta registrarUsuario(string pRol, JObject pDatosUsuario, JArray pListaGeneroFavoritos)
         {
             Respuesta respuesta = null;
             usuarios usuarioCreado = null;
             try
             {
-                if (pRol == "fanatico")
+                if (pRol == "fanatico") //Si es fanatico
                 {
                     Fanatico nuevoFanatico = new Fanatico();
-                    nuevoFanatico.deserialize(pDatosUsuario);
-                    nuevoFanatico.Estado = _manejador.obtenerEstado(1).estado;
-                    nuevoFanatico.TipoUsuario = _manejador.obtenerTipoUsuario(2).tipo;
+                    nuevoFanatico.deserialize(pDatosUsuario);   //Parse JSON
+                    nuevoFanatico.Estado = _manejador.obtenerEstado(1).estado;  //Establece estado activo
+                    nuevoFanatico.TipoUsuario = _manejador.obtenerTipoUsuario(2).tipo;  //Rol fanatico
 
+                    //Comprobar generos musicales favoritos seleccionados
                     int[] arregloGenerosFavoritos = _serial.getArrayInt(pListaGeneroFavoritos);
                     List<generos> listaGenerosFavoritos = new List<generos>();
                     try
@@ -93,32 +113,37 @@ namespace MyConcert_WebService.models
                         }
                     } catch(Exception)
                     {
-                        return _creador.crearRespuesta(false, "Fallo al seleccionar los generos favoritos.");
+                        //Retorna respuesta de fallo
+                        return _fabricaRespuestas.crearRespuesta(false, "Fallo al seleccionar los generos favoritos.");
                     }
 
-                    usuarioCreado = _manejador.añadirUsuario(_assembler.updateusuarios(nuevoFanatico),
-                                listaGenerosFavoritos); //Se almacena el nuevo usuario
-                    nuevoFanatico = (Fanatico)_assembler.createUsuario(usuarioCreado);
+                    usuarioCreado = _manejador.añadirUsuario(_convertidor.updateusuarios(nuevoFanatico),
+                                listaGenerosFavoritos);     //Se almacena el nuevo usuario
+                    nuevoFanatico = (Fanatico)_convertidor.createUsuario(usuarioCreado);
 
-                    respuesta = _creador.crearRespuesta(true, nuevoFanatico.serialize());
+                    //Retorna respuesta exitosa
+                    respuesta = _fabricaRespuestas.crearRespuesta(true, nuevoFanatico.serialize());
                 }
                     
-                if (pRol == "colaborador")
+                if (pRol == "colaborador")  //Si es colaborador
                 {
                     Colaborador nuevoColaborador = new Colaborador();
-                    nuevoColaborador.deserialize(pDatosUsuario);
-                    nuevoColaborador.Estado = _manejador.obtenerEstado(1).estado;
-                    nuevoColaborador.TipoUsuario = _manejador.obtenerTipoUsuario(1).tipo;
+                    nuevoColaborador.deserialize(pDatosUsuario);    //Parse JSON
+                    nuevoColaborador.Estado = _manejador.obtenerEstado(1).estado;   //Rol colaborador
+                    nuevoColaborador.TipoUsuario = _manejador.obtenerTipoUsuario(1).tipo;   //Establece como activo
 
-                    usuarioCreado = _manejador.añadirUsuario(_assembler.updateusuarios(nuevoColaborador)); //Se almacena el nuevo usuario
-                    nuevoColaborador = (Colaborador) _assembler.createUsuario(usuarioCreado);
-                    respuesta = _creador.crearRespuesta(true, nuevoColaborador.serialize());
+                    usuarioCreado = _manejador.añadirUsuario(_convertidor.updateusuarios(nuevoColaborador)); //Se almacena el nuevo usuario
+                    nuevoColaborador = (Colaborador) _convertidor.createUsuario(usuarioCreado); //Almacena nuevo colaborador
+
+                    //Retorna respuesta exitosa
+                    respuesta = _fabricaRespuestas.crearRespuesta(true, nuevoColaborador.serialize());
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.");
-                respuesta = _creador.crearRespuesta(false, "Error al ingresar usuario nuevo.", e.ToString());
+                //Respuesta de error 
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al ingresar usuario nuevo.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al ingresar usuario nuevo.", e.ToString());
             }
 
             return respuesta;

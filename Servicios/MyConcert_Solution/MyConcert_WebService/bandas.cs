@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyConcert_WebService
+namespace MyConcert
 {
     using System;
     using System.Collections.Generic;

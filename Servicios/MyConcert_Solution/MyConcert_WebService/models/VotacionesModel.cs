@@ -1,70 +1,112 @@
-﻿using MyConcert_WebService.res.assembler;
-using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.viewModels;
+﻿using MyConcert.resources.assembler;
+using MyConcert.resources.operations;
+using MyConcert.resources.results;
+using MyConcert.viewModels;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class VotacionesModel
+    public class VotacionesModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private Assembler _assembler = new Assembler();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
+        public VotacionesModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
 
-        public Respuesta nuevaVotacion(int pEvento, string pNombreUsuario, JArray pCategorias)
+        public Respuesta nuevaVotacion(JArray pCategorias)
         {
             Respuesta respuesta = null;
             List<votos> listaVotaciones = null;
 
             try
             {
-                listaVotaciones = generarVotos(pEvento, pNombreUsuario, pCategorias);
+                listaVotaciones = generarVotos(pCategorias);
+
+                List<List<votos>> matrizVotos = new List<List<votos>>();
+                foreach (votos votoARevisar in listaVotaciones)
+                {
+                    bool agregado = false;
+                    foreach (List<votos> lista in matrizVotos)
+                    {
+                        foreach (votos votoActual in lista)
+                        {
+                            if (votoActual.FK_VOTOS_CATEGORIAS == votoARevisar.FK_VOTOS_CATEGORIAS)
+                            {
+                                lista.Add(votoARevisar);
+                                agregado = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!agregado)
+                    {
+                        List<votos> nuevaLista = new List<votos>();
+                        nuevaLista.Add(votoARevisar);
+                        matrizVotos.Add(nuevaLista);
+                    }
+                }
+
+                DolarStrategy verificadorEstrategia = new DolarStrategy();
+                foreach (List<votos> lista in matrizVotos)
+                {
+                    List<int> suma = new List<int>();
+                    votos auxiliarVoto = null;
+                    foreach (votos votoActual in lista)
+                    {
+                        suma.Add(votoActual.valor);
+                        auxiliarVoto = votoActual;
+                    }
+                    if (!verificadorEstrategia.checkDolars(suma)) 
+                    {
+                        return _fabricaRespuestas.crearRespuesta(false, "Ingrese la cantidad de créditos necesarios en la categoría: "
+                            +_manejador.obtenerCategoria(auxiliarVoto.FK_VOTOS_CATEGORIAS).categoria);
+                    }
+                }
             }
             catch (Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al interpretar votaciones.");
-                respuesta = _creador.crearRespuesta(false, "Error al interpretar votaciones.", e.ToString());
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al interpretar votaciones.", e.ToString());
             }
 
             try
             {
                 _manejador.añadirVotos(listaVotaciones);
-                respuesta = _creador.crearRespuesta(true, "Votacion procesada.");
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Votacion procesada.");
             }
             catch (Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al procesar votacion.");
-                respuesta = _creador.crearRespuesta(false, "Error al procesar votacion.", e.ToString());
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al procesar votacion.", e.ToString());
             }
 
             return respuesta;
         }
 
-        private List<votos> generarVotos(int pEvento, string pNombreUsuario, JArray pCategorias)
+        private List<votos> generarVotos(JArray pCategorias)
         {
-            JArray votosJSON = null;
             List<Voto> listaParseVotaciones = new List<Voto>();
             foreach (dynamic categoria in pCategorias)
             {
-                string nombreCategoria = (string)categoria.category;
-                votosJSON = (JArray)categoria.votes;
-                foreach (dynamic votacion in votosJSON)
-                {
-                    string nombreBanda = (string)votacion.band;
-                    int cantidadVoto = (int)votacion.vote;
-                    Voto votoActual =
+                string band = (string)categoria.band;
+                int cartelera = (int)categoria.cartelera;
+                string category = (string)categoria.category;
+                string username = (string)categoria.username;
+                int cantidadVoto = (int)categoria.vote;
+                Voto votoActual =
                         new Voto(0,
-                                pNombreUsuario,
+                                username,
                                 cantidadVoto,
-                                nombreBanda,
-                                nombreCategoria,
-                                pEvento);
-                    listaParseVotaciones.Add(votoActual);
-                }
+                                _manejador.obtenerBanda(band).nombreBan,
+                                _manejador.obtenerCategoria(category).categoria,
+                                cartelera);
+                listaParseVotaciones.Add(votoActual);
             }
-            List<votos> listaVotaciones = _assembler.updateListavotos(listaParseVotaciones.ToArray());
+            List<votos> listaVotaciones = _convertidor.updateListavotos(listaParseVotaciones.ToArray());
             return listaVotaciones;
         }
     }

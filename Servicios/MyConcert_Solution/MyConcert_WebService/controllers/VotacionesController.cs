@@ -1,24 +1,26 @@
-﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.models;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
+using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace MyConcert_WebService.controllers
+namespace MyConcert.controllers
 {
+    /**
+     * Votaciones Controller
+     * */
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class VotacionesController
+    public class VotacionesController : ApiController
     {
         private VotacionesModel _model = new VotacionesModel();
 
         //Crear votacion nueva. 
-        public JObject Post(JObject pPeticion)
+        public JObject Post(JArray pPeticion)
         {
             dynamic peticion = pPeticion;
-            int eventoID = (int) peticion.event_id;
-            string usuario = (string) peticion.user;
-            JArray categorias = (JArray) peticion.categories; 
+            JArray categorias = (JArray) peticion; 
 
-            Respuesta respuesta = _model.nuevaVotacion(eventoID, usuario, categorias);
+            Respuesta respuesta = _model.nuevaVotacion(categorias);
 
             return JObject.FromObject(respuesta); 
         }

@@ -1,14 +1,18 @@
-﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.models;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace MyConcert_WebService.controllers
+namespace MyConcert.controllers
 {
+    /**
+     * Usuarios Controller
+     * */
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsuariosController : ApiController
     {
+        //Model para administrar datos
         private UsuariosModel _model = new UsuariosModel();
 
         //Obtener usuario especifico.
@@ -27,6 +31,7 @@ namespace MyConcert_WebService.controllers
             dynamic datosUsuario = peticion.user_data;
             JArray listaGenerosFavoritos = peticion.genres;
             
+            //Otorga responsabilidad al Model
             Respuesta respuesta = _model.registrarUsuario(tipoUsuario, datosUsuario, listaGenerosFavoritos);
             
             JObject respuestaPost = JObject.FromObject(respuesta);

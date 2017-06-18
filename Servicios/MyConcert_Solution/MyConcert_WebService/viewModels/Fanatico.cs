@@ -1,8 +1,8 @@
-﻿using MyConcert_WebService.res.serial;
+﻿using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
     class Fanatico : Usuario
     {
@@ -53,7 +53,7 @@ namespace MyConcert_WebService.viewModels
                 this.Estado = "";
                 this.FechaInscripcion = DateTime.Now;
                 this.FotoPerfil = "";
-                this.FechaNacimiento = serial.fecha(json.birth_date);
+                this.FechaNacimiento = (DateTime)json.birth_date;
                 this.Telefono = (string)json.phone;
                 this.Pais = (string)json.country;
                 this.DescripcionPersonal = (string)json.description;

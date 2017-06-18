@@ -1,31 +1,29 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.viewModels;
+using MyConcert.resources.results;
 using System;
-using MyConcert_WebService.res.assembler;
+using MyConcert.resources.assembler;
 using Newtonsoft.Json.Linq;
-using MyConcert_WebService.res.serial;
+using MyConcert.resources.serial;
 using System.Collections.Generic;
-using Sptfy;
+using MyConcert.resources.services;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class BandaModel
+    public class BandaModel : AbstractModel
     {
-        private ManejadorBD _manejador;
-        private FabricaRespuestas _creador;
-        private Assembler _convertidor;
         private SerialHelper _serial;
         private SpotifyUtils _spotify;
 
         public BandaModel()
         {
-            _manejador = new ManejadorBD();
-            _creador = new FabricaRespuestas();
+            _manejador = new FacadeDB();
+            _fabricaRespuestas = new FabricaRespuestas();
             _convertidor = new Assembler();
             _serial = new SerialHelper();
             _spotify = new SpotifyUtils();
         }
 
+        //Registrar nueva banda en el sistema
         public Respuesta nuevaBanda(string pNombre, JArray pMiembros,
                                 JArray pCanciones, JArray pGeneros)
         {
@@ -35,22 +33,52 @@ namespace MyConcert_WebService.models
             string[] canciones = _serial.getArrayString(pCanciones);
             int[] generos = _serial.getArrayInt(pGeneros);
 
+            //Almacena banda nueva
             try
             {
                 _manejador.añadirBanda(_convertidor.updatebandas(banda), 
                                        _convertidor.updateintegrantes(miembros),
                                        _convertidor.updatecanciones(canciones),
                                        _convertidor.updateListaGeneros(generos));
-                respuesta = _creador.crearRespuesta(true, "Banda registrada correctamente.");
-            } catch(Exception e)
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Banda registrada correctamente.");
+            } catch(Exception)
             {
-                //respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.");
-                respuesta = _creador.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.", e.ToString());
+                //Retorna respuesta de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya existente.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al ingresar banda o banda ya esxistente.", e.ToString());
             }
 
             return respuesta;
         }
 
+        //Generar comentario en banda
+        public Respuesta generarComentario(int idBand, string user, string comment, float calification)
+        {
+            Respuesta respuesta = null;
+            try
+            {
+                Comentario comentario =
+                new Comentario(0,
+                            user,
+                            DateTime.Now,
+                            comment,
+                            calification,
+                            _manejador.obtenerEstado(1).estado,
+                            _manejador.obtenerBanda(idBand).nombreBan);
+                comentarios parseComment = _convertidor.updatecomentarios(comentario);
+                _manejador.añadirComentario(parseComment); //Almacena comentario
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.");
+            } catch(Exception)
+            {
+                //Retorna error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Fallo al generar comentario.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(true, "Comentario añadido correctamente.", e.ToString());
+            }
+
+            return respuesta;
+        }
+
+        //Obtener catalogo de bandas
         public Respuesta getCatalogoBandas()
         {
             Respuesta respuesta = null;
@@ -58,8 +86,12 @@ namespace MyConcert_WebService.models
             try
             {
                 List<bandas> catalogoBandas = _manejador.obtenerBandas();
+                bandas[] arrayCatalogoBandas = catalogoBandas.ToArray();
                 Banda[] arregloBandas = new Banda[catalogoBandas.Count];
+
                 JObject[] listaBandas = new JObject[catalogoBandas.Count];
+
+                //Organizar bandas para envio
                 int iterator = 0;
                 foreach (bandas banda in catalogoBandas)
                 {
@@ -69,26 +101,43 @@ namespace MyConcert_WebService.models
                     iterator++;
                 }
 
-                respuesta = _creador.crearRespuesta(true, listaBandas);
-            } catch(Exception e)
+                respuesta = _fabricaRespuestas.crearRespuesta(true, listaBandas); //Retorna catalogo de bandas
+            } catch(Exception)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al generar catalogo de bandas.", e.ToString());
+                //Retorna respuesta de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al generar catalogo de bandas.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al generar catalogo de bandas.", e.ToString());
             }
 
             return respuesta;
         }
 
+        //Obtener banda especifica
         public Respuesta getBanda(int pIDBanda)
         {
-            bandas bandaQuery = _manejador.obtenerBanda(pIDBanda);
-            Console.WriteLine(bandaQuery.nombreBan);
+            bandas bandaQuery;
+            try
+            {
+                //Obtener banda
+                bandaQuery = _manejador.obtenerBanda(pIDBanda);
+            } catch(Exception)
+            {
+                return _fabricaRespuestas.crearRespuesta(false, "Error al obtener banda o no existe.");
+                //return _fabricaRespuestas.crearRespuesta(false, "Error al obtener banda o no existe.", e.ToSring());
+            }
+            
+            //Obtener generos musicales de banda
             List<generos> generosBandaQuery = _manejador.obtenerGenerosBanda(bandaQuery);
             GeneroMusical[] arregloGenerosBandaQuery = _convertidor.createListaGenero(generosBandaQuery);
             List<integrantes> integrantesBandaQuery = _manejador.obtenerIntegrantes(bandaQuery);
+            //Lista de integrantes
             MiembroBanda[] arregloIntegrantesBandaQuery = _convertidor.createListaIntegrantes(integrantesBandaQuery);
-            List<canciones> cancionesBandaQuery = _manejador.obtenerCanciones(bandaQuery);
-            List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery);
+            //Lista de canciones
+            List<canciones> cancionesBandaQuery = _manejador.obtenerCanciones(bandaQuery);  
+            //Lista de comentarios
+            List<comentarios> comentarioBandaQuery = _manejador.obtenerComentarios(bandaQuery); //Lista de comentarios
 
+            //Organiza datos para envio
             JObject[] generosObj = _serial.agruparGeneros(arregloGenerosBandaQuery);
             JObject[] miembrosObj = _serial.agruparMiembros(arregloIntegrantesBandaQuery);
             JObject[] cancionesObj = agruparCanciones(cancionesBandaQuery, bandaQuery.nombreBan);
@@ -101,12 +150,14 @@ namespace MyConcert_WebService.models
             band_dataObj.followers = _spotify.searchArtistFollowers(bandaQuery.nombreBan);
             band_dataObj.popularity = _spotify.searchArtistPopularity(bandaQuery.nombreBan);
 
-            Respuesta respuesta = _creador.crearRespuesta(true, band_dataObj, generosObj, miembrosObj, cancionesObj, comentariosObj);
+            //Retorna respuesta exitosa
+            Respuesta respuesta = _fabricaRespuestas.crearRespuesta(true, band_dataObj, generosObj, miembrosObj, cancionesObj, comentariosObj);
 
             return respuesta;
         }
 
-        private JObject[] agruparCanciones(List<canciones> pLista, string artist)
+        //Agrupa canciones para envio
+        public JObject[] agruparCanciones(List<canciones> pLista, string artist)
         {
             JObject[] cancionesObject = new JObject[pLista.Count];
             int iterator = 0;
@@ -119,10 +170,12 @@ namespace MyConcert_WebService.models
                 iterator++;
             }
 
+            //Retorna canciones en JSON
             return cancionesObject;
         }
 
-        private JObject[] agruparComentarios(List<comentarios> pLista)
+        //Agrupa comentarios para envio
+        public JObject[] agruparComentarios(List<comentarios> pLista)
         {
             JObject[] comentariosObject = new JObject[pLista.Count];
             int iterator = 0;
@@ -137,6 +190,7 @@ namespace MyConcert_WebService.models
                 iterator++;
             }
 
+            //Retorna comentarios en JSON
             return comentariosObject;
         }
     }

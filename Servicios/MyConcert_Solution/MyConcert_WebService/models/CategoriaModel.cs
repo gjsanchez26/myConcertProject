@@ -1,18 +1,22 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.viewModels;
+using MyConcert.resources.results;
 using System;
 using System.Collections.Generic;
-using MyConcert_WebService.res.assembler;
+using MyConcert.resources.assembler;
 using Newtonsoft.Json.Linq;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class CategoriaModel
+    public class CategoriaModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
-        private Assembler _convertidor = new Assembler();
+        public CategoriaModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
 
+        //Registrar nueva categoria
         public Respuesta nuevaCategoria(string pNombre)
         {
             Respuesta respuesta = null;
@@ -20,26 +24,31 @@ namespace MyConcert_WebService.models
 
             try
             {
+                //Almacena categoria
                 _manejador.añadirCategoria(_convertidor.updatecategorias(nueva));
-                respuesta = _creador.crearRespuesta(true, "Categoria creada satisfactoriamente.");
+                //Retorna respuesta exitosa
+                respuesta = _fabricaRespuestas.crearRespuesta(true, "Categoria creada satisfactoriamente.");
             } catch(Exception e)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al crear categoria. Intente de nuevo.");
+                //Retorna respuesta de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear categoria. Intente de nuevo.");
                 throw (e);
             }
 
             return respuesta;
         }
 
+        //Obtener categorias
         public Respuesta getCategorias()
         {
             Respuesta respuesta = null;
 
             try
             {
-                List<categorias> listaCategorias = _manejador.obtenerCategorias();
+                List<categorias> listaCategorias = _manejador.obtenerCategorias(); //Solicita categorias
                 JObject[] arregloCategorias = new JObject[listaCategorias.Count];
                 int iterator = 0;
+                //Organiza informacion para envio
                 foreach (categorias catActual in listaCategorias)
                 {
                     Categoria auxiliar = new Categoria(catActual.PK_categorias,
@@ -47,11 +56,14 @@ namespace MyConcert_WebService.models
                     arregloCategorias[iterator] = JObject.FromObject(auxiliar);
                     iterator++;
                 }
-                respuesta = _creador.crearRespuesta(true, arregloCategorias);
+                //Retorna respuesta exitosa
+                respuesta = _fabricaRespuestas.crearRespuesta(true, arregloCategorias);
 
-            } catch(Exception e)
+            } catch(Exception)
             {
-                respuesta = _creador.crearRespuesta(false, "Error al obtener cartegorias.", e.ToString());
+                //Retorna respuesta de error
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al obtener cartegorias.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al obtener cartegorias.", e.ToString());
             }
 
             return respuesta;

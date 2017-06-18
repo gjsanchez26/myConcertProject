@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
     public class Usuario
     {

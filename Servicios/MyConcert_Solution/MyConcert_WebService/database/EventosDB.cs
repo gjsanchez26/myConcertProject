@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     public class EventosDB
     {
 
-        //CREADORES DE OBJETOS
+        /*Añade una evento a la base de datos, ya sea una cartelera o un festival
+         */
         public void añadirEvento(eventos pEvento, List<categoriasevento> categoriasBanda)
         {
             eventos nuevoEvento = null;
@@ -19,7 +20,7 @@ namespace MyConcert_WebService.database
                 {
                     try
                     {
-                        nuevoEvento = context.eventos.Add(nuevoEvento);
+                        nuevoEvento = context.eventos.Add(pEvento);
 
                         foreach (categoriasevento cat_eve in categoriasBanda)
                         {
@@ -38,9 +39,8 @@ namespace MyConcert_WebService.database
                 }
             }
         }
-
-       
-        //OBTENER LISTA DE OBJETOS
+        /*
+         */
         public List<eventos> obtenerCarteleras()
         {
             List<eventos> obj = null;
@@ -57,7 +57,8 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-
+        /*
+         */
         public List<eventos> obtenerFestivales()
         {
             List<eventos> obj = null;
@@ -76,10 +77,9 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-        
-        //OBTENER 1 OBJETO
-       
-
+        /*
+         */
+  
         public eventos obtenerEvento(int PK_evento)
         {
             eventos obj = null;
@@ -98,7 +98,8 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-
+        /*
+         */
         public tiposeventos obtenerTipoEvento(int PK_tipoEvento)
         {
             tiposeventos obj = null;
@@ -117,7 +118,8 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-
+        /*
+         */
         public tiposeventos obtenerTipoEvento(string tipoEvento)
         {
             tiposeventos obj = null;
@@ -136,8 +138,9 @@ namespace MyConcert_WebService.database
             }
             return obj;
         }
-
-        //ALGORITMO DEL CHEF
+        /*
+         */
+ 
         public List<bandas> obtenerBandasNoCartelera(eventos cartelera)
         {
             List<bandas> bandasCarte = null;
@@ -164,7 +167,8 @@ namespace MyConcert_WebService.database
             }
             return bandasCarte;
         }
-
+        /*
+         */
         public int getCantidadComentarios(bandas banda)
         {
             int cantidadComen = 0;
@@ -183,7 +187,8 @@ namespace MyConcert_WebService.database
             }
             return cantidadComen;
         }
-
+        /*
+         */
         public float getCalificacion(bandas banda)
         {
             float calificacion = 0;
@@ -203,10 +208,8 @@ namespace MyConcert_WebService.database
             }
             
         }
-
-       
-
-        
+        /*
+         */
         public void crearFestival(eventos festival,List<bandas> perdedoras)
         {
             using (myconcertEntities context = new myconcertEntities())
@@ -218,12 +221,20 @@ namespace MyConcert_WebService.database
                     {
                         eventos fest = context.eventos.FirstOrDefault(e => e.PK_eventos == festival.PK_eventos);
 
-                        fest = festival;
+                        fest.FK_EVENTOS_BANDAS_CHEF=festival.FK_EVENTOS_BANDAS_CHEF;
+                        fest.comida = festival.comida;
+                        fest.servicios = festival.servicios;
+                        fest.transporte = festival.transporte;
+                        fest.FK_EVENTOS_TIPOSEVENTOS = festival.FK_EVENTOS_TIPOSEVENTOS;
+                        context.SaveChanges();
+                        Console.WriteLine(perdedoras.Count);
                         foreach (bandas b in perdedoras)
                         {
-                            categoriasevento ce = context.categoriasevento.FirstOrDefault(w => w.FK_CATEGORIASEVENTO_BANDAS == b.PK_bandas && w.FK_CATEGORIASEVENTO_EVENTOS==fest.PK_eventos);
-                            List<votos> vot = context.votos.Where(w => w.FK_VOTOS_BANDAS == b.PK_bandas && w.FK_VOTOS_EVENTOS == fest.PK_eventos).ToList();
+
+                            categoriasevento ce = context.categoriasevento.FirstOrDefault(categoria => categoria.FK_CATEGORIASEVENTO_BANDAS == b.PK_bandas && categoria.FK_CATEGORIASEVENTO_EVENTOS == festival.PK_eventos);
                             context.categoriasevento.Remove(ce);
+                            List<votos> vot = context.votos.Where(w => w.FK_VOTOS_BANDAS == b.PK_bandas && w.FK_VOTOS_EVENTOS == festival.PK_eventos).ToList();
+
                             foreach (votos v in vot)
                             {
                                 context.votos.Remove(v);

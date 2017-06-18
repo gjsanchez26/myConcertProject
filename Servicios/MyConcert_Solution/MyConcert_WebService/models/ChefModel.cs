@@ -1,22 +1,32 @@
-﻿using MyConcert_WebService.res;
+﻿
+using MyConcert.resources.assembler;
+using MyConcert.resources.operations;
+using MyConcert.resources.results;
 using System;
 using System.Collections.Generic;
 
 /**
- * @namespace MyConcert_WebService.models
+ * @namespace MyConcert.models
  * @brief Almacena las clases que definen la lógica
  * entre los modulos de la base de datos y los 
  * controladores.
  */
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
     /**
      * @class ChefModel
      * @brief Clase que ejecuta el algoritmo del chef 
      * junto con todas sus dependencias.
      */
-    class ChefModel
+    public class ChefModel : AbstractModel
     {
+        public ChefModel()
+        {
+            _manejador = new FacadeDB();
+            _convertidor = new Assembler();
+            _fabricaRespuestas = new FabricaRespuestas();
+        }
+
         /**
          * @brief Funcion que solicita dependencias y ejecuta el algoritmo del chef según los parámetros indicados. 
          * @param pwinners Lista de bandas ganadoras.
@@ -24,7 +34,6 @@ namespace MyConcert_WebService.models
          */
         public string executeChefProcess(List<string> pwinners, int id_fest)
         {
-            ManejadorBD _managerDB = new ManejadorBD();
             /* ALGORITMO DEL CHEF */
             Console.WriteLine("Algoritmo del Chef");
             /*se captura desde javascript al realizar la eleccion de las bandas ganadoras*/
@@ -32,11 +41,11 @@ namespace MyConcert_WebService.models
             List<bandas> winner_bands = new List<bandas>();
             foreach (string nameBands in pwinners)
             {
-                winner_bands.Add(_managerDB.obtenerBanda(nameBands));
+                winner_bands.Add(_manejador.obtenerBanda(nameBands));
             }
             
-            eventos _evento = _managerDB.obtenerEvento(id_fest);
-            List<bandas> other_bands = _managerDB.obtenerBandasNoCartelera(_evento);
+            eventos _evento = _manejador.obtenerEvento(id_fest);
+            List<bandas> other_bands = _manejador.obtenerBandasNoCartelera(_evento);
             List<string> _other = getBandsNames(other_bands);
             
             /* POR MIENTRAS: winner_songs */
@@ -50,7 +59,7 @@ namespace MyConcert_WebService.models
                 /*SE SOLICITA INFO A LA BASE DE DATOS RESPECTO A LA BANDA*/
                 /*SE GENERA LA BANDA RECOMENDADA*/
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 List<float> amount_comments_other = getComments(other_bands);
                 List<float> amount_comments_winners = getComments(winner_bands);
@@ -81,11 +90,10 @@ namespace MyConcert_WebService.models
          */
         public List<float> getComments(List<bandas> pbands)
         {
-            ManejadorBD _managerDB = new ManejadorBD();
             List<float> _comments = new List<float>();
             for (int i = 0; i < pbands.Count; i++)
             {
-                _comments.Add(_managerDB.getCantidadComentarios(pbands[i]));
+                _comments.Add(_manejador.getCantidadComentarios(pbands[i]));
             }
             return _comments;
         }
@@ -97,11 +105,10 @@ namespace MyConcert_WebService.models
          */
         public List<float> getRating(List<bandas> pbands)
         {
-            ManejadorBD _managerDB = new ManejadorBD();
             List<float> _ratings = new List<float>();
             for (int i = 0; i < pbands.Count; i++)
             {
-                _ratings.Add(_managerDB.getCalificacion(pbands[i]));
+                _ratings.Add(_manejador.getCalificacion(pbands[i]));
             }
             return _ratings;
         }
@@ -128,11 +135,10 @@ namespace MyConcert_WebService.models
          */
         public List<List<canciones>> getAllSongsArtists(List<bandas> pbands)
         {
-            ManejadorBD _managerDB = new ManejadorBD();
             List<List<canciones>> _songs = new List<List<canciones>>();
             for (int i = 0; i < pbands.Count; i++)
             {
-                _songs.Add(_managerDB.obtenerCanciones(pbands[i]));
+                _songs.Add(_manejador.obtenerCanciones(pbands[i]));
             }
             return _songs;
         }

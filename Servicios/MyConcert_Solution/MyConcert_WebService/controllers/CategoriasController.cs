@@ -1,11 +1,14 @@
-﻿using MyConcert_WebService.models;
-using MyConcert_WebService.res.resultados;
+﻿using MyConcert.models;
+using MyConcert.resources.results;
 using Newtonsoft.Json.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace MyConcert_WebService.controllers
+namespace MyConcert.controllers
 {
+    /**
+     * Categorias Controller
+     * */
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CategoriasController : ApiController
     {

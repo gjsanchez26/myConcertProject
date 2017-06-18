@@ -1,26 +1,15 @@
-﻿using MyConcert_WebService.viewModels;
+﻿using MyConcert.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyConcert_WebService.database
+namespace MyConcert.database
 {
     class UtilidadesDB
     {
-        public bool conexionBaseDatos()
-        {
-            using (myconcertEntities dbContext = new myconcertEntities())
-            {
-                return dbContext.Database.Exists();
-
-            }
-
-        }
-
         //OBTENER LISTA DE OBJETOS
-
         public List<generos> obtenerGeneros()
         {
             List<generos> gen = null;
@@ -216,24 +205,5 @@ namespace MyConcert_WebService.database
             }
             return ge;
         }
-        public generos obtenerGenero(string genero)
-        {
-            generos ge = null;
-            try
-            {
-
-                using (myconcertEntities context = new myconcertEntities())
-                {
-                    ge = context.generos.FirstOrDefault(g => g.genero == genero);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-            return ge;
-        }
     }
-
 }

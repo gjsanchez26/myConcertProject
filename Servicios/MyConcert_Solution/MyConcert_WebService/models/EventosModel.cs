@@ -1,21 +1,27 @@
-﻿using MyConcert_WebService.viewModels;
-using MyConcert_WebService.res.resultados;
-using MyConcert_WebService.res.serial;
+﻿using MyConcert.viewModels;
+using MyConcert.resources.results;
+using MyConcert.resources.serial;
 using Newtonsoft.Json.Linq;
 using System;
-using MyConcert_WebService.res.assembler;
+using MyConcert.resources.assembler;
 using System.Collections.Generic;
+using MyConcert.resources.services;
 
-namespace MyConcert_WebService.models
+namespace MyConcert.models
 {
-    public class EventosModel
+    public class EventosModel : AbstractModel
     {
-        private ManejadorBD _manejador = new ManejadorBD();
-        private FabricaRespuestas _creador = new FabricaRespuestas();
-        private Assembler _convertidor = new Assembler();
         private SerialHelper _serial = new SerialHelper();
         private ChefModel _chef = new ChefModel();
 
+        public EventosModel()
+        {
+            this._manejador = new FacadeDB();
+            this._fabricaRespuestas = new FabricaRespuestas();
+            this._convertidor = new Assembler();
+        }
+
+        //Obtener carteleras
         public Respuesta getCarteleras()
         {
             Evento[] listaCarteleras = _convertidor.createListaEventos( _manejador.obtenerCarteleras());
@@ -26,9 +32,10 @@ namespace MyConcert_WebService.models
                 arreglo[i] = JObject.FromObject(listaCarteleras[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
+        //Obtener festivales
         public Respuesta getFestivales()
         {
             Evento[] listaFestivales = _convertidor.createListaEventos(_manejador.obtenerFestivales());
@@ -39,40 +46,86 @@ namespace MyConcert_WebService.models
                 arreglo[i] = JObject.FromObject(listaFestivales[i]);
             }
 
-            return _creador.crearRespuesta(true, arreglo);
+            return _fabricaRespuestas.crearRespuesta(true, arreglo);
         }
 
+        //Verifica si elemento existe en lista
+        public bool existeEnLista(List<categorias> lista, categorias categoria)
+        {
+            foreach (categorias catActual in lista)
+            {
+                if (categoria.Equals(catActual))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Obtener evento especifico
         public Respuesta getEvento(int pID)
         {
             Respuesta respuesta = null;
             eventos eventoSolicitado = _manejador.obtenerEvento(pID);
             List<categorias> listaCategoriasEvento = _manejador.obtenerCategoriasEvento(eventoSolicitado.PK_eventos);
+            List<categorias> categoriasSinRepetir = new List<categorias>();
+            generarCategorias(listaCategoriasEvento, categoriasSinRepetir);
 
-            if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos)
+            //Si el evento es una cartelera
+            if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(1).PK_tiposEventos) 
             {
-                JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, listaCategoriasEvento);
+                JObject[] categoriasEventoEspecifico = obtenerCategoriasCartelera(pID, categoriasSinRepetir);
                 Evento eventoAuxiliar = _convertidor.createEvento(eventoSolicitado);
-                respuesta = _creador.crearRespuestaEvento(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
+                respuesta = _fabricaRespuestas.crearRespuesta(true, categoriasEventoEspecifico, JObject.FromObject(eventoAuxiliar));
 
             }
             else if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(2).PK_tiposEventos)
             {
-                List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, listaCategoriasEvento);
+                List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, categoriasSinRepetir);
                 JObject[] bandas = new JObject[bandasFestival.Count];
                 int iterator = 0;
-                foreach(bandas bandaActual in bandasFestival)
+                foreach (bandas bandaActual in bandasFestival)
                 {
                     dynamic banda = new JObject();
                     banda.name_band = bandaActual.nombreBan;
                     banda.votes = _manejador.obtenerCantidadVotos(eventoSolicitado.PK_eventos, bandaActual.PK_bandas);
-                    bandas[iterator] = banda; 
+                    bandas[iterator] = banda;
                 }
                 Evento evento = _convertidor.createEvento(eventoSolicitado);
                 FestivalBandas fest = new FestivalBandas(JObject.FromObject(evento), bandas);
-                respuesta = _creador.crearRespuesta(true, JObject.FromObject(fest));
+                respuesta = _fabricaRespuestas.crearRespuesta(true, JObject.FromObject(fest));
             }
 
             return respuesta;
+        }
+
+        private void generarCategorias(List<categorias> listaCategoriasEvento, List<categorias> categoriasSinRepetir)
+        {
+            foreach (categorias catActual in listaCategoriasEvento)
+            {
+                if (!existeEnLista(categoriasSinRepetir, catActual))
+                {
+                    categoriasSinRepetir.Add(catActual);
+                }
+            }
+        }
+
+        private List<categorias> eliminarCategoriasRepetidas(List<categorias> listaCategoriasEvento)
+        {
+            List<categorias> listaCategoriasSinRepetidos = new List<categorias>();
+            foreach (categorias catActual in listaCategoriasEvento)
+            {
+                foreach (categorias catActual2 in listaCategoriasSinRepetidos)
+                {
+                    if (catActual.Equals(catActual2))
+                    {
+                        break;
+                    }
+                }
+                listaCategoriasSinRepetidos.Add(catActual);
+            }
+
+            return listaCategoriasSinRepetidos;
         }
 
         private JObject[] obtenerCategoriasCartelera(int pID, List<categorias> listaCategoriasEvento)
@@ -100,30 +153,37 @@ namespace MyConcert_WebService.models
             return categoriasEventoEspecifico;
         }
 
-        public Respuesta crearEvento(string pTipoEvento, dynamic pDatosEventoJSON, JArray pListaCategorias)
+        public Respuesta crearEvento(string pTipoEvento, JObject pDatosEventoJSON, JArray pListaCategorias)
         {
             Respuesta respuesta = null;
             try
             {
-                CategoriaBanda[] categorias = _serial.getArrayCategoriaBandaEvento(pListaCategorias);
-
+                string nombreEvento = null;
                 switch (pTipoEvento)
                 {
                     case "cartelera":
+                        FestivalCategoriaBanda[] categorias = _serial.getArrayFestivalCategoriaBanda(pListaCategorias);
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
-                         
-                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), _convertidor.updatecategoriasevento(categorias));
-                        respuesta = _creador.crearRespuesta(false, "Cartelera creada exitosamente.");
+                        nombreEvento = nuevaCartelera.Nombre;
+
+                        List<categoriasevento> categoriasEvento = _convertidor.updatecategoriasevento(categorias);
+                        _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), categoriasEvento);
+
+                        publicarBandasTwitter(nombreEvento, categoriasEvento);
+
+                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Cartelera creada exitosamente.");
                         break;
                     case "festival":
+                        FestivalCategoriaBanda[] categoriasFestival = _serial.getArrayFestivalCategoriaBanda(pListaCategorias); 
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
                         eventos nuevoEvento = _convertidor.updateeventos(nuevoFestival);
 
-                        List<bandas> bandasGanadorasFestival = parseBandas(categorias);
+                        List<bandas> bandasGanadorasFestival = parseBandas(categoriasFestival);
                         List<categorias> categoriasCartelera = _manejador.obtenerCategoriasEvento(nuevoEvento.PK_eventos);
                         List<bandas> todasBandasCartelera = extraerBandasEvento(nuevoEvento, categoriasCartelera);
                         List<bandas> bandasPerdedoras = extraerBandasNoSeleccionadas(bandasGanadorasFestival, todasBandasCartelera);
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
+                        List<string> bandasPerdedorasString = bandasToString(bandasPerdedoras);
 
                         string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
 
@@ -131,22 +191,24 @@ namespace MyConcert_WebService.models
 
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
 
-                        respuesta = _creador.crearRespuesta(false, "Festival creado exitosamente.");
+                        publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
+
+                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente.");
                         break;
                     default:
-                        respuesta = _creador.crearRespuesta(false, "Tipo de evento no existente.");
+                        respuesta = _fabricaRespuestas.crearRespuesta(false, "Tipo de evento no existente.");
                     break;
                 }
             } catch(Exception e)
             {
-                //respuesta = _creador.crearRespuesta(false, "Error al crear evento.");
-                respuesta = _creador.crearRespuesta(false, "Error al crear evento.", e.ToString());
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.", e.ToString());
             }
 
             return respuesta;
         }
 
-        private static List<string> bandasToString(List<bandas> bandasGanadorasFestival)
+        private List<string> bandasToString(List<bandas> bandasGanadorasFestival)
         {
             List<string> bandasGanadoras = new List<string>();
             foreach (bandas bandaGanadora in bandasGanadorasFestival)
@@ -159,16 +221,19 @@ namespace MyConcert_WebService.models
         
         private List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
         {
-            List<bandas> bandasPerdedoras = new List<bandas>();
             foreach (bandas bandaGanadora in bandasGanadorasFestival)
             {
                 bandas bandaEliminar = todasBandasCartelera.Find(x => x.Equals(bandaGanadora));
                 if (bandaEliminar != null)
+                {
                     todasBandasCartelera.Remove(bandaEliminar);
-                else
-                    bandasPerdedoras.Add(bandaEliminar);
+                    Console.WriteLine(bandaEliminar.nombreBan);
+                } else {
+                    //bandasPerdedoras.Add(todasBandasCartelera);
+                }
+                    
             }
-            return bandasPerdedoras;
+            return todasBandasCartelera;
         }
 
         private List<bandas> extraerBandasEvento(eventos nuevoEvento, List<categorias> categoriasCartelera)
@@ -185,18 +250,46 @@ namespace MyConcert_WebService.models
             return todasBandasCartelera;
         }
 
-        private List<bandas> parseBandas(CategoriaBanda[] categorias)
+        private List<bandas> parseBandas(FestivalCategoriaBanda[] categorias)
         {
             List<bandas> bandasGanadorasFestival = new List<bandas>();
-            foreach (CategoriaBanda cat_band in categorias)
+            foreach (FestivalCategoriaBanda cat_band in categorias)
             {
-                foreach (int IDBanda in cat_band._bandasID)
-                {
-                    bandasGanadorasFestival.Add(_manejador.obtenerBanda(IDBanda));
-                }
+                bandasGanadorasFestival.Add(_manejador.obtenerBanda(cat_band.idBanda));
             }
 
             return bandasGanadorasFestival;
+        }
+
+        private void publicarBandasTwitter(string pNombreEvento, List<categoriasevento> pListaCategoriasBanda)
+        {
+            TwitterManager twitter = new TwitterManager(); 
+            foreach (categoriasevento cat_eve in pListaCategoriasBanda)
+            {
+                string nombreBanda = _manejador.obtenerBanda(cat_eve.FK_CATEGORIASEVENTO_BANDAS).nombreBan;
+                string mensajeTweet = "¡Vota por tu banda. " + nombreBanda + " en el festival " + pNombreEvento +"!";
+                try
+                {
+                    twitter.enviarTweet(mensajeTweet);
+                } catch(Exception e)
+                {
+                    throw (e);
+                }
+            }
+        }
+
+        private void publicarFestivalNuevoTwitter(string pNombreEvento)
+        {
+            TwitterManager twitter = new TwitterManager();
+            try
+            {
+                string mensajeTweet = "¡Visita nuestro nuevo festival " + pNombreEvento +"!";
+                twitter.enviarTweet(mensajeTweet);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 
-namespace MyConcert_WebService.viewModels
+namespace MyConcert.viewModels
 {
-    class Voto
+    public class Voto
     {
         private int _id;
         private string _fanatico;
