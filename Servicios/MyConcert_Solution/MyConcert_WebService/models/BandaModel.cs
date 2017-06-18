@@ -40,8 +40,8 @@ namespace MyConcert.models
                 return _fabricaRespuestas.crearRespuesta(false, "Error, se ingresaron más de 10 canciones máximas. Por favor intente con menos.");
 
                 int[] generos = _serial.getArrayInt(pGeneros);
-            if (generos.Length > 10)
-                return _fabricaRespuestas.crearRespuesta(false, "Error: Se seleccionaron más del máximo de 10 géneros musicales. Por favor intente con 10 o menos.");
+            if (generos.Length > 10 || generos.Length < 1)
+                return _fabricaRespuestas.crearRespuesta(false, "Error: Se deben seleccionar de 1 a 10 géneros musicales. Por favor intente con 10 o menos.");
 
             //Almacena banda nueva
             try

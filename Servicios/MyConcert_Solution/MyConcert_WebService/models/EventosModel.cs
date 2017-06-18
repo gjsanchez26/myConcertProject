@@ -195,6 +195,11 @@ namespace MyConcert.models
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
                         nombreEvento = nuevaCartelera.Nombre;
 
+                        //Verificar si cartelera existe
+                        eventos eveAux = _manejador.obtenerEvento(nuevaCartelera.Nombre);
+                        if (eveAux != null)
+                            return _fabricaRespuestas.crearRespuesta(false, "Error: Evento ya existente. Intentar de nuevo por favor.");
+
                         //Organiza información para envío
                         List<categoriasevento> categoriasEvento = _convertidor.updatecategoriasevento(categorias);
 
@@ -212,6 +217,11 @@ namespace MyConcert.models
                         FestivalCategoriaBanda[] categoriasFestival = _serial.getArrayFestivalCategoriaBanda(pListaCategorias); 
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
                         eventos nuevoEvento = _convertidor.updateeventos(nuevoFestival);
+
+                        //Verificar si festival existe
+                        eventos eveAux1 = _manejador.obtenerEvento(nuevoFestival.Nombre);
+                        if (eveAux1 != null)
+                            return _fabricaRespuestas.crearRespuesta(false, "Error: Evento ya existente. Intentar de nuevo por favor.");
 
                         //Organiza la información para envío
                         List<bandas> bandasGanadorasFestival = parseBandas(categoriasFestival);

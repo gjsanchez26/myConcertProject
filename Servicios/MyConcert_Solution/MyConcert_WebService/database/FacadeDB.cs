@@ -108,6 +108,10 @@ namespace MyConcert
         {
             return eveDB.obtenerEvento(PK_evento);
         }
+        public eventos obtenerEvento(string pEvento)
+        {
+            return eveDB.obtenerEvento(pEvento);
+        }
         public void añadirCartelera(eventos pCartelera, List<categoriasevento> pCategorias)
         {
             eveDB.añadirEvento(pCartelera, pCategorias);
