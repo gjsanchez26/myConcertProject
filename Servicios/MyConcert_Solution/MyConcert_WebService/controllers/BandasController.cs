@@ -65,7 +65,7 @@ namespace MyConcert.controllers
             Respuesta respuesta = null;
             
             dynamic peticion = pPeticion;
-            int idBand = peticion.band;
+            string idBand = peticion.band;
             string user = peticion.user;
             string comment = peticion.comment;
             float calification = peticion.calification;
