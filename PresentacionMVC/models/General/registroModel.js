@@ -1,98 +1,153 @@
 myConcert.service("registroModel", function($routeParams, $location, $http){
-//var myURL ="http://192.168.100.12:12345";
-var myURL ="http://192.168.43.30:12345";  
-var paises;
-this.verificarUsuario = function(usuarioLogin){  
+var myURL = localStorage.getItem("url");
+
     
-    console.log("1");
+this.verificarUsuario = function(usuarioLogin){  
     localStorage.setItem("userName",usuarioLogin.login); 
     var Credenciales = {
                         "username":usuarioLogin.login,
                         "password":usuarioLogin.password
-                   };
-    console.log(Credenciales);
+                        };     
     $http({
-        method: 'POST',
-        url: myURL+"/api/login",
-        headers: {'Content-Type' : 'application/json'},
-        data: Credenciales
+    method: 'POST',
+    url: myURL+"/api/login",
+    headers: {'Content-Type' : 'application/json'},
+    data: Credenciales
+    }).then(function(result){
+            if (result.data.success) {
+                  if (result.data.content.TipoUsuario=="colaborador")
+                      window.location.href = "#vistaColaborador";
+                  else window.location.href = "#vistaFanatico";
+                }
+            else alert(result.data.content)
+    }, function(error) {
+        console.log(error);
+    });
+}
 
-        }).then(function(result){
-                console.log(Credenciales);
-                console.log(result);
-                console.log(result.data);
-                if (result.data.success) {
-                      if (result.data.content.TipoUsuario=="Colaborador")
-                          window.location.href = "#vistaColaborador";
-                        
-                      else window.location.href = "#vistaFanatico";
-                    }
-                else alert(result.data.content)
 
-
-        }, function(error) {
-            console.log(error);
-        });
-};
-    
-this.crearUsuario = function (usuario) {
-    var Fanatico;
-    if(!($('input[name="tipoUsuario"]:checked').length > 0)){
-        Fanatico = {
-        "role":              "fanatico",
-        "user_data":
-               {   
-                "username":          usuario.nombreUsuario,
-                "name":              usuario.Nombre,
-                "last_name":         usuario.Apellido,
-                "password":          usuario.Contrasena,
-                "email":             usuario.Email,
-                "profile_pic" :      "foto",
-                "bith_date":         Date(usuario.fechaNacimiento), 
-                "phone":             usuario.telefono,
-                "ubication":         usuario.ubicacion,
-                "country":           usuario.pais.Id    ,
-                "university":        usuario.universidad.Id,
-                "description":       usuario.descripcion
-               },
-        "genres": usuario.generos.map(function(a) {return a.Id;})
-    };
-    console.log(Fanatico);
+this.validarEdad = function(fechaNacimiento,edad){
+    milisegundos =  parseInt(35*24*60*60*1000); 
+    fecha        =  new Date();
+    day          =  fecha.getDate();
+    month        =  fecha.getMonth()+1;
+    year         =  fecha.getFullYear();
+    tiempo       =  fecha.getTime();
+    milisegundos =  parseInt(-edad*365*24*60*60*1000);
+    total        =  fecha.setTime(tiempo+milisegundos);
+    day          =  fecha.getDate();
+    month        =  fecha.getMonth()+1;
+    year         =  fecha.getFullYear();
+    if(fecha>fechaNacimiento){
+        return true;
     }
     else {
-        Fanatico = {
-        "role":                      "colaborador",
-        "user_data":
-               {   
-                "username":          usuario.nombreUsuario,
-                "name":              usuario.Nombre,
-                "last_name":         usuario.Apellido,
-                "password":          usuario.Contrasena,
-                "email":             usuario.Email,
-                "profile_pic" :      "foto",
-                
-               },
-        "genres": []
-    };
-    console.log(Fanatico);
+        return false;
     }
-    $http({
-                method: 'POST',
-                url: myURL+"/API/Usuarios",
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                data: Fanatico
-                }).then(function(result){
-                    if (result.data.success)
-                    {alert("Usuario Creado");
-                     window.location.href = "#vistaColaborador";
-                    }
-                    else alert(result.data.content)
+}
 
-                }, function(error) {
-                    console.log(error);
-                });
+this.validarUsuario = function(usuario){
+        if(usuario.Contrasena == usuario.Confirmacion){
+                if(!($('input[name="tipoUsuario"]:checked').length > 0)){
+                    if(this.validarEdad(usuario.fechaNacimiento,18)){
+                         if(($('input[name="usuario.terminos"]:checked').length > 0)){
+                             console.log("usuarioValido")
+                            return true
+                         }
+                         else{
+                             alert("Para crear cuenta debe aceptar los terminos y condiciones");
+                         }
+                        
+                    }
+                    else { 
+                        alert("El usuario debe ser Mayor de Edad");
+                        return false
+                    }  
+                }
+                else {
+                    return true;
+                }
+        }
+        else {
+            alert("Contraseña y Confirmacion no concuerdan");
+            return false;
+        } 
+}
+   
+this.crearUsuario = function (usuario) {
+    var UsuarioACrear;
+    if(this.validarUsuario(usuario)){
+        if(!($('input[name="tipoUsuario"]:checked').length > 0)){
+            UsuarioACrear = {
+                        "role":              "fanatico",
+                        "user_data":
+                               {   
+                                "username":          usuario.nombreUsuario,
+                                "name":              usuario.Nombre,
+                                "last_name":         usuario.Apellido,
+                                "password":          usuario.Contrasena,
+                                "email":             usuario.Email,
+                                "profile_pic" :      "foto",
+                                "birth_date":        usuario.fechaNacimiento, 
+                                "phone":             usuario.telefono,
+                                "ubication":         usuario.ubicacion,
+                                "country":           usuario.pais.Nombre,    
+                                "university":        usuario.universidad.Nombre,
+                                "description":       usuario.descripcion
+                               },
+                        "genres": usuario.generos.map(function(a) {return a.Id;})
+                        };
+            $http({
+                    method: 'POST',
+                    url: myURL+"/API/Usuarios",
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    data: UsuarioACrear
+                    }).then(function(result){
+                        if (result.data.success){
+                            alert("Usuario Creado");
+                                window.location.href = "#vistaFanatico";
+                            }
+
+                        else {alert(result.data.content);}
+                        }, function(error) {
+                        console.log(error);
+                    });
+        }
+        else {
+            UsuarioACrear = {
+                        "role":                      "colaborador",
+                        "user_data":
+                               {   
+                                "username":          usuario.nombreUsuario,
+                                "name":              usuario.Nombre,
+                                "last_name":         usuario.Apellido,
+                                "password":          usuario.Contrasena,
+                                "email":             usuario.Email,
+                                "profile_pic" :      "foto",
+
+                               },
+                        "genres": []
+                        };           
+            $http({
+                    method: 'POST',
+                    url: myURL+"/API/Usuarios",
+                    headers: {'Content-Type' : 'application/json'},
+                    data: UsuarioACrear
+                    }).then(function(result){
+                        if (result.data.success){
+                            alert("Usuario Creado");
+                            window.location.href = "#vistaColaborador"
+                        }
+                        else {alert(result.data.content);}
+                        }, function(error) {
+                        console.log(error);
+                    });
+        
+            }
+        
+    } else alert("Campos no llenados correctamente")
 }
 
 this.obtenerPaises = function(usuario) {
@@ -119,6 +174,7 @@ this.obtenerPaises = function(usuario) {
                 });
     
 }
+
 this.obtenerUniversidades = function(usuario) {
     $http({
                 method: 'GET',
@@ -143,6 +199,7 @@ this.obtenerUniversidades = function(usuario) {
                 });
     
 }
+
 this.obtenerGeneros = function(usuario) {
     $http({
                 method: 'GET',
@@ -168,7 +225,6 @@ this.obtenerGeneros = function(usuario) {
     
 }
         
-      
 $('.tab a').on('click', function (e) {
 
   e.preventDefault();
