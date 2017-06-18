@@ -67,7 +67,7 @@ namespace MyConcert.resources.operations
                         break;
                     }
                     id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
-                    if (id_track != null)
+                    if (id_track != "No_ID")
                     {
                         tmp.Add(id_track);
                     }
@@ -113,7 +113,8 @@ namespace MyConcert.resources.operations
                     n -= 1;
                 }
             }
-            return n == 0 ? 0 : res / n;
+            return (n == 0) ? 0 : res/n;
+            
         }
 
         /**
