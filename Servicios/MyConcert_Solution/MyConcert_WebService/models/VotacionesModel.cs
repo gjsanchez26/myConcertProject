@@ -31,8 +31,16 @@ namespace MyConcert.models
             {
                 //Organiza la informacion de votos
                 listaVotaciones = generarVotos(pCategorias);
-                List<List<votos>> matrizVotos = mapearVotacionesPorCategoria(listaVotaciones);
 
+                //Comprobar que el fanatico no haya votado previamente en cartelera
+                votos votoActual = listaVotaciones[0];
+                usuarios userActual = _manejador.obtenerUsuario(votoActual.FK_VOTOS_USUARIOS);
+                eventos eventoActual = _manejador.obtenerEvento(votoActual.FK_VOTOS_EVENTOS);
+                if (_manejador.comprobarUsuarioVotacion(userActual, eventoActual))
+                    return _fabricaRespuestas.crearRespuesta(false, "El usuario "+userActual.username+" ya había realizado su única votación.");
+
+                List<List<votos>> matrizVotos = mapearVotacionesPorCategoria(listaVotaciones);
+                
                 if (!comprobarEstrategiaCienDolares(matrizVotos))
                 {
                     //Retorna mensaje de error por no cumplir con la estrategia de los cien dolares 
