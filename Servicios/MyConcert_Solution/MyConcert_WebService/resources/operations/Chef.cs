@@ -72,8 +72,6 @@ namespace MyConcert.resources.operations
                         if (_validations.isAmountItems(tmp.Count, 3))
                             break;
 
-                        Console.WriteLine(songs_bands.Count + " " + songs_bands[i].Count);
-
                         id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
                         if (id_track != "No_ID")
                         {
@@ -128,7 +126,6 @@ namespace MyConcert.resources.operations
                 }
             }
             return (n == 0) ? 0 : res/n;
-            
         }
 
         /**
@@ -200,15 +197,15 @@ namespace MyConcert.resources.operations
         /***********************ALGORITMO CHEF***************************************/
 
         /**
-        * @brief Algoritmo del chef para encontrar la banda recomendada de los festivales por medio 
-        * de las caracteristicas de 3 canciones de cada banda que proporciona Spotify se realizan diversos
-        * calculos.
-        * @param winners Lista de bandas ganadoras dentro de una cartelera.
-        * @param other_bands Lista de bandas que no están dentro del festival.
-        * @param winner_songs Lista de las canciones de las bandas ganadoras.
-        * @param other_songs Lista de las canciones de las demás bandas excluídas del festival.
-        * @return Banda recomendada por el algoritmo del chef.
-        */
+         * @brief Algoritmo del chef para encontrar la banda recomendada de los festivales por medio 
+         * de las caracteristicas de 3 canciones de cada banda que proporciona Spotify se realizan diversos
+         * calculos.
+         * @param winners Lista de bandas ganadoras dentro de una cartelera.
+         * @param other_bands Lista de bandas que no están dentro del festival.
+         * @param winner_songs Lista de las canciones de las bandas ganadoras.
+         * @param other_songs Lista de las canciones de las demás bandas excluídas del festival.
+         * @return Banda recomendada por el algoritmo del chef.
+         */
         public string chefAlgorythm(List<string> winners, List<string> other_bands,
             List<List<canciones>> winner_songs, List<List<canciones>> other_songs)
         {
@@ -216,66 +213,59 @@ namespace MyConcert.resources.operations
             double fest_index = 0;
             List<string> id_winners = getIDArtists(winners);
             List<string> id_other = getIDArtists(other_bands);
-            Console.WriteLine("Algoritmo del Chef Principal");
-
-            Console.WriteLine("*** id_winners ***");
-            printList(id_winners);
-            Console.WriteLine("*** song winners ***");
-            printMatriz(winner_songs);
-
-            Console.WriteLine("*** id_other ***");
-            printList(id_other);
-            Console.WriteLine("*** song others ***");
-            printMatriz(other_songs);
-
-            Console.WriteLine("********* GetIDTRACKS ********");
             //Las canciones se obtienen de la base de datos
-            List<List<string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
-
-            printMatriz(id_winners_tracks);
-
-            List<List<string>> id_other_tracks = getIDTracks(id_other, other_songs);
-
-            printMatriz(id_other_tracks);
-
-            Console.WriteLine("Algoritmo del Chef Principal");
+            List < List < string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
+            List < List < string>> id_other_tracks = getIDTracks(id_other, other_songs);
             //Se calculan los indices de las bandas excluidas del festival 
             List<double> other_indexes = new List<double>();
             for (int i = 0; i < id_other_tracks.Count; i++)
             {
-                other_indexes.Add(calculateIndex(id_other_tracks[i]));
-                Console.WriteLine("Promedio de "+ other_bands[i]+": "+other_indexes[i]);
+                if (id_other_tracks[i].Count < 3)
+                {
+                    other_indexes.Add(0);
+                }
+                else
+                {
+                    other_indexes.Add(calculateIndex(id_other_tracks[i]));
+                }
+                Console.WriteLine("Promedio otra banda " + i + ": " + other_indexes[i]);
             }
-            Console.WriteLine("Algoritmo del Chef Principal");
             //Se calculan los indices de cada banda ganadora en cartelera
             List<double> winners_indexes = new List<double>();
+            int n = id_winners_tracks.Count;
             for (int i = 0; i < id_winners_tracks.Count; i++)
             {
-                winners_indexes.Add(calculateIndex(id_winners_tracks[i]));
+                if (id_winners_tracks[i].Count < 3)
+                {
+                    winners_indexes.Add(0);
+                    n -= 1;
+                }
+                else
+                {
+                    winners_indexes.Add(calculateIndex(id_winners_tracks[i]));
+                }
                 fest_index += winners_indexes[i];
             }
             //Se calcula el indice del festival 
-            if (winners_indexes.Count == 0)
+            if (n == 0)
             {
                 fest_index = 0;
             }
             else
             {
-                fest_index = (fest_index / winners_indexes.Count);
+                fest_index = (fest_index / n);
             }
             Console.WriteLine("Indice festival: " + fest_index);
 
             //Se comparan indices para concluir banda recomendada
-            string _recommended;
-            
             int index_rec = compare(fest_index, other_indexes);
-            _recommended = other_bands[index_rec];
+            string _recommended = other_bands[index_rec];
             Console.WriteLine("Banda recomendada: " + _recommended);
             return _recommended;
         }
 
         /***********************ALGORITMO CHEF ALTERNATIVO****************************/
-        
+
         /**
         * @brief Calcula el promedio de comentarios de una banda segun la tabla especificada.
         * @param pcomment Numero de comentarios de una banda.
