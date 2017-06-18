@@ -1,5 +1,6 @@
 ﻿using MyConcert.database;
 using MyConcert.viewModels;
+using System;
 using System.Collections.Generic;
 
 namespace MyConcert
@@ -104,6 +105,10 @@ namespace MyConcert
         }
         //EVENTOSDB
 
+        public bool comprobarBandaEnCartelera(DateTime fInicial, DateTime fFinal, bandas banda)
+        {
+            return eveDB.comprobarBandaEnCartelera(fInicial, fFinal, banda);
+        }
         public eventos obtenerEvento(int PK_evento)
         {
             return eveDB.obtenerEvento(PK_evento);
