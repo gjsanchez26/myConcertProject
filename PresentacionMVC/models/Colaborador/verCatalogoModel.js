@@ -6,6 +6,7 @@ this.checkURL = function(src){
 }
 
 this.verBandaEspecifica = function(ID,catalogo){
+    var canciones = [];
     $http({     method: 'GET',
                 url: myURL+"/API/bandas?id="+ID,
                 headers: {'Content-Type' : 'application/json'},
@@ -13,8 +14,18 @@ this.verBandaEspecifica = function(ID,catalogo){
                     if (result.data.success){   
                           console.log(result.data);
                           catalogo.banda=result.data;
-                          console.log(catalogo.banda);
-                          catalogo.cancion= this.checkURL(catalogo.banda.songs.url_sound_test);
+                          console.log(result.data.songs.length);
+                          for(var i=0;i<result.data.songs.length;i++){
+                              var test = {
+                                  "song_name":result.data.songs[i].song_name,
+                                  "song_url":$sce.trustAsResourceUrl(result.data.songs[i].url_sound_test)
+                              };
+
+                              canciones.push(test);
+
+                          }
+                          catalogo.infoSongs=canciones;
+                          //catalogo.cancion = this.checkURL(catalogo.banda.songs.url_sound_test);
                     }
                     else alert(result.data.content)
                 }, function(error) {
@@ -31,8 +42,6 @@ this.obtenerBandas  = function(catalogo){
                     'Content-Type' : 'application/json'
                 },
                 }).then(function(result){
-                    console.log("Json GET_PAIS");
-                    console.log(result);
                     if (result.data.success)
                     {   
                       var json=result.data.Elements;
