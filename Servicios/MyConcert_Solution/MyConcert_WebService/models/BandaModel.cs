@@ -65,6 +65,26 @@ namespace MyConcert.models
             return respuesta;
         }
 
+        public Respuesta getBandaPorNombre(string pNombreBanda)
+        {
+            bandas bandaQuery;
+            try
+            {
+                //Obtener banda
+                bandaQuery = _manejador.obtenerBanda(pNombreBanda);
+                if (bandaQuery == null)
+                    return _fabricaRespuestas.crearRespuesta(false, "Banda no existente. Por favor intente de nuevo.");
+
+                //Obtener banda por id
+                return getBanda(bandaQuery.PK_bandas);
+            }
+            catch (Exception)
+            {
+                return _fabricaRespuestas.crearRespuesta(false, "Error al obtener banda o no existe.");
+                //return _fabricaRespuestas.crearRespuesta(false, "Error al obtener banda o no existe.", e.ToSring());
+            }
+        }
+
         //Generar comentario de banda
         public Respuesta generarComentario(int idBand, string user, string comment, float calification)
         {

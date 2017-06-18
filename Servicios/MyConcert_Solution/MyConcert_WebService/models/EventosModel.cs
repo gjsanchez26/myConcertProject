@@ -72,6 +72,21 @@ namespace MyConcert.models
             return false;
         }
 
+        //Comprueba si banda esta en lista
+        public bool existeEnLista(List<bandas> lista, bandas pBanda)
+        {
+            foreach (bandas bandActual in lista)
+            {
+                if (pBanda.nombreBan == bandActual.nombreBan)
+                {
+                    //Retorna que banda se encuentra en lista
+                    return true;
+                }
+            }
+            //Retorna que banda no está en la lista
+            return false;
+        }
+
         //Obtener evento especifico
         public Respuesta getEvento(int pID)
         {
@@ -249,7 +264,10 @@ namespace MyConcert.models
                         List<categorias> categoriasCartelera = _manejador.obtenerCategoriasEvento(nuevoEvento.PK_eventos);
                         List<bandas> todasBandasCartelera = extraerBandasEvento(nuevoEvento, categoriasCartelera);
 
-                        List<bandas> bandasPerdedoras = obtenerBandasPerdedores(bandasGanadorasFestival, todasBandasCartelera);
+                        List<bandas> bandasPerdedoras = extraerBandasNoSeleccionadas(bandasGanadorasFestival, todasBandasCartelera);
+
+                        Console.WriteLine("*** Cartelera ***");
+                        printList(todasBandasCartelera);
 
                         Console.WriteLine("*** Ganadoras ***");
                         printList(bandasGanadorasFestival);
@@ -260,7 +278,7 @@ namespace MyConcert.models
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
                         List<string> bandasPerdedorasString = bandasToString(bandasPerdedoras);
 
-                        string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, nuevoEvento.PK_eventos);
+                        string bandaRecomendada = _chef.executeChefProcess(bandasGanadoras, bandasGanadorasFestival, nuevoEvento.PK_eventos);
 
                         nuevoEvento.FK_EVENTOS_BANDAS_CHEF = _manejador.obtenerBanda(bandaRecomendada).PK_bandas;
 
@@ -268,7 +286,7 @@ namespace MyConcert.models
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
 
                         //Publica tweet de nuevo festival
-                        publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
+                        //publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
 
                         //Operación completada
                         respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente. Nuestra banda recomendada por el chef para el festival es: "+bandaRecomendada);
@@ -311,26 +329,10 @@ namespace MyConcert.models
 
 
 
-        public List<bandas> obtenerBandasPerdedores(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
-        {
-            List<bandas> perdedoras = new List<bandas>();
-            foreach (bandas i in bandasGanadorasFestival)
-            {
-                foreach(bandas j in todasBandasCartelera)
-                {
-                    if (i.PK_bandas == j.PK_bandas)
-                    {
-                        
-                    }
-                    else
-                    {
-                        perdedoras.Add(i);
-                    }
+        //public List<bandas> obtenerBandasPerdedores(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
+        //{
 
-                }
-            }
-            return perdedoras;
-        }
+        //}
         //Conseguir bandas no seleccionadas de una cartelera convertida a festival
         public List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
         {
@@ -353,7 +355,10 @@ namespace MyConcert.models
             {
                 foreach (bandas bandaActual in _manejador.obtenerBandasCategoria(categoriaActual.PK_categorias, nuevoEvento.PK_eventos))
                 {
-                    todasBandasCartelera.Add(bandaActual);
+                    if(!existeEnLista(todasBandasCartelera, bandaActual))
+                    {
+                        todasBandasCartelera.Add(bandaActual);
+                    }
                 }
             }
 

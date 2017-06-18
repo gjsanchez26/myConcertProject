@@ -34,6 +34,15 @@ namespace MyConcert.controllers
             return JObject.FromObject(respuesta);
         }
 
+        public JObject Get(string name)
+        {
+            Respuesta respuesta = null;
+
+            respuesta = _model.getBandaPorNombre(name);
+
+            return JObject.FromObject(respuesta);
+        }
+
         //Crear banda nueva.    
         public JObject Post(JObject pPeticion)
         {
