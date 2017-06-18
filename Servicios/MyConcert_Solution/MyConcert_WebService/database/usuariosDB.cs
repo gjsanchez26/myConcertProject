@@ -127,6 +127,54 @@ namespace MyConcert.database
             return us;
         }
 
+        public void modificarUsuario(usuarios us, List<generos> gens)
+        {
+            usuarios newUs = null;
+            using (myconcertEntities context = new myconcertEntities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        newUs = context.usuarios.FirstOrDefault(u=>u.username==us.username);
+
+                        newUs.nombre = us.nombre;
+                        newUs.apellido = us.apellido;
+                        newUs.contraseña = us.contraseña;
+                        newUs.correo = us.correo;
+                        newUs.descripcion = us.descripcion;
+                        newUs.fechaInscripcion = us.fechaInscripcion;
+                        newUs.fechaNacimiento = us.fechaNacimiento;
+                        newUs.ubicacion = us.ubicacion;
+                        newUs.telefono = newUs.telefono;
+                        newUs.FK_USUARIOS_ESTADOS = us.FK_USUARIOS_ESTADOS;
+                        newUs.FK_USUARIOS_PAISES = us.FK_USUARIOS_PAISES;
+                        newUs.FK_USUARIOS_TIPOSUSUARIOS = us.FK_USUARIOS_TIPOSUSUARIOS;
+                        newUs.FK_USUARIOS_UNIVERSIDADES = us.FK_USUARIOS_UNIVERSIDADES;
+                        var genUS = context.generosusuario.Where(g=>g.FK_GENEROSUSUARIO_USUARIOS==newUs.username);
+                        context.generosusuario.RemoveRange(genUS);
+                        foreach (generos g in gens)
+                        {
+                            generosusuario genUs = new generosusuario
+                            {
+                                FK_GENEROSUSUARIO_USUARIOS = newUs.username,
+                                FK_GENEROSUSUARIO_GENEROS = g.PK_generos
+                            };
+                            context.generosusuario.Add(genUs);
+                        }
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw (ex);
+                    }
+                }
+            }
+            return us;
+        }
+
         public List<generos> obtenerGenerosUsuario(usuarios us)
         {
             List<generos> obj = new List<generos>();

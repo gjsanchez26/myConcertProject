@@ -1,8 +1,8 @@
 ﻿using MyConcert.resources.serial;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using MyConcert.viewModels;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace MyConcert.resources.serial.Tests
 {
@@ -79,16 +79,23 @@ namespace MyConcert.resources.serial.Tests
 
         }
 
+        /**
+         * @brief Verifica si la fecha es convertida
+         * en un datetime.
+         */
         [TestMethod()]
         public void parseFechaTest()
         {
-            
+            /* Arrange */
+            string ff = "1995-09-18T06:00:00.000Z";
+
+            /* Act */
+            DateTime _date = _help.parseFecha(ff);
+
+            /* Assert */
+            Assert.AreEqual(_date.Month, 09);
+            Assert.AreEqual(_date.Year, 1995);
         }
-
-        /**
-         * @brief Verifica si los generos musicales se 
-         * convierten en un objeto JSON dentro de un JSON
-         */
-
+        
     }
 }

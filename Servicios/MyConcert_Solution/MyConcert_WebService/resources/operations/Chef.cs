@@ -1,4 +1,5 @@
 ﻿using MyConcert.resources.services;
+using MyConcert_WebService.resources.security;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace MyConcert.resources.operations
     {
         private SpotifyUtils _spotify;
         private CommentsTable _commentsTable;
+        private SimpleOperations _validations;
 
         /**********************************************************/
 
@@ -44,7 +46,6 @@ namespace MyConcert.resources.operations
                 tmp.Add(_spotify.searchArtistID(partists[i]));
             }
             return tmp;
-
         }
 
         /**
@@ -62,10 +63,9 @@ namespace MyConcert.resources.operations
             {
                 for (int j = 0; j < songs_bands[i].Count; j++)
                 {
-                    if (tmp.Count == 3)
-                    {
+                    if (_validations.isAmountItems(tmp.Count,3))
                         break;
-                    }
+                
                     id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
                     if (id_track != "No_ID")
                     {
@@ -74,7 +74,7 @@ namespace MyConcert.resources.operations
                 }                
                 id_tracks.Add(tmp);
                 tmp = new List<string>();
-            }
+            }            
             return id_tracks;
         }
         /**
@@ -118,20 +118,6 @@ namespace MyConcert.resources.operations
         }
 
         /**
-        * @brief Calcula el valor absoluto.
-        * @param px Numero al que se desea obtener el valor absoluto.
-        * @return El resultado del valor absoluto.
-        */
-        public double fabs(double px)
-        {
-            if (px < 0)
-            {
-                px *= -1;
-            }
-            return px;
-        }
-
-        /**
         * @brief Compara los indices de las bandas excluidas del festival con el indice del festival a realizar.
         * @param pfest Indice promediado del festival.
         * @param pother_indexes Lista de los indices promediados de las demás bandas.
@@ -142,7 +128,7 @@ namespace MyConcert.resources.operations
             List<double> error = new List<double>();
             for (int i = 0; i < pother_indexes.Count; i++)
             {
-                error.Add(fabs(pfest - pother_indexes[i]));
+                error.Add(_validations.double_abs(pfest - pother_indexes[i]));
             }
             double lower = error[0];
             for (int j = 0; j < error.Count; j++)
@@ -227,7 +213,7 @@ namespace MyConcert.resources.operations
         public float getCommentsProm(float pcomment)
         {
             float tmp = 0;
-            int max_comments = 26;
+            int max_comments = 25;
             for (int i = 0; i < max_comments; i++)
             {
                 if (pcomment == i)
@@ -265,9 +251,7 @@ namespace MyConcert.resources.operations
         public string alternativeChefAlgorythm(List<string> winners, List<string> other_bands,
             List<float> amount_comments_other, List<float> amount_stars_other, List<float> amount_comments_winners,
             List<float> amount_stars_winners)
-        {
-            //_commentsTable = new CommentsTable();
-           
+        {           
             //Se calculan los promedios de las posibles bandas recomendadas
 
             List<double> other_proms = new List<double>();
@@ -278,10 +262,9 @@ namespace MyConcert.resources.operations
                 Console.WriteLine("promedio otra banda "+i+": "+other_proms[i]);
             }
 
-            //Se calcula el indice del festival
-            /* por medio de la cantidad de comentarios de las bandas
-                 * ganadoras y el promedio de calificacion */
-
+            /* Se calcula el indice del festival
+               por medio de la cantidad de comentarios de las bandas
+               ganadoras y el promedio de calificacion */
 
             float fest_index = 0, tmp = 0;
             for (int i = 0; i < winners.Count; i++)
