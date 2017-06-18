@@ -72,5 +72,35 @@ namespace MyConcert.database
             }
             return votos;
         }
+
+        public bool verificarVotoUsuario(usuarios us, eventos cartelera)
+        {
+          
+            using (myconcertEntities context = new myconcertEntities())
+            {
+
+                votos vot = null;
+                    try
+                    {
+
+                    vot = context.votos.FirstOrDefault(v => v.FK_VOTOS_USUARIOS == us.username && v.FK_VOTOS_EVENTOS == cartelera.PK_eventos);
+                    if (vot == null)
+                    {
+                        return false; // si no tiene votos
+                    }
+                    else
+                    {
+                        return true; //si tiene votos
+                    }
+                    
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw (ex);
+                    }
+                
+            }
+        }
     }
 }

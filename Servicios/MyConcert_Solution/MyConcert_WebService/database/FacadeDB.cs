@@ -266,6 +266,10 @@ namespace MyConcert
 
         //VOTOSDB
 
+        public bool verificarVotoUsuario(usuarios us, eventos cartelera)
+        {
+            return votDB.verificarVotoUsuario(us, cartelera);
+        }
         public void añadirVotos(List<votos> pVotos)
         {
             votDB.añadirVotos(pVotos);
