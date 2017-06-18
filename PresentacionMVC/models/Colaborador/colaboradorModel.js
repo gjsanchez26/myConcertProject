@@ -32,12 +32,12 @@ this.crearFestival = function(cartelera){
                         "event_id" : cartelera.info.event_data.Id,
                         "name" : cartelera.info.event_data.Nombre,
                         "ubication": cartelera.info.event_data.Ubicacion,
-                        "country": "Costa Rica",
+                        "country": cartelera.info.event_data.Pais,
                         "initial_date" : cartelera.info.event_data.FechaInicioFestival,
                         "final_date" : cartelera.info.event_data.FechaFinalFestival,
                         "vote_final_date" :cartelera.info.event_data.FechaFinalVotacion,
                         "food" : document.getElementById("cartelera.comida").value,
-                        "transport" : document.getElementById("cartelera.comida").value,
+                        "transport" : document.getElementById("cartelera.transporte").value,
                         "services" : document.getElementById("cartelera.servicios").value
               },
               "categories" : listaBandadXCategoria
@@ -45,7 +45,7 @@ this.crearFestival = function(cartelera){
             console.log(nuevoFestival);
                 $http({
                 method: 'POST',
-                url: myURL+"/API/eventos?id="+evento.Id,
+                url: myURL+"/API/Eventos",
                 headers: {'Content-Type' : 'application/json'},
                 data:nuevoFestival
                 })
@@ -53,9 +53,10 @@ this.crearFestival = function(cartelera){
                     if (result.data.success){
                         console.log(result.data);
                         cartelera.info=result.data;
-                        console.log(cartelera.info);   
+                        console.log(cartelera.info);
+                        alert(result.data.detail + "La banda incluida por el chef es" + result.data.RecomendacionChef );
                     }
-                    else alert(result.data)
+                    else alert(result.data.detail)
                 }, function(error) {
                     console.log(error);
                 }); 
@@ -77,7 +78,26 @@ this.obtenerUnaCartelera=function(evento,cartelera){
                         cartelera.info=result.data;
                         console.log(cartelera.info);   
                     }
-                    else alert(result.data)
+                    else alert(result.data.detail)
+                }, function(error) {
+                    console.log(error);
+                });        
+}
+
+this.obtenerUnFestival=function(evento,festival){
+
+    $http({
+                method: 'GET',
+                url: myURL+"/API/eventos?id="+evento.Id,
+                headers: {'Content-Type' : 'application/json'},
+                })
+                .then(function(result){
+                    if (result.data.success){
+                        console.log(result.data);
+                        festival.info=result.data;
+                        console.log(festival.info);   
+                    }
+                    else alert(result.data.detail)
                 }, function(error) {
                     console.log(error);
                 });        
@@ -91,7 +111,7 @@ this.obtenerListaCarteleras = function(cartelera){
                 })
                 .then(function(result){
                     if (result.data.success)cartelera.listaCarteleras=result.data.Elements;                        
-                    else alert(result.data)
+                    else alert(result.data.detail)
                 }, function(error) {
                     console.log(error);
                     alert("Informacion No disponible, Intente más tarde")
@@ -111,7 +131,7 @@ this.obtenerListaFestivales = function(cartelera){
                         cartelera.listaFestivales=result.data.Elements;
 
                     }
-                    else alert(result.data)
+                    else alert(result.data.detail)
 
                 }, function(error) {
                     console.log(error);

@@ -1,18 +1,19 @@
 myConcert.controller("colaboradorController", function($scope, $http, colaboradorModel){
     
-    $scope.colaborador={};
-    $scope.banda={};   
-    $scope.cartelera={}; 
-    $scope.Festival={};
+    $scope.colaborador          = {};
+    $scope.banda                = {};   
+    $scope.cartelera            = {}; 
+    $scope.festival             = {};
     $scope.carteleraVotacion;
-    $scope.listaCarteleras={};
-    $scope.infoCartelera={};
-    $scope.isFirstOpen = true;
-    $scope.eventoFlag1 = true;
-    $scope.oneAtATime = true;
-    $scope.isOpen = false;
+    $scope.listaCarteleras      = {};
+    $scope.infoCartelera        = {};
+    $scope.isFirstOpen          = true;
+    $scope.eventoFlag1          = true;
+    $scope.oneAtATime           = true;
+    $scope.isOpen               = false;
     
     colaboradorModel.obtenerListaCarteleras($scope.cartelera);
+    
     colaboradorModel.obtenerListaFestivales($scope.cartelera);
     
     
@@ -21,6 +22,7 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
     }; 
     
     $scope.obtenerUnFestival= function(evento){
+        console.log(evento);
         colaboradorModel.obtenerUnFestival(evento,$scope.festival);
     };
     
@@ -34,6 +36,7 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
     
     $scope.crearFestival =function(){
         colaboradorModel.crearFestival($scope.cartelera);
+        $scope.eventoFlag1=true; 
     }
     // Data 
     $scope.groups = [
@@ -52,6 +55,11 @@ myConcert.controller("colaboradorController", function($scope, $http, colaborado
       return item.isOpen;
     });
   }
+  document.getElementById('infoCarteleraModal').onclick = function(e) {
+    if(e.target == document.getElementById('infoCarteleraModal')) {
+         $scope.eventoFlag1=true;          
+        } 
+    }
 
   
 
