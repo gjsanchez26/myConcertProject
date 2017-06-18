@@ -86,7 +86,7 @@ namespace MyConcert.models
         }
 
         //Generar comentario de banda
-        public Respuesta generarComentario(int idBand, string user, string comment, float calification)
+        public Respuesta generarComentario(string idBand, string user, string comment, float calification)
         {
             Respuesta respuesta = null;
             try

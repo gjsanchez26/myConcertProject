@@ -286,7 +286,7 @@ namespace MyConcert.models
                         _manejador.crearFestival(nuevoEvento, bandasPerdedoras);
 
                         //Publica tweet de nuevo festival
-                        //publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
+                        publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
 
                         //Operación completada
                         respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente. Nuestra banda recomendada por el chef para el festival es: "+bandaRecomendada);
@@ -296,10 +296,10 @@ namespace MyConcert.models
                         respuesta = _fabricaRespuestas.crearRespuesta(false, "Tipo de evento no existente.");
                     break;
                 }
-            } catch(Exception)
+            } catch(Exception e)
             {
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento por falta de información. Verifique los datos ingresados por favor.");
-                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento. Por favor intente de nuevo.", e.ToString());
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento por falta de información. Verifique los datos ingresados por favor.");
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento. Por favor intente de nuevo.", e.ToString());
             }
 
             //Retorna respuesta
@@ -327,12 +327,6 @@ namespace MyConcert.models
             Console.WriteLine("*******************************");   
         }
 
-
-
-        //public List<bandas> obtenerBandasPerdedores(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
-        //{
-
-        //}
         //Conseguir bandas no seleccionadas de una cartelera convertida a festival
         public List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
         {
