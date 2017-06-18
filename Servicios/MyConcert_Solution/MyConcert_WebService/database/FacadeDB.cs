@@ -33,7 +33,10 @@ namespace MyConcert
 
         //BANDASDB
 
-
+        public bool conexionBD()
+        {
+            return conexionBD();
+        }
         public void añadirComentario(comentarios coment)
         {
             banDB.añadirComentario(coment);

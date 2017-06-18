@@ -10,6 +10,25 @@ namespace MyConcert.database
     class UtilidadesDB
     {
         //OBTENER LISTA DE OBJETOS
+
+       public bool conexionBD()
+        {
+            bool conexion = false;
+            try
+            {
+                using (myconcertEntities context = new myconcertEntities())
+                {
+                     conexion= context.Database.Exists();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+
+            }
+            return conexion;
+        }
+
         public List<generos> obtenerGeneros()
         {
             List<generos> gen = null;
