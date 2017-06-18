@@ -35,7 +35,7 @@ namespace MyConcert
 
         public bool conexionBD()
         {
-            return conexionBD();
+            return utiDB.conexionBD();
         }
         public void añadirComentario(comentarios coment)
         {
