@@ -191,17 +191,34 @@ namespace MyConcert.models
                 {
                     //Si el evento a crear es una cartelera
                     case "cartelera":
-                        FestivalCategoriaBanda[] categorias = _serial.getArrayFestivalCategoriaBanda(pListaCategorias);
+                        //Verificar si cartelera existe
                         Cartelera nuevaCartelera = _serial.leerDatosCartelera(pDatosEventoJSON);
                         nombreEvento = nuevaCartelera.Nombre;
-
-                        //Verificar si cartelera existe
                         eventos eveAux = _manejador.obtenerEvento(nuevaCartelera.Nombre);
                         if (eveAux != null)
                             return _fabricaRespuestas.crearRespuesta(false, "Error: Evento ya existente. Intentar de nuevo por favor.");
 
+                        //Verificar que existan categorias en la cartelera
+                        FestivalCategoriaBanda[] categoriasSerial = _serial.getArrayFestivalCategoriaBanda(pListaCategorias);
+                        if (categoriasSerial.Length == 0)
+                            return _fabricaRespuestas.crearRespuesta(false, "No se puede crear cartelera sin categorías. Por favor intente de nuevo.");
+                        
+                        
+                        
                         //Organiza información para envío
-                        List<categoriasevento> categoriasEvento = _convertidor.updatecategoriasevento(categorias);
+                        List<categoriasevento> categoriasEvento = _convertidor.updatecategoriasevento(categoriasSerial);
+
+                        //Verificar existencia de bandas en categoria
+                        foreach (categoriasevento catEve in categoriasEvento)
+                        {
+                            if (_manejador.obtenerBanda(catEve.FK_CATEGORIASEVENTO_BANDAS) == null)
+                            {
+                                string nombreCategoria = _manejador.obtenerCategoria(catEve.FK_CATEGORIASEVENTO_CATEGORIAS).categoria;
+                                return _fabricaRespuestas.crearRespuesta(false, "No se puede crear una cartelera si " + nombreCategoria
+                                                                                + " no tiene bandas asociadas. Por favor intente de nuevo.");
+                            }
+                                
+                        }
 
                         //Almacena nuevo evento en persistencia
                         _manejador.añadirCartelera(_convertidor.updateeventos(nuevaCartelera), categoriasEvento);
@@ -214,14 +231,16 @@ namespace MyConcert.models
                         break;
                     //Si el evento a crear es un festival
                     case "festival":
-                        FestivalCategoriaBanda[] categoriasFestival = _serial.getArrayFestivalCategoriaBanda(pListaCategorias); 
-                        Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
-                        eventos nuevoEvento = _convertidor.updateeventos(nuevoFestival);
-
                         //Verificar si festival existe
+                        Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
                         eventos eveAux1 = _manejador.obtenerEvento(nuevoFestival.Nombre);
                         if (eveAux1 != null)
                             return _fabricaRespuestas.crearRespuesta(false, "Error: Evento ya existente. Intentar de nuevo por favor.");
+
+                        FestivalCategoriaBanda[] categoriasFestival = _serial.getArrayFestivalCategoriaBanda(pListaCategorias); 
+                        
+                        eventos nuevoEvento = _convertidor.updateeventos(nuevoFestival);
+                                             
 
                         //Organiza la información para envío
                         List<bandas> bandasGanadorasFestival = parseBandas(categoriasFestival);
@@ -249,10 +268,10 @@ namespace MyConcert.models
                         respuesta = _fabricaRespuestas.crearRespuesta(false, "Tipo de evento no existente.");
                     break;
                 }
-            } catch(Exception e)
+            } catch(Exception)
             {
-                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.");
-                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento.", e.ToString());
+                respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento por falta de información. Verifique los datos ingresados por favor.");
+                //respuesta = _fabricaRespuestas.crearRespuesta(false, "Error al crear evento. Por favor intente de nuevo.", e.ToString());
             }
 
             //Retorna respuesta
