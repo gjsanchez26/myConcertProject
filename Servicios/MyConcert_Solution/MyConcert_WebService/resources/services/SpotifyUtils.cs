@@ -210,26 +210,27 @@ namespace MyConcert.resources.services
         * @param psong Nombre de la cancion que se quiere.
         * @return identificador de la canción.
         */
-        public string searchTracks(string pidartist, string psong)
+        public string searchTracks(string partist, string psong)
         {
-            string tmp = null;
-            SeveralTracks tracklist = _spotify.GetArtistsTopTracks(pidartist, "CR");
+            SearchItem item = _spotify.SearchItems(psong, SearchType.Track);
+            string id = null;
             try
             {
-                for (int i = 0; i < tracklist.Tracks.Count; i++)
+                for (int i = 0; i < item.Tracks.Items.Count; i++)
                 {
-                    if (tracklist.Tracks[i].Name == psong)
+                    if (item.Tracks.Items[i].Artists[0].Name == partist)
                     {
-                        tmp = tracklist.Tracks[i].Id;
+                        id = item.Tracks.Items[i].Id;
                         break;
                     }
                 }
-            } catch(Exception)
-            {
-                tmp = null;
             }
-            
-            return tmp;
+            catch (Exception)
+            {
+                id = "No_ID";
+            }
+
+            return (id == null) ? "No_ID" : id;
         }
 
         /**
@@ -255,16 +256,22 @@ namespace MyConcert.resources.services
         {
             SearchItem item = _spotify.SearchItems(pnametrack, SearchType.Track);
             string url = null;
-            for (int i = 0; i < item.Tracks.Items.Count; i++)
+            try
             {
-                if (item.Tracks.Items[i].Artists[0].Name == partist)
+                for (int i = 0; i < item.Tracks.Items.Count; i++)
                 {
-                    url = item.Tracks.Items[i].PreviewUrl;
+                    if (item.Tracks.Items[i].Artists[0].Name == partist)
+                    {
+                        url = item.Tracks.Items[i].PreviewUrl;
+                        break;
+                    }
                 }
-            }
-            if (url == null)
+            } 
+            catch (Exception)
+            {
                 url = "No_song_URL";
-            return url;
+            }
+            return (url == null) ? "No_song_URL" : url;
         }
 
         /**
@@ -277,14 +284,22 @@ namespace MyConcert.resources.services
         {
             SearchItem item = _spotify.SearchItems(pnametrack, SearchType.Track);
             string album = null;
-            for (int i = 0; i < item.Tracks.Items.Count; i++)
+            try
             {
-                if (item.Tracks.Items[i].Artists[0].Name == partist)
+                for (int i = 0; i < item.Tracks.Items.Count; i++)
                 {
-                    album = item.Tracks.Items[i].Album.Name;
+                    if (item.Tracks.Items[i].Artists[0].Name == partist)
+                    {
+                        album = item.Tracks.Items[i].Album.Name;
+                        break;
+                    }
                 }
             }
-            return album;
+            catch(Exception)
+            {
+                album = "No_album";
+            }
+            return (album == null) ? "No_album" : album;
         }
 
         /**
