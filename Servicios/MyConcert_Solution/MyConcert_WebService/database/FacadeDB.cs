@@ -122,6 +122,7 @@ namespace MyConcert
             eveDB.añadirEvento(pCartelera, pCategorias);
         }
 
+
         public List<eventos> obtenerCarteleras()
         {
             
@@ -182,6 +183,11 @@ namespace MyConcert
            eveDB.crearFestival(festival, perdedoras);
         }
         //USUARIOSDB
+
+        public void modificarUsuario(usuarios us, List<generos> gens)
+        {
+            usuDB.modificarUsuario(us, gens);
+        }
         public tiposusuarios obtenerTipoUsuario(string tipoUsuario)
         {
             return usuDB.obtenerTipoUsuario(tipoUsuario);
