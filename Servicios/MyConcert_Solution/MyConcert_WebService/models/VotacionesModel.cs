@@ -36,7 +36,7 @@ namespace MyConcert.models
                 votos votoActual = listaVotaciones[0];
                 usuarios userActual = _manejador.obtenerUsuario(votoActual.FK_VOTOS_USUARIOS);
                 eventos eventoActual = _manejador.obtenerEvento(votoActual.FK_VOTOS_EVENTOS);
-                if (_manejador.comprobarUsuarioVotacion(userActual, eventoActual))
+                if (_manejador.verificarVotoUsuario(userActual, eventoActual))
                     return _fabricaRespuestas.crearRespuesta(false, "El usuario "+userActual.username+" ya había realizado su única votación.");
 
                 List<List<votos>> matrizVotos = mapearVotacionesPorCategoria(listaVotaciones);

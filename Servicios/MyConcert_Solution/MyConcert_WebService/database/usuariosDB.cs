@@ -127,7 +127,7 @@ namespace MyConcert.database
             return us;
         }
 
-        public void modificarUsuario(usuarios us, List<generos> gens)
+        public usuarios modificarUsuario(usuarios us, List<generos> gens)
         {
             usuarios newUs = null;
             using (myconcertEntities context = new myconcertEntities())
@@ -172,7 +172,7 @@ namespace MyConcert.database
                     }
                 }
             }
-            return us;
+            return newUs;
         }
 
         public List<generos> obtenerGenerosUsuario(usuarios us)

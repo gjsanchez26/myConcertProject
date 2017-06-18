@@ -166,11 +166,12 @@ namespace MyConcert.database
             string query = @"SELECT B.PK_bandas, B.nombreBan, B.FK_BANDAS_ESTADOS " +
                             "FROM bandas as B INNER JOIN categoriasevento as CE " +
                             "on CE.FK_CATEGORIASEVENTO_BANDAS = B.PK_bandas " +
-                            "where CE.FK_CATEGORIASEVENTO_EVENTOS != ?PK_eventos";
+                            "where CE.FK_CATEGORIASEVENTO_EVENTOS = ?PK_eventos";
 
             MySqlParameter[] parameters = {
             new MySqlParameter("?PK_eventos", cartelera.PK_eventos)
         };
+            List<bandas> bandasTotal = null;
             try
             {
                 using (myconcertEntities context = new myconcertEntities())
@@ -178,13 +179,26 @@ namespace MyConcert.database
 
                     bandasCarte = context.bandas.SqlQuery(query, parameters).ToList<bandas>();
 
+                  bandasTotal = context.bandas.ToList();
+                    foreach (bandas i in bandasCarte)
+                    {
+                        foreach (bandas j in bandasTotal)
+                        {
+                            if (i.PK_bandas == j.PK_bandas)
+                            {
+                                bandasTotal.Remove(j);
+                            }
+                            
+
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 throw (ex);
             }
-            return bandasCarte;
+            return bandasTotal;
         }
         /*
          */

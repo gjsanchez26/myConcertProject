@@ -41,10 +41,13 @@ namespace MyConcert.resources.operations
          */
         public List<string> getIDArtists(List<string> partists)
         {
+            string id;
             List<string> tmp = new List<string>();
             for (int i = 0; i < partists.Count; i++)
             {
-                tmp.Add(_spotify.searchArtistID(partists[i]));
+                id = _spotify.searchArtistID(partists[i]);
+                if (id.Length != 0)
+                    tmp.Add(id);
             }
             return tmp;
         }
@@ -60,22 +63,30 @@ namespace MyConcert.resources.operations
             List<List<string>> id_tracks = new List<List<string>>();                        
             List<string> tmp = new List<string>();
             string id_track;
-            for (int i = 0; i < songs_bands.Count; i++)
+            try
             {
-                for (int j = 0; j < songs_bands[i].Count; j++)
+                for (int i = 0; i < songs_bands.Count; i++)
                 {
-                    if (_validations.isAmountItems(tmp.Count,3))
-                        break;
-                
-                    id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
-                    if (id_track != "No_ID")
+                    for (int j = 0; j < songs_bands[i].Count; j++)
                     {
-                        tmp.Add(id_track);
+                        if (_validations.isAmountItems(tmp.Count, 3))
+                            break;
+
+                        id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
+                        if (id_track != "No_ID")
+                        {
+                            tmp.Add(id_track);
+
+                        }
                     }
-                }                
-                id_tracks.Add(tmp);
-                tmp = new List<string>();
-            }            
+                    id_tracks.Add(tmp);
+                    tmp = new List<string>();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }       
             return id_tracks;
         }
         /**
@@ -152,18 +163,52 @@ namespace MyConcert.resources.operations
             return _index;
         }
 
+        private void printList(List<string> ListaBandas)
+        {
+            foreach (string bandaActual in ListaBandas)
+            {
+                Console.WriteLine(bandaActual);
+            }
+            Console.WriteLine("*******************************");
+        }
+
+        public void printMatriz(List<List<canciones>> matriz)
+        {
+            Console.WriteLine("********* CANCIONES ********");
+            foreach (List<canciones> listaActual in matriz)
+            {
+                foreach (canciones str in listaActual)
+                {
+                    Console.WriteLine(str.cancion);
+                }
+            }
+            Console.WriteLine("*******************************");
+        }
+
+        public void printMatriz(List<List<string>> matriz)
+        {
+            foreach (List<string> listaActual in matriz)
+            {
+                foreach (string str in listaActual)
+                {
+                    Console.WriteLine(str);
+                }
+            }
+            Console.WriteLine("*******************************");
+        }
+
         /***********************ALGORITMO CHEF***************************************/
 
         /**
-        * @brief Algoritmo del chef para encontrar la banda recomendada de los festivales por medio 
-        * de las caracteristicas de 3 canciones de cada banda que proporciona Spotify se realizan diversos
-        * calculos.
-        * @param winners Lista de bandas ganadoras dentro de una cartelera.
-        * @param other_bands Lista de bandas que no están dentro del festival.
-        * @param winner_songs Lista de las canciones de las bandas ganadoras.
-        * @param other_songs Lista de las canciones de las demás bandas excluídas del festival.
-        * @return Banda recomendada por el algoritmo del chef.
-        */
+         * @brief Algoritmo del chef para encontrar la banda recomendada de los festivales por medio 
+         * de las caracteristicas de 3 canciones de cada banda que proporciona Spotify se realizan diversos
+         * calculos.
+         * @param winners Lista de bandas ganadoras dentro de una cartelera.
+         * @param other_bands Lista de bandas que no están dentro del festival.
+         * @param winner_songs Lista de las canciones de las bandas ganadoras.
+         * @param other_songs Lista de las canciones de las demás bandas excluídas del festival.
+         * @return Banda recomendada por el algoritmo del chef.
+         */
         public string chefAlgorythm(List<string> winners, List<string> other_bands,
             List<List<canciones>> winner_songs, List<List<canciones>> other_songs)
         {
@@ -172,8 +217,8 @@ namespace MyConcert.resources.operations
             List<string> id_winners = getIDArtists(winners);
             List<string> id_other = getIDArtists(other_bands);
             //Las canciones se obtienen de la base de datos
-            List<List<string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
-            List<List<string>> id_other_tracks = getIDTracks(id_other, other_songs);
+            List < List < string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
+            List < List < string>> id_other_tracks = getIDTracks(id_other, other_songs);
             //Se calculan los indices de las bandas excluidas del festival 
             List<double> other_indexes = new List<double>();
             for (int i = 0; i < id_other_tracks.Count; i++)
@@ -214,7 +259,7 @@ namespace MyConcert.resources.operations
                 fest_index = (fest_index / n2);
             }
             Console.WriteLine("Indice festival: " + fest_index);
-            
+
             //Se comparan indices para concluir banda recomendada
             int index_rec = compare(fest_index, other_indexes);
             string _recommended = other_bands[index_rec];
@@ -223,7 +268,7 @@ namespace MyConcert.resources.operations
         }
 
         /***********************ALGORITMO CHEF ALTERNATIVO****************************/
-        
+
         /**
         * @brief Calcula el promedio de comentarios de una banda segun la tabla especificada.
         * @param pcomment Numero de comentarios de una banda.
@@ -278,7 +323,7 @@ namespace MyConcert.resources.operations
             {
                 other_proms.Add(getCommentsProm(amount_comments_other[i]) + 
                     getRatingProm(amount_stars_other[i]));
-                Console.WriteLine("promedio otra banda "+i+": "+other_proms[i]);
+                Console.WriteLine("promedio otra banda "+ other_bands[i] + ": "+other_proms[i]);
             }
 
             /* Se calcula el indice del festival
@@ -295,10 +340,18 @@ namespace MyConcert.resources.operations
             fest_index /= winners.Count;
             Console.WriteLine("Indice festival: " + fest_index);
 
-            //Compara el indice del festival con los indices de las bandas a recomendar
-            int index_rec = compare(fest_index, other_proms);
-            string _recommended = other_bands[index_rec];
-            Console.WriteLine("Banda recomendada: " + _recommended);
+            string _recommended = null;
+            try
+            {
+                //Compara el indice del festival con los indices de las bandas a recomendar
+                int index_rec = compare(fest_index, other_proms);
+                _recommended = other_bands[index_rec];
+                Console.WriteLine("Banda recomendada: " + _recommended);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
 
             return _recommended;
         }        
