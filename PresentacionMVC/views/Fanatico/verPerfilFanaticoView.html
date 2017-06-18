@@ -1,4 +1,4 @@
-<div id="perfilColaboradorDiv" ng-controller="verPerfilColaboradorController">
+<div id="perfilFanaticoDiv" ng-controller="verPerfilFanaticoController">
              <div style="margin: 0px 0px 0px 0px;">
                 <nav  class="navbar navbar-inverse">
                   <div class="container-fluid">
@@ -9,28 +9,12 @@
                         <span class="icon-bar"></span>
                       </button>
 
-                      <a class="navbar-brand" id="idUser" href="#"  ng-click="obtenerBandas()" style="color:#FFFFFF">MyConcert</a>
+                      <a class="navbar-brand" id="idUser" href="#"  style="color:#FFFFFF">MyConcert</a>
 
                     </div>
                     <a class="navbar-brand" id="idUser" href="#home" style="color:#FFFFFF"></a>
                     <div class="collapse navbar-collapse" id="myNavbar" style="color:#FFFFFF">
-                      <ul class="nav navbar-nav">
 
-
-                            <li class="dropdown" style="color:#FFFFFF">
-                              <a class="dropdown-toggle" data-toggle="dropdown" >Crear<span class="caret"></span></a>
-                              <ul class="dropdown-menu style="color:#FFFFFF"">
-                                  <li style="color:#FFFFFF" id="crearBanda"><a href="#crearBanda">Banda</a></li>
-                                  <li style="color:#FFFFFF" id="crearCategoria"><a href="#crearCategoria">Categoria</a></li>
-                                  <li style="color:#FFFFFF" id="crearCartelera"><a href="#crearCartelera">Cartelera</a></li>
-
-                              </ul>
-                            </li>
-
-                      </ul>
-                      <ul class="nav navbar-nav navbar-left">
-                            <li style="color:#FFFFFF" id="myBtn"><a href="#catalogoBandas">Catalogo de Bandas</a></li>
-                      </ul>
                       <ul class="nav navbar-nav navbar-right">
                             <li style="color:#FFFFFF"class="submit" id="myBtn"><a href="#registroForm">Cerrar Sesión</a></li>
                       </ul>
@@ -45,43 +29,43 @@
                 </nav>
             </div>
             <div class="form" style="width=400px;">
-                    <h1 style="color:#ffffff" >Perfil Colaborador</h1>  
+                    <h1 style="color:#ffffff" >Perfil Fanatico</h1>  
                     <hr>
  
                 
                     <div class="form-group has-feedback" style="margin: 20px 0px 0px 0px;">
                         <label for="C_Name">Foto Perfil</label>
-                        <h1>{{colaborador.foto}}</h1>
+                        <h1>{{fanatico.foto}}</h1>
                     </div>
                 <div class="top-row">
                     <div>
                         <div class="form-group has-feedback" >
-                            <h2 style="color:#ffffff">{{colaborador.nombreUsuario}}</h2>
+                            <h2 style="color:#ffffff">{{fanatico.nombreUsuario}}</h2>
                             <label for="C_Name">Nombre Usuario</label>
                         </div>
                         <div class="form-group has-feedback" >
-                            <h3 style="color:#ffffff" >{{colaborador.nombre}} {{colaborador.apellido}}</h3>
+                            <h3 style="color:#ffffff" >{{fanatico.nombre}} {{fanatico.apellido}}</h3>
                             <label for="C_Name">Nombre Completo</label>
                         </div>
                         <div class="form-group has-feedback" >
                             
-                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{colaborador.fechaNacimiento}}</h3>
+                            <h3 style="color:#ffffff" id="C_Name" name="C_Name" >{{fanatico.fechaNacimiento}}</h3>
                             <label for="C_Name">Fecha de Nacimiento</label>
                         </div>
                     </div>
                     <div>
                         <div class="form-group has-feedback" > 
-                            <h3 style="color:#ffffff" >{{colaborador.fechaInscripcion}}</h3>
+                            <h3 style="color:#ffffff" >{{fanatico.fechaInscripcion}}</h3>
                             <label for="C_Name">Fecha Inscripción</label>
                         </div>    
                         <div class="form-group has-feedback" >
                             
-                            <h3 style="color:#ffffff">{{colaborador.ubicacion}},{{colaborador.pais}}</h3>
+                            <h3 style="color:#ffffff">{{fanatico.ubicacion}},{{fanatico.pais}}</h3>
                             <label for="C_Name">Ubicación</label>
                         </div>    
   
                         <div class="form-group has-feedback" >
-                            <h3 style="color:#ffffff" >{{colaborador.universidad}}</h3>
+                            <h3 style="color:#ffffff" >{{fanatico.universidad}}</h3>
                             <label for="C_Name">Universidad</label>
                         </div>
 
@@ -94,7 +78,7 @@
                   </div>
                 </div>
                 <div>
-                    <pre>{{colaborador.descripcion}}</pre>
+                    <pre>{{fanatico.descripcion}}</pre>
                     <label for="C_Name">Descripción</label>
                 </div>
                 

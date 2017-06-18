@@ -217,7 +217,7 @@
                                                                           </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                          <tr ng-repeat ="banda in cartelera.bands">
+                                                                          <tr ng-repeat ="banda in cartelera.bands | orderBy: banda.result">
                                                                             <td>{{banda.name_band}}</td>
                                                                             <td>{{banda.result}}</td>
                                                                             <td><input ng-show="!(eventoFlag1)" type="checkbox" ng-model="bandasSeleccionadas" name="bandasSeleccionadas" value="{{banda.name_band}}.{{cartelera.category}}" checked></td>

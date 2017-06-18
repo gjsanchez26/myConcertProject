@@ -54,7 +54,7 @@ this.crearFestival = function(cartelera){
                         console.log(result.data);
                         cartelera.info=result.data;
                         console.log(cartelera.info);
-                        alert(result.data.detail + "La banda incluida por el chef es" + result.data.RecomendacionChef );
+                        alert(result.data.detail);
                     }
                     else alert(result.data.detail)
                 }, function(error) {
@@ -66,7 +66,6 @@ this.crearFestival = function(cartelera){
 
                   
 this.obtenerUnaCartelera=function(evento,cartelera){
-
     $http({
                 method: 'GET',
                 url: myURL+"/API/eventos?id="+evento.Id,

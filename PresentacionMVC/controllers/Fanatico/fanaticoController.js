@@ -1,4 +1,4 @@
-myConcert.controller("fanaticoController", function($scope, $http, fanaticoModel){
+myConcert.controller("fanaticoController", function($scope, $http,$sce, fanaticoModel,){
     $scope.colaborador={};
     $scope.banda={};   
     $scope.cartelera={}; 
@@ -18,6 +18,13 @@ myConcert.controller("fanaticoController", function($scope, $http, fanaticoModel
 
         fanaticoModel.obtenerUnaCartelera(evento,$scope.cartelera);
     }; 
+    
+    $scope.verBandaEspecifica = function(banda){
+        //$scope.linkSpotify = $sce.trustAsResourceUrl();
+        console.log("Banda");
+        console.log(banda);
+        fanaticoModel.verBandaEspecifica(banda.name_band,$scope.cartelera);
+    }
     
     $scope.obtenerUnFestival= function(evento){
         fanaticoModel.obtenerUnFestival(evento,$scope.festival);
@@ -52,6 +59,11 @@ myConcert.controller("fanaticoController", function($scope, $http, fanaticoModel
       return item.isOpen;
     });
   }
+    document.getElementById('infoCarteleraModal').onclick = function(e) {
+    if(e.target == document.getElementById('infoCarteleraModal')) {
+         $scope.eventoFlag1=true;          
+        } 
+    }
 
   
 

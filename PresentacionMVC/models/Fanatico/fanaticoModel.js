@@ -1,9 +1,10 @@
-myConcert.service("fanaticoModel", function($routeParams, $location, $http){
-//var myURL ="http://192.168.100.12:12345"; 
-var myURL ="http://192.168.43.30:12345";     
-var listaBandasActuales={}; 
-var tipoUsuario="";
-var carteleraActual=0;
+myConcert.service("fanaticoModel", function($routeParams, $location, $http,$sce){
+
+var myURL =localStorage.getItem("url");  
+    
+var listaBandasActuales = {}; 
+var tipoUsuario         = "";
+var carteleraActual     = 0;
     
 this.crearVotacion = function(cartelera){
            var listaBandadXCategoria=[];
@@ -45,7 +46,36 @@ this.crearVotacion = function(cartelera){
     
 }
 
+this.verBandaEspecifica = function(ID,cartelera){
+    console.log("Banda En Model")
+    var canciones = [];
+    $http({     method: 'GET',
+                url: myURL+"/API/bandas?name="+ID,
+                headers: {'Content-Type' : 'application/json'},
+                }).then(function(result){
+                    if (result.data.success){   
+                          console.log(result.data);
+                          cartelera.banda=result.data;
+                          console.log(result.data.songs.length);
+                          for(var i=0;i<result.data.songs.length;i++){
+                              var test = {
+                                  "song_name":result.data.songs[i].song_name,
+                                  "song_url":$sce.trustAsResourceUrl(result.data.songs[i].url_sound_test)
+                              };
 
+                              canciones.push(test);
+
+                          }
+                          cartelera.banda.infoSongs=canciones;
+                        //  console.log(cartelera.infoSongs);
+                           console.log(canciones);
+                          //catalogo.cancion = this.checkURL(catalogo.banda.songs.url_sound_test);
+                    }
+                    else alert(result.data.content)
+                }, function(error) {
+                    console.log(error);
+                });
+}
                   
 this.obtenerUnaCartelera=function(evento,cartelera){
     
