@@ -203,8 +203,6 @@ namespace MyConcert.models
                         if (categoriasSerial.Length == 0)
                             return _fabricaRespuestas.crearRespuesta(false, "No se puede crear cartelera sin categorías. Por favor intente de nuevo.");
                         
-                        
-                        
                         //Organiza información para envío
                         List<categoriasevento> categoriasEvento = _convertidor.updatecategoriasevento(categoriasSerial);
 
@@ -217,7 +215,11 @@ namespace MyConcert.models
                                 return _fabricaRespuestas.crearRespuesta(false, "No se puede crear una cartelera si " + nombreCategoria
                                                                                 + " no tiene bandas asociadas. Por favor intente de nuevo.");
                             }
-                                
+                            bandas bandaAuxiliar = _manejador.obtenerBanda(catEve.FK_CATEGORIASEVENTO_BANDAS);
+                            if (_manejador.comprobarBandaEnCartelera(nuevaCartelera.FechaInicioFestival, nuevaCartelera.FechaFinalFestival, bandaAuxiliar))
+                            {
+                                return _fabricaRespuestas.crearRespuesta(false, "La banda "+bandaAuxiliar.nombreBan+" no se encuentra disponible para las fechas indicadas.");
+                            }   
                         }
 
                         //Almacena nuevo evento en persistencia
@@ -234,8 +236,8 @@ namespace MyConcert.models
                         //Verificar si festival existe
                         Festival nuevoFestival = _serial.leerDatosFestival(pDatosEventoJSON);
                         eventos eveAux1 = _manejador.obtenerEvento(nuevoFestival.Nombre);
-                        if (eveAux1 != null)
-                            return _fabricaRespuestas.crearRespuesta(false, "Error: Evento ya existente. Intentar de nuevo por favor.");
+                        if (eveAux1 == null)
+                            return _fabricaRespuestas.crearRespuesta(false, "Error: Cartelera no existente. Intentar de nuevo por favor. Se necesita partir de una cartelera para convertir a festival.");
 
                         FestivalCategoriaBanda[] categoriasFestival = _serial.getArrayFestivalCategoriaBanda(pListaCategorias); 
                         
@@ -246,7 +248,15 @@ namespace MyConcert.models
                         List<bandas> bandasGanadorasFestival = parseBandas(categoriasFestival);
                         List<categorias> categoriasCartelera = _manejador.obtenerCategoriasEvento(nuevoEvento.PK_eventos);
                         List<bandas> todasBandasCartelera = extraerBandasEvento(nuevoEvento, categoriasCartelera);
-                        List<bandas> bandasPerdedoras = extraerBandasNoSeleccionadas(bandasGanadorasFestival, todasBandasCartelera);
+
+                        List<bandas> bandasPerdedoras = obtenerBandasPerdedores(bandasGanadorasFestival, todasBandasCartelera);
+
+                        Console.WriteLine("*** Ganadoras ***");
+                        printList(bandasGanadorasFestival);
+
+                        Console.WriteLine("*** Perdedoras ***");
+                        printList(bandasPerdedoras);
+
                         List<string> bandasGanadoras = bandasToString(bandasGanadorasFestival);
                         List<string> bandasPerdedorasString = bandasToString(bandasPerdedoras);
 
@@ -261,7 +271,7 @@ namespace MyConcert.models
                         publicarFestivalNuevoTwitter(nuevoEvento.nombreEve);
 
                         //Operación completada
-                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente.");
+                        respuesta = _fabricaRespuestas.crearRespuesta(true, "Festival creado exitosamente. Nuestra banda recomendada por el chef para el festival es: "+bandaRecomendada);
                         break;
                     default:
                         //Tipo de evento no existe
@@ -290,6 +300,37 @@ namespace MyConcert.models
             return bandasGanadoras;
         }
 
+        private  void printList(List<bandas> ListaBandas)
+        {
+            foreach (bandas bandaActual in ListaBandas)
+            {
+                Console.WriteLine(bandaActual.nombreBan);
+            }
+            Console.WriteLine("*******************************");   
+        }
+
+
+
+        public List<bandas> obtenerBandasPerdedores(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
+        {
+            List<bandas> perdedoras = new List<bandas>();
+            foreach (bandas i in bandasGanadorasFestival)
+            {
+                foreach(bandas j in todasBandasCartelera)
+                {
+                    if (i.PK_bandas == j.PK_bandas)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        perdedoras.Add(i);
+                    }
+
+                }
+            }
+            return perdedoras;
+        }
         //Conseguir bandas no seleccionadas de una cartelera convertida a festival
         public List<bandas> extraerBandasNoSeleccionadas(List<bandas> bandasGanadorasFestival, List<bandas> todasBandasCartelera)
         {

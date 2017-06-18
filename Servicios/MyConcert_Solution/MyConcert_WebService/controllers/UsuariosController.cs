@@ -38,5 +38,19 @@ namespace MyConcert.controllers
 
             return respuestaPost;
         }
+
+        //Modificar usuario específico
+        public JObject Put(JObject pPeticion)
+        {
+            dynamic peticion = pPeticion;
+            string tipoUsuario = peticion.role;
+            dynamic datosUsuario = peticion.user_data;
+            JArray listaGenerosFavoritos = peticion.genres;
+
+            //Ortorga responsabilidad al Model
+            Respuesta respuesta = _model.modificarUsuario(tipoUsuario, datosUsuario, listaGenerosFavoritos);
+
+            return JObject.FromObject(respuesta);
+        }
     }
 }

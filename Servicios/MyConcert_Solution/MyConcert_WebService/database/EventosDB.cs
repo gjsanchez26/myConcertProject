@@ -297,9 +297,9 @@ namespace MyConcert.database
                 }
                 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return calificacion;
+                throw (e);
             }
         }
     }

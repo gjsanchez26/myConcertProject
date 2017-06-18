@@ -49,6 +49,72 @@ namespace MyConcert.models
             return respuesta;
         }
 
+        //Modificar usuario
+        public  Respuesta modificarUsuario(string tipoUsuario, dynamic pDatosUsuario, JArray pListaGenerosFavoritos)
+        {
+            Respuesta respuesta = null;
+            usuarios usuario = null;
+
+            //Elige el tipo de usuario
+            switch(tipoUsuario)
+            {
+                case "fanatico":    //Si el usuario es fanatico
+                    Fanatico fanaticoModificacion = new Fanatico();
+                    fanaticoModificacion.deserialize(pDatosUsuario);
+                    fanaticoModificacion.Estado = _manejador.obtenerEstado(1).estado;
+                    fanaticoModificacion.TipoUsuario = _manejador.obtenerTipoUsuario(2).tipo;
+
+                    //Verificar que el usuario exista
+                    if (comprobarUsuarioUnico(fanaticoModificacion))
+                        return _fabricaRespuestas.crearRespuesta(false, "Ya se encuentra en uso el nombre de usuario. Intente con otro por favor.");
+
+                    //Comprobar generos musicales favoritos seleccionados
+                    int[] arregloGenerosFavoritos = _serial.getArrayInt(pListaGenerosFavoritos);
+                    if (arregloGenerosFavoritos.Length > 10)
+                        return _fabricaRespuestas.crearRespuesta(false, "Se seleccionaron más del máximo de 10 géneros musicales favoritos. Por favor intente con 10.");
+
+                    List<generos> listaGenerosFavoritos = new List<generos>();
+                    try
+                    {
+                        for (int i = 0; i < arregloGenerosFavoritos.Length; i++)
+                        {
+                            listaGenerosFavoritos.Add(_manejador.obtenerGenero(arregloGenerosFavoritos[i]));
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        //Retorna respuesta de fallo
+                        return _fabricaRespuestas.crearRespuesta(false, "Fallo al seleccionar los generos favoritos.");
+                    }
+
+                    //Almacena modificacion de usuario
+                    respuesta = _fabricaRespuestas.crearRespuesta(true, fanaticoModificacion.serialize());
+                    break;
+                case "colaborador": //Si el usuario es colaborador
+                    Colaborador colaboradorModificacion = new Colaborador();
+                    colaboradorModificacion.deserialize(pDatosUsuario);    //Parse JSON
+                    colaboradorModificacion.Estado = _manejador.obtenerEstado(1).estado;   //Rol colaborador
+                    colaboradorModificacion.TipoUsuario = _manejador.obtenerTipoUsuario(1).tipo;   //Establece como activo
+
+                    if (comprobarUsuarioUnico(colaboradorModificacion))
+                        return _fabricaRespuestas.crearRespuesta(false, "Ya se encuentra en uso el nombre de usuario. Intente con otro por favor.");
+
+                    //Almacena modificacion de colaborador
+                    //usuario = _manejador.añadirUsuario(_convertidor.updateusuarios(nuevoColaborador)); //Se almacena el nuevo usuario
+                    //nuevoColaborador = (Colaborador)_convertidor.createUsuario(usuarioCreado); //Almacena nuevo colaborador
+
+                    //Retorna respuesta exitosa
+                    respuesta = _fabricaRespuestas.crearRespuesta(true, colaboradorModificacion.serialize());
+                    break;
+                default:
+                    //Si el tipo de usuario no existe. Retorna mensaje error
+                    respuesta = _fabricaRespuestas.crearRespuesta(false, "Tipo de usuario no existente. Intente de nuevo por favor.");
+                    break;
+            }
+
+            return respuesta;
+        }
+
         //Comprobar inicio de sesion
         public Respuesta comprobarInicioSesion(string pUsername, string pPassword)
         {
