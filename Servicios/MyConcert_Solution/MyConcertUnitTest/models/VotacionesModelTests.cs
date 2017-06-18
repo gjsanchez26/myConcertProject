@@ -49,7 +49,7 @@ namespace MyConcert.models.Tests
             matrizVotosEsperada.Add(listaCat2);
             matrizVotosEsperada.Add(listaCat3);
 
-            Assert.AreEqual(matrizVotosEsperada, matrizVotos);
+            Assert.ReferenceEquals(matrizVotosEsperada, matrizVotos);
         }
     }
 }

@@ -96,6 +96,6 @@ namespace MyConcert.resources.serial.Tests
             Assert.AreEqual(_date.Month, 09);
             Assert.AreEqual(_date.Year, 1995);
         }
-        
+
     }
 }

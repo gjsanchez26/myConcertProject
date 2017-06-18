@@ -202,7 +202,7 @@
     <Compile Include="resources\results\ResultadoDetalle.cs" />
     <Compile Include="resources\results\ResultadoEvento.cs" />
     <Compile Include="resources\results\ResultadoUsuario.cs" />
-    <Compile Include="resources\security\SimpleOperations.cs" />
+    <Compile Include="resources\services\SimpleOperations.cs" />
     <Compile Include="resources\serial\SerialHelper.cs" />
     <Compile Include="viewModels\Banda.cs" />
     <Compile Include="viewModels\Cancion.cs" />
