@@ -75,7 +75,9 @@
     <Compile Include="models\VotacionesModelTests.cs" />
     <Compile Include="operations\DolarStrategyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="resources\assembler\AssemblerTests.cs" />
     <Compile Include="resources\results\FabricaRespuestasTests.cs" />
+    <Compile Include="resources\services\SimpleOperationsTests.cs" />
     <Compile Include="security\SHA256EncriptationTests.cs" />
     <Compile Include="serial\SerialHelperTests.cs" />
   </ItemGroup>
