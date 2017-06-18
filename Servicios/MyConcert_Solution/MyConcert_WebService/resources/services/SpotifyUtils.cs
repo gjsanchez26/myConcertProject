@@ -210,7 +210,7 @@ namespace MyConcert.resources.services
         * @param psong Nombre de la cancion que se quiere.
         * @return identificador de la canción.
         */
-        public string searchTracks(string pidartist, string psong)
+        public string searchTracks(string partist, string psong)
         {
             SearchItem item = _spotify.SearchItems(psong, SearchType.Track);
             string id = null;

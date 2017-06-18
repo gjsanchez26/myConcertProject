@@ -14,7 +14,7 @@ namespace MyConcert.resources.security
      * @brief Objeto que contiene el algoritmo de 
      * seguridad para contraseñas.
      */
-    class SHA256Encriptation
+    public class SHA256Encriptation
     {
         /**
         * @brief Algoritmo para la encriptacion de contraseñas (seguridad). Obtenido de:
