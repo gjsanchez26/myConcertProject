@@ -110,7 +110,7 @@ this.crearUsuario = function (usuario) {
                                 window.location.href = "#vistaFanatico";
                             }
 
-                        else {alert(result.data.content);}
+                        else {alert(result.data.detail);}
                         }, function(error) {
                         console.log(error);
                     });
@@ -140,7 +140,7 @@ this.crearUsuario = function (usuario) {
                             alert("Usuario Creado");
                             window.location.href = "#vistaColaborador"
                         }
-                        else {alert(result.data.content);}
+                        else {alert(result.data.detail);}
                         }, function(error) {
                         console.log(error);
                     });
@@ -167,7 +167,7 @@ this.obtenerPaises = function(usuario) {
                         usuario.listaPaises=result.data.Elements;
                         return result.data.Elements; 
                     }
-                    else alert(result.data.content)
+                    else alert(result.data.detail)
 
                 }, function(error) {
                     console.log(error);

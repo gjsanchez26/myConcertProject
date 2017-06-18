@@ -16,6 +16,5 @@ myConcert.controller("crearBandaController", function($scope, $http, crearBandaM
        window.location.href = "#vistaColaborador";          
         } 
     }
-    
-    
+  
 });    

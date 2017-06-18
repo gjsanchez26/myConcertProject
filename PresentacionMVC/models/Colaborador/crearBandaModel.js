@@ -4,17 +4,18 @@ var myURL = localStorage.getItem("url");
 var listaMiembros=[];
 var listaCanciones=[];
 
-
 this.agregarMiembro = function (banda){
     listaMiembros.push(banda.miembro);
-    banda.miembro="";
-    banda.listaMiembros=listaMiembros;
+    banda.miembro       = "";
+    banda.listaMiembros = listaMiembros;
 }
+
 this.agregarCancion= function (banda){
     listaCanciones.push(banda.cancion);
-    banda.cancion="";
-    banda.listaCanciones=listaCanciones;
+    banda.cancion        = "";
+    banda.listaCanciones = listaCanciones;
 }
+
 this.crearBanda = function (banda) {
     var banda; 
     Banda = {
@@ -23,25 +24,27 @@ this.crearBanda = function (banda) {
       "songs"     : listaCanciones,
       "genres"    : banda.generos.map(function(a) {return a.Id;})          
     }  
-    console.log(Banda );  
     $http({
-                method: 'POST',
-                url: myURL+"/API/Bandas",
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                data: Banda
-                }).then(function(result){
-                    if (result.data.success)
-                    {alert("Banda Creado");
-                     window.location.href = "#vistaColaborador";
-                    }
-                    else alert(result.data.content)
+            method: 'POST',
+            url: myURL+"/API/Bandas",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            data: Banda
+            }).then(function(result){
+                if (result.data.success){
+                    alert("Banda Creado");
+                    listaMiembros=[];
+                    listaCanciones=[];
+                    window.location.href = "#vistaColaborador";
+                }
+                else alert(result.data.detail)
 
-                }, function(error) {
-                    console.log(error);
-                });
-}                  
+            }, function(error) {
+                console.log(error);
+            });
+}  
+
 this.obtenerListaGeneros = function(banda) {
         console.log("Get Lista Generos");
         $http({
@@ -53,7 +56,7 @@ this.obtenerListaGeneros = function(banda) {
                     if (result.data.success){
                         banda.listaGeneros=result.data.Elements;
                     }
-                    else alert(result.data.Elements)
+                    else alert(result.data.detail);
 
                 }, function(error) {
                     console.log(error);
