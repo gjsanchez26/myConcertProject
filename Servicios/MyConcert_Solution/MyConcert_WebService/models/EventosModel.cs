@@ -320,7 +320,7 @@ namespace MyConcert.models
                 {
                     if (i.PK_bandas == j.PK_bandas)
                     {
-                        continue;
+                        
                     }
                     else
                     {

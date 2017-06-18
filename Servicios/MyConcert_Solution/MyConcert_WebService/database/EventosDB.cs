@@ -171,7 +171,7 @@ namespace MyConcert.database
             MySqlParameter[] parameters = {
             new MySqlParameter("?PK_eventos", cartelera.PK_eventos)
         };
-            List<bandas> respuesta = new List<bandas>();
+            List<bandas> bandasTotal = null;
             try
             {
                 using (myconcertEntities context = new myconcertEntities())
@@ -179,19 +179,16 @@ namespace MyConcert.database
 
                     bandasCarte = context.bandas.SqlQuery(query, parameters).ToList<bandas>();
 
-                    List<bandas>bandasTotal = context.bandas.ToList();
+                  bandasTotal = context.bandas.ToList();
                     foreach (bandas i in bandasCarte)
                     {
                         foreach (bandas j in bandasTotal)
                         {
                             if (i.PK_bandas == j.PK_bandas)
                             {
-                                continue;
+                                bandasTotal.Remove(j);
                             }
-                            else
-                            {
-                                respuesta.Add(i);
-                            }
+                            
 
                         }
                     }
@@ -201,7 +198,7 @@ namespace MyConcert.database
             {
                 throw (ex);
             }
-            return bandasCarte;
+            return bandasTotal;
         }
         /*
          */

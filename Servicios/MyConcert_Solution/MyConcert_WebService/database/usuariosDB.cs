@@ -172,7 +172,7 @@ namespace MyConcert.database
                     }
                 }
             }
-            return us;
+            
         }
 
         public List<generos> obtenerGenerosUsuario(usuarios us)
