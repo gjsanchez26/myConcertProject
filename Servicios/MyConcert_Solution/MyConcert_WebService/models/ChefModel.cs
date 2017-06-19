@@ -56,12 +56,7 @@ namespace MyConcert.models
             Chef _chef = new Chef();
             try
             {
-                return _chef.chefAlgorythm(pBandasString, _otherString, winner_songs, other_songs);
-                /*SE SOLICITA INFO A LA BASE DE DATOS RESPECTO A LA BANDA*/
-                /*SE GENERA LA BANDA RECOMENDADA*/
-            }
-            catch (Exception)
-            {
+
                 List<float> amount_comments_other = getComments(other_bands);
                 List<float> amount_comments_winners = getComments(pwinners);
 
@@ -70,9 +65,16 @@ namespace MyConcert.models
 
                 Console.WriteLine("Error: No hay suficiente informacion de las bandas en Spotify...");
                 Console.WriteLine("Algoritmo del Chef alternativo");
-                
+
                 return _chef.alternativeChefAlgorythm(pBandasString, _otherString, amount_comments_other, amount_stars_other,
                     amount_comments_winners, amount_stars_winners);
+                
+            }
+            catch (Exception)
+            {
+                return _chef.chefAlgorythm(pBandasString, _otherString, winner_songs, other_songs);
+                /*SE SOLICITA INFO A LA BASE DE DATOS RESPECTO A LA BANDA*/
+                /*SE GENERA LA BANDA RECOMENDADA*/
             }
         }
 
