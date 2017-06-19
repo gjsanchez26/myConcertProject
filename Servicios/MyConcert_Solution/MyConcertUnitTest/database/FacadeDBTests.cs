@@ -14,7 +14,7 @@ namespace MyConcert.Tests
         public void conexionBDTest()
         {
             bool flag = fac.conexionBD();
-            //Assert.IsNull(flag);
+            Assert.IsTrue(flag);
 
         }
     }

@@ -1,37 +1,51 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyConcert.resources.operations;
 using MyConcert.resources.services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyConcert.resources.operations.Tests
 {
+    /**
+     * Test para verificar datos necesarios para la recomendacion 
+     * del chef.
+     * */
     [TestClass()]
     public class ChefTests
     {
-        [TestMethod()]
-        public void chefAlgorythmTest()
-        {
-            SpotifyUtils s = new SpotifyUtils();
-            string x = s.searchArtistID("Bob Marley");
-            Console.WriteLine("id: " + x);
-            string song = s.searchTracks("Daft Punk", "One More Time");
-            Console.WriteLine("song id: " + song);
+        /* Arrange */
+        SpotifyUtils s = new SpotifyUtils();
+        Chef chef = new Chef();
 
+        
+        [TestMethod()]
+        public void chefSearchIDArtistTest()
+        {
+            /* Act */
+            string x = s.searchArtistID("Bob Marley");
+            /* Assert */
+            Assert.AreNotEqual(x,null);
+            
+        }
+
+        [TestMethod()]
+        public void chefSearchTracks()
+        {
+            /* Act */
+            string song = s.searchTracks("Daft Punk", "One More Time");
+
+            /* Assert */
+            Assert.AreNotEqual(song, null);
+        }
+
+        [TestMethod()]
+        public void chefGetTracksWinners()
+        {
+            /* Act */
             Chef chef = new Chef();
             List<string> winners = new List<string>();
             winners.Add("Daft Punk");
             winners.Add("Porcupine Tree");
             List<string> id_winners = chef.getIDArtists(winners);
-            foreach (string i in id_winners)
-            {
-                Console.WriteLine("id_banda" + i);
-            }
-
-
             List<List<canciones>> winner_songs = new List<List<canciones>>();
             List<canciones> can1 = new List<canciones>();
             canciones can11 = new canciones();
@@ -43,19 +57,13 @@ namespace MyConcert.resources.operations.Tests
             can2.Add(can21);
             winner_songs.Add(can1);
             winner_songs.Add(can2);
+
+            /* Act */
             List<List<string>> id_winners_tracks = chef.getIDTracks(winners, winner_songs);
 
 
-            foreach (List<string> i in id_winners_tracks)
-            {
-                foreach (string j in i)
-                {
-                    Console.WriteLine("id_ song " + j);
-
-                }
-            }
-            Console.ReadLine();
-
+            /* Assert */
+            Assert.IsNotNull(id_winners_tracks);
         }
     }
 }
