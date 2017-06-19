@@ -111,17 +111,18 @@ namespace MyConcert.models
                 else if (eventoSolicitado.FK_EVENTOS_TIPOSEVENTOS == _manejador.obtenerTipoEvento(2).PK_tiposEventos)
                 {
                     List<bandas> bandasFestival = extraerBandasEvento(eventoSolicitado, categoriasSinRepetir);
-                    JObject[] bandas = new JObject[bandasFestival.Count];
-                    int iterator = 0;
+                    List<JObject> bandasEnvio = new List<JObject>();
+                    dynamic banda_envio;
                     foreach (bandas bandaActual in bandasFestival)
                     {
-                        dynamic banda = new JObject();
-                        banda.name_band = bandaActual.nombreBan;
-                        banda.votes = _manejador.obtenerCantidadVotos(eventoSolicitado.PK_eventos, bandaActual.PK_bandas);
-                        bandas[iterator] = banda;
+                        banda_envio = new JObject();
+                        banda_envio.name_band = bandaActual.nombreBan;
+                        banda_envio.votes = _manejador.obtenerCantidadVotos(eventoSolicitado.PK_eventos, bandaActual.PK_bandas);
+
+                        bandasEnvio.Add(banda_envio);
                     }
                     Evento evento = _convertidor.createEvento(eventoSolicitado);
-                    FestivalBandas fest = new FestivalBandas(JObject.FromObject(evento), bandas);
+                    FestivalBandas fest = new FestivalBandas(JObject.FromObject(evento), bandasEnvio.ToArray());
 
                     //Festival obtenido correctamente
                     respuesta = _fabricaRespuestas.crearRespuesta(true, JObject.FromObject(fest));
