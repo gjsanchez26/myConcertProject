@@ -261,6 +261,7 @@ namespace MyConcert.resources.operations
             if (n2 == 0)
             {
                 fest_index = 0;
+                throw (new Exception());
             }
             else
             {
