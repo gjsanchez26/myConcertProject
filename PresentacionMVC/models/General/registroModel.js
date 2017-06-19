@@ -15,6 +15,7 @@ this.verificarUsuario = function(usuarioLogin){
     data: Credenciales
     }).then(function(result){
             if (result.data.success) {
+                  console.log()
                   if (result.data.content.TipoUsuario=="Colaborador")
                       window.location.href = "#vistaColaborador";
                   else window.location.href = "#vistaFanatico";

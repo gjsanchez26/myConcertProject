@@ -9,6 +9,11 @@ var listaCategoriasCrear    = [];
 var listaCategorias         = [];
 var listaCategoriaBanda     = [];
 var categoriaActual;
+    
+    
+this.limpiarDatos=function(){
+    
+}
   
 this.agregarCategorias = function (cartelera){
     for (i = 0; i < cartelera.categoriasElegidas.length; i++) {
@@ -113,7 +118,8 @@ this.crearCartelera= function (cartelera) {
                         if (result.data.success)
                         {
                             alert("Cartelera Creada");
-                            listaTemporalBandas  = []
+                            listaTemporalBandas     = [];
+                            listaTemporalCategorias = [];
                             window.location.href = "#vistaColaborador";
                         }
                         else alert(result.data.detail)
@@ -125,7 +131,7 @@ this.crearCartelera= function (cartelera) {
             listaCategoriaBanda=[]; 
             listaTemporalBandas=[];
         }
-        else alert("Fechas Invalidad");
+        else alert("Error, Revise Los datos Ingresados");
 }
 
 this.obtenerPaises = function(cartelera) {

@@ -50,12 +50,6 @@
                   
                   <ul class="nav nav-pills nav-stacked">
                     <h1 style="color:#FFFFFF" >Colaborador</h1>
-                    <div id="imagenPerfil">
-                    </div>
-                    <li class="active"></li>
-                    <li style="color:#FFFFFF">NombreUsuario</li>
-                    <li style="color:#FFFFFF">Nombre</li>
-                    <li style="color:#FFFFFF">Correo</li>
                   </ul><br>
 
                 </div>
@@ -69,12 +63,12 @@
                           <h2 style="color:#FFFFFF" >{{item.Nombre}}</h2>
                                 <div class="top-row">
                                         <div class="form-group" >
-                                              <label style="color:#2E022E;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
+                                              <label style="color:#FFFFFF;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaInicioFestival1" name="fechaInicioFestival1">{{item.FechaInicioFestival}}</p>
                                         
                                         </div>
                                         <div class="form-group">
-                                              <label style="color:#2E022E" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
+                                              <label style="color:#FFFFFF" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
                                               <div class="col-sm-10">
                                                   <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaFinalFestival1" name="fechaFinalFestival1">{{item.FechaFinalFestival}}</p>
                                               </div>
@@ -82,13 +76,13 @@
                                 </div>
                                 <div class="top-row">
                                      <div class="form-group">
-                                          <label style="color:#2E022E" class="control-label col-sm-2" for="lugar1">Lugar:</label>
+                                          <label style="color:#FFFFFF" class="control-label col-sm-2" for="lugar1">Lugar:</label>
                                           <div class="col-sm-10">
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 30px"  id="lugar1" name="lugar1">{{item.Ubicacion}},{{item.Pais}}</p>
                                           </div>
                                      </div>
                                     <div class="form-group">
-                                          <label style="color:#2E022E" class="control-label col-sm-2" for="finVotacion1">Fin Votaciones:</label>
+                                          <label style="color:#FFFFFF" class="control-label col-sm-2" for="finVotacion1">Fin Votaciones:</label>
                                           <div class="col-sm-10">
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px"  id="finVotacio1" name="finVotacion1">{{item.FechaFinalVotacion}}</p>
                                           </div>
@@ -108,12 +102,12 @@
                           <h2 style="color:#FFFFFF" >{{item.Nombre}}</h2>
                                 <div class="top-row">
                                         <div class="form-group" >
-                                              <label style="color:#6d153d;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
+                                              <label style="color:#FFFFFF;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaInicioFestival1" name="fechaInicioFestival1">{{item.FechaInicioFestival}}</p>
                                         
                                         </div>
                                         <div class="form-group">
-                                              <label style="color:#6d153d" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
+                                              <label style="color:#FFFFFF" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
                                               <div class="col-sm-10">
                                                   <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaFinalFestival1" name="fechaFinalFestival1">{{item.FechaFinalFestival}}</p>
                                               </div>
@@ -121,17 +115,12 @@
                                 </div>
                                 <div class="top-row">
                                      <div class="form-group">
-                                          <label style="color:#6d153d" class="control-label col-sm-2" for="lugar1">Lugar:</label>
+                                          <label style="color:#FFFFFF" class="control-label col-sm-2" for="lugar1">Lugar:</label>
                                           <div class="col-sm-10">
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 30px"  id="lugar1" name="lugar1">{{item.Ubicacion}},{{item.Pais}}</p>
                                           </div>
                                      </div>
-                                    <div class="form-group">
-                                          <label style="color:#6d153d" class="control-label col-sm-2" for="finVotacion1">Fin Votaciones:</label>
-                                          <div class="col-sm-10">
-                                              <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px"  id="finVotacio1" name="finVotacion1">{{item.FechaFinalVotacion}}</p>
-                                          </div>
-                                     </div>
+                                  
                                 </div>
                           <span type="button"  ng-click="obtenerUnFestival(item)" class="btn btn-info"  data-toggle="modal" href="#infoFestivalModal">Ver Festival</span>
                           <br><br>
@@ -198,7 +187,7 @@
                                             </div>
                                     </div>
                                     <div  class="form-group has-feedback" style="margin: 10px 0px 0px 0px;">
-                                         <h3>Selecciones las bandas deseadas</h3>
+                                         <h3>Categorias Disponibles</h3>
                                          <div  class="col-sm-6 col-md-6 col-lg-12" >
                                                 <uib-accordion close-others="oneAtATime" style="display:block">
                                                     <uib-accordion-group ng-repeat="cartelera in cartelera.info.categories" ng-scroll="cartelera in cartelera.info.categories" is-open="cartelera.isOpen" ng-click="updateOpenStatus()">
@@ -217,7 +206,7 @@
                                                                           </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                          <tr ng-repeat ="banda in cartelera.bands | orderBy: banda.result">
+                                                                          <tr ng-repeat ="banda in cartelera.bands | orderBy: banda.result:true">
                                                                             <td>{{banda.name_band}}</td>
                                                                             <td>{{banda.result}}</td>
                                                                             <td><input ng-show="!(eventoFlag1)" type="checkbox" ng-model="bandasSeleccionadas" name="bandasSeleccionadas" value="{{banda.name_band}}.{{cartelera.category}}" checked></td>
@@ -231,36 +220,7 @@
                                         </div>
                                   </div>
                                   </div>
-                                <!--    <div  class="col-sm-6 col-md-6 col-lg-12" >
-                                            <uib-accordion close-others="oneAtATime" style=" display:block;margin-left:auto;margin-right:auto;">
-                                                <uib-accordion-group ng-repeat="cartelera in infoCartelera.categories" ng-scroll="cartelera in infoCartelera.categories" is-open="cartelera.isOpen" ng-click="updateOpenStatus()">
-                                                    <uib-accordion-heading style="background-color:#6d153d" ng-model="checkTitle">
-                                                        {{cartelera.category}}
-                                                    </uib-accordion-heading>
-                                                        <a>{{cartelera.category}}</a>
-                                                        <div >
-                                                          <h2>Resultados Parciales</h2>          
-                                                          <table class="table table-hover">
-                                                            <thead>
-                                                              <tr>
-                                                                <th>Banda</th>
-                                                                <th>Votos</th>
-                                                              </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                              <tr ng-repeat ="banda in cartelera.results">
-                                                                <td >{{banda.band}}</td>
-                                                                <td>{{banda.votes}}</td>
-                                                              </tr>
-                                                          
-                                                            </tbody>
-                                                          </table>
-                                                        </div>
-                                                </uib-accordion-group>
-                                            </uib-accordion>
-                                    </div>
-
-                                    </div>-->
+                                
                                     
                      
                                 <div class="modal-footer">
@@ -347,13 +307,7 @@
                                          <br>
                                          <h3>Bandas Seleccionadas</h3>
                                          <div  class="col-sm-6 col-md-6 col-lg-12" >
-                                                <uib-accordion close-others="oneAtATime" style="display:block">
-                                                    <uib-accordion-group ng-repeat="festival in festival.info.content.bands" ng-scroll="festival in festival.info.content.bands" is-open="festival.isOpen" ng-click="updateOpenStatus()">
-                                                        <uib-accordion-heading style="background-color:#6d153d" ng-model="checkTitle">
-                                                            {{festival.category}}
-                                                        </uib-accordion-heading>
-                                                            <a>{{festival.category}}</a>
-                                                            <div >
+                                                
                                                               <h4>Resultados Finales</h4>          
                                                               <table class="table table-hover">
                                                                 <thead>
@@ -363,18 +317,17 @@
                                                                   </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                  <tr ng-repeat ="banda in festival.results">
-                                                                    <td >{{banda.band}}</td>
+                                                                  <tr ng-repeat =" banda in festival.info.content.bands | orderBy: banda.votes:true ">
+                                                                    <td >{{banda.name_band}}</td>
                                                                     <td>{{banda.votes}}</td>
                                                                   </tr>
 
                                                                 </tbody>
                                                               </table>
-                                                            </div>
-                                                    </uib-accordion-group>
-                                                </uib-accordion>
-                                        </div>
+                                          </div>
+                                            
                                     </div>
+                                   
                                     
                                 </div>
                                 <div class="modal-footer">

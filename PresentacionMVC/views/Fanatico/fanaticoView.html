@@ -37,10 +37,7 @@
                     <h1 style="color:#FFFFFF" >Fanatico</h1>
                     <div id="imagenPerfil">
                     </div>
-                    <li class="active"></li>
-                    <li style="color:#FFFFFF">NombreUsuario</li>
-                    <li style="color:#FFFFFF">Nombre</li>
-                    <li style="color:#FFFFFF">Correo</li>
+
                   </ul><br>
 
                 </div>
@@ -54,32 +51,32 @@
                           <h2 style="color:#FFFFFF" >{{item.Nombre}}</h2>
                                 <div class="top-row">
                                         <div class="form-group" >
-                                              <label style="color:#6d153d;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
+                                              <label style="color:#ffffff;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaInicioFestival1" name="fechaInicioFestival1">{{item.FechaInicioFestival}}</p>
                                         
                                         </div>
                                         <div class="form-group">
-                                              <label style="color:#6d153d" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
+                                              <label style="color:#ffffff" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
                                               <div class="col-sm-10">
-                                                  <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaFinalFestival1" name="fechaFinalFestival1">{{item.FechaFinalFestival}}</p>
+                                                  <p  style="color:#ffffff;margin: 0px 0px 0px 70px" id="fechaFinalFestival1" name="fechaFinalFestival1">{{item.FechaFinalFestival}}</p>
                                               </div>
                                          </div>
                                 </div>
                                 <div class="top-row">
                                      <div class="form-group">
-                                          <label style="color:#6d153d" class="control-label col-sm-2" for="lugar1">Lugar:</label>
+                                          <label style="color:#ffffff" class="control-label col-sm-2" for="lugar1">Lugar:</label>
                                           <div class="col-sm-10">
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 30px"  id="lugar1" name="lugar1">{{item.Ubicacion}},{{item.Pais}}</p>
                                           </div>
                                      </div>
                                     <div class="form-group">
-                                          <label style="color:#6d153d" class="control-label col-sm-2" for="finVotacion1">Fin Votaciones:</label>
+                                          <label style="color:#ffffff" class="control-label col-sm-2" for="finVotacion1">Fin Votaciones:</label>
                                           <div class="col-sm-10">
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px"  id="finVotacio1" name="finVotacion1">{{item.FechaFinalVotacion}}</p>
                                           </div>
                                      </div>
                                 </div>
-                          <span type="button" ng-click="obtenerUnaCartelera(item)" class="btn btn-info"  data-toggle="modal" href="#infoCarteleraModal">Ver</span>
+                          <span type="button" ng-click="obtenerUnaCartelera(item)" class="btn btn-info"  data-toggle="modal" href="#infoCarteleraModal">Ver Cartelera</span>
                           <br><br>
                         </div>
                     </div>
@@ -87,38 +84,33 @@
                 <div class="col-sm-3 col-md-4" style="background: rgba(38, 0, 51, 0.4); margin: 0px 0px 0px 60px;">
                     <br>
                     <h1>Festivales Disponibles</h1>
-                    <div id="panelCarteleras" style="position:static; height:550px; overflow-y:scroll;" >
+                    <div id="panelFestivales" style="position:static; height:550px; overflow-y:scroll;" >
                         <div ng-repeat="item in cartelera.listaFestivales">
                           <hr>
                           <h2 style="color:#FFFFFF" >{{item.Nombre}}</h2>
                                 <div class="top-row">
                                         <div class="form-group" >
-                                              <label style="color:#6d153d;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
+                                              <label style="color:#ffffff;margin: 0px 0px 0px 0px" class="control-label col-sm-2" for="fechaInicioFestival1">Fecha Inicio:</label>
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaInicioFestival1" name="fechaInicioFestival1">{{item.FechaInicioFestival}}</p>
                                         
                                         </div>
                                         <div class="form-group">
-                                              <label style="color:#6d153d" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
+                                              <label style="color:#ffffff" class="control-label col-sm-2" for="fechaFinalFestival1">Fecha Inicio:</label>
                                               <div class="col-sm-10">
-                                                  <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px" id="fechaFinalFestival1" name="fechaFinalFestival1">{{item.FechaFinalFestival}}</p>
+                                                  <p  style="color:#ffffff;margin: 0px 0px 0px 70px" id="fechaFinalFestival1" name="fechaFinalFestival1">{{item.FechaFinalFestival}}</p>
                                               </div>
                                          </div>
                                 </div>
                                 <div class="top-row">
                                      <div class="form-group">
-                                          <label style="color:#6d153d" class="control-label col-sm-2" for="lugar1">Lugar:</label>
+                                          <label style="color:#ffffff" class="control-label col-sm-2" for="lugar1">Lugar:</label>
                                           <div class="col-sm-10">
                                               <p  style="color:#FFFFFF;margin: 0px 0px 0px 30px"  id="lugar1" name="lugar1">{{item.Ubicacion}},{{item.Pais}}</p>
                                           </div>
                                      </div>
-                                    <div class="form-group">
-                                          <label style="color:#6d153d" class="control-label col-sm-2" for="finVotacion1">Fin Votaciones:</label>
-                                          <div class="col-sm-10">
-                                              <p  style="color:#FFFFFF;margin: 0px 0px 0px 70px"  id="finVotacio1" name="finVotacion1">{{item.FechaFinalVotacion}}</p>
-                                          </div>
-                                     </div>
+
                                 </div>
-                          <span type="button" style="float: right;" ng-click="obtenerUnFestival(item)" class="btn btn-info"  data-toggle="modal" href="#infoCarteleraModal">Ver</span>
+                          <span type="button"  style="margin: 10px 0px 0px 0px" ng-click="obtenerUnFestival(item)" class="btn btn-info"  data-toggle="modal" href="#infoFestivalModal">Ver Festival</span>
                           <br><br>
                         </div>
 
@@ -172,10 +164,10 @@
     
                                     </div>
                                     <div  class="form-group has-feedback" style="margin: 10px 0px 0px 0px;">
-                                         <h3>Selecciones las bandas deseadas</h3>
+                                         <h5>Distribuya 100$ entre las bandas de cada categoria</h5>
                                          <div  class="col-sm-6 col-md-6 col-lg-12" >
                                                 <uib-accordion close-others="oneAtATime" style="display:block">
-                                                    <uib-accordion-group ng-repeat="cartelera in cartelera.info.categories" ng-scroll="cartelera in cartelera.info.categories" is-open="cartelera.isOpen" ng-click="updateOpenStatus()">
+                                                    <uib-accordion-group ng-repeat="cartelera in cartelera.info.categories" ng-scroll="cartelera in cartelera.info.categories" >
                                                         <uib-accordion-heading style="background-color:#6d153d" ng-model="checkTitle">
                                                             {{cartelera.category}}
                                                         </uib-accordion-heading>
@@ -191,7 +183,7 @@
                                                                           </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                          <tr ng-repeat ="banda in cartelera.bands">
+                                                                          <tr ng-repeat ="banda in cartelera.bands | orderBy: banda.votes : true">
                                                                             <td><a  data-toggle="modal"      data-target="#infoBandaModal" ng-click="verBandaEspecifica(banda)">{{banda.name_band}}</a></td>
                                                                             <td>{{banda.result}}</td>
                                                                             <td><div class="col-xs-3"><input ng-show="!(eventoFlag1)" id="number" type="number" max="100"  class="form-control" ng-model="votas" name="voto"> <input type="checkbox" ng-model="bandasSeleccionadas" name="bandasSeleccionadas" value="{{banda.name_band}}.{{cartelera.category}}" style="display:none" checked> </div></td>
@@ -250,9 +242,8 @@
                           </div>
 
                 
-                    <!-- Modal -->
                     <div class="container">
-                          <div id="FestivalModal" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;  ">
+                          <div id="infoFestivalModal" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;  ">
                           
                             <div class="modal-dialog modal-lg  ">
 
@@ -260,67 +251,98 @@
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 class="modal-title">Crear Festival</h4>
+                                  <h4 class="modal-title">Festival</h4>
                                 </div>
                                 <div class="modal-body" >
+                                    <h1  style="color:#6d153d">{{festival.info.content.event_data.Nombre}}</h1>
+                                    <hr>
                                     <div class="top-row">
-                                        <div ng-show="eventoFlag">
-                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
-                                                <label for="C_Name" style="color:#6d153d" >Informacion Comida</label>
-                                                <textarea   id="cartelera.Comida" ng-model="cartelera.Comida" style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="7" cols="20"></textarea>
+                                           <div >
+                                                <div>
+                                                     <label style="color:#6d153d" >Fecha Inicio:</label>
+                                                     <div>
+                                                         <p id="fechaInicioFestival1" name="fechaInicioFestival">{{festival.info.content.event_data.FechaInicioFestival}}</p>
+                                                     </div>
+                                                </div>
+
+                                                <div>
+                                                      <label style="color:#6d153d">Fecha Final:</label>
+                                                      <div class="col-sm-10">
+                                                        <p id="fechaFinalFestival1" name="fechaFinalFestival">{{festival.info.content.event_data.FechaFinalFestival}}</p>
+                                                      </div>
+                                                </div>
+                                                <div>
+                                                      <label style="color:#6d153d">Ubicación:</label>
+                                                      <div class="col-sm-10">
+                                                        <p id="fechaFinalFestival1" name="fechaFinalFestival"> {{festival.info.content.event_data.Ubicacion}},{{festival.info.content.event_data.Pais}}</p>
+                                                      </div>
+                                                </div>
+ 
+                                            </div>   
+                                            
+                                            <div >
+                                                 
+                                                <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
+                                                    <label style="color:#6d153d" >Información Comida</label>
+                                                    <div class="col-sm-10">
+                                                              <p id="comida" name="comida">{{festival.info.content.event_data.Comida}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
+                                                    <label  style="color:#6d153d" >Información de Servicios</label>
+                                                    <div class="col-sm-10">
+                                                            <p id="servicios" name="servicios">{{festival.info.content.event_data.Servicios}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
+                                                    <label style="color:#6d153d">Información de Transporte</label>
+                                                    <div class="col-sm-10">
+                                                    <p id="transporte" name="transporte">{{festival.info.content.event_data.Transporte}}</p>
+                                                    </div>
+                                                </div>
+                                            
                                             </div>
-                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
-                                                <label for="C_Name" style="color:#6d153d" >Informacion de Servicios</label>
-                                                <textarea   id="cartelera.servicios" ng-model="cartelera.servicios" style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="7" cols="20"></textarea>
-                                            </div>
-                                            <div class="form-group has-feedback" style="margin: 10px 0px 0px 10px;">
-                                                <label for="C_Name" style="color:#6d153d">Informacion de Transporte</label>
-                                                <textarea   id="cartelera.transporte" ng-model="cartelera.transporte" style="color:#6d153d; border-style: solid; border-color: #6d153d;" rows="7" cols="20"></textarea>
-                                            </div>
+                                    </div>
+                                    <div class="form-group has-feedback" >
+                                        <label style="color:#6d153d" >Recomencacion del Chef :</label>
+                                        <div class="col-sm-10">
+                                            <p i>{{festival.info.content.event_data.RecomendacionChef}}</p>
                                         </div>
-                                        <div class="form-group has-feedback" style="margin: 10px 0px 0px 0px;">
-                                         <h3>Selecciones las bandas deseadas</h3>
+                                    </div>
+                                    <div style="margin: 0px 0px 0px 0px;">
+                                         <br>
+                                         <h3>Bandas Seleccionadas</h3>
                                          <div  class="col-sm-6 col-md-6 col-lg-12" >
-                                                <uib-accordion close-others="oneAtATime" style="display:block">
-                                                    <uib-accordion-group ng-repeat="cartelera in infoCartelera.categories" ng-scroll="cartelera in infoCartelera.categories" is-open="cartelera.isOpen" ng-click="updateOpenStatus()">
-                                                        <uib-accordion-heading style="background-color:#6d153d" ng-model="checkTitle">
-                                                            {{cartelera.category}}
-                                                        </uib-accordion-heading>
-                                                            <a>{{cartelera.category}}</a>
-                                                            <div >
-                                                              <h4>Resultados Parciales</h4>          
+                                                
+                                                              <h4>Resultados Finales</h4>          
                                                               <table class="table table-hover">
                                                                 <thead>
                                                                   <tr>
                                                                     <th>Banda</th>
                                                                     <th>Votos</th>
-                                                                    <th ng-show="eventoFlag2">Seleccionar</th>
                                                                   </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                  <tr ng-repeat ="banda in cartelera.results">
-                                                                    <td >{{banda.band}}</td>
+                                                                  <tr ng-repeat =" banda in festival.info.content.bands | orderBy: banda.votes:inverse ">
+                                                                    <td >{{banda.name_band}}</td>
                                                                     <td>{{banda.votes}}</td>
-                                                                    <td ng-show="eventoFlag"><input type="checkbox" ng-model="bandasSeleccionadas" name="bandasSeleccionadas" value="{{banda.band}}.{{cartelera.category}}" checked></td>
                                                                   </tr>
 
                                                                 </tbody>
                                                               </table>
-                                                            </div>
-                                                    </uib-accordion-group>
-                                                </uib-accordion>
-                                        </div>
+                                          </div>
+                                            
                                     </div>
+                                   
+                                    
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="button button-block" data-dismiss="modal"  ng-click="crearVotacion()">CREAR FESTIVAL</button>
                                 </div>
                               </div>
                             </div>
                           </div>
 
                         </div>
-                </div> 
                 <div class="container">
                               <!-- Modal -->
                               <div id="infoBandaModal" class="modal fade" role="dialog">
@@ -420,9 +442,41 @@
                                             </table>
                                         </div>
                                     </div>
+
                                     <div>
                                         <h3> Comentarios </h3>
-                                        <div  ng-repeat="item in cartelera.banda.comments" class="panel panel-default">
+                                        <hr>
+                                        <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                                  
+                                                <fieldset class="rating">
+                                                    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                                    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                                    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                                    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                                    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                                    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                                    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                                    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                                    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                                                    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                                </fieldset>
+                                                <p>Calificar y Comentar Una Banda</p>
+                                                
+                                                
+                                          </div>
+                                          <div class="panel-body">
+                                              <textarea maxlength="140" name="cartelera.banda.comentario" id="cartelera.banda.comentario" ng-model="cartelera.banda.comentario" placeholder="Escribir Comentario" >   
+                                              </textarea>
+                                          </div>
+                                          <div class="panel-footer">
+                                              <button type="button" ng-click="crearComentario()" class="btn btn-info">Calificar</button>
+                                          </div>
+                                            
+                                        </div>
+                                        <h3> Comentarios Anteriores</h3>
+                                        <hr>
+                                        <div  ng-repeat="item in cartelera.banda.comments | orderBy:item.date:reverse" class="panel panel-default">
                                             <div>Autor: {{item.user}}, Calificación: {{item.calification}}, Fecha: {{item.date}}</div>
                                             <div>Comentario: {{item.commentary}}</div>
                                         </div>
@@ -438,10 +492,7 @@
                                 </div>
                               </div>
                         </div>
-          </div>
-        
-    
-            
-</div>
-
+              </div>      
+        </div>
+    </div>
 </div>

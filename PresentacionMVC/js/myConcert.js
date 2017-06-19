@@ -1,4 +1,4 @@
-localStorage.setItem("url","http://192.168.1.6:12345");
+localStorage.setItem("url","http://192.168.43.30:12345");
 var configMyConcert = function($routeProvider){
 
     $routeProvider

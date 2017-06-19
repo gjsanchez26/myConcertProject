@@ -2,7 +2,7 @@ myConcert.controller("fanaticoController", function($scope, $http,$sce, fanatico
     $scope.colaborador={};
     $scope.banda={};   
     $scope.cartelera={}; 
-    $scope.Festival={};
+    $scope.festival={};
     $scope.carteleraVotacion;
     $scope.listaCarteleras={};
     $scope.infoCartelera={};
@@ -15,7 +15,6 @@ myConcert.controller("fanaticoController", function($scope, $http,$sce, fanatico
     
     
     $scope.obtenerUnaCartelera= function(evento){
-
         fanaticoModel.obtenerUnaCartelera(evento,$scope.cartelera);
     }; 
     
@@ -42,28 +41,16 @@ myConcert.controller("fanaticoController", function($scope, $http,$sce, fanatico
         fanaticoModel.crearVotacion($scope.cartelera);
         $scope.eventoFlag1=true;  
     }
-    // Data 
-    $scope.groups = [
-    {
-      title: "Dynamic Group Header - 1",
-      content: "Content - 1"
-    },
-    {
-      title: "Dynamic Group Header - 2",
-      content: "Content - 2"
-    }
-  ];
 
-  $scope.updateOpenStatus = function(){
-    $scope.isOpen = $scope.groups.some(function(item){
-      return item.isOpen;
-    });
+  $scope.crearComentario = function(cartelera){
+      fanaticoModel.crearComentario($scope.cartelera);
   }
-    document.getElementById('infoCarteleraModal').onclick = function(e) {
+  
+  document.getElementById('infoCarteleraModal').onclick = function(e) {
     if(e.target == document.getElementById('infoCarteleraModal')) {
          $scope.eventoFlag1=true;          
         } 
-    }
+  }
 
   
 

@@ -35,10 +35,10 @@ this.crearVotacion = function(cartelera){
                 
                 .then(function(result){
                     if (result.data.success){
-                        alert("Votacion Realizada Correctamente")
+                        alert(result.data.detail);
 
                     }
-                    else alert(result.data)
+                    else alert(result.data.detail);
 
                 }, function(error) {
                     console.log(error);
@@ -67,11 +67,9 @@ this.verBandaEspecifica = function(ID,cartelera){
 
                           }
                           cartelera.banda.infoSongs=canciones;
-                        //  console.log(cartelera.infoSongs);
-                           console.log(canciones);
-                          //catalogo.cancion = this.checkURL(catalogo.banda.songs.url_sound_test);
+                          console.log(canciones);
                     }
-                    else alert(result.data.content)
+                    else alert(result.data.detail)
                 }, function(error) {
                     console.log(error);
                 });
@@ -105,11 +103,30 @@ this.obtenerListaCarteleras = function(cartelera){
                 })
                 .then(function(result){
                     if (result.data.success)cartelera.listaCarteleras=result.data.Elements;                        
-                    else alert(result.data)
+                    else alert(result.data.detail)
                 }, function(error) {
                     console.log(error);
                     alert("Informacion No disponible, Intente más tarde")
                 });    
+}
+
+this.obtenerUnFestival=function(evento,festival){
+
+    $http({
+                method: 'GET',
+                url: myURL+"/API/eventos?id="+evento.Id,
+                headers: {'Content-Type' : 'application/json'},
+                })
+                .then(function(result){
+                    if (result.data.success){
+                        console.log(result.data);
+                        festival.info=result.data;
+                        console.log(festival.info);   
+                    }
+                    else alert(result.data.detail)
+                }, function(error) {
+                    console.log(error);
+                });        
 }
 
 this.obtenerListaFestivales = function(cartelera){
@@ -125,11 +142,53 @@ this.obtenerListaFestivales = function(cartelera){
                         cartelera.listaFestivales=result.data.Elements;
 
                     }
-                    else alert(result.data)
+                    else alert(result.data.detail)
 
                 }, function(error) {
                     console.log(error);
                 });
+    
+}
+
+this.crearComentario=function(cartelera){
+    var calificacion = document.getElementsByName("rating").length;
+    var comentario = document.getElementById("cartelera.banda.comentario").value;
+    var usuario = localStorage.getItem("userName");
+    var banda = cartelera.banda.band_data.name;
+    if(calificacion!=0){
+        if(comentario!=""){
+            var json = {
+                              "band" : banda,
+                              "user" : usuario,
+                              "comment" : comentario,
+                              "calification" : (calificacion/2)
+            }
+            
+            
+            console.log(json);
+            
+            $http({
+                    method: 'PUT',
+                    url: myURL+"/API/Bandas",
+                    headers: {'Content-Type' : 'application/json'},
+                    data: json
+                    }).then(function(result){
+                        if (result.data.success){
+                            alert(result.data.detail);
+                            document.getElementsByName("rating").length=0;
+                            document.getElementById("cartelera.banda.comentario").value="";
+                           
+                        }
+                        else {alert(result.data.detail);}
+                        }, function(error) {
+                        console.log(error);
+                    });
+        }
+        else alert("Debe de acompañar Calificación con comentario")
+        
+    }
+    else alert ("Debe de Realizar Calificación Con estrellas");
+    
     
 }
     

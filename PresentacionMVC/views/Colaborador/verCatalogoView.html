@@ -160,7 +160,7 @@
                                     </div>
                                     <div>
                                         <h3> Comentarios </h3>
-                                        <div  ng-repeat="item in catalogo.banda.comments" class="panel panel-default">
+                                        <div  ng-repeat="item in catalogo.banda.comments | orderBy:item.date:true" class="panel panel-default">
                                             <div>Autor: {{item.user}}, Calificación: {{item.calification}}, Fecha: {{item.date}}</div>
                                             <div>Comentario: {{item.commentary}}</div>
                                         </div>
