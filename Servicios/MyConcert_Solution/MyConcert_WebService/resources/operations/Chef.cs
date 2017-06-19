@@ -98,6 +98,9 @@ namespace MyConcert.resources.operations
         {
             float resultado = ((pskills.danceability * 20) + ((pskills.tempo * 20) / 180) + (pskills.speechiness * 20) +
                 (pskills.instrumentalness * 20) + (pskills.energy * 10) + (pskills.valence * 10));
+            Console.WriteLine("dacenability: "+pskills.danceability);
+            Console.WriteLine("tempo: "+pskills.tempo);
+            Console.WriteLine("valence: "+pskills.valence);
             return resultado;
         }
 
@@ -110,24 +113,18 @@ namespace MyConcert.resources.operations
         {
             float res = 0;
             int n = pid_tracks.Count;
-            if (n == 0)
+            
+            Task<JObject> _sk;
+            dynamic _skills;
+            for (int i = 0; i < pid_tracks.Count; i++)
             {
-                return 0;
+
+                _sk = _spotify.trackFeatures(pid_tracks[i]);
+                _skills = _sk.Result;
+                res += indexSong(_skills);
+
             }
-            else
-            {
-                Task<JObject> _sk;
-                dynamic _skills;
-                for (int i = 0; i < pid_tracks.Count; i++)
-                {
-
-                    _sk = _spotify.trackFeatures(pid_tracks[i]);
-                    _skills = _sk.Result;
-                    res += indexSong(_skills);
-
-                }
-                return res / n;
-            }            
+            return res / 3;          
             
         }
 
@@ -219,10 +216,12 @@ namespace MyConcert.resources.operations
             //Las canciones se obtienen de la base de datos
             List < List < string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
             List < List < string>> id_other_tracks = getIDTracks(id_other, other_songs);
+
             //Se calculan los indices de las bandas excluidas del festival 
             List<double> other_indexes = new List<double>();
             for (int i = 0; i < id_other_tracks.Count; i++)
             {
+                Console.WriteLine("longitud lista de canciones por banda: " + id_other_tracks[i].Count);
                 if (id_other_tracks[i].Count < 3)
                 {
                     other_indexes.Add(0);
