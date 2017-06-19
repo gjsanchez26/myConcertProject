@@ -70,9 +70,9 @@ namespace MyConcert.resources.operations
                     Console.WriteLine("for lista canciones"+ i);
                     foreach (canciones cancion in canciones)
                     {
-                        //if (_validations.isAmountItems(tmp.Count, 3)) {
-                        //    break;
-                        //}
+                        if (_validations.isAmountItems(tmp.Count, 3)) {
+                           break;
+                        }
                         Console.WriteLine(pid_artists[i]);
                         Console.WriteLine(cancion.cancion);
 
