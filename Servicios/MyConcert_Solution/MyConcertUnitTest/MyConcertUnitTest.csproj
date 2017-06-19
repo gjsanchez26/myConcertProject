@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="database\FacadeDBTests.cs" />
     <Compile Include="models\EventosModelTests.cs" />
     <Compile Include="models\VotacionesModelTests.cs" />
     <Compile Include="operations\DolarStrategyTest.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="resources\assembler\AssemblerTests.cs" />
     <Compile Include="resources\results\FabricaRespuestasTests.cs" />
     <Compile Include="resources\services\SimpleOperationsTests.cs" />
+    <Compile Include="resources\services\SpotifyUtilsTests.cs" />
     <Compile Include="security\SHA256EncriptationTests.cs" />
     <Compile Include="serial\SerialHelperTests.cs" />
   </ItemGroup>
