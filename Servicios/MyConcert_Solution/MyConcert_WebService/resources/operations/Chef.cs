@@ -18,7 +18,7 @@ namespace MyConcert.resources.operations
      * @brief Se encarga de encapsular todas las funcionalidades
      * y dependencias del algoritmo de recomendación del Chef.
      */
-    class Chef
+    public class Chef
     {
         private SpotifyUtils _spotify;
         private CommentsTable _commentsTable;
@@ -43,9 +43,9 @@ namespace MyConcert.resources.operations
         {
             string id;
             List<string> tmp = new List<string>();
-            for (int i = 0; i < partists.Count; i++)
+            foreach(string i in partists)
             {
-                id = _spotify.searchArtistID(partists[i]);
+                id = _spotify.searchArtistID(i);
                 if (id.Length != 0)
                     tmp.Add(id);
             }
@@ -64,21 +64,30 @@ namespace MyConcert.resources.operations
             List<string> tmp = new List<string>();
             string id_track;
             try
-            {
-                for (int i = 0; i < songs_bands.Count; i++)
+            {   int i = 0;
+                foreach(List<canciones> canciones in songs_bands)
                 {
-                    for (int j = 0; j < songs_bands[i].Count; j++)
+                    Console.WriteLine("for lista canciones"+ i);
+                    foreach (canciones cancion in canciones)
                     {
-                        if (_validations.isAmountItems(tmp.Count, 3))
-                            break;
+                        //if (_validations.isAmountItems(tmp.Count, 3)) {
+                        //    break;
+                        //}
+                        Console.WriteLine(pid_artists[i]);
+                        Console.WriteLine(cancion.cancion);
 
-                        id_track = _spotify.searchTracks(pid_artists[i], songs_bands[i][j].cancion);
-                        if (id_track != "No_ID")
+                        id_track = _spotify.searchTracks(pid_artists[i], cancion.cancion);
+                        if (id_track.Equals("No_ID"))
                         {
-                            tmp.Add(id_track);
+                            
 
                         }
+                        else
+                        {
+                            tmp.Add(id_track);
+                        }
                     }
+                    i += 1;
                     id_tracks.Add(tmp);
                     tmp = new List<string>();
                 }
@@ -214,7 +223,7 @@ namespace MyConcert.resources.operations
             List<string> id_winners = getIDArtists(winners);
             List<string> id_other = getIDArtists(other_bands);
             //Las canciones se obtienen de la base de datos
-            List < List < string>> id_winners_tracks = getIDTracks(id_winners, winner_songs);
+            List < List < string>> id_winners_tracks = getIDTracks(winners, winner_songs);
             List < List < string>> id_other_tracks = getIDTracks(id_other, other_songs);
 
             //Se calculan los indices de las bandas excluidas del festival 
